@@ -1,0 +1,304 @@
+{
+  "meta": {
+    "title": "Tedo — AI-first software outsourcing",
+    "description": "Tedo builds your product with an AI-first delivery model: half the cost, 70% faster, with UI/UX shaped from the first idea."
+  },
+  "nav": {
+    "services": "Services",
+    "aiFirst": "AI-first",
+    "work": "How we work",
+    "cases": "Case studies",
+    "pricing": "Engagement",
+    "contact": "Talk to us",
+    "language": "Language"
+  },
+  "hero": {
+    "eyebrow": "AI-first software outsourcing",
+    "title": "Ship the product,",
+    "titleAccent": "not the backlog.",
+    "subtitle": "We are an AI-first engineering team. AI does the repetitive 60% — scaffolding, tests, migrations, docs — so our senior engineers spend their hours on the decisions that actually break products in year two.",
+    "ctaPrimary": "Book a discovery call",
+    "ctaSecondary": "See how we work",
+    "note": "30 minutes. You leave with a scope and a number, whether or not you hire us."
+  },
+  "metrics": {
+    "title": "What the AI-first model buys you",
+    "items": [
+      {
+        "value": "50%",
+        "label": "Lower build cost",
+        "detail": "Same senior team, half the billable hours, because the boilerplate is not hand-written."
+      },
+      {
+        "value": "70%",
+        "label": "Faster delivery",
+        "detail": "Weeks, not quarters. Discovery on Monday, a running prototype in your hands the same sprint."
+      },
+      {
+        "value": "Day 1",
+        "label": "UI/UX from the idea",
+        "detail": "Product designers sit in from the first call. You approve screens before we write the backend."
+      },
+      {
+        "value": "100%",
+        "label": "Code you own",
+        "detail": "Your repos, your cloud accounts, your CI. No lock-in, no black boxes, no rented platform."
+      }
+    ],
+    "footnote": "Cost and time figures compare our delivery against the same scope quoted on a traditional hourly outsourcing model. We show you the arithmetic during discovery."
+  },
+  "aiFirst": {
+    "eyebrow": "AI-first, not AI-flavoured",
+    "title": "Most agencies added AI to the pitch deck. We rebuilt the delivery line around it.",
+    "subtitle": "AI-first is an operating model, not a tool subscription. Here is what it actually changes.",
+    "items": [
+      {
+        "title": "AI writes the first draft. Seniors write the decisions.",
+        "body": "Scaffolding, CRUD, test suites, migrations, API clients and docs are generated and then reviewed line by line. Architecture, data modelling, security and trade-offs stay human — those are the parts that cost you money when they are wrong."
+      },
+      {
+        "title": "Every PR passes an automated review before a human sees it.",
+        "body": "Lint, types, tests, dependency and security scans, plus an AI reviewer tuned to your codebase conventions. Human review starts where the machine stops, not at formatting nits."
+      },
+      {
+        "title": "Specs stay executable.",
+        "body": "Requirements live next to the code as tests and typed contracts. When the spec changes, the failing test tells you what broke — instead of a Slack thread three weeks later."
+      },
+      {
+        "title": "We build AI into your product too.",
+        "body": "RAG over your own data, agent workflows, LLM evaluation harnesses. We run these in our own products, so you get the failure modes we already paid for."
+      }
+    ]
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Four things we do properly",
+    "subtitle": "We would rather be excellent at four than mediocre at twelve.",
+    "items": [
+      {
+        "title": "Web & mobile product development",
+        "body": "End-to-end product build: design, frontend, backend, mobile, release. From blank repo to something in the store.",
+        "points": [
+          "React / Next.js, React Native, Flutter",
+          "Node, NestJS, Go, Java, .NET",
+          "Postgres, Redis, Kafka, event-driven back ends"
+        ]
+      },
+      {
+        "title": "Dedicated team & staff augmentation",
+        "body": "Senior engineers embedded in your team, your process, your standups. You direct the work; we own the hiring, retention and bench risk.",
+        "points": [
+          "Time-zone overlap you pick, not one we impose",
+          "Two-week trial before either side commits",
+          "Replace anyone, any time, no penalty clause"
+        ]
+      },
+      {
+        "title": "Cloud & DevOps",
+        "body": "Infrastructure that survives a traffic spike and an audit. Plus the boring work that keeps the cloud bill from doubling every quarter.",
+        "points": [
+          "Kubernetes, Terraform, GitHub Actions, ArgoCD",
+          "AWS, GCP, Azure — with cost review every month",
+          "Observability, on-call runbooks, incident review"
+        ]
+      },
+      {
+        "title": "AI & LLM integration",
+        "body": "Adding real AI to an existing product, not a chatbot bolted onto a sidebar. We measure quality before we ship it.",
+        "points": [
+          "RAG pipelines over your own documents and data",
+          "Agent workflows and tool orchestration",
+          "Evaluation harnesses so quality is a number, not a vibe"
+        ]
+      }
+    ]
+  },
+  "design": {
+    "eyebrow": "UI/UX from the first idea",
+    "title": "You should see the product before you fund it.",
+    "body": "Most outsourcing starts with a requirements document and ends with a surprise. We start with screens. Product designers join the very first call, turn your idea into a clickable prototype, and iterate with you until the flow is right — before a single backend endpoint exists. Cheapest time to change your mind is now.",
+    "steps": [
+      {
+        "title": "Idea session",
+        "body": "You describe the problem. We map the users, the jobs and the money path on one board."
+      },
+      {
+        "title": "Clickable prototype",
+        "body": "Real screens, real flows, no lorem ipsum. Walk it like the finished product and tell us what is wrong."
+      },
+      {
+        "title": "Design system",
+        "body": "Once the flow is approved, screens become tokens and components — so the built product matches the prototype."
+      },
+      {
+        "title": "Build against the design",
+        "body": "Engineers implement approved screens. No redesign-mid-sprint, no 'it looked different in Figma'."
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "How we work",
+    "title": "Four steps, no mystery",
+    "items": [
+      {
+        "step": "01",
+        "title": "Discovery",
+        "body": "One 30-minute call plus a short written brief. We come back with scope, risks, timeline and a fixed number.",
+        "duration": "2–4 days"
+      },
+      {
+        "step": "02",
+        "title": "Prototype",
+        "body": "Clickable UI and a technical spike on whatever is riskiest. You approve before the main build is funded.",
+        "duration": "1–2 weeks"
+      },
+      {
+        "step": "03",
+        "title": "Build",
+        "body": "Two-week sprints, a demo you can click at the end of each one, and a shared board you can read any day.",
+        "duration": "Ongoing"
+      },
+      {
+        "step": "04",
+        "title": "Handover or run",
+        "body": "We hand over docs, runbooks and a trained team — or stay on to operate it. Your call, not a contract term.",
+        "duration": "Your choice"
+      }
+    ]
+  },
+  "engagement": {
+    "eyebrow": "Engagement",
+    "title": "Pick the risk you want to carry",
+    "subtitle": "Three ways to work with us. We will tell you which one fits, including when the answer is 'not us'.",
+    "items": [
+      {
+        "name": "Fixed scope",
+        "best": "Best for a defined MVP or a well-bounded module",
+        "body": "We quote a number and a date. Overrun is our problem, not yours.",
+        "points": [
+          "Fixed price, fixed deadline",
+          "Change requests priced up front",
+          "Milestone-based payment"
+        ],
+        "cta": "Get a quote"
+      },
+      {
+        "name": "Dedicated team",
+        "best": "Best for continuous product work",
+        "body": "A standing squad — engineers, designer, QA — working only on your product.",
+        "points": [
+          "Monthly rate per person, no hidden overhead",
+          "Two-week trial, 30-day exit",
+          "You run the priorities"
+        ],
+        "cta": "Build a team",
+        "featured": true
+      },
+      {
+        "name": "Time & materials",
+        "best": "Best for evolving scope or R&D",
+        "body": "Pay for the hours you use, with a monthly ceiling you set.",
+        "points": [
+          "Weekly time reports, no rounding games",
+          "Cap you control, pause any time",
+          "Ideal for discovery-heavy work"
+        ],
+        "cta": "Talk it through"
+      }
+    ]
+  },
+  "cases": {
+    "eyebrow": "Case studies",
+    "title": "Work we can talk about",
+    "subtitle": "Details are being cleared with clients. Numbers below are placeholders until each study is approved.",
+    "placeholderBadge": "Pending client approval",
+    "items": [
+      {
+        "sector": "Fintech",
+        "title": "Payment platform rebuilt in 11 weeks",
+        "body": "Legacy monolith split into services, with the migration scripts and test suite generated and reviewed rather than hand-written.",
+        "metric": "11 weeks",
+        "metricLabel": "concept to production"
+      },
+      {
+        "sector": "E-commerce",
+        "title": "Storefront and ops console for a regional retailer",
+        "body": "Design-first build: clickable prototype approved in week two, full storefront live before the seasonal peak.",
+        "metric": "2.4×",
+        "metricLabel": "conversion after redesign"
+      },
+      {
+        "sector": "SaaS",
+        "title": "RAG assistant over five years of support tickets",
+        "body": "Retrieval pipeline plus an evaluation harness, so answer quality is tracked as a metric instead of argued about.",
+        "metric": "62%",
+        "metricLabel": "tickets deflected"
+      }
+    ]
+  },
+  "stack": {
+    "title": "The tools we actually use",
+    "subtitle": "No résumé padding — this is what is in production right now."
+  },
+  "faq": {
+    "eyebrow": "Straight answers",
+    "title": "The questions everyone asks",
+    "items": [
+      {
+        "q": "If AI writes the code, why do I need you?",
+        "a": "Because AI writes plausible code, not correct systems. It will happily generate an auth flow with a hole in it. Our value is the senior review, the architecture and the accountability — AI just removes the typing."
+      },
+      {
+        "q": "Who owns the code and the IP?",
+        "a": "You do, from the first commit. We work in your repositories and your cloud accounts. There is no Tedo platform you have to keep paying for."
+      },
+      {
+        "q": "How is 50% cheaper not just 50% worse?",
+        "a": "The saving comes from hours not spent hand-writing boilerplate, not from junior engineers or from cutting review. The same seniors review every line. Ask us to walk through a real PR during discovery."
+      },
+      {
+        "q": "What if the team is not a fit?",
+        "a": "Two-week trial on dedicated teams, and you can replace anyone without a penalty. If we are the wrong fit for your problem, we will say so on the first call."
+      },
+      {
+        "q": "Do you sign NDAs and handle sensitive data?",
+        "a": "Yes. NDA before discovery if you want one. For regulated work we scope data handling, access control and audit logging explicitly — and we will tell you when a requirement is outside what we should take on."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Next step",
+    "title": "Tell us what you are building.",
+    "subtitle": "One call, 30 minutes. You leave with a scope, a timeline and a number — whether or not you work with us.",
+    "form": {
+      "name": "Your name",
+      "namePlaceholder": "Jane Doe",
+      "email": "Work email",
+      "emailPlaceholder": "jane@company.com",
+      "company": "Company",
+      "companyPlaceholder": "Acme Inc.",
+      "service": "What do you need?",
+      "serviceOptions": [
+        "Web & mobile product development",
+        "Dedicated team / staff augmentation",
+        "Cloud & DevOps",
+        "AI & LLM integration",
+        "Not sure yet"
+      ],
+      "message": "What are you building?",
+      "messagePlaceholder": "A sentence or two is enough. What is the problem, and what does done look like?",
+      "submit": "Send it",
+      "submitting": "Sending…",
+      "success": "Got it. We reply within one business day.",
+      "error": "That did not send. Email us directly at {email}.",
+      "privacy": "We use this to reply to you. Nothing else, no list, no resale."
+    },
+    "orBook": "Or skip the form and grab a slot directly."
+  },
+  "footer": {
+    "tagline": "AI-first software outsourcing.",
+    "rights": "All rights reserved.",
+    "sections": "Sections",
+    "contactTitle": "Contact"
+  }
+}

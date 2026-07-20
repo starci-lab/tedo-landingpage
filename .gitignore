@@ -1,0 +1,11 @@
+# Internal planning notes — not for a public repo
+.artifacts/
+
+node_modules/
+.next/
+out/
+.env
+.env*.local
+next-env.d.ts
+*.tsbuildinfo
+.DS_Store
