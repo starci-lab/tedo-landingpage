@@ -1,6 +1,7 @@
 import { setRequestLocale } from "next-intl/server"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
+import { Reveal } from "@/components/reveal"
 import { Hero } from "@/components/sections/hero"
 import { Metrics } from "@/components/sections/metrics"
 import { AiFirst } from "@/components/sections/ai-first"
@@ -26,16 +27,16 @@ export default async function HomePage({
             <Header />
             <main>
                 <Hero />
-                <Metrics />
-                <AiFirst />
-                <Services />
-                <Design />
-                <Process />
-                <Cases />
-                <Engagement />
-                <Stack />
-                <Faq />
-                <Contact />
+                <Reveal><Metrics /></Reveal>
+                <Reveal><Cases /></Reveal>
+                <Reveal><AiFirst /></Reveal>
+                <Reveal><Services /></Reveal>
+                <Reveal><Design /></Reveal>
+                <Reveal><Process /></Reveal>
+                <Reveal><Engagement /></Reveal>
+                <Reveal><Stack /></Reveal>
+                <Reveal><Faq /></Reveal>
+                <Reveal><Contact /></Reveal>
             </main>
             <Footer />
         </>

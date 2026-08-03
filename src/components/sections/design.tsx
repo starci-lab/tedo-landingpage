@@ -24,7 +24,7 @@ export function Design() {
                             key={step.title}
                             className="flex gap-5 border-b border-line py-5 first:pt-0 last:border-0 last:pb-0"
                         >
-                            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent-dim font-mono text-xs text-accent">
+                            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand/10 font-mono text-xs font-semibold text-brand">
                                 {i + 1}
                             </span>
                             <div>

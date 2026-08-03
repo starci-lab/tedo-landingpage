@@ -23,20 +23,20 @@ export function Engagement() {
             <SectionTitle>{t("title")}</SectionTitle>
             <SectionLead>{t("subtitle")}</SectionLead>
 
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mx-auto lg:max-w-4xl">
                 {items.map((model) => (
                     <Card
                         key={model.name}
                         variant={model.featured ? "secondary" : "default"}
                         className={`flex flex-col ${
-                            model.featured ? "ring-1 ring-accent-dim" : ""
+                            model.featured ? "ring-2 ring-accent/60" : ""
                         }`}
                     >
                         <Card.Header>
-                            <Card.Title className="text-lg font-medium">
+                            <Card.Title className="font-display text-xl font-semibold">
                                 {model.name}
                             </Card.Title>
-                            <p className="mt-1.5 text-xs text-accent">
+                            <p className="mt-1.5 text-xs font-medium text-brand">
                                 {model.best}
                             </p>
                             <Card.Description className="mt-4 text-sm leading-relaxed text-ink-muted">
@@ -54,7 +54,7 @@ export function Engagement() {
                                     >
                                         <span
                                             aria-hidden
-                                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
+                                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand"
                                         />
                                         {point}
                                     </li>

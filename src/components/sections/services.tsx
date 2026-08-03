@@ -38,7 +38,7 @@ export function Services() {
                                     >
                                         <span
                                             aria-hidden
-                                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
+                                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand"
                                         />
                                         {point}
                                     </li>

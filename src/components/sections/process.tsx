@@ -18,7 +18,7 @@ export function Process() {
                         key={item.step}
                         className="flex flex-col bg-canvas p-6"
                     >
-                        <span className="font-mono text-xs text-accent">
+                        <span className="font-mono text-xs font-semibold text-brand">
                             {item.step}
                         </span>
                         <h3 className="mt-4 text-lg font-medium">

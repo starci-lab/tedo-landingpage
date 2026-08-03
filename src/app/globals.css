@@ -4,209 +4,165 @@
 
 @source "../";
 
+/* TEDO brand palette — lifted from the "Credential / Web design" Canva deck:
+   logo blue + orange Saturn ring + the green "D", on light sky grounds. The
+   marketing site commits to a LIGHT world (the deck is light/airy); a single
+   dark "showcase" band echoes the deck's product-shot slides. */
 @theme {
-    --color-canvas: #08090b;
-    --color-surface: #0f1114;
-    --color-surface-2: #16181d;
-    --color-line: #23262d;
-    --color-line-strong: #33373f;
+    --color-brand: #1b7bc9;
+    --color-brand-deep: #14305c;
+    --color-brand-bright: #2b8ae0;
+    --color-brand-soft: #e8f2fb;
+    --color-green: #43b04a;
 
-    --color-ink: #f4f5f7;
-    --color-ink-muted: #9aa0ab;
-    --color-ink-faint: #6b7280;
+    --color-accent: #f58220;
+    --color-accent-ink: #ffffff;
+    --color-accent-dim: #d96f14;
 
-    --color-accent: #c6f24e;
-    --color-accent-ink: #0a0c07;
-    --color-accent-dim: #8fae2f;
+    --color-canvas: #ffffff;
+    --color-sky: #eef6fd;
+    --color-surface: #ffffff;
+    --color-surface-2: #f4f9fe;
+    --color-line: #dbe7f3;
+    --color-line-strong: #c3d6e8;
 
-    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --color-ink: #14305c;
+    --color-ink-body: #33445f;
+    --color-ink-muted: #5b6b82;
+    --color-ink-faint: #8798ab;
+
+    --color-night: #0e1b2e;
+    --color-night-2: #16294180;
+
+    --font-sans: "Work Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --font-display: "Outfit", ui-sans-serif, system-ui, -apple-system, sans-serif;
     --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", monospace;
 }
 
-/* Re-point HeroUI's semantic tokens at the Tedo palette. Without this, HeroUI
-   components render in the stock zinc/blue theme and read as a different site
-   than the hand-built sections around them. */
+/* Re-point HeroUI's semantic tokens at the Tedo LIGHT palette. Without this,
+   HeroUI components render in the stock zinc/blue theme and read as a different
+   site than the hand-built sections around them. */
 @layer base {
-    .dark,
-    [data-theme="dark"] {
-        --background: #08090b;
-        --foreground: #f4f5f7;
+    :root,
+    .light,
+    [data-theme="light"] {
+        --background: #ffffff;
+        --foreground: #14305c;
 
-        --surface: #0f1114;
-        --surface-foreground: #f4f5f7;
-        --surface-secondary: #16181d;
-        --surface-secondary-foreground: #f4f5f7;
-        --surface-tertiary: #1c1f25;
-        --surface-tertiary-foreground: #f4f5f7;
+        --surface: #ffffff;
+        --surface-foreground: #14305c;
+        --surface-secondary: #f4f9fe;
+        --surface-secondary-foreground: #14305c;
+        --surface-tertiary: #e8f2fb;
+        --surface-tertiary-foreground: #14305c;
 
-        --overlay: #16181d;
-        --overlay-foreground: #f4f5f7;
+        --overlay: #ffffff;
+        --overlay-foreground: #14305c;
 
-        --muted: #9aa0ab;
+        --muted: #5b6b82;
 
-        --default: #23262d;
-        --default-foreground: #f4f5f7;
+        --default: #e8f2fb;
+        --default-foreground: #14305c;
 
-        --accent: #c6f24e;
-        --accent-foreground: #0a0c07;
+        --accent: #f58220;
+        --accent-foreground: #ffffff;
 
-        --field-background: #0f1114;
-        --field-foreground: #f4f5f7;
+        --field-background: #ffffff;
+        --field-foreground: #14305c;
 
-        --border: #23262d;
-        --separator: #23262d;
-        --focus: #c6f24e;
-        --link: #c6f24e;
+        --border: #dbe7f3;
+        --separator: #dbe7f3;
+        --focus: #1b7bc9;
+        --link: #1b7bc9;
 
-        --radius: 0.75rem;
+        --radius: 0.875rem;
     }
 }
 
-/* The page background lives on <html>, not <body>: the grid backdrop is a
-   z-index:-10 child of <body>, and a background on <body> would propagate to
-   the canvas and leave the grid painting above it only by accident. Anchoring
-   it here makes the stacking explicit. */
 html {
     scroll-behavior: smooth;
     background-color: var(--color-canvas);
 }
 
 body {
-    color: var(--color-ink);
+    color: var(--color-ink-body);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
-/* --- Technical grid backdrop (see components/grid-background.tsx) --- */
-
-/* Grid lines use literal colours, not --color-line: those tokens also draw real
-   card borders, and brightening them for the backdrop would thicken every
-   border on the site. */
-.tedo-grid-fine {
-    background-image:
-        linear-gradient(to right, #2c313b 1px, transparent 1px),
-        linear-gradient(to bottom, #2c313b 1px, transparent 1px);
-    background-size: 32px 32px;
-    opacity: 0.9;
-    /* Fades from the top-centre so the hero reads as the origin of the grid. */
-    -webkit-mask-image: radial-gradient(
-        ellipse 90% 55% at 50% 0%,
-        #000 10%,
-        transparent 70%
-    );
-    mask-image: radial-gradient(
-        ellipse 90% 55% at 50% 0%,
-        #000 10%,
-        transparent 70%
-    );
+/* --- Light "sky" backdrop (see components/sky-background.tsx) ---
+   Soft blue washes bleeding from the top, echoing the deck's cloud gradient.
+   Anchored on <html> so the fixed backdrop sits behind every section. */
+.tedo-sky {
+    background:
+        radial-gradient(ellipse 70% 55% at 78% -8%, rgba(43, 138, 224, 0.16), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 12% 2%, rgba(67, 176, 74, 0.08), transparent 55%),
+        linear-gradient(to bottom, #f3f9fe 0%, #ffffff 34%);
 }
 
-.tedo-grid-major {
-    background-image:
-        linear-gradient(to right, #4a5162 1px, transparent 1px),
-        linear-gradient(to bottom, #4a5162 1px, transparent 1px);
-    background-size: 192px 192px;
-    opacity: 0.9;
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        rgba(0, 0, 0, 0.35) 45%,
-        transparent 85%
-    );
-    mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        rgba(0, 0, 0, 0.35) 45%,
-        transparent 85%
-    );
+/* Faint dotted field — the deck's dotted world-map texture, kept whisper-quiet
+   so body copy always wins. Masked to the top so it dissolves into white. */
+.tedo-dots {
+    background-image: radial-gradient(#c3d6e8 1px, transparent 1.4px);
+    background-size: 26px 26px;
+    opacity: 0.5;
+    -webkit-mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 5%, transparent 65%);
+    mask-image: radial-gradient(ellipse 85% 55% at 50% 0%, #000 5%, transparent 65%);
 }
 
-/* --- Circuit traces (see components/circuit-traces.tsx) --- */
-
-.tedo-circuit {
-    /* Same fade as the grid so traces and grid dissolve together rather than
-       the circuit outliving the surface it is etched into. */
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        rgba(0, 0, 0, 0.4) 55%,
-        transparent 90%
-    );
-    mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        rgba(0, 0, 0, 0.4) 55%,
-        transparent 90%
-    );
-}
-
-.tedo-trace-base {
-    stroke: #566076;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    opacity: 0.9;
-}
-
-.tedo-via {
-    fill: var(--color-canvas);
-    stroke: #6b7690;
-    stroke-width: 1.5;
-}
-
-/* Sparse dots travelling each trace. pathLength=100 normalises the dash units,
-   so `0.5 22` means one dot every 22% of the path — roughly four in flight at
-   a time, whatever the path's real length.
-   `tedo-pulse` must travel exactly one dash period (22.5) or the loop visibly
-   jumps on repeat. `tedo-glow` runs on its own, deliberately unrelated cycle so
-   the brightness swell never lines up with the dot spacing — that mismatch is
-   what stops it reading as a mechanical blink. */
-.tedo-trace-pulse {
-    stroke: var(--color-accent);
-    stroke-width: 5;
-    stroke-linecap: round;
-    /* Dash length is ~0 on purpose: the visible dot is the round linecap alone,
-       so it is a true circle. Any real dash length (the old 0.5) stretches it
-       into a capsule once the cap is added to each end. */
-    stroke-dasharray: 0.01 22;
-    filter: drop-shadow(0 0 5px var(--color-accent))
-        drop-shadow(0 0 14px var(--color-accent))
-        drop-shadow(0 0 28px var(--color-accent));
+/* --- Hero 3D ecosystem visual (see components/hero-3d-visual.tsx) ---
+   A tilted node graph: a central TEDO hub wired to the product modules. The
+   scene "chao đảo" (damped wobble) on entry, floats forever, and tilts toward
+   the cursor via the --px/--py vars set in the component. */
+.tedo-scene {
+    transform-style: preserve-3d;
+    transform:
+        rotateY(calc(-16deg + var(--px, 0) * 10deg))
+        rotateX(calc(8deg + var(--py, 0) * -8deg));
     animation:
-        tedo-pulse 5.6s linear infinite,
-        tedo-glow 2.9s ease-in-out infinite alternate;
+        tedo-sway-in 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) both,
+        tedo-float 8s ease-in-out 1.5s infinite;
+    transition: transform 0.25s ease-out;
 }
 
-@keyframes tedo-pulse {
-    from {
-        stroke-dashoffset: 22.01;
-    }
-    to {
-        stroke-dashoffset: 0;
-    }
+@keyframes tedo-sway-in {
+    0% { opacity: 0; transform: rotateY(-44deg) rotateX(18deg) translateY(44px) scale(0.9); }
+    45% { opacity: 1; transform: rotateY(-4deg) rotateX(1deg) translateY(-6px) scale(1.01); }
+    65% { transform: rotateY(-22deg) rotateX(10deg) translateY(3px); }
+    82% { transform: rotateY(-12deg) rotateX(5deg); }
+    100% { opacity: 1; transform: rotateY(-16deg) rotateX(8deg); }
 }
 
-/* Floor raised from 0.35 — the dots now stay lit and breathe, rather than
-   fading most of the way out at the bottom of each cycle. */
-@keyframes tedo-glow {
-    from {
-        opacity: 0.6;
-    }
-    to {
-        opacity: 1;
-    }
+@keyframes tedo-float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -12px; }
 }
 
-/* Darkens the outer edges so the grid never competes with body copy. */
-.tedo-grid-vignette {
-    background: radial-gradient(
-        ellipse 75% 55% at 50% 0%,
-        transparent 0%,
-        var(--color-canvas) 78%
-    );
+@keyframes tedo-pop {
+    0% { opacity: 0; transform: translateY(14px) scale(0.85); }
+    70% { opacity: 1; transform: translateY(-3px) scale(1.03); }
+    100% { opacity: 1; transform: none; }
 }
 
-/* Marketing pages commit to a single dark treatment — the accent needs a dark
-   ground to stay legible, and a light variant would halve the contrast. */
+/* Dash flow along the connector lines — the "data moving through the system" cue. */
+@keyframes tedo-dash {
+    to { stroke-dashoffset: -32; }
+}
+.tedo-wire { stroke-dasharray: 4 6; animation: tedo-dash 1.6s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+    .tedo-scene {
+        animation: none !important;
+        transform: rotateY(-15deg) rotateX(7deg) !important;
+    }
+    .tedo-wire { animation: none !important; }
+}
+
+::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-ink);
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -217,14 +173,4 @@ body {
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
     }
-    /* Hidden, not frozen: the blanket rule above would park each pulse mid-run
-       and leave stray lit segments sitting on the traces. */
-    .tedo-trace-pulse {
-        display: none;
-    }
-}
-
-::selection {
-    background-color: var(--color-accent);
-    color: var(--color-accent-ink);
 }

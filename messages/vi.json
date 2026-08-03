@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "Tedo — Công ty phần mềm AI-first",
-    "description": "Tedo làm phần mềm theo lối AI-first: chi phí giảm một nửa, thời gian rút 70%, UI/UX vào cuộc từ lúc mới có ý tưởng."
+    "title": "TEDO — Thiết kế & lập trình website cho doanh nghiệp",
+    "description": "TEDO nhận thiết kế và lập trình website riêng cho doanh nghiệp: không dùng template, bàn giao kèm mã nguồn và bảo hành."
   },
   "nav": {
     "services": "Dịch vụ",
-    "aiFirst": "AI-first",
+    "aiFirst": "Cách làm",
     "work": "Cách làm việc",
     "cases": "Dự án",
     "pricing": "Hợp tác",
@@ -13,13 +13,31 @@
     "language": "Ngôn ngữ"
   },
   "hero": {
-    "eyebrow": "Công ty phần mềm AI-first",
-    "title": "Giao sản phẩm,",
-    "titleAccent": "không giao backlog.",
-    "subtitle": "Chúng tôi làm phần mềm theo lối AI-first. AI lo phần lặp lại: dựng khung, viết test, migration, tài liệu. Kỹ sư senior dồn giờ vào những quyết định mà sai một cái là trả giá suốt năm sau.",
+    "eyebrow": "Thiết kế & lập trình website · Đà Nẵng",
+    "title": "Website riêng cho",
+    "titleAccent": "doanh nghiệp của bạn.",
+    "subtitle": "Không dùng template. Thiết kế riêng theo brand, lập trình chuẩn, bàn giao kèm mã nguồn và bảo hành.",
     "ctaPrimary": "Đặt lịch tư vấn",
-    "ctaSecondary": "Xem cách chúng tôi làm",
-    "note": "30 phút. Xong buổi đó bạn cầm về phạm vi công việc và một con số — thuê hay không cũng vậy."
+    "ctaSecondary": "Xem dự án đã làm",
+    "note": "Một buổi 30 phút. Xong bạn cầm về phạm vi công việc và một con số. Thuê hay không, tuỳ bạn.",
+    "proofLabel": "Đã dựng & vận hành",
+    "proof": [
+      {
+        "tag": "Nền tảng học · tuyển dụng",
+        "name": "StarCi Academy",
+        "meta": "4 tháng · 30+ mô-đun nghiệp vụ · đang vận hành"
+      },
+      {
+        "tag": "Hệ thống nghiệp vụ B2B",
+        "name": "Dự án doanh nghiệp",
+        "meta": "30 ngày làm việc · chờ khách đồng ý công bố"
+      },
+      {
+        "tag": "Đối tác doanh nghiệp",
+        "name": "FTES",
+        "meta": "Hồ sơ đang cập nhật"
+      }
+    ]
   },
   "metrics": {
     "title": "Mô hình AI-first mang lại gì",
@@ -30,9 +48,9 @@
         "detail": "Vẫn đội senior đó. Nhưng còn một nửa số giờ tính phí, vì phần khung không ai gõ tay nữa."
       },
       {
-        "value": "70%",
+        "value": "~50%",
         "label": "Thời gian",
-        "detail": "Tính bằng tuần, không tính bằng quý. Tư vấn đầu tuần, cuối sprint bạn đã bấm được bản chạy thật."
+        "detail": "Rút gần một nửa với hệ thống nhiều biểu mẫu; dự án nặng nghiên cứu hay phụ thuộc bên thứ ba thì ít hơn. Tư vấn đầu tuần, cuối sprint đã có bản chạy được."
       },
       {
         "value": "Ngày 1",
@@ -72,43 +90,43 @@
   },
   "services": {
     "eyebrow": "Dịch vụ",
-    "title": "Bốn việc làm tới nơi tới chốn",
-    "subtitle": "Thà giỏi bốn thứ còn hơn làng nhàng mười hai thứ.",
+    "title": "Làm website từ đầu tới cuối",
+    "subtitle": "Thiết kế, lập trình, bàn giao. Một đầu mối.",
     "items": [
       {
-        "title": "Phát triển sản phẩm web & mobile",
-        "body": "Làm trọn gói: thiết kế, frontend, backend, mobile, phát hành. Từ repo trống tới thứ nằm trên store.",
+        "title": "Thiết kế giao diện",
+        "body": "UI/UX riêng theo brand. Prototype bấm được trên Figma, duyệt trước khi code.",
         "points": [
-          "React / Next.js, React Native, Flutter",
-          "Node, NestJS, Go, Java, .NET",
-          "Postgres, Redis, Kafka, backend hướng sự kiện"
+          "Nghiên cứu người dùng",
+          "Luồng thật, không lorem ipsum",
+          "Chuẩn responsive"
         ]
       },
       {
-        "title": "Dedicated Team & staff augmentation",
-        "body": "Dedicated Team là đội chuyên trách chỉ làm cho bạn. Staff augmentation là ghép kỹ sư senior thẳng vào đội sẵn có. Bạn điều phối công việc, chúng tôi gánh rủi ro tuyển và giữ người.",
+        "title": "Lập trình website",
+        "body": "Frontend, backend, hạ tầng. Cuối mỗi hai tuần có bản demo bấm được.",
         "points": [
-          "Múi giờ trùng do bạn chọn",
-          "Thử hai tuần rồi mới cam kết",
-          "Đổi người bất cứ lúc nào, không phạt"
+          "Next.js / React",
+          "Server, SSL, database",
+          "Kiểm thử trước khi giao"
         ]
       },
       {
-        "title": "Cloud & DevOps",
-        "body": "Hạ tầng sống sót qua cả đợt tăng tải lẫn đợt audit. Kèm mấy việc buồn tẻ giữ hoá đơn cloud khỏi nhân đôi mỗi quý.",
+        "title": "Thương mại điện tử & CMS",
+        "body": "Gian hàng bán online và trang tự sửa nội dung, không phải gọi kỹ thuật mỗi lần.",
         "points": [
-          "Kubernetes, Terraform, GitHub Actions, ArgoCD",
-          "AWS, GCP, Azure — soát chi phí hằng tháng",
-          "Observability, runbook trực, họp rút kinh nghiệm"
+          "Giỏ hàng, thanh toán",
+          "CMS tự quản nội dung",
+          "Tối ưu tốc độ và SEO"
         ]
       },
       {
-        "title": "Tích hợp AI & LLM",
-        "body": "Đưa AI thật vào sản phẩm đang chạy, không phải gắn con chatbot vào thanh bên. Đo chất lượng xong mới dám phát hành.",
+        "title": "Bàn giao & bảo hành",
+        "body": "Mã nguồn, tài liệu, quyền quản trị, đào tạo dùng. Bảo hành sau dự án.",
         "points": [
-          "RAG trên tài liệu và dữ liệu của bạn",
-          "Luồng agent, điều phối tool",
-          "Bộ đánh giá — chất lượng là con số, không phải cảm giác"
+          "Bàn giao đầy đủ source code",
+          "Hướng dẫn sử dụng",
+          "Hỗ trợ bảo hành"
         ]
       }
     ]
@@ -169,76 +187,120 @@
   "engagement": {
     "eyebrow": "Hợp tác",
     "title": "Chọn phần rủi ro bạn muốn giữ",
-    "subtitle": "Ba cách làm việc. Chúng tôi nói thẳng cách nào hợp, kể cả khi câu trả lời là đừng chọn chúng tôi.",
+    "subtitle": "Hai cách làm việc — một đường an toàn nuôi dòng tiền, một đường đặt cược cùng bạn vào kết quả. Chúng tôi nói thẳng cách nào hợp.",
     "items": [
       {
         "name": "Trọn gói theo phạm vi",
-        "best": "Hợp với MVP đã rõ, hoặc module gọn ranh giới",
-        "body": "Chúng tôi báo một con số và một mốc ngày. Vượt dự toán là việc của chúng tôi.",
+        "best": "Doanh nghiệp đã có ngân sách, phạm vi rõ",
+        "body": "Chúng tôi báo một con số và một mốc ngày, thanh toán theo cột mốc. Xong việc là hết trách nhiệm ngoài bảo hành hợp đồng. Vượt dự toán là việc của chúng tôi.",
         "points": [
           "Giá cố định, hạn cố định",
-          "Phát sinh báo giá trước khi làm",
-          "Thanh toán theo cột mốc"
+          "Thanh toán theo cột mốc",
+          "Bảo hành theo thời hạn hợp đồng",
+          "Rủi ro tiến độ do đội gánh"
         ],
         "cta": "Nhận báo giá"
       },
       {
-        "name": "Dedicated Team",
-        "best": "Hợp với sản phẩm chạy dài hơi",
-        "body": "Một đội cố định — kỹ sư, designer, QC — chỉ làm cho sản phẩm của bạn.",
+        "name": "Cố định cộng chia doanh thu",
+        "best": "Doanh nghiệp nhỏ nhưng tiềm năng cao",
+        "body": "Một khoản cố định, cộng phần chia trên doanh thu. Đội đồng hành dài hạn, lợi ích gắn với kết quả kinh doanh của bạn — kèm bảo hành trọn đời và chăm sóc chủ động.",
         "points": [
-          "Giá theo tháng trên mỗi người, không phụ phí ẩn",
-          "Thử hai tuần, dừng báo trước 30 ngày",
-          "Bạn quyết thứ tự ưu tiên"
+          "Phí cố định thấp + chia doanh thu",
+          "Đồng hành dài hạn, bảo hành trọn đời",
+          "Lợi ích của đội gắn với doanh thu của bạn",
+          "Chỉ áp dụng khi hai bên tin vào tiềm năng"
         ],
-        "cta": "Dựng đội",
+        "cta": "Bàn mô hình đồng hành",
         "featured": true
-      },
-      {
-        "name": "Tính theo thời gian",
-        "best": "Hợp với phạm vi còn động, hoặc việc R&D",
-        "body": "Trả đúng số giờ thực dùng, có trần hằng tháng do bạn đặt.",
-        "points": [
-          "Báo cáo giờ hằng tuần, không làm tròn mập mờ",
-          "Trần do bạn kiểm soát, dừng lúc nào cũng được",
-          "Hợp giai đoạn nặng khám phá"
-        ],
-        "cta": "Trao đổi thêm"
       }
     ]
   },
   "cases": {
     "eyebrow": "Dự án",
     "title": "Những việc chúng tôi được phép kể",
-    "subtitle": "Chi tiết đang chờ khách hàng duyệt. Con số bên dưới là tạm, tới khi từng dự án được thông qua.",
-    "placeholderBadge": "Chờ khách duyệt",
+    "subtitle": "Ba dự án thật làm bằng chứng. Chỗ nào chưa được khách đồng ý công bố thì chúng tôi để nguyên vậy — không trưng điều chưa được phép.",
+    "viewAll": "Xem tất cả dự án",
     "items": [
       {
-        "sector": "Fintech",
-        "title": "Dựng lại nền tảng thanh toán trong 11 tuần",
-        "body": "Tách monolith cũ thành service. Script migration và bộ test sinh ra rồi review, không gõ tay.",
-        "metric": "11 tuần",
-        "metricLabel": "từ ý tưởng tới chạy thật"
+        "sector": "Học tập & tuyển dụng",
+        "badge": "Toàn quyền công bố",
+        "title": "StarCi Academy — nền tảng học và tuyển dụng",
+        "body": "Hơn 30 mô-đun nghiệp vụ, dựng trong bốn tháng theo lối AI-first.",
+        "metric": "30+",
+        "metricLabel": "mô-đun nghiệp vụ · 4 tháng"
       },
       {
-        "sector": "Thương mại điện tử",
-        "title": "Storefront và bảng vận hành cho một chuỗi bán lẻ",
-        "body": "Làm theo lối thiết kế trước. Prototype duyệt ở tuần thứ hai, storefront lên sóng trước mùa cao điểm.",
-        "metric": "2,4×",
-        "metricLabel": "tỷ lệ chuyển đổi sau khi làm lại"
+        "sector": "Hệ thống nghiệp vụ B2B",
+        "badge": "Chờ khách đồng ý",
+        "title": "Dự án doanh nghiệp đang vận hành",
+        "body": "Dựng trong khoảng 30 ngày làm việc và đang chạy. Tên khách cùng chi tiết chờ thư đồng ý công bố.",
+        "metric": "~30",
+        "metricLabel": "ngày làm việc"
       },
       {
-        "sector": "SaaS",
-        "title": "Trợ lý RAG trên năm năm ticket hỗ trợ",
-        "body": "Pipeline truy hồi kèm bộ đánh giá. Chất lượng câu trả lời theo dõi bằng số, khỏi đem ra cãi.",
-        "metric": "62%",
-        "metricLabel": "ticket xử lý tự động"
+        "sector": "Đối tác doanh nghiệp",
+        "badge": "Đang cập nhật",
+        "title": "FTES",
+        "body": "Hồ sơ đang được cập nhật, chờ kiểm tra điều khoản hợp đồng trước khi công bố.",
+        "metric": "—",
+        "metricLabel": "hồ sơ sắp có"
       }
     ]
   },
+  "projects": {
+    "eyebrow": "Dự án",
+    "title": "Việc đã làm — không phải slide năng lực",
+    "subtitle": "Bằng chứng thật, đo được. Chỗ nào khách chưa cho công bố thì chúng tôi để nguyên vậy, không trưng điều chưa được phép.",
+    "back": "Về trang chủ",
+    "filterAll": "Tất cả",
+    "stackLabel": "Công nghệ",
+    "pendingImage": "Ảnh sắp cập nhật",
+    "items": [
+      {
+        "category": "Học tập & tuyển dụng",
+        "badge": "Toàn quyền công bố",
+        "title": "StarCi Academy",
+        "tagline": "Nền tảng học và tuyển dụng kỹ sư",
+        "body": "Dựng trong bốn tháng theo lối AI-first: hơn 30 mô-đun nghiệp vụ, chấm bài và phỏng vấn thử bằng AI, RAG trên nội dung khoá học, thanh toán và trả góp. Đây cũng là nơi chúng tôi trả giá trước cho mọi ca hỏng mà khách thừa hưởng.",
+        "metric": "30+",
+        "metricLabel": "mô-đun nghiệp vụ",
+        "stack": ["Next.js", "NestJS", "GraphQL", "PostgreSQL", "RAG · pgvector", "Kafka"],
+        "highlights": [
+          "Chấm bài & phỏng vấn thử bằng AI",
+          "RAG trên tài liệu khoá học",
+          "Thanh toán, trả góp, coin/XP"
+        ]
+      },
+      {
+        "category": "Nghiệp vụ B2B",
+        "badge": "Chờ khách đồng ý",
+        "title": "Dự án doanh nghiệp",
+        "tagline": "Hệ thống nghiệp vụ cho một doanh nghiệp",
+        "body": "Dựng trong khoảng 30 ngày làm việc và đang chạy. Tên khách hàng, ảnh màn hình và chi tiết kỹ thuật đang chờ thư đồng ý công bố — chúng tôi sẽ mở ngay khi được phép.",
+        "metric": "~30",
+        "metricLabel": "ngày làm việc",
+        "stack": [],
+        "highlights": []
+      },
+      {
+        "category": "Đối tác",
+        "badge": "Đang cập nhật",
+        "title": "FTES",
+        "tagline": "Đối tác doanh nghiệp",
+        "body": "Hồ sơ đang được cập nhật, chờ kiểm tra điều khoản hợp đồng trước khi công bố.",
+        "metric": "—",
+        "metricLabel": "hồ sơ sắp có",
+        "stack": [],
+        "highlights": []
+      }
+    ],
+    "ctaTitle": "Dự án của bạn có thể là mục tiếp theo.",
+    "cta": "Đặt lịch tư vấn"
+  },
   "stack": {
     "title": "Công nghệ chúng tôi thực sự dùng",
-    "subtitle": "Không kê cho dày hồ sơ. Đây là những thứ đang chạy thật."
+    "subtitle": "Không kê cho dày hồ sơ. Đây là những thứ đang dùng."
   },
   "faq": {
     "eyebrow": "Nói thẳng",
@@ -295,10 +357,33 @@
     },
     "orBook": "Hoặc bỏ qua biểu mẫu, chọn thẳng một khung giờ."
   },
+  "chat": {
+    "open": "Chat tư vấn",
+    "title": "Trợ lý báo giá",
+    "status": "Hỏi nhanh · ước giá liền",
+    "greeting": "Chào bạn 👋 Bạn cần website kiểu gì — bán hàng, giới thiệu, hay landing? Mình tư vấn và ước giá nhanh cho bạn.",
+    "placeholder": "Nhập tin nhắn…",
+    "send": "Gửi",
+    "book": "Đặt lịch tư vấn",
+    "disclaimer": "Giá là tạm tính, chốt ở buổi tư vấn.",
+    "notConfigured": "Chatbot chưa được bật. Bạn để lại thông tin ở phần Liên hệ bên dưới, TEDO phản hồi trong ngày nhé.",
+    "error": "Xin lỗi, có chút trục trặc. Bạn thử lại giúp mình.",
+    "suggestions": [
+      "Làm web bán hàng giá bao nhiêu?",
+      "Web giới thiệu công ty",
+      "Làm bao lâu thì xong?"
+    ]
+  },
   "footer": {
-    "tagline": "Công ty phần mềm AI-first.",
+    "tagline": "Thiết kế & lập trình website riêng cho doanh nghiệp.",
     "rights": "Bảo lưu mọi quyền.",
     "sections": "Mục lục",
-    "contactTitle": "Liên hệ"
+    "contactTitle": "Liên hệ",
+    "legalTitle": "Thông tin doanh nghiệp",
+    "legalName": "CÔNG TY CỔ PHẦN CÔNG NGHỆ TEDO",
+    "taxLabel": "Mã số thuế",
+    "taxId": "0402322261",
+    "addressLabel": "Địa chỉ",
+    "address": "85 Giáp Văn Cương, Phường Hòa Khánh, Thành phố Đà Nẵng, Việt Nam"
   }
 }

@@ -20,7 +20,7 @@ export function AiFirst() {
                 {items.map((item, i) => (
                     <Card key={item.title}>
                         <Card.Content className="flex flex-col gap-3">
-                            <span className="font-mono text-xs text-accent">
+                            <span className="font-mono text-xs font-semibold text-brand">
                                 {String(i + 1).padStart(2, "0")}
                             </span>
                             <Card.Title className="text-pretty text-lg font-medium leading-snug">

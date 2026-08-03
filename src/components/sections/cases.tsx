@@ -2,10 +2,12 @@
 
 import { useTranslations } from "next-intl"
 import { Card, Chip, Separator } from "@heroui/react"
+import { Link } from "@/i18n/routing"
 import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
 
 type CaseStudy = {
     sector: string
+    badge: string
     title: string
     body: string
     metric: string
@@ -13,9 +15,10 @@ type CaseStudy = {
 }
 
 /**
- * TODO(content): every field here is placeholder copy pending client approval.
- * The "pending" chip stays until real, cleared numbers replace them — shipping
- * invented outcomes on an outsourcing page is a one-question-and-you-are-caught risk.
+ * Real projects only. CatMoc is deliberately kept ANONYMOUS here (shown as a
+ * generic "B2B business system") — publishing its name or software details
+ * without written consent falls under contract 01/010726/WS §7.1–7.2. Swap in
+ * the real name once a signed consent email lands. See MO-HINH-KINH-DOANH.md §7.3.
  */
 export function Cases() {
     const t = useTranslations("cases")
@@ -36,7 +39,7 @@ export function Cases() {
                                     {item.sector}
                                 </span>
                                 <Chip size="sm" variant="secondary">
-                                    {t("placeholderBadge")}
+                                    {item.badge}
                                 </Chip>
                             </div>
 
@@ -50,7 +53,7 @@ export function Cases() {
 
                         <Card.Footer className="mt-auto flex-col items-start">
                             <Separator className="mb-5" />
-                            <p className="font-mono text-2xl font-semibold text-accent">
+                            <p className="font-display text-2xl font-bold text-brand">
                                 {item.metric}
                             </p>
                             <p className="mt-1 text-xs text-ink-faint">
@@ -59,6 +62,21 @@ export function Cases() {
                         </Card.Footer>
                     </Card>
                 ))}
+            </div>
+
+            <div className="mt-8">
+                <Link
+                    href="/du-an"
+                    className="group inline-flex items-center gap-1.5 font-medium text-brand transition-colors hover:text-brand-deep"
+                >
+                    {t("viewAll")}
+                    <span
+                        aria-hidden
+                        className="transition-transform group-hover:translate-x-0.5"
+                    >
+                        →
+                    </span>
+                </Link>
             </div>
         </Section>
     )

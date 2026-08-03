@@ -1,11 +1,11 @@
 {
   "meta": {
-    "title": "Tedo — AI-first software outsourcing",
-    "description": "Tedo builds your product with an AI-first delivery model: half the cost, 70% faster, with UI/UX shaped from the first idea."
+    "title": "TEDO — Custom website design & development",
+    "description": "TEDO designs and builds custom websites for businesses: no templates, delivered with the source code and a warranty."
   },
   "nav": {
     "services": "Services",
-    "aiFirst": "AI-first",
+    "aiFirst": "How we work",
     "work": "How we work",
     "cases": "Case studies",
     "pricing": "Engagement",
@@ -13,13 +13,31 @@
     "language": "Language"
   },
   "hero": {
-    "eyebrow": "AI-first software outsourcing",
-    "title": "Ship the product,",
-    "titleAccent": "not the backlog.",
-    "subtitle": "We are an AI-first engineering team. AI does the repetitive 60% — scaffolding, tests, migrations, docs — so our senior engineers spend their hours on the decisions that actually break products in year two.",
+    "eyebrow": "Website design & development · Da Nang",
+    "title": "A custom website for",
+    "titleAccent": "your business.",
+    "subtitle": "No templates. Designed around your brand, built properly, handed over with the source code and a warranty.",
     "ctaPrimary": "Book a discovery call",
-    "ctaSecondary": "See how we work",
-    "note": "30 minutes. You leave with a scope and a number, whether or not you hire us."
+    "ctaSecondary": "See what we built",
+    "note": "One 30-minute call. You leave with a scope and a number. Hire us or don't.",
+    "proofLabel": "Built & running",
+    "proof": [
+      {
+        "tag": "Learning · hiring platform",
+        "name": "StarCi Academy",
+        "meta": "4 months · 30+ business modules · in production"
+      },
+      {
+        "tag": "B2B business system",
+        "name": "Enterprise project",
+        "meta": "30 working days · pending client sign-off to disclose"
+      },
+      {
+        "tag": "Enterprise partner",
+        "name": "FTES",
+        "meta": "Profile in progress"
+      }
+    ]
   },
   "metrics": {
     "title": "What the AI-first model buys you",
@@ -30,9 +48,9 @@
         "detail": "Same senior team, half the billable hours, because the boilerplate is not hand-written."
       },
       {
-        "value": "70%",
+        "value": "~50%",
         "label": "Faster delivery",
-        "detail": "Weeks, not quarters. Discovery on Monday, a running prototype in your hands the same sprint."
+        "detail": "Close to half on form-heavy systems; research-heavy or third-party-bound work less so. Discovery on Monday, a running prototype the same sprint."
       },
       {
         "value": "Day 1",
@@ -72,43 +90,43 @@
   },
   "services": {
     "eyebrow": "Services",
-    "title": "Four things we do properly",
-    "subtitle": "We would rather be excellent at four than mediocre at twelve.",
+    "title": "Websites, end to end",
+    "subtitle": "Design, build, handover. One point of contact.",
     "items": [
       {
-        "title": "Web & mobile product development",
-        "body": "End-to-end product build: design, frontend, backend, mobile, release. From blank repo to something in the store.",
+        "title": "Interface design",
+        "body": "Custom UI/UX for your brand. A clickable Figma prototype you approve before we code.",
         "points": [
-          "React / Next.js, React Native, Flutter",
-          "Node, NestJS, Go, Java, .NET",
-          "Postgres, Redis, Kafka, event-driven back ends"
+          "User research",
+          "Real flows, no lorem ipsum",
+          "Responsive by default"
         ]
       },
       {
-        "title": "Dedicated team & staff augmentation",
-        "body": "Senior engineers embedded in your team, your process, your standups. You direct the work; we own the hiring, retention and bench risk.",
+        "title": "Website development",
+        "body": "Frontend, backend, infrastructure. A clickable demo at the end of every two weeks.",
         "points": [
-          "Time-zone overlap you pick, not one we impose",
-          "Two-week trial before either side commits",
-          "Replace anyone, any time, no penalty clause"
+          "Next.js / React",
+          "Server, SSL, database",
+          "Tested before handover"
         ]
       },
       {
-        "title": "Cloud & DevOps",
-        "body": "Infrastructure that survives a traffic spike and an audit. Plus the boring work that keeps the cloud bill from doubling every quarter.",
+        "title": "E-commerce & CMS",
+        "body": "An online store and pages you edit yourself, without calling the tech team each time.",
         "points": [
-          "Kubernetes, Terraform, GitHub Actions, ArgoCD",
-          "AWS, GCP, Azure — with cost review every month",
-          "Observability, on-call runbooks, incident review"
+          "Cart and checkout",
+          "Self-managed CMS",
+          "Speed and SEO"
         ]
       },
       {
-        "title": "AI & LLM integration",
-        "body": "Adding real AI to an existing product, not a chatbot bolted onto a sidebar. We measure quality before we ship it.",
+        "title": "Handover & warranty",
+        "body": "Source code, docs, admin access, training. Warranty after the project.",
         "points": [
-          "RAG pipelines over your own documents and data",
-          "Agent workflows and tool orchestration",
-          "Evaluation harnesses so quality is a number, not a vibe"
+          "Full source code handover",
+          "Usage guide",
+          "Warranty support"
         ]
       }
     ]
@@ -169,76 +187,120 @@
   "engagement": {
     "eyebrow": "Engagement",
     "title": "Pick the risk you want to carry",
-    "subtitle": "Three ways to work with us. We will tell you which one fits, including when the answer is 'not us'.",
+    "subtitle": "Two ways to work with us — one safe path that funds cash flow, one bet we take alongside you on the outcome. We will tell you which one fits.",
     "items": [
       {
         "name": "Fixed scope",
-        "best": "Best for a defined MVP or a well-bounded module",
-        "body": "We quote a number and a date. Overrun is our problem, not yours.",
+        "best": "Companies with a budget and a clear scope",
+        "body": "We quote a number and a date, paid by milestone. Once it ships, our duty ends beyond the contracted warranty. Overrun is our problem, not yours.",
         "points": [
           "Fixed price, fixed deadline",
-          "Change requests priced up front",
-          "Milestone-based payment"
+          "Milestone-based payment",
+          "Warranty per the contract term",
+          "Schedule risk carried by us"
         ],
         "cta": "Get a quote"
       },
       {
-        "name": "Dedicated team",
-        "best": "Best for continuous product work",
-        "body": "A standing squad — engineers, designer, QA — working only on your product.",
+        "name": "Fixed fee plus revenue share",
+        "best": "Small companies with high upside",
+        "body": "A low fixed fee plus a share of revenue. We stay long-term, our upside tied to your business results — with lifetime warranty and proactive care.",
         "points": [
-          "Monthly rate per person, no hidden overhead",
-          "Two-week trial, 30-day exit",
-          "You run the priorities"
+          "Low fixed fee + revenue share",
+          "Long-term partnership, lifetime warranty",
+          "Our upside tied to your revenue",
+          "Only when both sides believe in the upside"
         ],
-        "cta": "Build a team",
+        "cta": "Discuss a partnership",
         "featured": true
-      },
-      {
-        "name": "Time & materials",
-        "best": "Best for evolving scope or R&D",
-        "body": "Pay for the hours you use, with a monthly ceiling you set.",
-        "points": [
-          "Weekly time reports, no rounding games",
-          "Cap you control, pause any time",
-          "Ideal for discovery-heavy work"
-        ],
-        "cta": "Talk it through"
       }
     ]
   },
   "cases": {
     "eyebrow": "Case studies",
     "title": "Work we can talk about",
-    "subtitle": "Details are being cleared with clients. Numbers below are placeholders until each study is approved.",
-    "placeholderBadge": "Pending client approval",
+    "subtitle": "Three real projects as evidence. Where a client has not cleared disclosure, we leave it as-is — we do not display what we are not allowed to.",
+    "viewAll": "See all projects",
     "items": [
       {
-        "sector": "Fintech",
-        "title": "Payment platform rebuilt in 11 weeks",
-        "body": "Legacy monolith split into services, with the migration scripts and test suite generated and reviewed rather than hand-written.",
-        "metric": "11 weeks",
-        "metricLabel": "concept to production"
+        "sector": "Learning & hiring",
+        "badge": "Cleared to publish",
+        "title": "StarCi Academy — a learning and hiring platform",
+        "body": "30+ business modules, built in four months the AI-first way.",
+        "metric": "30+",
+        "metricLabel": "business modules · 4 months"
       },
       {
-        "sector": "E-commerce",
-        "title": "Storefront and ops console for a regional retailer",
-        "body": "Design-first build: clickable prototype approved in week two, full storefront live before the seasonal peak.",
-        "metric": "2.4×",
-        "metricLabel": "conversion after redesign"
+        "sector": "B2B business system",
+        "badge": "Awaiting client sign-off",
+        "title": "Enterprise project in production",
+        "body": "Built in roughly 30 working days and already running. Client name and details await written consent to disclose.",
+        "metric": "~30",
+        "metricLabel": "working days"
       },
       {
-        "sector": "SaaS",
-        "title": "RAG assistant over five years of support tickets",
-        "body": "Retrieval pipeline plus an evaluation harness, so answer quality is tracked as a metric instead of argued about.",
-        "metric": "62%",
-        "metricLabel": "tickets deflected"
+        "sector": "Enterprise partner",
+        "badge": "In progress",
+        "title": "FTES",
+        "body": "Profile in progress, pending a contract-terms check before disclosure.",
+        "metric": "—",
+        "metricLabel": "profile coming"
       }
     ]
   },
+  "projects": {
+    "eyebrow": "Projects",
+    "title": "Work we shipped — not a capability slide",
+    "subtitle": "Real, measured evidence. Where a client has not cleared disclosure, we leave it as-is — we do not display what we are not allowed to.",
+    "back": "Back to home",
+    "filterAll": "All",
+    "stackLabel": "Stack",
+    "pendingImage": "Image coming soon",
+    "items": [
+      {
+        "category": "Learning & hiring",
+        "badge": "Cleared to publish",
+        "title": "StarCi Academy",
+        "tagline": "A learning and engineer-hiring platform",
+        "body": "Built in four months the AI-first way: 30+ business modules, AI grading and mock interviews, RAG over course content, payments and installments. This is also where we pay for every failure mode before our clients inherit it.",
+        "metric": "30+",
+        "metricLabel": "business modules",
+        "stack": ["Next.js", "NestJS", "GraphQL", "PostgreSQL", "RAG · pgvector", "Kafka"],
+        "highlights": [
+          "AI grading & mock interviews",
+          "RAG over course material",
+          "Payments, installments, coin/XP"
+        ]
+      },
+      {
+        "category": "B2B business system",
+        "badge": "Awaiting client sign-off",
+        "title": "Enterprise project",
+        "tagline": "A business system for an enterprise client",
+        "body": "Built in roughly 30 working days and already running. The client name, screenshots and technical detail await written consent to disclose — we will open it up as soon as we are cleared.",
+        "metric": "~30",
+        "metricLabel": "working days",
+        "stack": [],
+        "highlights": []
+      },
+      {
+        "category": "Partner",
+        "badge": "In progress",
+        "title": "FTES",
+        "tagline": "Enterprise partner",
+        "body": "Profile in progress, pending a contract-terms check before disclosure.",
+        "metric": "—",
+        "metricLabel": "profile coming",
+        "stack": [],
+        "highlights": []
+      }
+    ],
+    "ctaTitle": "Your project could be the next one here.",
+    "cta": "Book a discovery call"
+  },
   "stack": {
     "title": "The tools we actually use",
-    "subtitle": "No résumé padding — this is what is in production right now."
+    "subtitle": "No résumé padding — just what we actually use."
   },
   "faq": {
     "eyebrow": "Straight answers",
@@ -295,10 +357,33 @@
     },
     "orBook": "Or skip the form and grab a slot directly."
   },
+  "chat": {
+    "open": "Chat with us",
+    "title": "Quote assistant",
+    "status": "Quick questions · fast estimate",
+    "greeting": "Hi 👋 What kind of website do you need — a store, a company site, or a landing page? I'll help and give you a quick estimate.",
+    "placeholder": "Type a message…",
+    "send": "Send",
+    "book": "Book a discovery call",
+    "disclaimer": "Estimates are rough — confirmed on the call.",
+    "notConfigured": "The chatbot isn't switched on yet. Leave your details in the Contact section below and TEDO will reply the same day.",
+    "error": "Sorry, something glitched. Please try again.",
+    "suggestions": [
+      "How much for an online store?",
+      "A company website",
+      "How long does it take?"
+    ]
+  },
   "footer": {
-    "tagline": "AI-first software outsourcing.",
+    "tagline": "Custom website design & development for businesses.",
     "rights": "All rights reserved.",
     "sections": "Sections",
-    "contactTitle": "Contact"
+    "contactTitle": "Contact",
+    "legalTitle": "Company details",
+    "legalName": "TEDO TECHNOLOGY JOINT STOCK COMPANY",
+    "taxLabel": "Tax ID",
+    "taxId": "0402322261",
+    "addressLabel": "Address",
+    "address": "85 Giap Van Cuong, Hoa Khanh Ward, Da Nang City, Vietnam"
   }
 }

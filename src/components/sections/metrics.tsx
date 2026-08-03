@@ -15,7 +15,7 @@ export function Metrics() {
                 <dl className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
                     {items.map((item) => (
                         <div key={item.label} className="bg-canvas p-6">
-                            <dt className="font-mono text-4xl font-semibold tracking-tight text-accent">
+                            <dt className="font-display text-4xl font-bold tracking-tight text-brand">
                                 {item.value}
                             </dt>
                             <dd className="mt-3">

@@ -1,5 +1,9 @@
 # Internal planning notes — not for a public repo
 .artifacts/
+MO-HINH-KINH-DOANH.md
+
+# Third-party design skill (ui-ux-pro-max) — a local tool, not product code
+.claude/skills/
 
 node_modules/
 .next/

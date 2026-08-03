@@ -3,14 +3,14 @@
 import { useLocale, useTranslations } from "next-intl"
 import { Link, usePathname } from "@/i18n/routing"
 import { routing } from "@/i18n/routing"
-import { brand } from "@/config/brand"
 import { Container, CtaLink } from "./ui"
+import { Wordmark } from "./wordmark"
 
 const NAV = [
-    { href: "#services", key: "services" },
+    { href: "#cases", key: "cases" },
     { href: "#ai-first", key: "aiFirst" },
     { href: "#process", key: "work" },
-    { href: "#cases", key: "cases" },
+    { href: "#services", key: "services" },
     { href: "#engagement", key: "pricing" },
 ] as const
 
@@ -20,15 +20,10 @@ export function Header() {
     const pathname = usePathname()
 
     return (
-        <header className="sticky top-0 z-50 border-b border-line bg-canvas/85 backdrop-blur-md">
+        <header className="sticky top-0 z-50 border-b border-line bg-white/80 backdrop-blur-md">
             <Container className="flex h-16 items-center justify-between gap-6">
-                <Link
-                    href="/"
-                    className="text-lg font-semibold tracking-tight"
-                    aria-label={brand.name}
-                >
-                    {brand.name}
-                    <span className="text-accent">.</span>
+                <Link href="/" aria-label="TEDO" className="shrink-0">
+                    <Wordmark />
                 </Link>
 
                 <nav className="hidden items-center gap-7 lg:flex">
@@ -36,7 +31,7 @@ export function Header() {
                         <a
                             key={item.key}
                             href={item.href}
-                            className="text-sm text-ink-muted transition-colors hover:text-ink"
+                            className="text-sm font-medium text-ink-muted transition-colors hover:text-brand"
                         >
                             {t(item.key)}
                         </a>
@@ -45,7 +40,7 @@ export function Header() {
 
                 <div className="flex items-center gap-4">
                     <div
-                        className="flex items-center rounded-full border border-line p-0.5"
+                        className="hidden items-center rounded-full border border-line p-0.5 sm:flex"
                         role="group"
                         aria-label={t("language")}
                     >
@@ -57,8 +52,8 @@ export function Header() {
                                 aria-current={l === locale ? "true" : undefined}
                                 className={`rounded-full px-2.5 py-1 font-mono text-xs uppercase transition-colors ${
                                     l === locale
-                                        ? "bg-accent text-accent-ink"
-                                        : "text-ink-faint hover:text-ink"
+                                        ? "bg-brand text-white"
+                                        : "text-ink-faint hover:text-brand"
                                 }`}
                             >
                                 {l}
