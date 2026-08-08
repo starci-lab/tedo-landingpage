@@ -35,7 +35,7 @@ export function Footer() {
                             <li key={link.key}>
                                 <a
                                     href={link.href}
-                                    className="text-sm text-ink-muted transition-colors hover:text-brand"
+                                    className="-mx-1 inline-flex min-h-11 items-center rounded px-1 text-sm text-ink-muted transition-colors hover:text-brand"
                                 >
                                     {tNav(link.key)}
                                 </a>

@@ -13,3 +13,10 @@ out/
 next-env.d.ts
 *.tsbuildinfo
 .DS_Store
+
+# Internal business notes — this repo is PUBLIC. These carry contract values,
+# margin maths, commission plans and candid criticism of our own model. Keep
+# them local; share by file, not by git.
+biz.md
+content-plan.md
+MO-HINH-KINH-DOANH.md

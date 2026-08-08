@@ -13,13 +13,13 @@
     "language": "Language"
   },
   "hero": {
-    "eyebrow": "Website design & development · Da Nang",
-    "title": "A custom website for",
-    "titleAccent": "your business.",
-    "subtitle": "No templates. Designed around your brand, built properly, handed over with the source code and a warranty.",
-    "ctaPrimary": "Book a discovery call",
+    "eyebrow": "Website design & development",
+    "title": "Not sure what you want yet? We can still quote it.",
+    "titleAccent": "And you pay what we quoted.",
+    "subtitle": "Lean cost, built twice as fast, on an AI-first process.",
+    "ctaPrimary": "Ask about pricing",
     "ctaSecondary": "See what we built",
-    "note": "One 30-minute call. You leave with a scope and a number. Hire us or don't.",
+    "note": "Source code handed over · Quoted before we start · 12-month warranty",
     "proofLabel": "Built & running",
     "proof": [
       {
@@ -28,14 +28,14 @@
         "meta": "4 months · 30+ business modules · in production"
       },
       {
-        "tag": "B2B business system",
-        "name": "Enterprise project",
-        "meta": "30 working days · pending client sign-off to disclose"
+        "tag": "Student learning platform",
+        "name": "FTES",
+        "meta": "Courses tied to subject codes · app on Google Play"
       },
       {
-        "tag": "Enterprise partner",
-        "name": "FTES",
-        "meta": "Profile in progress"
+        "tag": "Building contractor",
+        "name": "Phan Thanh Hoa",
+        "meta": "A record per build · quote requests on the page"
       }
     ]
   },
@@ -43,48 +43,48 @@
     "title": "What the AI-first model buys you",
     "items": [
       {
-        "value": "50%",
-        "label": "Lower build cost",
-        "detail": "Same senior team, half the billable hours, because the boilerplate is not hand-written."
+        "value": "Lean",
+        "label": "Cost",
+        "detail": "The same senior team, but you are not billed hours for the frame a machine can type."
       },
       {
-        "value": "~50%",
-        "label": "Faster delivery",
-        "detail": "Close to half on form-heavy systems; research-heavy or third-party-bound work less so. Discovery on Monday, a running prototype the same sprint."
+        "value": "2×",
+        "label": "Speed",
+        "detail": "Form-heavy sites come in close to twice as fast. Research-heavy work less so. Discovery on Monday, a running version by the end of the sprint."
       },
       {
         "value": "Day 1",
-        "label": "UI/UX from the idea",
-        "detail": "Product designers sit in from the first call. You approve screens before we write the backend."
+        "label": "Interface",
+        "detail": "A designer joins the first call. You approve the screens before we write what sits behind them."
       },
       {
         "value": "100%",
-        "label": "Code you own",
-        "detail": "Your repos, your cloud accounts, your CI. No lock-in, no black boxes, no rented platform."
+        "label": "Ownership",
+        "detail": "Source code, servers and accounts are all in your name. Drop us whenever you like and another team can pick it straight up."
       }
     ],
-    "footnote": "Cost and time figures compare our delivery against the same scope quoted on a traditional hourly outsourcing model. We show you the arithmetic during discovery."
+    "footnote": "The speed figure compares the same scope against the traditional way of building it. We show you the arithmetic during discovery."
   },
   "aiFirst": {
-    "eyebrow": "AI-first, not AI-flavoured",
-    "title": "Most agencies added AI to the pitch deck. We rebuilt the delivery line around it.",
-    "subtitle": "AI-first is an operating model, not a tool subscription. Here is what it actually changes.",
+    "eyebrow": "AI-first",
+    "title": "What AI actually does on your project",
+    "subtitle": "Plainly: the machine does the repetitive part, people do the part that goes wrong.",
     "items": [
       {
-        "title": "AI writes the first draft. Seniors write the decisions.",
-        "body": "Scaffolding, CRUD, test suites, migrations, API clients and docs are generated and then reviewed line by line. Architecture, data modelling, security and trade-offs stay human — those are the parts that cost you money when they are wrong."
+        "title": "The machine types the frame, people decide the hard parts",
+        "body": "Repetitive code gets generated in minutes. How it is built, how it is secured and where it is likely to break stay with senior engineers. Those are the parts that cost you money when they are wrong."
       },
       {
-        "title": "Every PR passes an automated review before a human sees it.",
-        "body": "Lint, types, tests, dependency and security scans, plus an AI reviewer tuned to your codebase conventions. Human review starts where the machine stops, not at formatting nits."
+        "title": "The machine checks first, people check after",
+        "body": "Every code change runs through automated checks: syntax errors, security holes, outdated libraries. Human review starts where the machine stopped."
       },
       {
-        "title": "Specs stay executable.",
-        "body": "Requirements live next to the code as tests and typed contracts. When the spec changes, the failing test tells you what broke — instead of a Slack thread three weeks later."
+        "title": "Change a requirement and you see what breaks",
+        "body": "Your requirements are written as automated checks sitting next to the code. Change one thing and the system tells you what it drags along, instead of surfacing three weeks later."
       },
       {
-        "title": "We build AI into your product too.",
-        "body": "RAG over your own data, agent workflows, LLM evaluation harnesses. We run these in our own products, so you get the failure modes we already paid for."
+        "title": "We can put AI in your product too",
+        "body": "A chatbot that answers from your own documents, automatic sorting of orders, summarised feedback. We run these in our own products first, so you skip the tuition."
       }
     ]
   },
@@ -95,99 +95,105 @@
     "items": [
       {
         "title": "Interface design",
-        "body": "Custom UI/UX for your brand. A clickable Figma prototype you approve before we code.",
+        "body": "An interface built for your brand. A clickable Figma version you approve before we code.",
         "points": [
-          "User research",
-          "Real flows, no lorem ipsum",
-          "Responsive by default"
+          "No off-the-shelf themes",
+          "Real flows, no filler text",
+          "Works properly on phones"
         ]
       },
       {
         "title": "Website development",
-        "body": "Frontend, backend, infrastructure. A clickable demo at the end of every two weeks.",
+        "body": "The front, the back and the server. Every two weeks you get a version you can click through.",
         "points": [
           "Next.js / React",
           "Server, SSL, database",
-          "Tested before handover"
+          "Tested before we hand it over"
         ]
       },
       {
-        "title": "E-commerce & CMS",
-        "body": "An online store and pages you edit yourself, without calling the tech team each time.",
+        "title": "Online selling & self-editing",
+        "body": "An online store, and pages where you change the words and photos yourself without calling us.",
         "points": [
           "Cart and checkout",
-          "Self-managed CMS",
-          "Speed and SEO"
+          "Post and edit it yourself",
+          "Fast to load, SEO-ready"
         ]
       },
       {
         "title": "Handover & warranty",
-        "body": "Source code, docs, admin access, training. Warranty after the project.",
+        "body": "Source code, docs and admin access all handed over, plus a training session and 12 months of warranty.",
         "points": [
-          "Full source code handover",
-          "Usage guide",
-          "Warranty support"
+          "Full source code",
+          "Usage training",
+          "12-month warranty"
         ]
       }
     ]
   },
   "design": {
-    "eyebrow": "UI/UX from the first idea",
-    "title": "You should see the product before you fund it.",
-    "body": "Most outsourcing starts with a requirements document and ends with a surprise. We start with screens. Product designers join the very first call, turn your idea into a clickable prototype, and iterate with you until the flow is right — before a single backend endpoint exists. Cheapest time to change your mind is now.",
+    "eyebrow": "Design first, code after",
+    "title": "See the site before you pay for it",
+    "body": "Outsourcing usually starts with a requirements document and ends with a surprise. We start with the interface. A designer joins the first call, builds a version you can click through, and reworks it with you until it is right. No code exists yet at that point, so changing your mind is still cheap.",
     "steps": [
       {
-        "title": "Idea session",
-        "body": "You describe the problem. We map the users, the jobs and the money path on one board."
+        "title": "Unpack the brief",
+        "body": "You describe what is going wrong. We write down who will use it, what they need to do, and where the money comes in and out."
       },
       {
-        "title": "Clickable prototype",
-        "body": "Real screens, real flows, no lorem ipsum. Walk it like the finished product and tell us what is wrong."
+        "title": "A clickable version",
+        "body": "Real screens, real flows, no filler text. Click through it like a finished site and point at what is wrong."
       },
       {
-        "title": "Design system",
-        "body": "Once the flow is approved, screens become tokens and components — so the built product matches the prototype."
+        "title": "Lock the interface set",
+        "body": "Once approved, the colours, type and buttons are locked into one shared set, so what gets built matches what you signed off."
       },
       {
-        "title": "Build against the design",
-        "body": "Engineers implement approved screens. No redesign-mid-sprint, no 'it looked different in Figma'."
+        "title": "Code follows the approved screens",
+        "body": "Engineers build the screens you approved. No redesign halfway through, no 'it looked different in Figma'."
       }
     ]
   },
   "process": {
     "eyebrow": "How we work",
-    "title": "Four steps, no mystery",
+    "title": "Five steps, no mystery",
     "items": [
       {
         "step": "01",
-        "title": "Discovery",
+        "title": "Discovery and scope",
         "body": "One 30-minute call plus a short written brief. We come back with scope, risks, timeline and a fixed number.",
         "duration": "2–4 days"
       },
       {
         "step": "02",
-        "title": "Prototype",
-        "body": "Clickable UI and a technical spike on whatever is riskiest. You approve before the main build is funded.",
+        "title": "Interface design",
+        "body": "A clickable Figma prototype with real flows, no lorem ipsum. You approve before the main build is funded.",
         "duration": "1–2 weeks"
       },
       {
         "step": "03",
         "title": "Build",
         "body": "Two-week sprints, a demo you can click at the end of each one, and a shared board you can read any day.",
-        "duration": "Ongoing"
+        "duration": "Scope-dependent"
       },
       {
         "step": "04",
-        "title": "Handover or run",
-        "body": "We hand over docs, runbooks and a trained team — or stay on to operate it. Your call, not a contract term.",
-        "duration": "Your choice"
+        "title": "Test and trial run",
+        "body": "Staging, server, SSL and database set up. Interface, feature and API testing on desktop and phone, then you sign off on the real thing.",
+        "duration": "3–5 days"
+      },
+      {
+        "step": "05",
+        "title": "Handover and sign-off",
+        "body": "Source code, docs, admin access and training handed over. Twelve months of warranty, then an optional maintenance plan.",
+        "duration": "2–3 days"
       }
     ]
   },
   "engagement": {
     "eyebrow": "Engagement",
-    "title": "Pick the risk you want to carry",
-    "subtitle": "Two ways to work with us — one safe path that funds cash flow, one bet we take alongside you on the outcome. We will tell you which one fits.",
+    "title": "Pick the way that fits your cash flow",
+    "subtitle": "Same scope either way. Only the payment differs.",
     "items": [
       {
         "name": "Fixed scope",
@@ -202,16 +208,16 @@
         "cta": "Get a quote"
       },
       {
-        "name": "Fixed fee plus revenue share",
-        "best": "Small companies with high upside",
-        "body": "A low fixed fee plus a share of revenue. We stay long-term, our upside tied to your business results — with lifetime warranty and proactive care.",
+        "name": "Fixed scope, paid in instalments",
+        "best": "Companies that can afford it but do not have the cash up front",
+        "body": "Same scope, same quality, same warranty — only the payment differs. Forty percent on signing, the rest spread evenly over six months. You do not have to wait until the full budget is in hand.",
         "points": [
-          "Low fixed fee + revenue share",
-          "Long-term partnership, lifetime warranty",
-          "Our upside tied to your revenue",
-          "Only when both sides believe in the upside"
+          "40% up front, the rest across six months",
+          "A 10–15% deferred-payment surcharge, stated up front",
+          "The same 12-month warranty as fixed scope",
+          "Source code ownership transfers on final payment"
         ],
-        "cta": "Discuss a partnership",
+        "cta": "See the instalment plan",
         "featured": true
       }
     ]
@@ -219,32 +225,32 @@
   "cases": {
     "eyebrow": "Case studies",
     "title": "Work we can talk about",
-    "subtitle": "Three real projects as evidence. Where a client has not cleared disclosure, we leave it as-is — we do not display what we are not allowed to.",
+    "subtitle": "Four projects running. See them all on the projects page.",
     "viewAll": "See all projects",
     "items": [
       {
-        "sector": "Learning & hiring",
-        "badge": "Cleared to publish",
-        "title": "StarCi Academy — a learning and hiring platform",
-        "body": "30+ business modules, built in four months the AI-first way.",
+        "sector": "Education & training",
+        "badge": "Our own product",
+        "title": "StarCi Academy",
+        "body": "Interview practice that becomes the candidate profile. Most candidates only learn where they are weak once they have already failed.",
         "metric": "30+",
-        "metricLabel": "business modules · 4 months"
+        "metricLabel": "business modules · built in 4 months"
       },
       {
-        "sector": "B2B business system",
-        "badge": "Awaiting client sign-off",
-        "title": "Enterprise project in production",
-        "body": "Built in roughly 30 working days and already running. Client name and details await written consent to disclose.",
-        "metric": "~30",
-        "metricLabel": "working days"
-      },
-      {
-        "sector": "Enterprise partner",
-        "badge": "In progress",
+        "sector": "Education & training",
+        "badge": "Client",
         "title": "FTES",
-        "body": "Profile in progress, pending a contract-terms check before disclosure.",
-        "metric": "—",
-        "metricLabel": "profile coming"
+        "body": "Study to pass the exam, built for students. Failing one subject costs a retake fee and an entire semester.",
+        "metric": "8+",
+        "metricLabel": "courses tied to subject codes · plus a Play Store app"
+      },
+      {
+        "sector": "Construction & services",
+        "badge": "Client",
+        "title": "Phan Thanh Hoa Contractors",
+        "body": "Clients can look up every build we finished. People build a house once in their life, so they fear two things: cost overruns and missed deadlines.",
+        "metric": "500+",
+        "metricLabel": "client builds, turned into searchable records"
       }
     ]
   },
@@ -258,41 +264,78 @@
     "pendingImage": "Image coming soon",
     "items": [
       {
-        "category": "Learning & hiring",
-        "badge": "Cleared to publish",
+        "category": "Education & training",
+        "badge": "Our own product",
         "title": "StarCi Academy",
-        "tagline": "A learning and engineer-hiring platform",
-        "body": "Built in four months the AI-first way: 30+ business modules, AI grading and mock interviews, RAG over course content, payments and installments. This is also where we pay for every failure mode before our clients inherit it.",
+        "tagline": "Interview practice that becomes the candidate profile",
+        "body": "Most candidates only learn where they are weak once they have already failed. StarCi lets them practise and get graded first, then turns those results into the profile recruiters read — nothing self-reported, everything already checked by the system.",
         "metric": "30+",
-        "metricLabel": "business modules",
-        "stack": ["Next.js", "NestJS", "GraphQL", "PostgreSQL", "RAG · pgvector", "Kafka"],
+        "metricLabel": "business modules · built in 4 months",
+        "stack": [
+          "Next.js",
+          "NestJS",
+          "GraphQL",
+          "PostgreSQL",
+          "RAG",
+          "Kafka"
+        ],
         "highlights": [
-          "AI grading & mock interviews",
-          "RAG over course material",
-          "Payments, installments, coin/XP"
+          "AI grading and mock interviews",
+          "Candidate profiles generated from practice results",
+          "Tracks in four languages: TypeScript, Java, C#, Go"
+        ],
+        "pending": true
+      },
+      {
+        "category": "Education & training",
+        "badge": "Client",
+        "title": "FTES",
+        "tagline": "Study to pass the exam, built for students",
+        "body": "Failing one subject costs a retake fee and an entire semester. FTES sells courses tied directly to the university's own subject codes — PRF192/193, MAE101, PRO192, MAD101 — so students know exactly which exam a course is meant to get them through, instead of buying generic programming lessons.",
+        "metric": "8+",
+        "metricLabel": "courses tied to subject codes · plus a Play Store app",
+        "image": "/du-an/ftes.jpg",
+        "stack": [
+          "React",
+          "Java"
+        ],
+        "highlights": [
+          "Courses mapped to the university's own subject codes",
+          "Personal learning paths with progress tracking",
+          "FrostES mobile app shipped on Google Play"
         ]
       },
       {
-        "category": "B2B business system",
-        "badge": "Awaiting client sign-off",
-        "title": "Enterprise project",
-        "tagline": "A business system for an enterprise client",
-        "body": "Built in roughly 30 working days and already running. The client name, screenshots and technical detail await written consent to disclose — we will open it up as soon as we are cleared.",
-        "metric": "~30",
-        "metricLabel": "working days",
+        "category": "Construction & services",
+        "badge": "Client",
+        "title": "Phan Thanh Hoa Contractors",
+        "tagline": "Clients can look up every build we finished",
+        "body": "People build a house once in their life, so they fear two things: cost overruns and missed deadlines. The site answers both in the first screen, then backs it with a record for every build — start date, handover date, owner's name — rather than a photo album nobody can check.",
+        "metric": "500+",
+        "metricLabel": "client builds, turned into searchable records",
+        "image": "/du-an/phan-thanh-hoa.jpg",
         "stack": [],
-        "highlights": []
+        "highlights": [
+          "A dated record page for every build",
+          "Quote request placed right on the first screen",
+          "Works in both light and dark mode"
+        ]
       },
       {
-        "category": "Partner",
-        "badge": "In progress",
-        "title": "FTES",
-        "tagline": "Enterprise partner",
-        "body": "Profile in progress, pending a contract-terms check before disclosure.",
-        "metric": "—",
-        "metricLabel": "profile coming",
+        "category": "Construction & services",
+        "badge": "Client",
+        "title": "Thanh Nam Demolition",
+        "tagline": "Closing the customer while they are still in a hurry",
+        "body": "People who need a demolition are usually rushed and negotiating from a weak position, afraid of being squeezed on price and hit with extras halfway through. The site leads with three promises — same-day site visit, same-day quote, full-service demolition — with a floating hotline so they can call from any point on the page.",
+        "metric": "24/7",
+        "metricLabel": "hotline pinned site-wide · same-day quotes",
+        "image": "/du-an/thanh-nam.jpg",
         "stack": [],
-        "highlights": []
+        "highlights": [
+          "Floating hotline and Zalo button",
+          "Real customer reviews and a service-area map",
+          "A blog that pulls in organic search"
+        ]
       }
     ],
     "ctaTitle": "Your project could be the next one here.",
@@ -304,51 +347,63 @@
   },
   "faq": {
     "eyebrow": "Straight answers",
-    "title": "The questions everyone asks",
+    "title": "What everyone asks",
     "items": [
       {
-        "q": "If AI writes the code, why do I need you?",
-        "a": "Because AI writes plausible code, not correct systems. It will happily generate an auth flow with a hole in it. Our value is the senior review, the architecture and the accountability — AI just removes the typing."
+        "q": "Can I edit the content myself afterwards?",
+        "a": "Yes. There is an admin area where you change text, swap images and add posts. Handover includes a training session, recorded so you can rewatch it later."
       },
       {
-        "q": "Who owns the code and the IP?",
-        "a": "You do, from the first commit. We work in your repositories and your cloud accounts. There is no Tedo platform you have to keep paying for."
+        "q": "How soon do I see what it looks like?",
+        "a": "Within the first week or two you are approving the interface in Figma and clicking through it like the real thing. Changes at that point are cheap because no code exists yet."
       },
       {
-        "q": "How is 50% cheaper not just 50% worse?",
-        "a": "The saving comes from hours not spent hand-writing boilerplate, not from junior engineers or from cutting review. The same seniors review every line. Ask us to walk through a real PR during discovery."
+        "q": "What if I have no content or photos?",
+        "a": "Normal, most clients do not. We build with correctly structured placeholder content and hand you a checklist of what to prepare. We can introduce a photographer and a copywriter if you want."
       },
       {
-        "q": "What if the team is not a fit?",
-        "a": "Two-week trial on dedicated teams, and you can replace anyone without a penalty. If we are the wrong fit for your problem, we will say so on the first call."
+        "q": "If it costs less, is it worse?",
+        "a": "The savings are hours nobody has to type, not people cut or reviews skipped. Senior engineers still read every line. Ask us to open a real pull request during discovery and pick it apart."
       },
       {
-        "q": "Do you sign NDAs and handle sensitive data?",
-        "a": "Yes. NDA before discovery if you want one. For regulated work we scope data handling, access control and audit logging explicitly — and we will tell you when a requirement is outside what we should take on."
+        "q": "Will the site rank on Google by itself?",
+        "a": "Not by itself. We build it so Google can read it, load it fast and find the sitemap. Ranking then needs steady content and time. Anyone promising page one immediately is guessing."
+      },
+      {
+        "q": "What if I am not happy with it?",
+        "a": "Every stage has an approval gate, so nothing runs to the end before a mismatch surfaces. Design keeps iterating until you approve it, and only then do we write code."
+      },
+      {
+        "q": "Who looks after it once the warranty ends?",
+        "a": "There is an optional annual maintenance plan covering infrastructure, security patches, backups and support. If you skip it, the source code is yours and another team can take over."
+      },
+      {
+        "q": "Who owns the code?",
+        "a": "You do, from the first commit. We work in your repository and your cloud accounts. There is no platform of ours you have to keep paying for."
       }
     ]
   },
   "contact": {
     "eyebrow": "Next step",
-    "title": "Tell us what you are building.",
-    "subtitle": "One call, 30 minutes. You leave with a scope, a timeline and a number — whether or not you work with us.",
+    "title": "Tell us what you need built",
+    "subtitle": "One 30-minute call. You leave with a scope, a timeline and a number. Hire us or don't.",
     "form": {
       "name": "Your name",
       "namePlaceholder": "Jane Doe",
-      "email": "Work email",
-      "emailPlaceholder": "jane@company.com",
-      "company": "Company",
+      "email": "Email",
+      "emailPlaceholder": "an@company.com",
+      "company": "Company (optional)",
       "companyPlaceholder": "Acme Inc.",
-      "service": "What do you need?",
+      "service": "What do you need built?",
       "serviceOptions": [
-        "Web & mobile product development",
-        "Dedicated team / staff augmentation",
-        "Cloud & DevOps",
-        "AI & LLM integration",
-        "Not sure yet"
+        "A company website",
+        "Online selling with self-editing",
+        "Software to run the operation",
+        "A rebuild of the site we have",
+        "Not sure yet, need advice"
       ],
-      "message": "What are you building?",
-      "messagePlaceholder": "A sentence or two is enough. What is the problem, and what does done look like?",
+      "message": "Tell us briefly what is going wrong",
+      "messagePlaceholder": "A sentence or two is plenty. A vague brief is fine — we work it out with you.",
       "submit": "Send it",
       "submitting": "Sending…",
       "success": "Got it. We reply within one business day.",
@@ -385,5 +440,102 @@
     "taxId": "0402322261",
     "addressLabel": "Address",
     "address": "85 Giap Van Cuong, Hoa Khanh Ward, Da Nang City, Vietnam"
+  },
+  "fit": {
+    "eyebrow": "Is this a fit",
+    "title": "Who should hire us, who shouldn't",
+    "subtitle": "Said up front so neither of us wastes time.",
+    "yesTitle": "A fit if you",
+    "yes": [
+      "You do not want an off-the-shelf theme and want it built for your brand",
+      "You have a site already but it brings in nothing and you want it done properly",
+      "You need software that runs your operation, not just a brochure site",
+      "You are not sure what you want yet — we work the brief out with you"
+    ],
+    "noTitle": "Not a fit yet if you",
+    "no": [
+      "You need it live within a few days",
+      "You have under 10 million VND and want the cheapest option going",
+      "You want an existing site copied as-is, with nothing built for you"
+    ],
+    "note": "We still take smaller jobs, quoted individually once we hear the brief."
+  },
+  "pricing": {
+    "eyebrow": "Cost",
+    "title": "Ranges up front, so you can do the maths",
+    "subtitle": "These are reference ranges; the exact number is fixed during discovery. You pay what we quoted, with nothing added halfway through.",
+    "tiers": [
+      {
+        "name": "E-commerce & CMS",
+        "price": "25 – 60 million",
+        "time": "4 – 8 weeks",
+        "body": "An online store, pages you edit yourself, cart and checkout.",
+        "points": [
+          "Designed around your brand",
+          "Self-managed CMS",
+          "Speed and SEO"
+        ]
+      },
+      {
+        "name": "Custom business system",
+        "price": "50 – 100 million",
+        "time": "Scope-dependent",
+        "body": "Software that runs your operation: workflows, roles, reporting, audit logs.",
+        "points": [
+          "Role-based permissions",
+          "Reporting and audit log",
+          "Backup and restore"
+        ],
+        "featured": true
+      }
+    ],
+    "includedTitle": "Included",
+    "included": [
+      "Interface design",
+      "Development",
+      "Testing",
+      "Source code handover",
+      "12-month warranty"
+    ],
+    "excludedTitle": "Not included",
+    "excluded": [
+      "Server and domain paid to providers",
+      "Content and photography if you do not have them"
+    ],
+    "instalmentTitle": "Cannot pay it all at once?",
+    "instalmentBody": "40% on signing, the rest spread evenly over six months. The deferred-payment surcharge is stated up front.",
+    "savingNote": "The cost is leaner because you are not billed for the part a machine types, not because people or reviews were cut. We show you the arithmetic during discovery.",
+    "cta": "Get a quote for your project"
+  },
+  "aftercare": {
+    "eyebrow": "After handover",
+    "title": "Someone still picks up after it ships",
+    "subtitle": "The part clients worry about most, so here it is in numbers.",
+    "items": [
+      {
+        "value": "12 months",
+        "title": "Free warranty",
+        "body": "From the sign-off date. Uptime, security, daily backups, plus advice and training at no charge."
+      },
+      {
+        "value": "12 hours",
+        "title": "Issue acknowledged",
+        "body": "Within 12 hours of you reporting it. Reachable by email, chat, hotline, Zalo or form."
+      },
+      {
+        "value": "48 hours",
+        "title": "Cause confirmed",
+        "body": "Within 48 hours. Then we propose a fix, carry it out on an agreed timeline and report back."
+      },
+      {
+        "value": "Optional",
+        "title": "Maintenance plan",
+        "body": "After the 12 months you can continue on an annual plan covering infrastructure, security patches, backups and support. Entirely optional."
+      }
+    ]
+  },
+  "stickyCta": {
+    "ask": "Ask about pricing",
+    "book": "Book a call"
   }
 }

@@ -4,7 +4,7 @@
  */
 export const brand = {
     name: "Tedo",
-    domain: "tedo.dev",
-    email: "hello@tedo.dev",
+    domain: "tedo.vn",
+    email: "support@tedo.vn",
     calendarUrl: "https://cal.com/tedo/discovery",
 } as const

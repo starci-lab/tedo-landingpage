@@ -13,13 +13,13 @@
     "language": "Ngôn ngữ"
   },
   "hero": {
-    "eyebrow": "Thiết kế & lập trình website · Đà Nẵng",
-    "title": "Website riêng cho",
-    "titleAccent": "doanh nghiệp của bạn.",
-    "subtitle": "Không dùng template. Thiết kế riêng theo brand, lập trình chuẩn, bàn giao kèm mã nguồn và bảo hành.",
-    "ctaPrimary": "Đặt lịch tư vấn",
+    "eyebrow": "Dịch vụ thiết kế & lập trình website",
+    "title": "Chưa biết mình muốn gì, vẫn báo giá được.",
+    "titleAccent": "Báo bao nhiêu trả bấy nhiêu.",
+    "subtitle": "Chi phí tối ưu, làm nhanh gấp đôi, nhờ áp dụng quy trình AI-first.",
+    "ctaPrimary": "Hỏi nhanh về giá",
     "ctaSecondary": "Xem dự án đã làm",
-    "note": "Một buổi 30 phút. Xong bạn cầm về phạm vi công việc và một con số. Thuê hay không, tuỳ bạn.",
+    "note": "Giao mã nguồn · Báo giá trước khi làm · Bảo hành 12 tháng",
     "proofLabel": "Đã dựng & vận hành",
     "proof": [
       {
@@ -28,14 +28,14 @@
         "meta": "4 tháng · 30+ mô-đun nghiệp vụ · đang vận hành"
       },
       {
-        "tag": "Hệ thống nghiệp vụ B2B",
-        "name": "Dự án doanh nghiệp",
-        "meta": "30 ngày làm việc · chờ khách đồng ý công bố"
+        "tag": "Nền tảng học cho sinh viên",
+        "name": "FTES",
+        "meta": "Khóa gắn theo mã môn · app đã lên CH Play"
       },
       {
-        "tag": "Đối tác doanh nghiệp",
-        "name": "FTES",
-        "meta": "Hồ sơ đang cập nhật"
+        "tag": "Nhà thầu xây dựng",
+        "name": "Phan Thanh Hòa",
+        "meta": "Hồ sơ từng công trình · nhận báo giá ngay trên trang"
       }
     ]
   },
@@ -43,48 +43,48 @@
     "title": "Mô hình AI-first mang lại gì",
     "items": [
       {
-        "value": "50%",
+        "value": "Tối ưu",
         "label": "Chi phí",
-        "detail": "Vẫn đội senior đó. Nhưng còn một nửa số giờ tính phí, vì phần khung không ai gõ tay nữa."
+        "detail": "Vẫn đội senior đó, nhưng bạn không phải trả giờ cho phần khung mà máy gõ được."
       },
       {
-        "value": "~50%",
-        "label": "Thời gian",
-        "detail": "Rút gần một nửa với hệ thống nhiều biểu mẫu; dự án nặng nghiên cứu hay phụ thuộc bên thứ ba thì ít hơn. Tư vấn đầu tuần, cuối sprint đã có bản chạy được."
+        "value": "Gấp đôi",
+        "label": "Tốc độ",
+        "detail": "Trang nhiều biểu mẫu thì nhanh gần gấp đôi. Việc nặng nghiên cứu thì ít hơn. Tư vấn đầu tuần, cuối sprint đã có bản chạy được."
       },
       {
         "value": "Ngày 1",
-        "label": "UI/UX",
-        "detail": "Designer ngồi cùng từ buổi đầu. Bạn duyệt giao diện trước, chúng tôi mới viết backend."
+        "label": "Giao diện",
+        "detail": "Designer vào từ buổi đầu. Bạn duyệt giao diện trước, chúng tôi mới viết phần bên trong."
       },
       {
         "value": "100%",
         "label": "Sở hữu",
-        "detail": "Repo của bạn. Cloud của bạn. CI của bạn. Không khoá chân, không hộp đen, không nền tảng đi thuê."
+        "detail": "Mã nguồn, máy chủ, tài khoản đều đứng tên bạn. Bỏ chúng tôi lúc nào cũng được, đội khác tiếp quản được ngay."
       }
     ],
-    "footnote": "Hai con số đầu so với chính phạm vi đó khi báo giá theo mô hình tính giờ truyền thống. Chúng tôi bóc phép tính ra cho Quý doanh nghiệp xem ngay trong buổi tư vấn, không nói suông."
+    "footnote": "Con số tốc độ so với chính phạm vi đó khi làm theo cách truyền thống. Chúng tôi bóc phép tính cho bạn xem ngay trong buổi tư vấn."
   },
   "aiFirst": {
-    "eyebrow": "AI-first, không phải AI dán nhãn",
-    "title": "Nhiều nơi thêm chữ AI vào slide. Chúng tôi dựng lại cả dây chuyền quanh nó.",
-    "subtitle": "AI-first là cách vận hành, không phải gói subscription. Cụ thể nó đổi những gì:",
+    "eyebrow": "AI-first",
+    "title": "AI làm gì trong dự án của bạn",
+    "subtitle": "Nói cho dễ hiểu: máy làm phần lặp đi lặp lại, người làm phần dễ sai.",
     "items": [
       {
-        "title": "AI viết bản nháp. Senior ra quyết định.",
-        "body": "Khung dự án, CRUD, test, migration, API client, tài liệu — sinh ra rồi review từng dòng. Kiến trúc, mô hình dữ liệu, bảo mật, các đánh đổi thì người quyết. Đó mới là chỗ sai một cái là mất tiền."
+        "title": "Máy gõ phần khung, người quyết phần khó",
+        "body": "Mấy đoạn code lặp đi lặp lại thì máy dựng trong vài phút. Còn chọn cách làm, chuyện bảo mật, chỗ nào dễ vỡ thì kỹ sư senior quyết. Sai mấy chỗ đó mới là mất tiền."
       },
       {
-        "title": "Mọi PR qua vòng máy trước khi tới mắt người.",
-        "body": "Lint, type, test, quét dependency và bảo mật, thêm một AI reviewer chỉnh theo quy ước code của bạn. Người review bắt đầu từ chỗ máy dừng, không sa vào chuyện thụt lề."
+        "title": "Máy soi lỗi trước, người soi sau",
+        "body": "Mỗi lần sửa code đều chạy qua một vòng kiểm tự động: lỗi cú pháp, lỗ hổng bảo mật, thư viện quá cũ. Người review bắt đầu từ chỗ máy dừng lại."
       },
       {
-        "title": "Đặc tả phải chạy được.",
-        "body": "Yêu cầu nằm ngay cạnh code, dưới dạng test và contract có kiểu. Đặc tả đổi thì test đỏ báo ngay cái gì vỡ. Không đợi ba tuần sau mới lòi ra trong một thread Slack."
+        "title": "Đổi yêu cầu là biết ngay vỡ chỗ nào",
+        "body": "Yêu cầu của bạn được ghi thành bài kiểm tự động nằm cạnh code. Sửa một chỗ là hệ thống báo ngay nó kéo theo cái gì, khỏi đợi ba tuần sau mới lòi ra."
       },
       {
-        "title": "Chúng tôi đưa AI vào sản phẩm của bạn nữa.",
-        "body": "RAG trên dữ liệu của bạn, luồng agent, bộ đánh giá chất lượng LLM. Những thứ này chúng tôi chạy trong sản phẩm của chính mình, nên bạn thừa hưởng các ca hỏng mà chúng tôi đã trả giá rồi."
+        "title": "Cần thì gắn AI vào chính sản phẩm của bạn",
+        "body": "Chatbot trả lời khách bằng đúng tài liệu của bạn, tự phân loại đơn, tóm tắt phản hồi. Mấy thứ này chúng tôi chạy trong sản phẩm của mình trước, nên bạn khỏi trả tiền học phí."
       }
     ]
   },
@@ -95,99 +95,105 @@
     "items": [
       {
         "title": "Thiết kế giao diện",
-        "body": "UI/UX riêng theo brand. Prototype bấm được trên Figma, duyệt trước khi code.",
+        "body": "Giao diện riêng theo brand của bạn. Bản bấm thử được trên Figma, bạn duyệt rồi mới code.",
         "points": [
-          "Nghiên cứu người dùng",
-          "Luồng thật, không lorem ipsum",
-          "Chuẩn responsive"
+          "Không xài mẫu có sẵn",
+          "Luồng thật, không chữ giả",
+          "Chạy tốt trên điện thoại"
         ]
       },
       {
         "title": "Lập trình website",
-        "body": "Frontend, backend, hạ tầng. Cuối mỗi hai tuần có bản demo bấm được.",
+        "body": "Phần nhìn, phần bên trong, máy chủ. Cứ hai tuần bạn lại có một bản bấm thử được.",
         "points": [
           "Next.js / React",
-          "Server, SSL, database",
-          "Kiểm thử trước khi giao"
+          "Máy chủ, SSL, cơ sở dữ liệu",
+          "Kiểm thử xong mới giao"
         ]
       },
       {
-        "title": "Thương mại điện tử & CMS",
-        "body": "Gian hàng bán online và trang tự sửa nội dung, không phải gọi kỹ thuật mỗi lần.",
+        "title": "Bán hàng online & tự sửa nội dung",
+        "body": "Gian hàng bán online, và trang bạn tự đổi chữ đổi ảnh, khỏi gọi kỹ thuật mỗi lần.",
         "points": [
           "Giỏ hàng, thanh toán",
-          "CMS tự quản nội dung",
-          "Tối ưu tốc độ và SEO"
+          "Tự đăng bài, tự đổi ảnh",
+          "Tải nhanh, chuẩn SEO"
         ]
       },
       {
         "title": "Bàn giao & bảo hành",
-        "body": "Mã nguồn, tài liệu, quyền quản trị, đào tạo dùng. Bảo hành sau dự án.",
+        "body": "Mã nguồn, tài liệu, quyền quản trị đều giao hết. Kèm buổi hướng dẫn dùng và bảo hành 12 tháng.",
         "points": [
-          "Bàn giao đầy đủ source code",
+          "Giao đủ mã nguồn",
           "Hướng dẫn sử dụng",
-          "Hỗ trợ bảo hành"
+          "Bảo hành 12 tháng"
         ]
       }
     ]
   },
   "design": {
-    "eyebrow": "UI/UX ngay từ ý tưởng",
-    "title": "Nhìn thấy sản phẩm rồi hãy rót tiền.",
-    "body": "Thuê ngoài thường mở màn bằng một bản yêu cầu và hạ màn bằng một cú bất ngờ. Chúng tôi mở màn bằng giao diện. Designer vào từ buổi đầu, biến ý tưởng thành prototype bấm được, rồi sửa cùng bạn tới khi luồng đúng ý — lúc đó chưa có endpoint backend nào cả. Đổi ý bây giờ là rẻ nhất.",
+    "eyebrow": "Thiết kế trước, code sau",
+    "title": "Nhìn thấy trang rồi hãy trả tiền",
+    "body": "Thuê ngoài hay bắt đầu bằng một tờ yêu cầu rồi kết thúc bằng một bất ngờ. Chúng tôi bắt đầu bằng giao diện. Designer vào từ buổi đầu, dựng bản bấm thử được, sửa cùng bạn tới khi đúng ý. Lúc đó chưa viết dòng code nào nên đổi ý còn rẻ.",
     "steps": [
       {
-        "title": "Bóc ý tưởng",
-        "body": "Bạn kể vấn đề. Chúng tôi vẽ người dùng, việc họ cần làm và đường đi của dòng tiền lên cùng một bảng."
+        "title": "Bóc yêu cầu",
+        "body": "Bạn kể đang vướng gì. Chúng tôi ghi lại ai sẽ dùng, họ cần làm gì, tiền vào ra chỗ nào."
       },
       {
-        "title": "Prototype bấm được",
-        "body": "Màn hình thật, luồng thật, không lorem ipsum. Bạn đi thử như hàng hoàn chỉnh rồi chỉ chỗ sai."
+        "title": "Bản bấm thử được",
+        "body": "Màn hình thật, luồng thật, không chữ giả. Bạn bấm thử như trang hoàn chỉnh rồi chỉ chỗ sai."
       },
       {
-        "title": "Design system",
-        "body": "Luồng duyệt xong, màn hình thành token và component. Sản phẩm dựng ra khớp với prototype."
+        "title": "Chốt bộ giao diện",
+        "body": "Duyệt xong thì màu, chữ, nút được chốt thành một bộ dùng chung, để trang dựng ra giống hệt bản bạn đã duyệt."
       },
       {
-        "title": "Code bám thiết kế",
-        "body": "Kỹ sư dựng đúng màn đã duyệt. Không sửa thiết kế giữa sprint, không có màn 'trên Figma trông khác'."
+        "title": "Code bám bản duyệt",
+        "body": "Kỹ sư dựng đúng màn đã duyệt. Không sửa thiết kế giữa chừng, không có chuyện trên Figma trông khác."
       }
     ]
   },
   "process": {
     "eyebrow": "Cách làm việc",
-    "title": "Bốn bước, không úp mở",
+    "title": "Năm bước, không úp mở",
     "items": [
       {
         "step": "01",
-        "title": "Tư vấn",
+        "title": "Tư vấn và chốt phạm vi",
         "body": "Một buổi 30 phút, thêm bản mô tả ngắn. Chúng tôi quay lại với phạm vi, rủi ro, tiến độ và một con số chốt.",
         "duration": "2–4 ngày"
       },
       {
         "step": "02",
-        "title": "Prototype",
-        "body": "Giao diện bấm được, kèm một mũi thử kỹ thuật đâm vào chỗ rủi ro nhất. Bạn duyệt rồi mới rót tiền cho phần chính.",
+        "title": "Thiết kế giao diện",
+        "body": "Prototype bấm được trên Figma, luồng thật không lorem ipsum. Bạn duyệt rồi mới rót tiền cho phần chính.",
         "duration": "1–2 tuần"
       },
       {
         "step": "03",
         "title": "Xây dựng",
         "body": "Sprint hai tuần. Cuối mỗi sprint có bản demo bấm được. Bảng công việc mở, bạn xem ngày nào cũng được.",
-        "duration": "Liên tục"
+        "duration": "Theo phạm vi"
       },
       {
         "step": "04",
-        "title": "Bàn giao hoặc vận hành",
-        "body": "Chúng tôi bàn giao tài liệu, runbook, đội đã đào tạo. Hoặc ở lại vận hành. Bạn quyết, không phải hợp đồng quyết.",
-        "duration": "Tuỳ bạn"
+        "title": "Kiểm thử và chạy thử",
+        "body": "Dựng staging, cấu hình server, SSL, database. Kiểm thử giao diện, chức năng và API trên cả máy bàn lẫn điện thoại, rồi bạn nghiệm thu trên bản thật.",
+        "duration": "3–5 ngày"
+      },
+      {
+        "step": "05",
+        "title": "Bàn giao và nghiệm thu",
+        "body": "Bàn giao mã nguồn, tài liệu, quyền quản trị, đào tạo sử dụng. Bảo hành 12 tháng, hết hạn thì có gói duy trì nếu bạn muốn.",
+        "duration": "2–3 ngày"
       }
     ]
   },
   "engagement": {
     "eyebrow": "Hợp tác",
-    "title": "Chọn phần rủi ro bạn muốn giữ",
-    "subtitle": "Hai cách làm việc — một đường an toàn nuôi dòng tiền, một đường đặt cược cùng bạn vào kết quả. Chúng tôi nói thẳng cách nào hợp.",
+    "title": "Chọn cách trả hợp với dòng tiền của bạn",
+    "subtitle": "Cùng một phạm vi, khác mỗi cách trả tiền.",
     "items": [
       {
         "name": "Trọn gói theo phạm vi",
@@ -202,16 +208,16 @@
         "cta": "Nhận báo giá"
       },
       {
-        "name": "Cố định cộng chia doanh thu",
-        "best": "Doanh nghiệp nhỏ nhưng tiềm năng cao",
-        "body": "Một khoản cố định, cộng phần chia trên doanh thu. Đội đồng hành dài hạn, lợi ích gắn với kết quả kinh doanh của bạn — kèm bảo hành trọn đời và chăm sóc chủ động.",
+        "name": "Trọn gói trả góp",
+        "best": "Doanh nghiệp đủ sức chi trả nhưng chưa gom đủ tiền mặt lúc đầu",
+        "body": "Cùng phạm vi, cùng chất lượng, cùng bảo hành — chỉ khác cách trả. Trả trước 40% khi ký, phần còn lại chia đều 6 tháng. Bạn không phải chờ gom đủ tiền mới bắt đầu.",
         "points": [
-          "Phí cố định thấp + chia doanh thu",
-          "Đồng hành dài hạn, bảo hành trọn đời",
-          "Lợi ích của đội gắn với doanh thu của bạn",
-          "Chỉ áp dụng khi hai bên tin vào tiềm năng"
+          "Trả trước 40%, còn lại chia đều 6 tháng",
+          "Phụ phí trả chậm 10–15% cộng vào giá, nói rõ từ đầu",
+          "Bảo hành 12 tháng y như trọn gói",
+          "Quyền sở hữu mã nguồn chuyển khi thanh toán đủ"
         ],
-        "cta": "Bàn mô hình đồng hành",
+        "cta": "Xem phương án trả góp",
         "featured": true
       }
     ]
@@ -219,32 +225,32 @@
   "cases": {
     "eyebrow": "Dự án",
     "title": "Những việc chúng tôi được phép kể",
-    "subtitle": "Ba dự án thật làm bằng chứng. Chỗ nào chưa được khách đồng ý công bố thì chúng tôi để nguyên vậy — không trưng điều chưa được phép.",
+    "subtitle": "Bốn dự án đang chạy. Xem đầy đủ ở trang Dự án.",
     "viewAll": "Xem tất cả dự án",
     "items": [
       {
-        "sector": "Học tập & tuyển dụng",
-        "badge": "Toàn quyền công bố",
-        "title": "StarCi Academy — nền tảng học và tuyển dụng",
-        "body": "Hơn 30 mô-đun nghiệp vụ, dựng trong bốn tháng theo lối AI-first.",
+        "sector": "Giáo dục & đào tạo",
+        "badge": "Sản phẩm nhà",
+        "title": "StarCi Academy",
+        "body": "Luyện phỏng vấn, kết quả thành hồ sơ gửi nhà tuyển dụng. Người đi phỏng vấn thường không biết mình yếu chỗ nào cho tới lúc trượt.",
         "metric": "30+",
-        "metricLabel": "mô-đun nghiệp vụ · 4 tháng"
+        "metricLabel": "mô-đun nghiệp vụ · dựng trong 4 tháng"
       },
       {
-        "sector": "Hệ thống nghiệp vụ B2B",
-        "badge": "Chờ khách đồng ý",
-        "title": "Dự án doanh nghiệp đang vận hành",
-        "body": "Dựng trong khoảng 30 ngày làm việc và đang chạy. Tên khách cùng chi tiết chờ thư đồng ý công bố.",
-        "metric": "~30",
-        "metricLabel": "ngày làm việc"
-      },
-      {
-        "sector": "Đối tác doanh nghiệp",
-        "badge": "Đang cập nhật",
+        "sector": "Giáo dục & đào tạo",
+        "badge": "Khách hàng",
         "title": "FTES",
-        "body": "Hồ sơ đang được cập nhật, chờ kiểm tra điều khoản hợp đồng trước khi công bố.",
-        "metric": "—",
-        "metricLabel": "hồ sơ sắp có"
+        "body": "Học để qua môn, cho sinh viên. Trượt một môn là mất tiền học lại và mất luôn một kỳ.",
+        "metric": "8+",
+        "metricLabel": "khóa gắn theo mã môn · kèm app trên CH Play"
+      },
+      {
+        "sector": "Xây dựng & dịch vụ",
+        "badge": "Khách hàng",
+        "title": "Thầu xây dựng Phan Thanh Hòa",
+        "body": "Khách tra được từng công trình đã làm. Chủ nhà xây nhà một lần trong đời nên sợ nhất hai thứ: đội giá và trễ hẹn.",
+        "metric": "500+",
+        "metricLabel": "công trình của khách, dựng thành hồ sơ tra được"
       }
     ]
   },
@@ -258,41 +264,78 @@
     "pendingImage": "Ảnh sắp cập nhật",
     "items": [
       {
-        "category": "Học tập & tuyển dụng",
-        "badge": "Toàn quyền công bố",
+        "category": "Giáo dục & đào tạo",
+        "badge": "Sản phẩm nhà",
         "title": "StarCi Academy",
-        "tagline": "Nền tảng học và tuyển dụng kỹ sư",
-        "body": "Dựng trong bốn tháng theo lối AI-first: hơn 30 mô-đun nghiệp vụ, chấm bài và phỏng vấn thử bằng AI, RAG trên nội dung khoá học, thanh toán và trả góp. Đây cũng là nơi chúng tôi trả giá trước cho mọi ca hỏng mà khách thừa hưởng.",
+        "tagline": "Luyện phỏng vấn, kết quả thành hồ sơ gửi nhà tuyển dụng",
+        "body": "Người đi phỏng vấn thường không biết mình yếu chỗ nào cho tới lúc trượt. StarCi cho luyện và chấm trước, rồi lấy chính kết quả đó dựng thành hồ sơ gửi nhà tuyển dụng — ứng viên khỏi tự khai, bên tuyển có thứ đã kiểm chứng để nhìn.",
         "metric": "30+",
-        "metricLabel": "mô-đun nghiệp vụ",
-        "stack": ["Next.js", "NestJS", "GraphQL", "PostgreSQL", "RAG · pgvector", "Kafka"],
+        "metricLabel": "mô-đun nghiệp vụ · dựng trong 4 tháng",
+        "stack": [
+          "Next.js",
+          "NestJS",
+          "GraphQL",
+          "PostgreSQL",
+          "RAG",
+          "Kafka"
+        ],
         "highlights": [
-          "Chấm bài & phỏng vấn thử bằng AI",
-          "RAG trên tài liệu khoá học",
-          "Thanh toán, trả góp, coin/XP"
+          "Chấm bài và phỏng vấn thử bằng AI",
+          "Hồ sơ ứng viên sinh từ kết quả luyện tập",
+          "Lộ trình theo bốn ngôn ngữ: TypeScript, Java, C#, Go"
+        ],
+        "pending": true
+      },
+      {
+        "category": "Giáo dục & đào tạo",
+        "badge": "Khách hàng",
+        "title": "FTES",
+        "tagline": "Học để qua môn, cho sinh viên",
+        "body": "Trượt một môn là mất tiền học lại và mất luôn một kỳ. FTES bán khóa gắn thẳng vào mã môn của trường — PRF192/193, MAE101, PRO192, MAD101 — nên sinh viên biết chính xác mình đang mua cái gì để qua môn nào, thay vì một khóa lập trình chung chung.",
+        "metric": "8+",
+        "metricLabel": "khóa gắn theo mã môn · kèm app trên CH Play",
+        "image": "/du-an/ftes.jpg",
+        "stack": [
+          "React",
+          "Java"
+        ],
+        "highlights": [
+          "Khóa học gắn theo đúng mã môn của trường",
+          "Tạo lộ trình cá nhân và theo dõi tiến độ",
+          "App di động FrostES đã lên CH Play"
         ]
       },
       {
-        "category": "Nghiệp vụ B2B",
-        "badge": "Chờ khách đồng ý",
-        "title": "Dự án doanh nghiệp",
-        "tagline": "Hệ thống nghiệp vụ cho một doanh nghiệp",
-        "body": "Dựng trong khoảng 30 ngày làm việc và đang chạy. Tên khách hàng, ảnh màn hình và chi tiết kỹ thuật đang chờ thư đồng ý công bố — chúng tôi sẽ mở ngay khi được phép.",
-        "metric": "~30",
-        "metricLabel": "ngày làm việc",
+        "category": "Xây dựng & dịch vụ",
+        "badge": "Khách hàng",
+        "title": "Thầu xây dựng Phan Thanh Hòa",
+        "tagline": "Khách tra được từng công trình đã làm",
+        "body": "Chủ nhà xây nhà một lần trong đời nên sợ nhất hai thứ: đội giá và trễ hẹn. Trang trả lời đúng hai nỗi sợ đó ngay màn đầu, rồi chứng minh bằng hồ sơ từng công trình — có ngày khởi công, ngày bàn giao, tên chủ đầu tư — thay vì một album ảnh không ai tra được.",
+        "metric": "500+",
+        "metricLabel": "công trình của khách, dựng thành hồ sơ tra được",
+        "image": "/du-an/phan-thanh-hoa.jpg",
         "stack": [],
-        "highlights": []
+        "highlights": [
+          "Mỗi công trình một trang hồ sơ có ngày tháng",
+          "Luồng nhận báo giá đặt ngay màn đầu",
+          "Xem được ở cả chế độ sáng và tối"
+        ]
       },
       {
-        "category": "Đối tác",
-        "badge": "Đang cập nhật",
-        "title": "FTES",
-        "tagline": "Đối tác doanh nghiệp",
-        "body": "Hồ sơ đang được cập nhật, chờ kiểm tra điều khoản hợp đồng trước khi công bố.",
-        "metric": "—",
-        "metricLabel": "hồ sơ sắp có",
+        "category": "Xây dựng & dịch vụ",
+        "badge": "Khách hàng",
+        "title": "Công ty Cơ giới Thành Nam",
+        "tagline": "Chốt khách ngay lúc họ đang gấp",
+        "body": "Người cần phá dỡ thường đang gấp và ở thế yếu, sợ bị ép giá rồi phát sinh giữa chừng. Trang chốt bằng ba lời hứa đặt ngay đầu — khảo sát tận nơi trong ngày, báo giá trong ngày, phá dỡ trọn gói — kèm hotline nổi theo màn hình để khách gọi được từ bất kỳ đoạn nào.",
+        "metric": "24/7",
+        "metricLabel": "hotline nổi suốt trang · báo giá trong ngày",
+        "image": "/du-an/thanh-nam.jpg",
         "stack": [],
-        "highlights": []
+        "highlights": [
+          "Hotline và Zalo nổi theo màn hình",
+          "Cảm nhận khách thật và bản đồ khu vực phục vụ",
+          "Blog chia sẻ kinh nghiệm kéo tìm kiếm tự nhiên"
+        ]
       }
     ],
     "ctaTitle": "Dự án của bạn có thể là mục tiếp theo.",
@@ -307,48 +350,60 @@
     "title": "Những câu ai cũng hỏi",
     "items": [
       {
-        "q": "AI viết code rồi thì cần các bạn làm gì?",
-        "a": "Vì AI viết ra code nghe hợp lý, chứ không viết ra hệ thống đúng. Nó sẵn sàng sinh cho bạn một luồng đăng nhập có lỗ hổng. Giá trị của chúng tôi nằm ở vòng review của senior, ở kiến trúc, và ở chỗ có người chịu trách nhiệm. AI chỉ bỏ bớt phần gõ phím."
+        "q": "Làm xong tôi tự sửa nội dung được không?",
+        "a": "Được. Trang có phần quản trị để bạn tự đổi chữ, đổi ảnh, thêm bài. Bàn giao xong có buổi hướng dẫn sử dụng, quay lại màn hình cho bạn xem lại lúc quên."
       },
       {
-        "q": "Code và quyền sở hữu trí tuệ thuộc về ai?",
-        "a": "Thuộc về bạn, từ commit đầu tiên. Chúng tôi làm trên repo và tài khoản cloud của bạn. Không có nền tảng Tedo nào bắt bạn trả tiền dài hạn."
+        "q": "Bao lâu thì tôi thấy được mặt mũi trang?",
+        "a": "Một đến hai tuần đầu bạn đã duyệt được giao diện trên Figma, bấm thử như trang thật. Chưa ưng thì sửa lúc đó, chưa viết dòng code nào nên đổi ý còn rẻ."
       },
       {
-        "q": "Rẻ hơn 50% thì có tệ hơn 50% không?",
-        "a": "Phần tiết kiệm đến từ số giờ không phải gõ tay phần khung. Không phải từ việc đẩy junior vào, cũng không phải từ cắt review. Vẫn chính những senior đó review từng dòng. Cứ bảo chúng tôi mở một PR thật ra mổ ngay trong buổi tư vấn."
+        "q": "Tôi chưa có nội dung và hình ảnh thì sao?",
+        "a": "Bình thường, phần lớn khách đều vậy. Chúng tôi dựng trước bằng nội dung mẫu đúng cấu trúc, rồi đưa bạn danh sách cần chuẩn bị. Cần thì giới thiệu người chụp ảnh và viết bài."
       },
       {
-        "q": "Nếu đội không hợp thì sao?",
-        "a": "Dedicated Team có hai tuần thử. Bạn được đổi người, không chịu phạt. Nếu chúng tôi không hợp với bài toán của bạn, chúng tôi nói ngay buổi đầu."
+        "q": "Rẻ hơn chỗ khác thì có kém hơn không?",
+        "a": "Chỗ gọn đi là số giờ không phải gõ tay, không phải chỗ cắt người hay bỏ vòng review. Vẫn kỹ sư senior soi từng dòng. Bạn cứ bảo chúng tôi mở một pull request thật ra mổ ngay trong buổi tư vấn."
       },
       {
-        "q": "Có ký NDA và xử lý dữ liệu nhạy cảm không?",
-        "a": "Có. Ký NDA trước buổi tư vấn nếu bạn muốn. Với mảng chịu quản lý chặt, chúng tôi bóc riêng phần xử lý dữ liệu, phân quyền và nhật ký audit. Và sẽ nói thẳng khi một yêu cầu nằm ngoài phạm vi chúng tôi nên nhận."
+        "q": "Web có tự lên Google không?",
+        "a": "Không tự. Chúng tôi dựng đúng chuẩn kỹ thuật để Google đọc được, tốc độ tải nhanh, có sơ đồ trang. Còn lên hạng thì cần nội dung đều và thời gian, ai hứa top ngay là hứa liều."
+      },
+      {
+        "q": "Không hài lòng thì sao?",
+        "a": "Mỗi giai đoạn đều có mốc duyệt, bạn gật rồi mới đi tiếp, nên khó dồn tới cuối mới phát hiện lệch. Phần thiết kế sửa tới khi bạn ưng mới code."
+      },
+      {
+        "q": "Hết bảo hành rồi ai lo?",
+        "a": "Có gói duy trì hằng năm nếu bạn muốn, gồm hạ tầng, vá bảo mật, sao lưu và hỗ trợ. Không mua cũng không sao, mã nguồn là của bạn, đội khác tiếp quản được."
+      },
+      {
+        "q": "Code thuộc về ai?",
+        "a": "Của bạn, từ commit đầu tiên. Chúng tôi làm trên repo và tài khoản cloud của bạn. Không có nền tảng nào của chúng tôi bắt bạn trả tiền dài hạn."
       }
     ]
   },
   "contact": {
     "eyebrow": "Bước tiếp theo",
-    "title": "Kể chúng tôi nghe bạn đang xây gì.",
-    "subtitle": "Một buổi, 30 phút. Bạn cầm về phạm vi công việc, tiến độ và một con số — có hợp tác hay không cũng vậy.",
+    "title": "Kể chúng tôi nghe bạn đang cần gì",
+    "subtitle": "Một buổi 30 phút. Xong bạn cầm về phạm vi công việc, tiến độ và một con số. Thuê hay không, tuỳ bạn.",
     "form": {
       "name": "Tên của bạn",
       "namePlaceholder": "Nguyễn Văn A",
-      "email": "Email công việc",
+      "email": "Email",
       "emailPlaceholder": "an@congty.com",
-      "company": "Công ty",
+      "company": "Công ty (không bắt buộc)",
       "companyPlaceholder": "Công ty ABC",
-      "service": "Bạn cần gì?",
+      "service": "Bạn cần làm gì?",
       "serviceOptions": [
-        "Phát triển sản phẩm web & mobile",
-        "Dedicated Team / staff augmentation",
-        "Cloud & DevOps",
-        "Tích hợp AI & LLM",
-        "Chưa rõ"
+        "Website giới thiệu công ty",
+        "Bán hàng online, tự sửa nội dung",
+        "Phần mềm quản lý việc trong nhà",
+        "Làm lại trang đang có",
+        "Chưa rõ, cần tư vấn"
       ],
-      "message": "Bạn đang xây cái gì?",
-      "messagePlaceholder": "Một hai câu là đủ. Vấn đề là gì, và thế nào thì coi là xong?",
+      "message": "Kể ngắn gọn bạn đang vướng gì",
+      "messagePlaceholder": "Một hai câu là đủ. Chưa rõ yêu cầu cũng không sao, chúng tôi bóc cùng bạn.",
       "submit": "Gửi",
       "submitting": "Đang gửi…",
       "success": "Đã nhận. Chúng tôi phản hồi trong một ngày làm việc.",
@@ -385,5 +440,102 @@
     "taxId": "0402322261",
     "addressLabel": "Địa chỉ",
     "address": "85 Giáp Văn Cương, Phường Hòa Khánh, Thành phố Đà Nẵng, Việt Nam"
+  },
+  "fit": {
+    "eyebrow": "Có hợp không",
+    "title": "Ai nên thuê, ai đừng",
+    "subtitle": "Nói trước cho đỡ mất thời gian hai bên.",
+    "yesTitle": "Hợp nếu bạn",
+    "yes": [
+      "Không muốn xài giao diện có sẵn, muốn làm riêng theo brand",
+      "Có website rồi mà không ra khách, muốn làm lại cho tử tế",
+      "Cần phần mềm quản lý việc trong nhà, không chỉ trang giới thiệu",
+      "Chưa rõ mình muốn gì cũng được, chúng tôi bóc yêu cầu cùng bạn"
+    ],
+    "noTitle": "Chưa hợp nếu bạn",
+    "no": [
+      "Cần web gấp trong vài ngày",
+      "Ngân sách dưới 10 triệu, ưu tiên rẻ nhất có thể",
+      "Muốn copy nguyên một trang có sẵn, không cần làm riêng"
+    ],
+    "note": "Việc nhỏ hơn chúng tôi vẫn nhận, báo giá riêng sau khi nghe yêu cầu."
+  },
+  "pricing": {
+    "eyebrow": "Chi phí",
+    "title": "Khoảng giá, nói trước cho dễ tính",
+    "subtitle": "Con số dưới đây là khoảng tham khảo, chốt chính xác ở buổi tư vấn. Báo giá bao nhiêu trả bấy nhiêu, làm giữa chừng không phát sinh thêm.",
+    "tiers": [
+      {
+        "name": "Thương mại điện tử & CMS",
+        "price": "25 – 60 triệu",
+        "time": "4 – 8 tuần",
+        "body": "Gian hàng bán online, trang tự sửa nội dung, giỏ hàng và thanh toán.",
+        "points": [
+          "Thiết kế riêng theo brand",
+          "CMS tự quản nội dung",
+          "Tối ưu tốc độ và SEO"
+        ]
+      },
+      {
+        "name": "Hệ thống nghiệp vụ riêng",
+        "price": "50 – 100 triệu",
+        "time": "Theo phạm vi",
+        "body": "Phần mềm quản lý việc trong nhà: quy trình, phân quyền, báo cáo, nhật ký thao tác.",
+        "points": [
+          "Phân quyền theo vai trò",
+          "Báo cáo và nhật ký kiểm toán",
+          "Sao lưu và khôi phục"
+        ],
+        "featured": true
+      }
+    ],
+    "includedTitle": "Giá đã gồm",
+    "included": [
+      "Thiết kế giao diện",
+      "Lập trình",
+      "Kiểm thử",
+      "Bàn giao mã nguồn",
+      "Bảo hành 12 tháng"
+    ],
+    "excludedTitle": "Chưa gồm",
+    "excluded": [
+      "Máy chủ và tên miền trả cho nhà cung cấp",
+      "Nội dung và hình ảnh nếu bạn chưa có"
+    ],
+    "instalmentTitle": "Chưa gom đủ tiền một lần?",
+    "instalmentBody": "Trả trước 40% khi ký, phần còn lại chia đều 6 tháng. Phụ phí trả chậm nói rõ từ đầu.",
+    "savingNote": "Chi phí gọn hơn là vì bạn không trả giờ cho phần máy gõ được, chứ không phải vì cắt người hay bỏ vòng kiểm. Chúng tôi bóc phép tính cho bạn xem ngay trong buổi tư vấn.",
+    "cta": "Nhận báo giá cho việc của bạn"
+  },
+  "aftercare": {
+    "eyebrow": "Sau bàn giao",
+    "title": "Giao xong vẫn còn người nghe máy",
+    "subtitle": "Chỗ khách lo nhất, nên nói bằng con số.",
+    "items": [
+      {
+        "value": "12 tháng",
+        "title": "Bảo hành miễn phí",
+        "body": "Tính từ ngày ký nghiệm thu. Bảo đảm hệ thống chạy, bảo mật, sao lưu hằng ngày, tư vấn và đào tạo sử dụng."
+      },
+      {
+        "value": "12 giờ",
+        "title": "Tiếp nhận sự cố",
+        "body": "Chậm nhất 12 giờ kể từ lúc bạn báo. Nhận qua email, chat, hotline, Zalo hoặc biểu mẫu."
+      },
+      {
+        "value": "48 giờ",
+        "title": "Xác minh nguyên nhân",
+        "body": "Chậm nhất 48 giờ. Sau đó đề xuất phương án, xử lý theo thời gian hai bên thống nhất rồi báo cáo kết quả."
+      },
+      {
+        "value": "Tuỳ bạn",
+        "title": "Gói duy trì",
+        "body": "Hết 12 tháng có thể tiếp tục với gói duy trì hằng năm, gồm hạ tầng, vá lỗi bảo mật, sao lưu và hỗ trợ. Không bắt buộc."
+      }
+    ]
+  },
+  "stickyCta": {
+    "ask": "Hỏi nhanh về giá",
+    "book": "Đặt lịch tư vấn"
   }
 }

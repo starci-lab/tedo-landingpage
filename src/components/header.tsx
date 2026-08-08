@@ -61,7 +61,7 @@ export function Header() {
                         ))}
                     </div>
 
-                    <CtaLink href="#contact" size="sm">
+                    <CtaLink href="#contact" size="md">
                         {t("contact")}
                     </CtaLink>
                 </div>

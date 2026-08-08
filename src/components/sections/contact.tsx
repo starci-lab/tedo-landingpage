@@ -92,6 +92,7 @@ export function Contact() {
                                 >
                                     <Label>{tf("name")}</Label>
                                     <Input
+                                        className="h-11"
                                         placeholder={tf("namePlaceholder")}
                                     />
                                 </TextField>
@@ -104,6 +105,7 @@ export function Contact() {
                                 >
                                     <Label>{tf("email")}</Label>
                                     <Input
+                                        className="h-11"
                                         placeholder={tf("emailPlaceholder")}
                                     />
                                 </TextField>
@@ -115,6 +117,7 @@ export function Contact() {
                             >
                                 <Label>{tf("company")}</Label>
                                 <Input
+                                    className="h-11"
                                     placeholder={tf("companyPlaceholder")}
                                 />
                             </TextField>

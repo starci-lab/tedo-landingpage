@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Container, CtaLink, Eyebrow } from "../ui"
+import { AskPriceButton } from "../ask-price-button"
 import { Hero3DVisual } from "../hero-3d-visual"
 
 type Proof = { tag: string; name: string; meta: string }
@@ -25,7 +26,7 @@ export function Hero() {
                     </p>
 
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-                        <CtaLink href="#contact">{t("ctaPrimary")}</CtaLink>
+                        <AskPriceButton />
                         <CtaLink href="#cases" variant="outline">
                             {t("ctaSecondary")}
                         </CtaLink>

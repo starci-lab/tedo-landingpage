@@ -174,3 +174,43 @@ body {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PRINT — proposal documents (`/admin/bao-gia/preview`, later `/bao-gia/[token]`).
+   The browser's own "Save as PDF" is the exporter, so these rules ARE the PDF
+   settings: A4 with zero page margin (the sheet carries its own padding), one
+   `.quote-page` per physical sheet, and colour printing forced on so the brand
+   blocks do not come out as empty white boxes.
+   ───────────────────────────────────────────────────────────────────────────── */
+@page {
+    size: A4;
+    margin: 0;
+}
+
+@media print {
+    html,
+    body {
+        background: #fff;
+    }
+
+    /* Backgrounds and dark blocks are content here, not decoration — without this
+       most browsers drop them and the total-investment panel prints as a void. */
+    .quote-root,
+    .quote-root * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .quote-page {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none;
+        break-after: page;
+        break-inside: avoid;
+    }
+
+    .quote-page:last-child {
+        break-after: auto;
+    }
+}

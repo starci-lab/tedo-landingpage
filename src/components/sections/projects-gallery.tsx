@@ -16,6 +16,17 @@ type Project = {
     metricLabel: string
     stack: string[]
     highlights: string[]
+    /** Path under `public/`. Omitted while a project has no shot we may publish. */
+    image?: string
+    /**
+     * `true` shows the "ảnh sắp cập nhật" note.
+     *
+     * Its own flag on purpose: this used to be inferred from `stack.length === 0`,
+     * which quietly mislabels any finished project whose stack we chose not to list —
+     * and per `biz.md` the cards now lead with the business problem, so an empty
+     * stack is a normal editorial choice rather than a sign of missing work.
+     */
+    pending?: boolean
 }
 
 /**
@@ -130,22 +141,33 @@ function ProjectCard({
     const initial = project.title.charAt(0)
     return (
         <article className="flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-[0_24px_50px_-40px_rgba(20,48,92,0.5)]">
-            {/* image placeholder — swap for a real screenshot when available */}
             <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand-soft to-surface-2">
-                <div className="tedo-dots absolute inset-0 opacity-40" />
-                <span
-                    aria-hidden
-                    className="absolute inset-0 grid place-items-center font-display text-7xl font-extrabold text-brand/15"
-                >
-                    {initial}
-                </span>
+                {project.image ? (
+                    <img
+                        src={project.image}
+                        alt={`Giao diện ${project.title}`}
+                        loading="lazy"
+                        decoding="async"
+                        className="absolute inset-0 h-full w-full object-cover"
+                    />
+                ) : (
+                    <>
+                        <div className="tedo-dots absolute inset-0 opacity-40" />
+                        <span
+                            aria-hidden
+                            className="absolute inset-0 grid place-items-center font-display text-7xl font-extrabold text-brand/15"
+                        >
+                            {initial}
+                        </span>
+                    </>
+                )}
                 <span className="absolute left-4 top-4">
                     <Chip size="sm" variant="secondary">
                         {project.badge}
                     </Chip>
                 </span>
-                {project.stack.length === 0 && (
-                    <span className="absolute bottom-3 right-4 font-mono text-[11px] uppercase tracking-wide text-ink-faint">
+                {project.pending && (
+                    <span className="absolute bottom-3 right-4 rounded bg-white/85 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-ink-faint">
                         {pendingImage}
                     </span>
                 )}

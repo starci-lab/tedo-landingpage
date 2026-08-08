@@ -12,6 +12,19 @@ import { Link } from "@/i18n/routing"
 
 type Msg = { role: "user" | "assistant"; content: string }
 
+/**
+ * Opens the quote chat from anywhere on the page. No-op during server render.
+ *
+ * The event name is written out at both ends rather than shared through a module
+ * constant: a `"use client"` module that exports plain values as well as
+ * components hands the bundler an extra binding to resolve across the
+ * server/client boundary, and it fell over at runtime here while type-checking
+ * clean. One short string in two places is the cheaper trade.
+ */
+export function openQuoteChat() {
+    if (typeof window !== "undefined") window.dispatchEvent(new Event("tedo:open-chat"))
+}
+
 export function ChatWidget() {
     const t = useTranslations("chat")
     const suggestions = t.raw("suggestions") as Array<string>
@@ -27,6 +40,19 @@ export function ChatWidget() {
     useEffect(() => {
         scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" })
     }, [messages, open])
+
+    /**
+     * Lets any CTA on the page open the quote chat — the sticky bar and the hero
+     * button both fire `tedo:open-chat`. A window event rather than lifted state
+     * because the widget is mounted once in the layout while the callers are
+     * scattered across server-rendered sections; threading a setter through them
+     * would force the whole tree client-side for one boolean.
+     */
+    useEffect(() => {
+        const openChat = () => setOpen(true)
+        window.addEventListener("tedo:open-chat", openChat)
+        return () => window.removeEventListener("tedo:open-chat", openChat)
+    }, [])
 
     async function send(text: string) {
         const content = text.trim()

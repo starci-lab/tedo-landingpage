@@ -67,7 +67,7 @@ export function Cases() {
             <div className="mt-8">
                 <Link
                     href="/du-an"
-                    className="group inline-flex items-center gap-1.5 font-medium text-brand transition-colors hover:text-brand-deep"
+                    className="group -mx-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 font-medium text-brand transition-colors hover:text-brand-deep"
                 >
                     {t("viewAll")}
                     <span
