@@ -27,12 +27,12 @@
       {
         "value": "Tối ưu",
         "label": "Chi phí",
-        "detail": "Vẫn đội senior đó, nhưng bạn không phải trả giờ cho phần khung mà máy gõ được."
+        "detail": "Vẫn là đội ngũ senior, nhưng bạn không phải trả tiền cho những phần lặp lại mà máy có thể làm."
       },
       {
         "value": "Gấp đôi",
         "label": "Tốc độ",
-        "detail": "Trang nhiều biểu mẫu thì nhanh gần gấp đôi. Việc nặng nghiên cứu thì ít hơn. Tư vấn đầu tuần, cuối sprint đã có bản chạy được."
+        "detail": "Với những trang nhiều biểu mẫu, thời gian làm có thể gần như giảm một nửa. Đầu tuần thống nhất yêu cầu, cuối sprint đã có bản chạy thử."
       },
       {
         "value": "Ngày 1",
@@ -42,23 +42,23 @@
       {
         "value": "100%",
         "label": "Sở hữu",
-        "detail": "Mã nguồn, máy chủ, tài khoản đều đứng tên bạn. Bỏ chúng tôi lúc nào cũng được, đội khác tiếp quản được ngay."
+        "detail": "Mã nguồn, máy chủ và tài khoản đều đứng tên bạn. Bạn có thể đổi đội bất cứ lúc nào; đội mới vẫn tiếp quản được ngay."
       }
     ],
-    "footnote": "Con số tốc độ so với chính phạm vi đó khi làm theo cách truyền thống. Chúng tôi bóc phép tính cho bạn xem ngay trong buổi tư vấn."
+    "footnote": "Tốc độ trên được so với cùng một phạm vi khi làm theo cách truyền thống. TEDO sẽ giải thích cách tính trong buổi tư vấn."
   },
   "aiFirst": {
     "eyebrow": "AI-first",
     "title": "AI làm gì trong dự án của bạn",
-    "subtitle": "Nói cho dễ hiểu: máy làm phần lặp đi lặp lại, người làm phần dễ sai.",
+    "subtitle": "Nói đơn giản: máy xử lý phần lặp lại, con người quyết định những phần quan trọng.",
     "items": [
       {
-        "title": "Máy gõ phần khung, người quyết phần khó",
-        "body": "Mấy đoạn code lặp đi lặp lại thì máy dựng trong vài phút. Còn chọn cách làm, chuyện bảo mật, chỗ nào dễ vỡ thì kỹ sư senior quyết. Sai mấy chỗ đó mới là mất tiền."
+        "title": "Máy làm phần lặp lại, người quyết phần khó",
+        "body": "Những đoạn code lặp lại có thể được dựng trong vài phút. Còn cách triển khai, bảo mật và những điểm dễ phát sinh lỗi vẫn do kỹ sư senior quyết định."
       },
       {
-        "title": "Máy soi lỗi trước, người soi sau",
-        "body": "Mỗi lần sửa code đều chạy qua một vòng kiểm tự động: lỗi cú pháp, lỗ hổng bảo mật, thư viện quá cũ. Người review bắt đầu từ chỗ máy dừng lại."
+        "title": "Máy kiểm tra trước, người xem lại sau",
+        "body": "Mỗi thay đổi đều được kiểm tra tự động về cú pháp, bảo mật và thư viện cũ. Sau đó kỹ sư review những phần cần kinh nghiệm và phán đoán."
       },
       {
         "title": "Đổi yêu cầu là biết ngay vỡ chỗ nào",
@@ -77,9 +77,9 @@
     "items": [
       {
         "title": "Thiết kế giao diện",
-        "body": "Thiết kế riêng theo thương hiệu của bạn. Bạn xem và góp ý trên bản bấm thử trước khi chúng tôi viết code.",
+        "body": "Thiết kế riêng theo thương hiệu của bạn. Bạn xem và góp ý trên bản mẫu có thể dùng thử trước khi chúng tôi viết code.",
         "points": [
-          "Không xài mẫu có sẵn",
+          "Không dùng mẫu có sẵn",
           "Luồng thật, không chữ giả",
           "Chạy tốt trên điện thoại"
         ]
@@ -95,7 +95,7 @@
       },
       {
         "title": "Bán hàng online & tự sửa nội dung",
-        "body": "Gian hàng bán online, và trang bạn tự đổi chữ đổi ảnh, khỏi gọi kỹ thuật mỗi lần.",
+        "body": "Gian hàng bán online và trang quản trị để bạn tự thay đổi nội dung, không phải nhờ kỹ thuật mỗi lần.",
         "points": [
           "Giỏ hàng, thanh toán",
           "Tự đăng bài, tự đổi ảnh",
@@ -104,7 +104,7 @@
       },
       {
         "title": "Bàn giao & bảo hành",
-        "body": "Mã nguồn, tài liệu, quyền quản trị đều giao hết. Kèm buổi hướng dẫn dùng và bảo hành 12 tháng.",
+        "body": "Bàn giao đầy đủ mã nguồn, tài liệu và quyền quản trị, kèm một buổi hướng dẫn sử dụng và 12 tháng bảo hành.",
         "points": [
           "Giao đủ mã nguồn",
           "Hướng dẫn sử dụng",
@@ -119,55 +119,55 @@
     "body": "Nhiều dự án bắt đầu bằng một bản yêu cầu và chỉ đến lúc chạy mới biết không đúng ý. TEDO làm ngược lại: cùng bạn dựng giao diện và luồng sử dụng trước, góp ý đến khi ổn rồi mới viết code. Phát hiện điều cần sửa sớm luôn nhẹ nhàng và ít tốn kém hơn.",
     "steps": [
       {
-        "title": "Bóc yêu cầu",
-        "body": "Bạn kể đang vướng gì. Chúng tôi ghi lại ai sẽ dùng, họ cần làm gì, tiền vào ra chỗ nào."
+        "title": "Làm rõ nhu cầu",
+        "body": "Bạn kể mục tiêu và điều đang vướng. Chúng tôi cùng bạn làm rõ ai sẽ dùng, họ cần làm gì và quy trình vận hành ra sao."
       },
       {
-        "title": "Bản bấm thử được",
-        "body": "Màn hình thật, luồng thật, không chữ giả. Bạn bấm thử như trang hoàn chỉnh rồi chỉ chỗ sai."
+        "title": "Bản mẫu có thể dùng thử",
+        "body": "Màn hình và luồng sử dụng đều được dựng gần như thật. Bạn tự bấm thử rồi góp ý ngay những chỗ chưa ổn."
       },
       {
         "title": "Chốt bộ giao diện",
         "body": "Duyệt xong thì màu, chữ, nút được chốt thành một bộ dùng chung, để trang dựng ra giống hệt bản bạn đã duyệt."
       },
       {
-        "title": "Code bám bản duyệt",
-        "body": "Kỹ sư dựng đúng màn đã duyệt. Không sửa thiết kế giữa chừng, không có chuyện trên Figma trông khác."
+        "title": "Lập trình theo bản đã duyệt",
+        "body": "Kỹ sư triển khai theo giao diện đã thống nhất. Bản chạy thật sẽ bám sát bản mẫu, không để Figma một kiểu còn sản phẩm một kiểu."
       }
     ]
   },
   "process": {
     "eyebrow": "Cách làm việc",
-    "title": "Năm bước, không úp mở",
+    "title": "Năm bước, rõ ràng từ đầu",
     "items": [
       {
         "step": "01",
         "title": "Tư vấn và chốt phạm vi",
-        "body": "Một buổi 30 phút, thêm bản mô tả ngắn. Chúng tôi quay lại với phạm vi, rủi ro, tiến độ và một con số chốt.",
+        "body": "Một buổi 30 phút và một bản mô tả ngắn. Sau đó TEDO gửi lại phạm vi công việc, rủi ro, tiến độ và mức giá dự kiến.",
         "duration": "2–4 ngày"
       },
       {
         "step": "02",
         "title": "Thiết kế giao diện",
-        "body": "Prototype bấm được trên Figma, luồng thật không lorem ipsum. Bạn duyệt rồi mới rót tiền cho phần chính.",
+        "body": "Bản mẫu có thể bấm thử trên Figma, dùng nội dung và luồng gần như thật. Bạn duyệt xong rồi mới triển khai phần chính.",
         "duration": "1–2 tuần"
       },
       {
         "step": "03",
         "title": "Xây dựng",
-        "body": "Sprint hai tuần. Cuối mỗi sprint có bản demo bấm được. Bảng công việc mở, bạn xem ngày nào cũng được.",
+        "body": "Mỗi sprint kéo dài khoảng hai tuần và kết thúc bằng một bản demo có thể dùng thử. Bạn có thể theo dõi bảng công việc bất cứ lúc nào.",
         "duration": "Theo phạm vi"
       },
       {
         "step": "04",
         "title": "Kiểm thử và chạy thử",
-        "body": "Dựng staging, cấu hình server, SSL, database. Kiểm thử giao diện, chức năng và API trên cả máy bàn lẫn điện thoại, rồi bạn nghiệm thu trên bản thật.",
+        "body": "TEDO dựng môi trường chạy thử, cấu hình máy chủ, SSL và cơ sở dữ liệu. Sau đó kiểm tra giao diện, chức năng và API trên máy tính lẫn điện thoại trước khi nghiệm thu.",
         "duration": "3–5 ngày"
       },
       {
         "step": "05",
         "title": "Bàn giao và nghiệm thu",
-        "body": "Bàn giao mã nguồn, tài liệu, quyền quản trị, đào tạo sử dụng. Bảo hành 12 tháng, hết hạn thì có gói duy trì nếu bạn muốn.",
+        "body": "Bàn giao mã nguồn, tài liệu và quyền quản trị, kèm hướng dẫn sử dụng. Bảo hành 12 tháng; sau đó bạn có thể đăng ký gói duy trì nếu cần.",
         "duration": "2–3 ngày"
       }
     ]
@@ -491,13 +491,13 @@
   },
   "aftercare": {
     "eyebrow": "Sau bàn giao",
-    "title": "Giao xong vẫn còn người nghe máy",
-    "subtitle": "Chỗ khách lo nhất, nên nói bằng con số.",
+    "title": "Bàn giao rồi vẫn có người hỗ trợ",
+    "subtitle": "Thời gian phản hồi và phạm vi hỗ trợ đều được nói rõ.",
     "items": [
       {
         "value": "12 tháng",
         "title": "Bảo hành miễn phí",
-        "body": "Tính từ ngày ký nghiệm thu. Bảo đảm hệ thống chạy, bảo mật, sao lưu hằng ngày, tư vấn và đào tạo sử dụng."
+        "body": "Tính từ ngày ký nghiệm thu. TEDO hỗ trợ các vấn đề về vận hành, bảo mật, sao lưu, tư vấn và hướng dẫn sử dụng."
       },
       {
         "value": "12 giờ",
