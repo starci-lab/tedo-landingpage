@@ -20,24 +20,6 @@
     "ctaPrimary": "Hỏi nhanh về dự án",
     "ctaSecondary": "Xem dự án đã làm",
     "note": "Giao mã nguồn · Báo giá trước khi làm · Bảo hành 12 tháng",
-    "proofLabel": "Đã dựng & vận hành",
-    "proof": [
-      {
-        "tag": "Nền tảng học · tuyển dụng",
-        "name": "StarCi Academy",
-        "meta": "4 tháng · 30+ mô-đun nghiệp vụ · đang vận hành"
-      },
-      {
-        "tag": "Nền tảng học cho sinh viên",
-        "name": "FTES",
-        "meta": "Khóa gắn theo mã môn · app đã lên CH Play"
-      },
-      {
-        "tag": "Nhà thầu xây dựng",
-        "name": "Phan Thanh Hòa",
-        "meta": "Hồ sơ từng công trình · nhận báo giá ngay trên trang"
-      }
-    ]
   },
   "metrics": {
     "title": "Mô hình AI-first mang lại gì",

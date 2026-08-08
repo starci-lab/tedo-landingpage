@@ -3,11 +3,8 @@ import { Container, CtaLink, Eyebrow } from "../ui"
 import { AskPriceButton } from "../ask-price-button"
 import { Hero3DVisual } from "../hero-3d-visual"
 
-type Proof = { tag: string; name: string; meta: string }
-
 export function Hero() {
     const t = useTranslations("hero")
-    const proof = t.raw("proof") as Array<Proof>
 
     return (
         <section className="relative overflow-hidden">
@@ -32,24 +29,6 @@ export function Hero() {
                         </CtaLink>
                     </div>
 
-                    {/* slim proof line — full detail lives in the projects gallery */}
-                    <div className="mt-8 border-t border-line pt-5">
-                        <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">
-                            {t("proofLabel")}
-                        </p>
-                        <p className="mt-2 flex flex-wrap items-center gap-x-2.5 gap-y-1 font-display text-sm font-semibold text-ink">
-                            {proof.map((item, i) => (
-                                <span key={item.name} className="flex items-center gap-2.5">
-                                    {i > 0 && (
-                                        <span aria-hidden className="text-line-strong">
-                                            ·
-                                        </span>
-                                    )}
-                                    {item.name}
-                                </span>
-                            ))}
-                        </p>
-                    </div>
                 </div>
 
                 {/* ---- 3D system visual (right on desktop, top on mobile) ---- */}
