@@ -14,10 +14,10 @@
   },
   "hero": {
     "eyebrow": "Dịch vụ thiết kế & lập trình website",
-    "title": "Chưa biết mình muốn gì, vẫn báo giá được.",
-    "titleAccent": "Báo bao nhiêu trả bấy nhiêu.",
-    "subtitle": "Chi phí tối ưu, làm nhanh gấp đôi, nhờ áp dụng quy trình AI-first.",
-    "ctaPrimary": "Hỏi nhanh về giá",
+    "title": "Chưa rõ nên bắt đầu từ đâu? Cứ nói chuyện trước.",
+    "titleAccent": "Rõ việc rồi mới chốt giá.",
+    "subtitle": "TEDO giúp bạn làm rõ nhu cầu, xem trước giao diện rồi mới bắt tay vào code.",
+    "ctaPrimary": "Hỏi nhanh về dự án",
     "ctaSecondary": "Xem dự án đã làm",
     "note": "Giao mã nguồn · Báo giá trước khi làm · Bảo hành 12 tháng",
     "proofLabel": "Đã dựng & vận hành",
@@ -91,11 +91,11 @@
   "services": {
     "eyebrow": "Dịch vụ",
     "title": "Làm website từ đầu tới cuối",
-    "subtitle": "Thiết kế, lập trình, bàn giao. Một đầu mối.",
+    "subtitle": "Từ ý tưởng đến lúc chạy thật, bạn chỉ cần làm việc với một đội.",
     "items": [
       {
         "title": "Thiết kế giao diện",
-        "body": "Giao diện riêng theo brand của bạn. Bản bấm thử được trên Figma, bạn duyệt rồi mới code.",
+        "body": "Thiết kế riêng theo thương hiệu của bạn. Bạn xem và góp ý trên bản bấm thử trước khi chúng tôi viết code.",
         "points": [
           "Không xài mẫu có sẵn",
           "Luồng thật, không chữ giả",
@@ -104,7 +104,7 @@
       },
       {
         "title": "Lập trình website",
-        "body": "Phần nhìn, phần bên trong, máy chủ. Cứ hai tuần bạn lại có một bản bấm thử được.",
+        "body": "Từ giao diện đến phần vận hành bên trong. Cứ mỗi hai tuần, bạn lại có một bản mới để xem và dùng thử.",
         "points": [
           "Next.js / React",
           "Máy chủ, SSL, cơ sở dữ liệu",
@@ -133,8 +133,8 @@
   },
   "design": {
     "eyebrow": "Thiết kế trước, code sau",
-    "title": "Nhìn thấy trang rồi hãy trả tiền",
-    "body": "Thuê ngoài hay bắt đầu bằng một tờ yêu cầu rồi kết thúc bằng một bất ngờ. Chúng tôi bắt đầu bằng giao diện. Designer vào từ buổi đầu, dựng bản bấm thử được, sửa cùng bạn tới khi đúng ý. Lúc đó chưa viết dòng code nào nên đổi ý còn rẻ.",
+    "title": "Xem đúng giao diện rồi mới làm tiếp",
+    "body": "Nhiều dự án bắt đầu bằng một bản yêu cầu và chỉ đến lúc chạy mới biết không đúng ý. TEDO làm ngược lại: cùng bạn dựng giao diện và luồng sử dụng trước, góp ý đến khi ổn rồi mới viết code. Phát hiện điều cần sửa sớm luôn nhẹ nhàng và ít tốn kém hơn.",
     "steps": [
       {
         "title": "Bóc yêu cầu",
@@ -462,8 +462,8 @@
   },
   "pricing": {
     "eyebrow": "Chi phí",
-    "title": "Khoảng giá, nói trước cho dễ tính",
-    "subtitle": "Con số dưới đây là khoảng tham khảo, chốt chính xác ở buổi tư vấn. Báo giá bao nhiêu trả bấy nhiêu, làm giữa chừng không phát sinh thêm.",
+    "title": "Khoảng giá để bạn dễ dự trù",
+    "subtitle": "Đây là mức tham khảo; sau khi hiểu rõ nhu cầu, TEDO sẽ chốt phạm vi và báo giá cụ thể. Có gì làm nấy, phần phát sinh được trao đổi trước.",
     "tiers": [
       {
         "name": "Thương mại điện tử & CMS",
@@ -504,8 +504,8 @@
     ],
     "instalmentTitle": "Chưa gom đủ tiền một lần?",
     "instalmentBody": "Trả trước 40% khi ký, phần còn lại chia đều 6 tháng. Phụ phí trả chậm nói rõ từ đầu.",
-    "savingNote": "Chi phí gọn hơn là vì bạn không trả giờ cho phần máy gõ được, chứ không phải vì cắt người hay bỏ vòng kiểm. Chúng tôi bóc phép tính cho bạn xem ngay trong buổi tư vấn.",
-    "cta": "Nhận báo giá cho việc của bạn"
+    "savingNote": "Chi phí hợp lý hơn nhờ dùng AI cho những phần lặp lại, còn các quyết định quan trọng vẫn do người có kinh nghiệm kiểm tra. TEDO sẽ giải thích rõ cách tính trong buổi tư vấn.",
+    "cta": "Nhận tư vấn cho dự án của bạn"
   },
   "aftercare": {
     "eyebrow": "Sau bàn giao",
