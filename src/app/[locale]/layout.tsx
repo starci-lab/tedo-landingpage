@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import { Outfit, Work_Sans } from "next/font/google"
+import { Be_Vietnam_Pro } from "next/font/google"
 import { hasLocale, NextIntlClientProvider } from "next-intl"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { routing } from "@/i18n/routing"
@@ -8,16 +8,16 @@ import { SkyBackground } from "@/components/sky-background"
 import { ChatWidget } from "@/components/chat-widget"
 import "../globals.css"
 
-// Outfit carries the display voice (geometric, confident); Work Sans keeps body
-// copy calm and readable. Exposed as CSS variables the @theme font tokens map to.
-const display = Outfit({
+// Be Vietnam Pro supports Vietnamese diacritics well in both headings and body
+// copy. Exposed as CSS variables so the @theme font tokens use the same family.
+const display = Be_Vietnam_Pro({
     subsets: ["latin", "latin-ext"],
     variable: "--font-display",
     weight: ["400", "500", "600", "700", "800"],
     display: "swap",
 })
 
-const body = Work_Sans({
+const body = Be_Vietnam_Pro({
     subsets: ["latin", "latin-ext"],
     variable: "--font-sans",
     weight: ["300", "400", "500", "600", "700"],
