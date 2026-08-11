@@ -9,6 +9,7 @@ import type { DiscoveryQuestion } from "@/lib/consultation/types"
 import { Wordmark } from "@/components/wordmark"
 import { ConsultationLeadForm } from "./consultation-lead-form"
 import { ProposalActions } from "./proposal-actions"
+import { AssistantMarkdown } from "./assistant-markdown"
 
 const readString = (record: Record<string, unknown>, key: string): string | undefined =>
     typeof record[key] === "string" ? record[key] : undefined
@@ -48,7 +49,11 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
                         {chat.isLoading ? <ChatSkeleton /> : null}
                         {!chat.isLoading && chat.messages.length === 0 ? <div className="rounded-2xl border border-line bg-white p-5 text-ink"><p>{t("greeting")}</p></div> : null}
                         {chat.messages.map((message) => (
-                            <div key={message.id} className={`max-w-[88%] whitespace-pre-wrap rounded-2xl px-4 py-3 text-sm leading-relaxed sm:text-base ${message.role === "user" ? "justify-self-end bg-ink text-white" : "justify-self-start border border-line bg-white text-ink"}`}>{message.content}</div>
+                            <div key={message.id} className={`max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-relaxed sm:text-base ${message.role === "user" ? "justify-self-end whitespace-pre-wrap bg-ink text-white" : "justify-self-start border border-line bg-white text-ink sm:px-5 sm:py-4"}`}>
+                                {message.role === "assistant"
+                                    ? <AssistantMarkdown content={message.content} animate={message.id === chat.streamingMessageId} />
+                                    : message.content}
+                            </div>
                         ))}
                         {chat.isSending ? <div className="w-fit rounded-2xl border border-line bg-white px-4 py-3 text-sm text-ink-muted">{t("thinking")}</div> : null}
                         {chat.error ? <div role="alert" className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 p-3 text-sm text-red-800"><span>{chat.error}</span>{chat.failedMessage ? <button type="button" onClick={() => void chat.sendMessage(chat.failedMessage ?? "")} className="min-h-11 rounded-lg border border-red-300 bg-white px-3 font-medium">{t("retrySend")}</button> : null}</div> : null}
@@ -73,7 +78,7 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
                         {price ? <div className="mt-5 border-t border-line pt-4"><p className="text-xs text-ink-faint">{t("currentEstimate")}</p><p className="mt-1 font-display text-xl font-bold text-brand-deep">{new Intl.NumberFormat(locale === "vi" ? "vi-VN" : "en-US").format(price)} VND</p></div> : null}
                     </div>
                     {chat.discovery?.readyForProposal && chat.projectId ? <ProposalActions projectId={chat.projectId} /> : null}
-                    {chat.conversationId ? showLeadForm ? <ConsultationLeadForm conversationId={chat.conversationId} /> : <button type="button" onClick={() => setShowLeadForm(true)} className="min-h-12 w-full cursor-pointer rounded-xl border border-brand bg-white px-4 font-medium text-brand transition-colors hover:bg-brand-soft">{t("humanFollowUp")}</button> : null}
+                    {chat.conversationId ? showLeadForm ? <ConsultationLeadForm conversationId={chat.conversationId} /> : <button type="button" onClick={() => setShowLeadForm(true)} className="min-h-12 w-full cursor-pointer rounded-xl border border-line-strong bg-white px-4 text-sm font-medium text-ink-muted transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand">{t("optionalFollowUp")}</button> : null}
                 </aside>
             </main>
         </div>

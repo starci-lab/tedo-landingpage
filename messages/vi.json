@@ -424,7 +424,7 @@
     "industry": "Lĩnh vực",
     "unknown": "Đang làm rõ",
     "currentEstimate": "Khoảng đầu tư hiện tại",
-    "humanFollowUp": "Trao đổi với chuyên gia TEDO",
+    "optionalFollowUp": "Tôi muốn TEDO liên hệ thêm",
     "pageErrorTitle": "Phiên tư vấn gặp sự cố",
     "pageErrorBody": "Bạn có thể tải lại hoặc trở về trang chủ. Thông tin đã lưu trên hệ thống sẽ không bị mất.",
     "retry": "Thử lại",

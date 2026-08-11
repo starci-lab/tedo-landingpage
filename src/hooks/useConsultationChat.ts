@@ -19,6 +19,7 @@ interface UseConsultationChatResult {
     isSending: boolean
     error?: string
     failedMessage?: string
+    streamingMessageId?: string
     sendMessage: (message: string) => Promise<boolean>
 }
 
@@ -36,6 +37,7 @@ export const useConsultationChat = (initialConversationId?: string): UseConsulta
     const [isSending, setIsSending] = useState(false)
     const [error, setError] = useState<string>()
     const [failedMessage, setFailedMessage] = useState<string>()
+    const [streamingMessageId, setStreamingMessageId] = useState<string>()
     const initialPromptSent = useRef(false)
     const sendingRef = useRef(false)
 
@@ -45,6 +47,7 @@ export const useConsultationChat = (initialConversationId?: string): UseConsulta
         sendingRef.current = true
         setError(undefined)
         setFailedMessage(undefined)
+        setStreamingMessageId(undefined)
         setIsSending(true)
         const optimisticId = `local-${Date.now()}`
         setMessages((current) => [...current, { id: optimisticId, role: "user", content: message }])
@@ -60,6 +63,7 @@ export const useConsultationChat = (initialConversationId?: string): UseConsulta
                 ...current.map((item) => item.id === optimisticId ? { ...item, id: payload.userMessageId } : item),
                 { id: payload.assistantMessageId, role: "assistant", content: payload.answer },
             ])
+            setStreamingMessageId(payload.assistantMessageId)
             setDiscovery(payload.discovery)
             setProjectId(payload.projectId)
             setQuote(payload.commercialQuote)
@@ -99,6 +103,7 @@ export const useConsultationChat = (initialConversationId?: string): UseConsulta
             .then(({ ok, payload }) => {
                 if (!active || !ok || !isConsultationSessionResponse(payload)) throw new Error("invalid-session")
                 setMessages(payload.messages)
+                setStreamingMessageId(undefined)
                 setDiscovery(payload.project?.discovery)
                 setProjectId(payload.project?.projectId)
                 setRequirements(payload.project?.requirements ?? {})
@@ -109,5 +114,5 @@ export const useConsultationChat = (initialConversationId?: string): UseConsulta
         return () => { active = false }
     }, [initialConversationId, sendMessage, t])
 
-    return { conversationId, projectId, messages, discovery, quote, requirements, isLoading, isSending, error, failedMessage, sendMessage }
+    return { conversationId, projectId, messages, discovery, quote, requirements, isLoading, isSending, error, failedMessage, streamingMessageId, sendMessage }
 }

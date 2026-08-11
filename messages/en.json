@@ -442,7 +442,7 @@
     "industry": "Industry",
     "unknown": "Being clarified",
     "currentEstimate": "Current investment range",
-    "humanFollowUp": "Talk to a TEDO specialist",
+    "optionalFollowUp": "I would also like TEDO to contact me",
     "pageErrorTitle": "The consultation hit a problem",
     "pageErrorBody": "Reload the page or return home. Information already saved by the system will remain available.",
     "retry": "Try again",
