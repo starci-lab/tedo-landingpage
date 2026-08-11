@@ -3,8 +3,6 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Reveal } from "@/components/reveal"
 import { Hero } from "@/components/sections/hero"
-import { Metrics } from "@/components/sections/metrics"
-import { AiFirst } from "@/components/sections/ai-first"
 import { Services } from "@/components/sections/services"
 import { Design } from "@/components/sections/design"
 import { Process } from "@/components/sections/process"
@@ -43,9 +41,7 @@ export default async function HomePage({
                 <Reveal><Process /></Reveal>
                 <Reveal><Aftercare /></Reveal>
                 <Reveal><Engagement /></Reveal>
-                <Reveal><AiFirst /></Reveal>
                 <Reveal><Design /></Reveal>
-                <Reveal><Metrics /></Reveal>
                 <Reveal><Stack /></Reveal>
                 <Reveal><Faq /></Reveal>
                 <Reveal><Contact /></Reveal>

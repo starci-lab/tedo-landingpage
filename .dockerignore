@@ -1,0 +1,9 @@
+.git
+.next
+node_modules
+.env*
+.artifacts
+npm-debug.log*
+src/app/**/admin
+src/components/quote
+src/lib/quote

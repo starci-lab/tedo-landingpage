@@ -5,7 +5,6 @@ import { Wordmark } from "./wordmark"
 
 const LINKS = [
     { href: "#cases", key: "cases" },
-    { href: "#ai-first", key: "aiFirst" },
     { href: "#process", key: "work" },
     { href: "#services", key: "services" },
     { href: "#engagement", key: "pricing" },

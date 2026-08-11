@@ -8,7 +8,6 @@ import { Wordmark } from "./wordmark"
 
 const NAV = [
     { href: "#cases", key: "cases" },
-    { href: "#ai-first", key: "aiFirst" },
     { href: "#process", key: "work" },
     { href: "#services", key: "services" },
     { href: "#engagement", key: "pricing" },
@@ -61,7 +60,7 @@ export function Header() {
                         ))}
                     </div>
 
-                    <CtaLink href="#contact" size="md">
+                    <CtaLink href="/chat" size="md">
                         {t("contact")}
                     </CtaLink>
                 </div>

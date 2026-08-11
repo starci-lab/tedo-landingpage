@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
-import { openQuoteChat } from "./chat-widget"
+import { Link } from "@/i18n/routing"
 
 /**
  * Phone-only action bar pinned to the bottom of the viewport.
@@ -36,13 +36,12 @@ export function StickyCta() {
             style={{ paddingBottom: "max(0.5rem, env(safe-area-inset-bottom))" }}
         >
             <div className="flex items-center gap-2 px-4 pt-2">
-                <button
-                    type="button"
-                    onClick={openQuoteChat}
+                <Link
+                    href="/chat"
                     className="inline-flex h-12 flex-1 cursor-pointer items-center justify-center rounded-xl bg-accent px-4 text-sm font-medium text-accent-ink transition-colors hover:bg-accent-dim focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
                 >
                     {t("ask")}
-                </button>
+                </Link>
                 <a
                     href="#contact"
                     className="inline-flex h-12 flex-1 items-center justify-center rounded-xl border border-line-strong px-4 text-sm font-medium text-ink transition-colors hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"

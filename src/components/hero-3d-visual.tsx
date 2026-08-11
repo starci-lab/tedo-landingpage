@@ -91,7 +91,7 @@ export function Hero3DVisual() {
                         TEDO
                     </span>
                     <span className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-ink-faint">
-                        AI-first
+                        Product studio
                     </span>
                     <span className="mt-1.5 h-1 w-1 rounded-full bg-accent shadow-[0_0_10px_var(--color-accent)]" />
                 </div>

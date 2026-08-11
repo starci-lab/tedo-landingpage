@@ -5,7 +5,6 @@ import { hasLocale, NextIntlClientProvider } from "next-intl"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { routing } from "@/i18n/routing"
 import { SkyBackground } from "@/components/sky-background"
-import { ChatWidget } from "@/components/chat-widget"
 import "../globals.css"
 
 // Be Vietnam Pro supports Vietnamese diacritics well in both headings and body
@@ -63,7 +62,6 @@ export default async function LocaleLayout({
                 <SkyBackground />
                 <NextIntlClientProvider>
                     {children}
-                    <ChatWidget />
                 </NextIntlClientProvider>
             </body>
         </html>

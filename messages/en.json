@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "TEDO — Custom website design & development",
-    "description": "TEDO designs and builds custom websites for businesses: no templates, delivered with the source code and a warranty."
+    "title": "TEDO — From business idea to a working digital product",
+    "description": "TEDO brings brand strategy, UX/UI, product engineering, deployment, and aftercare together for growing businesses."
   },
   "nav": {
     "services": "Services",
@@ -13,10 +13,10 @@
     "language": "Language"
   },
   "hero": {
-    "eyebrow": "Website design & development",
-    "title": "Not sure what you want yet? We can still quote it.",
-    "titleAccent": "And you pay what we quoted.",
-    "subtitle": "Lean cost, built twice as fast, on an AI-first process.",
+    "eyebrow": "Digital product partner for growing businesses",
+    "title": "From a business problem",
+    "titleAccent": "to a product that works.",
+    "subtitle": "TEDO connects strategy, brand, UX/UI, engineering, launch, and aftercare in one accountable team.",
     "ctaPrimary": "Ask about pricing",
     "ctaSecondary": "See what we built",
     "note": "Source code handed over · Quoted before we start · 12-month warranty",
@@ -276,7 +276,7 @@
           "NestJS",
           "GraphQL",
           "PostgreSQL",
-          "RAG",
+          "Semantic search",
           "Kafka"
         ],
         "highlights": [
@@ -412,6 +412,70 @@
     },
     "orBook": "Or skip the form and grab a slot directly."
   },
+  "consultation": {
+    "metaTitle": "Project consultation | TEDO",
+    "metaDescription": "Clarify your business problem, scope, delivery path, and an appropriate investment range.",
+    "promptRequired": "Please briefly describe the project you want to build.",
+    "promptTooLong": "The description can contain up to 4,000 characters.",
+    "promptLabel": "Project description",
+    "promptPlaceholder": "Example: I need a booking product for a three-branch spa, including brand, UX/UI, and an operations portal…",
+    "start": "Discuss my project",
+    "suggestionLabel": "Project examples",
+    "suggestions": [
+      "Booking and operations product",
+      "Omnichannel commerce platform",
+      "A new digital product from an early idea"
+    ],
+    "back": "Back to home",
+    "title": "Let's clarify your project",
+    "subtitle": "TEDO asks for the details that matter, records the requirements, and only estimates investment once the scope is clear enough.",
+    "greeting": "Tell us briefly what the business does and the outcome this product should create. It is fine if you have no documents yet.",
+    "thinking": "Reviewing the information…",
+    "sendError": "The message was not sent. Your text is still here; please try again.",
+    "retrySend": "Send again",
+    "loadError": "This consultation could not be loaded. Check the link or start a new session.",
+    "composerLabel": "Your message",
+    "composerPlaceholder": "Add scale, users, capabilities, or business goals…",
+    "send": "Send",
+    "projectProfile": "Project profile",
+    "productType": "Product type",
+    "industry": "Industry",
+    "unknown": "Being clarified",
+    "currentEstimate": "Current investment range",
+    "humanFollowUp": "Talk to a TEDO specialist",
+    "pageErrorTitle": "The consultation hit a problem",
+    "pageErrorBody": "Reload the page or return home. Information already saved by the system will remain available.",
+    "retry": "Try again",
+    "lead": {
+      "title": "Choose how TEDO should contact you",
+      "subtitle": "The team receives this exact project profile and replies within one business day.",
+      "name": "Your name",
+      "phone": "Phone number",
+      "email": "Email",
+      "company": "Company (optional)",
+      "preferred": "Preferred contact channel",
+      "phoneOption": "Phone",
+      "consent": "I agree that TEDO may use this information to contact me about the project discussed here.",
+      "submit": "Request a follow-up",
+      "sending": "Sending…",
+      "success": "TEDO received your project profile and contact details. The team will reply within one business day.",
+      "error": "The contact details were not sent. Please try again.",
+      "nameRequired": "Please enter your name.",
+      "emailInvalid": "Enter a valid email address.",
+      "consentRequired": "Consent is required before sending.",
+      "contactRequired": "Enter at least a phone number or email.",
+      "emailRequired": "Enter an email for the selected channel.",
+      "phoneRequired": "Enter a phone number for the selected channel."
+    },
+    "proposal": {
+      "title": "The profile is ready for a proposal",
+      "body": "Confirm the current scope to generate the brief, specification, estimate, and handoff documents for the next meeting.",
+      "generate": "Create project documents",
+      "generating": "Preparing documents…",
+      "ready": "Project documents",
+      "error": "The documents could not be generated. Please try again."
+    }
+  },
   "chat": {
     "open": "Chat with us",
     "title": "Quote assistant",
@@ -504,7 +568,7 @@
     ],
     "instalmentTitle": "Cannot pay it all at once?",
     "instalmentBody": "40% on signing, the rest spread evenly over six months. The deferred-payment surcharge is stated up front.",
-    "savingNote": "The cost is leaner because you are not billed for the part a machine types, not because people or reviews were cut. We show you the arithmetic during discovery.",
+    "savingNote": "Cost is kept lean through a disciplined process and carefully reused engineering assets; experienced people remain accountable for the decisions that matter. We show you the arithmetic during discovery.",
     "cta": "Get a quote for your project"
   },
   "aftercare": {

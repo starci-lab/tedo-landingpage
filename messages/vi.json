@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "TEDO — Thiết kế & lập trình website cho doanh nghiệp",
-    "description": "TEDO nhận thiết kế và lập trình website riêng cho doanh nghiệp: không dùng template, bàn giao kèm mã nguồn và bảo hành."
+    "title": "TEDO — Từ ý tưởng đến sản phẩm số vận hành được",
+    "description": "TEDO đồng hành từ chiến lược thương hiệu, UX/UI đến phát triển sản phẩm, triển khai và bảo hành cho doanh nghiệp."
   },
   "nav": {
     "services": "Dịch vụ",
@@ -13,10 +13,10 @@
     "language": "Ngôn ngữ"
   },
   "hero": {
-    "eyebrow": "Dịch vụ thiết kế & lập trình website",
-    "title": "Chưa rõ nên bắt đầu từ đâu? Cứ nói chuyện trước.",
-    "titleAccent": "Rõ việc rồi mới chốt giá.",
-    "subtitle": "TEDO giúp bạn làm rõ nhu cầu, xem trước giao diện rồi mới bắt tay vào code.",
+    "eyebrow": "Đối tác sản phẩm số cho doanh nghiệp",
+    "title": "Từ bài toán kinh doanh",
+    "titleAccent": "đến sản phẩm vận hành được.",
+    "subtitle": "TEDO cùng bạn làm rõ chiến lược, xây thương hiệu, thiết kế trải nghiệm, phát triển hệ thống và đồng hành sau bàn giao.",
     "ctaPrimary": "Hỏi nhanh về dự án",
     "ctaSecondary": "Xem dự án đã làm",
     "note": "Giao mã nguồn · Báo giá trước khi làm · Bảo hành 12 tháng"
@@ -258,7 +258,7 @@
           "NestJS",
           "GraphQL",
           "PostgreSQL",
-          "RAG",
+          "Tìm kiếm ngữ nghĩa",
           "Kafka"
         ],
         "highlights": [
@@ -394,6 +394,70 @@
     },
     "orBook": "Hoặc bỏ qua biểu mẫu, chọn thẳng một khung giờ."
   },
+  "consultation": {
+    "metaTitle": "Tư vấn dự án | TEDO",
+    "metaDescription": "Làm rõ bài toán, phạm vi, lộ trình và khoảng đầu tư phù hợp cho dự án của bạn.",
+    "promptRequired": "Hãy mô tả ngắn dự án bạn muốn làm.",
+    "promptTooLong": "Nội dung tối đa 4.000 ký tự.",
+    "promptLabel": "Mô tả dự án",
+    "promptPlaceholder": "Ví dụ: Tôi cần ứng dụng đặt lịch cho chuỗi spa 3 chi nhánh, cần xây thương hiệu, UX/UI và trang quản trị…",
+    "start": "Tư vấn dự án",
+    "suggestionLabel": "Gợi ý loại dự án",
+    "suggestions": [
+      "Ứng dụng đặt lịch và quản lý vận hành",
+      "Nền tảng bán hàng đa kênh",
+      "Sản phẩm số mới từ ý tưởng ban đầu"
+    ],
+    "back": "Về trang chủ",
+    "title": "Cùng làm rõ dự án của bạn",
+    "subtitle": "TEDO sẽ hỏi từng phần cần thiết, ghi lại yêu cầu và chỉ đưa khoảng đầu tư khi phạm vi đã đủ rõ.",
+    "greeting": "Hãy kể ngắn gọn doanh nghiệp đang làm gì và kết quả bạn muốn sản phẩm này tạo ra. Chưa có tài liệu cũng không sao.",
+    "thinking": "Đang phân tích thông tin…",
+    "sendError": "Chưa gửi được tin nhắn. Nội dung của bạn vẫn ở đây, vui lòng thử lại.",
+    "retrySend": "Gửi lại",
+    "loadError": "Không tải được phiên tư vấn này. Vui lòng kiểm tra lại đường dẫn hoặc bắt đầu phiên mới.",
+    "composerLabel": "Tin nhắn của bạn",
+    "composerPlaceholder": "Bổ sung quy mô, người dùng, tính năng hoặc mục tiêu kinh doanh…",
+    "send": "Gửi",
+    "projectProfile": "Hồ sơ dự án",
+    "productType": "Loại sản phẩm",
+    "industry": "Lĩnh vực",
+    "unknown": "Đang làm rõ",
+    "currentEstimate": "Khoảng đầu tư hiện tại",
+    "humanFollowUp": "Trao đổi với chuyên gia TEDO",
+    "pageErrorTitle": "Phiên tư vấn gặp sự cố",
+    "pageErrorBody": "Bạn có thể tải lại hoặc trở về trang chủ. Thông tin đã lưu trên hệ thống sẽ không bị mất.",
+    "retry": "Thử lại",
+    "lead": {
+      "title": "Chọn cách TEDO liên hệ",
+      "subtitle": "Đội ngũ nhận đúng hồ sơ dự án đang trao đổi và phản hồi trong một ngày làm việc.",
+      "name": "Tên của bạn",
+      "phone": "Số điện thoại",
+      "email": "Email",
+      "company": "Doanh nghiệp (không bắt buộc)",
+      "preferred": "Kênh liên hệ ưu tiên",
+      "phoneOption": "Điện thoại",
+      "consent": "Tôi đồng ý để TEDO dùng thông tin này nhằm liên hệ về dự án đang trao đổi.",
+      "submit": "Gửi yêu cầu liên hệ",
+      "sending": "Đang gửi…",
+      "success": "TEDO đã nhận hồ sơ và thông tin liên hệ. Đội ngũ sẽ phản hồi trong một ngày làm việc.",
+      "error": "Chưa gửi được thông tin. Vui lòng thử lại.",
+      "nameRequired": "Vui lòng nhập tên.",
+      "emailInvalid": "Email chưa đúng định dạng.",
+      "consentRequired": "Bạn cần đồng ý trước khi gửi.",
+      "contactRequired": "Cần ít nhất số điện thoại hoặc email.",
+      "emailRequired": "Vui lòng nhập email cho kênh đã chọn.",
+      "phoneRequired": "Vui lòng nhập số điện thoại cho kênh đã chọn."
+    },
+    "proposal": {
+      "title": "Hồ sơ đã đủ để lập đề xuất",
+      "body": "Xác nhận phạm vi hiện tại để tạo brief, đặc tả, báo giá và các tài liệu bàn giao cho buổi làm việc tiếp theo.",
+      "generate": "Tạo bộ hồ sơ dự án",
+      "generating": "Đang chuẩn bị hồ sơ…",
+      "ready": "Bộ hồ sơ dự án",
+      "error": "Chưa tạo được hồ sơ. Vui lòng thử lại."
+    }
+  },
   "chat": {
     "open": "Chat tư vấn",
     "title": "Trợ lý báo giá",
@@ -486,7 +550,7 @@
     ],
     "instalmentTitle": "Chưa gom đủ tiền một lần?",
     "instalmentBody": "Trả trước 40% khi ký, phần còn lại chia đều 6 tháng. Phụ phí trả chậm nói rõ từ đầu.",
-    "savingNote": "Chi phí hợp lý hơn nhờ dùng AI cho những phần lặp lại, còn các quyết định quan trọng vẫn do người có kinh nghiệm kiểm tra. TEDO sẽ giải thích rõ cách tính trong buổi tư vấn.",
+    "savingNote": "Chi phí được tối ưu bằng quy trình và tài sản kỹ thuật dùng lại có kiểm soát; các quyết định quan trọng vẫn do đội ngũ có kinh nghiệm chịu trách nhiệm. TEDO sẽ giải thích rõ cách tính trong buổi tư vấn.",
     "cta": "Nhận tư vấn cho dự án của bạn"
   },
   "aftercare": {
