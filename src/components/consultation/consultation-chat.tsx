@@ -21,8 +21,16 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
     const chat = useConsultationChat(initialConversationId)
     const composer = useConsultationComposerForm(chat.sendMessage)
     const [showLeadForm, setShowLeadForm] = useState(false)
+    const messagesRef = useRef<HTMLDivElement>(null)
     const endRef = useRef<HTMLDivElement>(null)
     useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }) }, [chat.messages, chat.isSending])
+    useEffect(() => {
+        const messages = messagesRef.current
+        if (!messages || !chat.streamingMessageId) return
+        const observer = new ResizeObserver(() => endRef.current?.scrollIntoView({ block: "nearest" }))
+        observer.observe(messages)
+        return () => observer.disconnect()
+    }, [chat.streamingMessageId])
     const answerQuestion = (question: DiscoveryQuestion, label: string): void => {
         void chat.sendMessage(`${question.label}: ${label}`)
     }
@@ -45,7 +53,7 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
                 <section className="min-w-0" aria-labelledby="consultation-title">
                     <h1 id="consultation-title" className="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">{t("title")}</h1>
                     <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-muted sm:text-base">{t("subtitle")}</p>
-                    <div className="mt-8 grid gap-4" aria-live="polite">
+                    <div ref={messagesRef} className="mt-8 grid gap-4" aria-live="polite">
                         {chat.isLoading ? <ChatSkeleton /> : null}
                         {!chat.isLoading && chat.messages.length === 0 ? <div className="rounded-2xl border border-line bg-white p-5 text-ink"><p>{t("greeting")}</p></div> : null}
                         {chat.messages.map((message) => (
