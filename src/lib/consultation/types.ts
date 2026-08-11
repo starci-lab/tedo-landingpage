@@ -1,11 +1,21 @@
 export type ConsultationRole = "user" | "assistant"
 
+export interface ConsultationAttachment {
+    id: string
+    fileName: string
+    mimeType: string
+    size: number
+    kind: "image" | "file"
+    previewUrl?: string
+}
+
 export interface ConsultationMessage {
     id: string
     role: ConsultationRole
     content: string
     createdAt?: string
     quote?: CommercialQuote
+    attachments?: ConsultationAttachment[]
 }
 
 export interface DiscoveryOption { value: string; label: string }
@@ -48,6 +58,7 @@ export interface ConsultationTurnResponse {
     requirements: Record<string, unknown>
     discovery: DiscoveryState
     handoffRequired: boolean
+    attachments: ConsultationAttachment[]
 }
 
 export interface ConsultationSessionResponse {
@@ -85,6 +96,7 @@ export const isConsultationTurnResponse = (value: unknown): value is Consultatio
     return typeof value.conversationId === "string"
         && typeof value.projectId === "string"
         && typeof value.answer === "string"
+        && Array.isArray(value.attachments)
         && typeof value.discovery.completeness === "number"
         && Array.isArray(value.discovery.nextQuestions)
 }
@@ -96,7 +108,8 @@ export const isConsultationSessionResponse = (value: unknown): value is Consulta
         && value.messages.every((message) => isRecord(message)
             && (message.role === "user" || message.role === "assistant")
             && typeof message.id === "string"
-            && typeof message.content === "string")
+            && typeof message.content === "string"
+            && (message.attachments === undefined || Array.isArray(message.attachments)))
 }
 
 /** Narrows document metadata returned after proposal generation. */

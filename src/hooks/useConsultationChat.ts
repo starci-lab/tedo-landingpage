@@ -20,7 +20,7 @@ interface UseConsultationChatResult {
     error?: string
     failedMessage?: string
     streamingMessageId?: string
-    sendMessage: (message: string) => Promise<boolean>
+    sendMessage: (message: string, files?: File[]) => Promise<boolean>
 }
 
 /** Runs durable consultation turns and resumes prior history from a conversation URL. */
@@ -41,28 +41,43 @@ export const useConsultationChat = (initialConversationId?: string): UseConsulta
     const initialPromptSent = useRef(false)
     const sendingRef = useRef(false)
 
-    const sendMessage = useCallback(async (rawMessage: string): Promise<boolean> => {
+    const sendMessage = useCallback(async (rawMessage: string, files: File[] = []): Promise<boolean> => {
         const message = rawMessage.trim()
-        if (!message || sendingRef.current) return false
+        if ((!message && files.length === 0) || sendingRef.current) return false
         sendingRef.current = true
         setError(undefined)
         setFailedMessage(undefined)
         setStreamingMessageId(undefined)
         setIsSending(true)
         const optimisticId = `local-${Date.now()}`
-        setMessages((current) => [...current, { id: optimisticId, role: "user", content: message }])
+        const optimisticAttachments = files.map((file, index) => ({
+            id: `${optimisticId}-${index}`, fileName: file.name, mimeType: file.type,
+            size: file.size, kind: file.type.startsWith("image/") ? "image" as const : "file" as const,
+            previewUrl: file.type.startsWith("image/") ? URL.createObjectURL(file) : undefined,
+        }))
+        setMessages((current) => [...current, {
+            id: optimisticId, role: "user", content: message, attachments: optimisticAttachments,
+        }])
         try {
+            const form = new FormData()
+            form.set("message", message)
+            if (conversationId) form.set("conversationId", conversationId)
+            files.forEach((file) => form.append("files", file))
             const response = await fetch("/api/consultations/messages", {
                 method: "POST",
-                headers: { "content-type": "application/json" },
-                body: JSON.stringify({ message, conversationId }),
+                body: form,
             })
             const payload: unknown = await response.json().catch(() => null)
             if (!response.ok || !isConsultationTurnResponse(payload)) throw new Error("invalid-response")
             setMessages((current) => [
-                ...current.map((item) => item.id === optimisticId ? { ...item, id: payload.userMessageId } : item),
+                ...current.map((item) => item.id === optimisticId ? {
+                    ...item, id: payload.userMessageId, content: message, attachments: payload.attachments,
+                } : item),
                 { id: payload.assistantMessageId, role: "assistant", content: payload.answer },
             ])
+            optimisticAttachments.forEach((attachment) => {
+                if (attachment.previewUrl) URL.revokeObjectURL(attachment.previewUrl)
+            })
             setStreamingMessageId(payload.assistantMessageId)
             setDiscovery(payload.discovery)
             setProjectId(payload.projectId)
@@ -75,6 +90,9 @@ export const useConsultationChat = (initialConversationId?: string): UseConsulta
             }
             return true
         } catch {
+            optimisticAttachments.forEach((attachment) => {
+                if (attachment.previewUrl) URL.revokeObjectURL(attachment.previewUrl)
+            })
             setMessages((current) => current.filter((item) => item.id !== optimisticId))
             setFailedMessage(message)
             if (!conversationId) window.sessionStorage.setItem("tedo:initial-consultation-prompt", message)

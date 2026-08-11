@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, type KeyboardEvent } from "react"
+import { useCallback, useEffect, useRef, useState, type ChangeEvent, type DragEvent, type KeyboardEvent } from "react"
 import { useLocale, useTranslations } from "next-intl"
 import { Link } from "@/i18n/routing"
 import { useConsultationChat } from "@/hooks/useConsultationChat"
@@ -10,6 +10,13 @@ import { Wordmark } from "@/components/wordmark"
 import { ConsultationLeadForm } from "./consultation-lead-form"
 import { ProposalActions } from "./proposal-actions"
 import { AssistantMarkdown } from "./assistant-markdown"
+import { MessageAttachments } from "./message-attachments"
+import { UserMessageContent } from "./user-message-content"
+
+const MAX_FILES = 5
+const MAX_FILE_BYTES = 10 * 1024 * 1024
+const ACCEPTED_FILES = "image/jpeg,image/png,image/webp,image/gif,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document,text/plain,text/csv,text/markdown,application/json"
+const ACCEPTED_MIME_TYPES = new Set(ACCEPTED_FILES.split(","))
 
 const readString = (record: Record<string, unknown>, key: string): string | undefined =>
     typeof record[key] === "string" ? record[key] : undefined
@@ -19,10 +26,19 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
     const t = useTranslations("consultation")
     const locale = useLocale()
     const chat = useConsultationChat(initialConversationId)
-    const composer = useConsultationComposerForm(chat.sendMessage)
+    const [selectedFiles, setSelectedFiles] = useState<File[]>([])
+    const [attachmentError, setAttachmentError] = useState<string>()
+    const sendWithAttachments = useCallback(async (message: string): Promise<boolean> => {
+        const sent = await chat.sendMessage(message, selectedFiles)
+        if (sent) setSelectedFiles([])
+        return sent
+    }, [chat, selectedFiles])
+    const composer = useConsultationComposerForm(sendWithAttachments)
     const [showLeadForm, setShowLeadForm] = useState(false)
     const messagesRef = useRef<HTMLDivElement>(null)
     const endRef = useRef<HTMLDivElement>(null)
+    const imageInputRef = useRef<HTMLInputElement>(null)
+    const fileInputRef = useRef<HTMLInputElement>(null)
     useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" }) }, [chat.messages, chat.isSending])
     useEffect(() => {
         const messages = messagesRef.current
@@ -41,6 +57,23 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
         }
     }
     const price = chat.quote?.totalVnd ?? chat.quote?.rangeMinVnd
+    const addFiles = (incoming: File[]): void => {
+        if (selectedFiles.length + incoming.length > MAX_FILES
+            || incoming.some((file) => file.size > MAX_FILE_BYTES || !ACCEPTED_MIME_TYPES.has(file.type))) {
+            setAttachmentError(t("attachmentError"))
+            return
+        }
+        setAttachmentError(undefined)
+        setSelectedFiles((current) => [...current, ...incoming])
+    }
+    const selectFiles = (event: ChangeEvent<HTMLInputElement>): void => {
+        addFiles(Array.from(event.target.files ?? []))
+        event.target.value = ""
+    }
+    const dropFiles = (event: DragEvent<HTMLFormElement>): void => {
+        event.preventDefault()
+        addFiles(Array.from(event.dataTransfer.files))
+    }
     return (
         <div className="relative min-h-screen bg-surface-2">
             <header className="sticky top-0 z-30 border-b border-line bg-white/95 backdrop-blur">
@@ -58,9 +91,10 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
                         {!chat.isLoading && chat.messages.length === 0 ? <div className="rounded-2xl border border-line bg-white p-5 text-ink"><p>{t("greeting")}</p></div> : null}
                         {chat.messages.map((message) => (
                             <div key={message.id} className={`max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-relaxed sm:text-base ${message.role === "user" ? "justify-self-end whitespace-pre-wrap bg-ink text-white" : "justify-self-start border border-line bg-white text-ink sm:px-5 sm:py-4"}`}>
+                                <MessageAttachments attachments={message.attachments} conversationId={chat.conversationId} />
                                 {message.role === "assistant"
                                     ? <AssistantMarkdown content={message.content} animate={message.id === chat.streamingMessageId} />
-                                    : message.content}
+                                    : <UserMessageContent content={message.content} />}
                             </div>
                         ))}
                         {chat.isSending ? <div className="w-fit rounded-2xl border border-line bg-white px-4 py-3 text-sm text-ink-muted">{t("thinking")}</div> : null}
@@ -73,9 +107,18 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
                         ) : null)}
                         <div ref={endRef} />
                     </div>
-                    <form onSubmit={composer.onSubmit} className="sticky bottom-3 mt-6 rounded-2xl border border-line bg-white p-2 shadow-[0_20px_55px_-32px_rgba(20,48,92,0.6)]">
+                    <form onSubmit={composer.onSubmit} onDragOver={(event) => event.preventDefault()} onDrop={dropFiles} className="sticky bottom-3 mt-6 rounded-2xl border border-line bg-white p-2 shadow-[0_20px_55px_-32px_rgba(20,48,92,0.6)]">
+                        {selectedFiles.length ? <div className="mb-2 flex flex-wrap gap-2 px-1" aria-label={t("selectedAttachments")}>
+                            {selectedFiles.map((file, index) => <span key={`${file.name}-${file.lastModified}-${index}`} className="inline-flex max-w-full items-center gap-2 rounded-lg bg-brand-soft px-2 py-1 text-xs text-brand-deep"><span className="max-w-48 truncate">{file.name}</span><button type="button" onClick={() => setSelectedFiles((current) => current.filter((_, itemIndex) => itemIndex !== index))} className="cursor-pointer rounded p-1 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" aria-label={`${t("removeAttachment")} ${file.name}`}>×</button></span>)}
+                        </div> : null}
+                        {attachmentError ? <p role="alert" className="mb-2 px-2 text-xs text-red-700">{attachmentError}</p> : null}
                         <label htmlFor="consultation-message" className="sr-only">{t("composerLabel")}</label>
-                        <div className="flex items-end gap-2"><textarea id="consultation-message" rows={2} {...composer.register("message")} onKeyDown={onComposerKeyDown} placeholder={t("composerPlaceholder")} className="max-h-40 min-h-14 flex-1 resize-none rounded-xl bg-surface-2 px-3 py-3 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand" /><button type="submit" disabled={chat.isSending} className="min-h-12 cursor-pointer rounded-xl bg-accent px-5 font-medium text-white transition-colors hover:bg-accent-dim disabled:cursor-not-allowed disabled:opacity-50">{t("send")}</button></div>
+                        <input ref={imageInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple onChange={selectFiles} className="sr-only" />
+                        <input ref={fileInputRef} type="file" accept={ACCEPTED_FILES} multiple onChange={selectFiles} className="sr-only" />
+                        <div className="flex items-end gap-2">
+                            <div className="flex shrink-0 gap-1 pb-1"><button type="button" onClick={() => imageInputRef.current?.click()} className="grid min-h-11 min-w-11 cursor-pointer place-items-center rounded-xl text-ink-muted transition-colors hover:bg-brand-soft hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" aria-label={t("addImage")}><svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9" r="1.5"/><path d="m4 17 5-5 4 4 2-2 5 4"/></svg></button><button type="button" onClick={() => fileInputRef.current?.click()} className="grid min-h-11 min-w-11 cursor-pointer place-items-center rounded-xl text-ink-muted transition-colors hover:bg-brand-soft hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand" aria-label={t("addFile")}><svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5 fill-none stroke-current" strokeWidth="1.8"><path d="m9 12 5-5a3 3 0 0 1 4 4l-7 7a5 5 0 0 1-7-7l7-7"/></svg></button></div>
+                            <textarea id="consultation-message" rows={2} {...composer.register("message")} onKeyDown={onComposerKeyDown} placeholder={t("composerPlaceholder")} className="max-h-40 min-h-14 flex-1 resize-none rounded-xl bg-surface-2 px-3 py-3 text-base text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand" /><button type="submit" disabled={chat.isSending || (!composer.watch("message").trim() && selectedFiles.length === 0)} className="min-h-12 cursor-pointer rounded-xl bg-accent px-5 font-medium text-white transition-colors hover:bg-accent-dim disabled:cursor-not-allowed disabled:opacity-50">{t("send")}</button>
+                        </div>
                     </form>
                 </section>
                 <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start" aria-label={t("projectProfile")}>

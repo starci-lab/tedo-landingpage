@@ -16,7 +16,7 @@ interface UseConsultationComposerFormResult extends UseFormReturn<ComposerValues
 export const useConsultationComposerForm = (
     sendMessage: (message: string) => Promise<boolean>,
 ): UseConsultationComposerFormResult => {
-    const schema = useMemo(() => z.object({ message: z.string().trim().min(1).max(MESSAGE_MAX) }), [])
+    const schema = useMemo(() => z.object({ message: z.string().trim().max(MESSAGE_MAX) }), [])
     const form = useForm<ComposerValues>({ resolver: zodResolver(schema), defaultValues: { message: "" } })
     const onSubmit = form.handleSubmit(async ({ message }) => {
         if (await sendMessage(message)) form.reset()

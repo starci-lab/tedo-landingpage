@@ -12,6 +12,7 @@ describe("consultation response guards", () => {
             requirementsVersion: 1,
             handoffRequired: false,
             requirements: {},
+            attachments: [],
             commercialQuote: { status: "insufficient-scope", currency: "VND", reviewReasons: [] },
             discovery: { completeness: 10, missingFields: [], nextQuestions: [], readyForProposal: false },
         })).toBe(true)
