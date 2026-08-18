@@ -57,7 +57,7 @@ const LocaleLayout = async ({
     return (
         <html
             lang={locale}
-            className={`light ${display.variable} ${body.variable}`}
+            className={["light", display.variable, body.variable].join(" ")}
         >
             <body className="font-sans">
                 <SkyBackground />

@@ -1,5 +1,8 @@
 import { useTranslations } from "next-intl"
-import { Eyebrow, Section, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
 
 type Step = { title: string; body: string }
 
@@ -9,35 +12,42 @@ export const Design = () => {
     const steps = t.raw("steps") as Step[]
 
     return (
-        <Section id="design" className="bg-surface/30">
-            <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
-                <div>
-                    <Eyebrow>{t("eyebrow")}</Eyebrow>
-                    <SectionTitle>{t("title")}</SectionTitle>
-                    <p className="mt-5 text-pretty text-base leading-relaxed text-ink-muted">
-                        {t("body")}
-                    </p>
-                </div>
-
-                <ol className="flex flex-col">
-                    {steps.map((step, i) => (
-                        <li
-                            key={step.title}
-                            className="flex gap-5 border-b border-line py-5 first:pt-0 last:border-0 last:pb-0"
-                        >
-                            <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand/10 font-mono text-xs font-semibold text-brand">
-                                {i + 1}
-                            </span>
-                            <div>
-                                <h3 className="font-medium">{step.title}</h3>
-                                <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">
-                                    {step.body}
-                                </p>
-                            </div>
-                        </li>
-                    ))}
-                </ol>
-            </div>
-        </Section>
+        <Tree
+            contract="page-band-tinted"
+            render={defineContractComponent("page-band-tinted", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractComponent("design-layout", {
+                        intro: defineContractComponent("section-intro", {
+                            eyebrow: defineLeafComponent("text", {}, () => (
+                                <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                            )),
+                            title: defineLeafComponent("heading", {}, () => (
+                                <Heading props={{ content: t("title"), level: 2 }} />
+                            )),
+                            lead: defineLeafComponent("text", {}, () => (
+                                <Text props={{ content: t("body"), variant: "lead" }} />
+                            )),
+                        }),
+                        steps: defineContractComponent("design-step-list", {
+                            items: steps.map((step, i) => defineContractComponent("design-step-item", {
+                                index: defineContractComponent("design-step-index", {
+                                    value: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: String(i + 1), variant: "label" }} />
+                                    )),
+                                }),
+                                body: defineContractComponent("design-step-body", {
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: step.title, level: 4 }} />
+                                    )),
+                                    body: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: step.body, variant: "body" }} />
+                                    )),
+                                }),
+                            })),
+                        }),
+                    }),
+                }),
+            })}
+        />
     )
 }

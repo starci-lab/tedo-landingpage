@@ -2,11 +2,13 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { hasLocale } from "next-intl"
 import { getTranslations, setRequestLocale } from "next-intl/server"
-import { routing, Link } from "@/i18n/routing"
+import { routing } from "@/i18n/routing"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ProjectsGallery } from "@/components/sections/projects-gallery"
-import { Container } from "@/components/ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+import { BackHomeAction } from "@/components/composites/BackHomeAction"
 
 type LocaleParams = { params: Promise<{ locale: string }> }
 
@@ -37,17 +39,17 @@ const ProjectsPage = async ({ params }: LocaleParams) => {
     return (
         <>
             <Header />
-            <main>
-                <Container className="pt-8">
-                    <Link
-                        href="/"
-                        className="inline-flex items-center gap-1.5 font-mono text-xs text-ink-muted transition-colors hover:text-brand"
-                    >
-                        <span aria-hidden>←</span> {t("back")}
-                    </Link>
-                </Container>
-                <ProjectsGallery />
-            </main>
+            <Tree
+                contract="route-body-with-back-nav"
+                render={defineContractComponent("route-body-with-back-nav", {
+                    nav: defineContractComponent("back-link-row", {
+                        link: defineContractProjection("opaque-content-unit", () => (
+                            <BackHomeAction label={`← ${t("back")}`} />
+                        )),
+                    }),
+                    content: defineContractProjection("opaque-content-unit", () => <ProjectsGallery />),
+                })}
+            />
             <Footer />
         </>
     )

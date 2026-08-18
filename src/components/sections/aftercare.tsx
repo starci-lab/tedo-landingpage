@@ -1,7 +1,8 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
 
 type Item = { value: string; title: string; body: string }
 
@@ -19,27 +20,46 @@ export const Aftercare = () => {
     const items = t.raw("items") as Array<Item>
 
     return (
-        <Section id="sau-ban-giao">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {items.map((item) => (
-                    <article
-                        key={item.title}
-                        className="flex flex-col rounded-3xl border border-line bg-white p-6"
-                    >
-                        <p className="font-display text-2xl font-extrabold tracking-tight text-brand">
-                            {item.value}
-                        </p>
-                        <h3 className="mt-2 font-display text-base font-semibold text-ink">
-                            {item.title}
-                        </h3>
-                        <p className="mt-2 text-sm leading-relaxed text-ink-muted">{item.body}</p>
-                    </article>
-                ))}
-            </div>
-        </Section>
+        <Tree
+            contract="page-band"
+            render={defineContractComponent("page-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="stat-card-grid"
+                                render={defineContractComponent("stat-card-grid", {
+                                    items: items.map((item) => defineContractComponent("stat-card", {
+                                        value: defineLeafComponent("text", {}, () => (
+                                            <Text props={{ content: item.value, variant: "stat" }} />
+                                        )),
+                                        title: defineLeafComponent("heading", {}, () => (
+                                            <Heading props={{ content: item.title, level: 4 }} />
+                                        )),
+                                        body: defineLeafComponent("text", {}, () => (
+                                            <Text props={{ content: item.body, variant: "body" }} />
+                                        )),
+                                    })),
+                                })}
+                            />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

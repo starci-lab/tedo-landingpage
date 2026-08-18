@@ -1,12 +1,25 @@
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineLeafComponent } from "@/components/contracts/props"
+import type { PlaceholderData } from "@/components/leaves/Placeholder"
+import { Placeholder } from "@/components/leaves/Placeholder"
+
+/** One placeholder bar, closed over its own size so the slot only carries a leaf identity. */
+const bar = (data: PlaceholderData) => defineLeafComponent("placeholder", {}, () => <Placeholder props={data} />)
+
 /** Renders the consultation page loading skeleton. */
 const ConsultationLoading = () => {
     return (
-        <main className="mx-auto min-h-screen max-w-6xl animate-pulse px-5 py-12 sm:px-8" aria-busy="true">
-            <div className="h-8 w-52 rounded-lg bg-brand-soft" />
-            <div className="mt-4 h-5 w-full max-w-xl rounded bg-line" />
-            <div className="mt-12 h-24 w-3/4 rounded-2xl bg-brand-soft" />
-            <div className="ml-auto mt-4 h-20 w-2/3 rounded-2xl bg-line" />
-        </main>
+        <Tree
+            contract="loading-panel"
+            render={defineContractComponent("loading-panel", {
+                bars: [
+                    bar({ height: "sm", width: "wide", tone: "brand" }),
+                    bar({ height: "xs", width: "full", tone: "neutral" }),
+                    bar({ height: "xl", width: "threeQuarters", tone: "brand" }),
+                    bar({ height: "lg", width: "twoThirds", tone: "neutral", align: "end" }),
+                ],
+            })}
+        />
     )
 }
 

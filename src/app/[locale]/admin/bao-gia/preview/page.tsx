@@ -5,6 +5,9 @@ import { setRequestLocale } from "next-intl/server"
 import { routing } from "@/i18n/routing"
 import { QuoteDocument } from "@/components/quote/quote-document"
 import { sampleYabai } from "@/lib/quote/sample-yabai"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
 
 /**
  * Design surface for the proposal template.
@@ -42,22 +45,52 @@ const QuotePreviewPage = async ({
     setRequestLocale(locale)
 
     return (
-        <main>
-            {/* Screen-only toolbar: gone from the printed sheet. */}
-            <div className="border-b border-line bg-surface px-6 py-3 print:hidden">
-                <div className="mx-auto flex max-w-[210mm] items-baseline justify-between gap-4">
-                    <div>
-                        <p className="font-display text-sm font-semibold text-ink">Preview mẫu báo giá</p> {/* vn-ok: this is rendered quote-preview copy. */}
-                        <p className="text-xs text-ink-muted">
-                            Dữ liệu mẫu: {sampleYabai.client.name} · {sampleYabai.reference} {/* vn-ok: this is rendered quote-preview copy. */}
-                        </p>
-                    </div>
-                    <p className="text-xs text-ink-faint">Ctrl/Cmd + P để xuất PDF · khổ A4 · bỏ header/footer trình duyệt</p> {/* vn-ok: this is rendered quote-preview copy. */}
-                </div>
-            </div>
-
-            <QuoteDocument doc={sampleYabai} />
-        </main>
+        <Tree
+            contract="quote-preview-shell"
+            render={defineContractComponent("quote-preview-shell", {
+                toolbar: defineContractProjection("opaque-content-unit", () => (
+                    <Tree
+                        contract="quote-preview-toolbar"
+                        render={defineContractComponent("quote-preview-toolbar", {
+                            row: defineContractComponent("quote-preview-toolbar-row", {
+                                details: defineContractComponent("quote-preview-toolbar-details", {
+                                    title: defineLeafComponent("text", {}, () => (
+                                        <Text
+                                            props={{
+                                                // vn-ok: this is rendered quote-preview copy.
+                                                content: "Preview mẫu báo giá",
+                                                variant: "body",
+                                            }}
+                                        />
+                                    )),
+                                    meta: defineLeafComponent("text", {}, () => (
+                                        <Text
+                                            props={{
+                                                // vn-ok: this is rendered quote-preview copy.
+                                                content: `Dữ liệu mẫu: ${sampleYabai.client.name} · ${sampleYabai.reference}`,
+                                                variant: "body",
+                                            }}
+                                        />
+                                    )),
+                                }),
+                                hint: defineLeafComponent("text", {}, () => (
+                                    <Text
+                                        props={{
+                                            // vn-ok: this is rendered quote-preview copy.
+                                            content: "Ctrl/Cmd + P để xuất PDF · khổ A4 · bỏ header/footer trình duyệt",
+                                            variant: "body",
+                                        }}
+                                    />
+                                )),
+                            }),
+                        })}
+                    />
+                )),
+                document: defineContractProjection("opaque-content-unit", () => (
+                    <QuoteDocument doc={sampleYabai} />
+                )),
+            })}
+        />
     )
 }
 

@@ -1,7 +1,9 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Icon } from "@/components/leaves/Icon"
 
 /**
  * Who the service suits, and who it does not.
@@ -16,38 +18,66 @@ export const Fit = () => {
     const no = t.raw("no") as Array<string>
 
     return (
-        <Section id="phu-hop" className="bg-surface/30">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
-                <div className="rounded-3xl border border-brand/30 bg-brand-soft/40 p-6 sm:p-7">
-                    <h3 className="font-display text-base font-bold text-brand-deep">{t("yesTitle")}</h3>
-                    <ul className="mt-4 flex flex-col gap-3">
-                        {yes.map((item) => (
-                            <li key={item} className="flex gap-3 text-sm leading-relaxed text-ink-body">
-                                <span aria-hidden className="mt-0.5 shrink-0 text-green">✓</span>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="rounded-3xl border border-line bg-white p-6 sm:p-7">
-                    <h3 className="font-display text-base font-bold text-ink-muted">{t("noTitle")}</h3>
-                    <ul className="mt-4 flex flex-col gap-3">
-                        {no.map((item) => (
-                            <li key={item} className="flex gap-3 text-sm leading-relaxed text-ink-muted">
-                                <span aria-hidden className="mt-0.5 shrink-0 text-ink-faint">✕</span>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-
-            <p className="mt-6 text-sm text-ink-muted">{t("note")}</p>
-        </Section>
+        <Tree
+            contract="page-band-tinted"
+            render={defineContractComponent("page-band-tinted", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="fit-comparison-grid"
+                                render={defineContractComponent("fit-comparison-grid", {
+                                    yes: defineContractComponent("fit-column", {
+                                        title: defineLeafComponent("heading", {}, () => (
+                                            <Heading props={{ content: t("yesTitle"), level: 3 }} />
+                                        )),
+                                        items: defineContractComponent("bullet-list", {
+                                            items: yes.map((item) => defineContractComponent("labelled-bullet-item", {
+                                                mark: defineContractProjection("opaque-content-unit", () => (
+                                                    <Icon props={{ name: "CheckIcon", size: "sm" }} />
+                                                )),
+                                                label: defineLeafComponent("text", {}, () => (
+                                                    <Text props={{ content: item, variant: "body" }} />
+                                                )),
+                                            })),
+                                        }),
+                                    }),
+                                    no: defineContractComponent("fit-column", {
+                                        title: defineLeafComponent("heading", {}, () => (
+                                            <Heading props={{ content: t("noTitle"), level: 3 }} />
+                                        )),
+                                        items: defineContractComponent("bullet-list", {
+                                            items: no.map((item) => defineContractComponent("labelled-bullet-item", {
+                                                mark: defineContractProjection("opaque-content-unit", () => (
+                                                    <Icon props={{ name: "XMarkIcon", size: "sm" }} />
+                                                )),
+                                                label: defineLeafComponent("text", {}, () => (
+                                                    <Text props={{ content: item, variant: "body" }} />
+                                                )),
+                                            })),
+                                        }),
+                                    }),
+                                })}
+                            />
+                            <Text props={{ content: t("note"), variant: "body" }} />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

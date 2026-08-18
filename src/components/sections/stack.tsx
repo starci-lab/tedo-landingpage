@@ -1,8 +1,9 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Chip } from "@heroui/react"
-import { Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Chip } from "@/components/leaves/Chip"
 
 // Proper nouns — deliberately not translated.
 const STACK = [
@@ -37,19 +38,37 @@ export const Stack = () => {
     const t = useTranslations("stack")
 
     return (
-        <Section id="stack">
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <ul className="mt-10 flex flex-wrap gap-2">
-                {STACK.map((tech) => (
-                    <li key={tech}>
-                        <Chip variant="secondary" className="font-mono">
-                            {tech}
-                        </Chip>
-                    </li>
-                ))}
-            </ul>
-        </Section>
+        <Tree
+            contract="page-band"
+            render={defineContractComponent("page-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="stack-chip-list"
+                                render={defineContractComponent("stack-chip-list", {
+                                    items: STACK.map((tech) => defineContractComponent("stack-chip-item", {
+                                        chip: defineLeafComponent("chip", {}, () => (
+                                            <Chip props={{ content: tech, variant: "secondary" }} />
+                                        )),
+                                    })),
+                                })}
+                            />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

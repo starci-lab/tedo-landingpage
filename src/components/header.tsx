@@ -1,10 +1,11 @@
 "use client"
 
 import { useLocale, useTranslations } from "next-intl"
-import { Link, usePathname } from "@/i18n/routing"
-import { routing } from "@/i18n/routing"
-import { Container, CtaLink } from "./ui"
-import { Wordmark } from "./leaves/Wordmark"
+import { Link, usePathname, routing } from "@/i18n/routing"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+import { HomeLink } from "@/components/composites/HomeLink"
+import { RouteCtaAction } from "@/components/composites/RouteCtaAction"
 
 const NAV = [
     { href: "#cases", key: "cases" },
@@ -13,6 +14,9 @@ const NAV = [
     { href: "#engagement", key: "pricing" },
 ] as const
 
+const LOCALE_ACTIVE_CLASSES = "rounded-full px-3 py-1 font-mono text-xs uppercase transition-colors bg-brand text-white"
+const LOCALE_INACTIVE_CLASSES = "rounded-full px-3 py-1 font-mono text-xs uppercase transition-colors text-ink-faint hover:text-brand"
+
 /** Sticky site header with primary navigation, locale switcher, and contact CTA. */
 export const Header = () => {
     const t = useTranslations("nav")
@@ -20,52 +24,54 @@ export const Header = () => {
     const pathname = usePathname()
 
     return (
-        <header className="sticky top-0 z-50 border-b border-line bg-white/80 backdrop-blur-md">
-            <Container className="flex h-16 items-center justify-between gap-6">
-                <Link href="/" aria-label="TEDO" className="shrink-0">
-                    <Wordmark />
-                </Link>
-
-                <nav className="hidden items-center gap-7 lg:flex">
-                    {NAV.map((item) => (
-                        <a
-                            key={item.key}
-                            href={item.href}
-                            className="text-sm font-medium text-ink-muted transition-colors hover:text-brand"
-                        >
-                            {t(item.key)}
-                        </a>
-                    ))}
-                </nav>
-
-                <div className="flex items-center gap-4">
-                    <div
-                        className="hidden items-center rounded-full border border-line p-0.5 sm:flex"
-                        role="group"
-                        aria-label={t("language")}
-                    >
-                        {routing.locales.map((l) => (
-                            <Link
-                                key={l}
-                                href={pathname}
-                                locale={l}
-                                aria-current={l === locale ? "true" : undefined}
-                                className={`rounded-full px-2.5 py-1 font-mono text-xs uppercase transition-colors ${
-                                    l === locale
-                                        ? "bg-brand text-white"
-                                        : "text-ink-faint hover:text-brand"
-                                }`}
-                            >
-                                {l}
-                            </Link>
-                        ))}
-                    </div>
-
-                    <CtaLink href="/chat" size="md">
-                        {t("contact")}
-                    </CtaLink>
-                </div>
-            </Container>
-        </header>
+        <Tree
+            contract="site-header"
+            render={defineContractComponent("site-header", {
+                bar: defineContractComponent("page-measure", {
+                    content: defineContractComponent("header-bar", {
+                        logo: defineContractProjection("opaque-content-unit", () => (
+                            <HomeLink label="TEDO" />
+                        )),
+                        nav: defineContractComponent("header-nav", {
+                            items: defineContractProjection("opaque-content-unit", () => (
+                                <>
+                                    {NAV.map((item) => (
+                                        <a
+                                            key={item.key}
+                                            href={item.href}
+                                            className="text-sm font-medium text-ink-muted transition-colors hover:text-brand"
+                                        >
+                                            {t(item.key)}
+                                        </a>
+                                    ))}
+                                </>
+                            )),
+                        }),
+                        actions: defineContractComponent("header-actions", {
+                            localeSwitcher: defineContractComponent("locale-switcher-group", {
+                                options: defineContractProjection("opaque-content-unit", () => (
+                                    <>
+                                        {routing.locales.map((l) => (
+                                            <Link
+                                                key={l}
+                                                href={pathname}
+                                                locale={l}
+                                                aria-current={l === locale ? "true" : undefined}
+                                                className={l === locale ? LOCALE_ACTIVE_CLASSES : LOCALE_INACTIVE_CLASSES}
+                                            >
+                                                {l}
+                                            </Link>
+                                        ))}
+                                    </>
+                                )),
+                            }),
+                            cta: defineContractProjection("opaque-content-unit", () => (
+                                <RouteCtaAction to="/chat" label={t("contact")} size="md" />
+                            )),
+                        }),
+                    }),
+                }),
+            })}
+        />
     )
 }

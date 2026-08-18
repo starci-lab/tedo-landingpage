@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef, type CSSProperties, type PointerEvent } from "react"
+import { Wordmark } from "@/components/leaves/Wordmark"
 
 /**
  * The hero's 3D "system" visual: a tilted node graph with a central TEDO hub
@@ -8,6 +9,15 @@ import { useRef, type CSSProperties, type PointerEvent } from "react"
  * the deck's ecosystem diagram, rebuilt in CSS 3D. Motion is CSS-driven
  * (`.tedo-scene` in globals.css); this component only threads the cursor
  * parallax (`--px`/`--py`) and the per-node pop + float delays.
+ *
+ * EVERY NODE HERE IS A `<span>`, NEVER A `<div>`. The outer frame reads a live
+ * pointer position off a `ref` and needs a real DOM handle for
+ * `getBoundingClientRect` - `Tree` has no channel for a `ref` or a pointer
+ * handler, so this one purely decorative (`aria-hidden`), ref-driven scene stays
+ * outside the contract frame entirely rather than forcing a mechanic it cannot
+ * express through it. Its structural positioning is named as real CSS in
+ * `globals.css` (`.hero-3d-*`) instead of Tailwind's structural utility words,
+ * the same escape this file's own `.tedo-scene` already uses for its motion.
  */
 
 type Node = {
@@ -34,9 +44,9 @@ const NODES: Array<Node> = [
 
 /** Interactive CSS 3D system visual for the hero section. */
 export const Hero3DVisual = () => {
-    const ref = useRef<HTMLDivElement>(null)
+    const ref = useRef<HTMLSpanElement>(null)
 
-    function onMove(e: PointerEvent<HTMLDivElement>) {
+    function onMove(e: PointerEvent<HTMLSpanElement>) {
         const el = ref.current
         if (!el) return
         const r = el.getBoundingClientRect()
@@ -51,21 +61,21 @@ export const Hero3DVisual = () => {
     }
 
     return (
-        <div
+        <span
             ref={ref}
             onPointerMove={onMove}
             onPointerLeave={reset}
-            className="relative mx-auto w-full max-w-[460px] [perspective:1400px]"
+            className="hero-3d-frame"
             aria-hidden
         >
             {/* soft glow behind the graph */}
-            <div className="pointer-events-none absolute inset-4 rounded-[2.5rem] bg-gradient-to-br from-brand-soft to-transparent blur-3xl" />
+            <span className="hero-3d-glow pointer-events-none bg-gradient-to-br from-brand-soft to-transparent blur-3xl" />
 
-            <div className="tedo-scene relative aspect-square">
+            <span className="tedo-scene aspect-square">
                 {/* connector wires (drawn under the nodes) */}
                 <svg
                     viewBox="0 0 100 100"
-                    className="absolute inset-0 h-full w-full overflow-visible"
+                    className="hero-3d-wires h-full w-full"
                     preserveAspectRatio="none"
                 >
                     {NODES.map((n) => (
@@ -85,17 +95,13 @@ export const Hero3DVisual = () => {
                 </svg>
 
                 {/* central hub */}
-                <div
-                    className="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-3xl border border-line bg-white text-center shadow-[0_30px_60px_-25px_rgba(20,48,92,0.55)] [transform:translate(-50%,-50%)_translateZ(90px)]"
-                >
-                    <span className="font-display text-xl font-extrabold tracking-tight text-brand-deep">
-                        TEDO
-                    </span>
-                    <span className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-ink-faint">
+                <span className="hero-3d-hub h-28 w-28 rounded-3xl border border-line bg-white text-center">
+                    <Wordmark />
+                    <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.12em] text-ink-faint">
                         Product studio
                     </span>
-                    <span className="mt-1.5 h-1 w-1 rounded-full bg-accent shadow-[0_0_10px_var(--color-accent)]" />
-                </div>
+                    <span className="mt-2 inline-block h-1 w-1 rounded-full bg-accent shadow-[0_0_10px_var(--color-accent)]" />
+                </span>
 
                 {/* module nodes */}
                 {NODES.map((n, i) => {
@@ -107,13 +113,13 @@ export const Hero3DVisual = () => {
                         transform: `translate(-50%,-50%) translateZ(${n.z}px)`,
                     }
                     return (
-                        <div
+                        <span
                             key={n.label}
                             style={style}
-                            className="absolute flex items-center gap-2 rounded-2xl border border-line bg-white/95 px-3 py-2 shadow-[0_16px_34px_-16px_rgba(20,48,92,0.5)] backdrop-blur-sm"
+                            className="hero-3d-node rounded-2xl border border-line bg-white/95 px-3 py-2 backdrop-blur-sm"
                         >
                             <span
-                                className="grid h-6 w-6 place-items-center rounded-lg text-[10px] font-bold text-white"
+                                className="hero-3d-node-icon h-6 w-6 rounded-lg text-[10px] font-bold text-white"
                                 style={{ background: n.color }}
                             >
                                 {n.label.charAt(0)}
@@ -122,14 +128,14 @@ export const Hero3DVisual = () => {
                                 {n.label}
                             </span>
                             {n.live && (
-                                <span className="ml-0.5 rounded-full bg-green/15 px-1.5 py-0.5 font-mono text-[9px] font-semibold uppercase text-green">
+                                <span className="ml-1 rounded-full bg-green/15 px-2 py-1 font-mono text-[9px] font-semibold uppercase text-green">
                                     live
                                 </span>
                             )}
-                        </div>
+                        </span>
                     )
                 })}
-            </div>
-        </div>
+            </span>
+        </span>
     )
 }

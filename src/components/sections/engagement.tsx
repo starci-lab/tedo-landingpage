@@ -1,8 +1,11 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Card, Separator } from "@heroui/react"
-import { CtaLink, Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import type { ContractKey } from "@/components/contracts"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Separator } from "@/components/leaves/Separator"
+import { ActionLink } from "@/components/leaves/ActionLink"
 
 type Model = {
     name: string
@@ -19,65 +22,69 @@ export const Engagement = () => {
     const items = t.raw("items") as Model[]
 
     return (
-        <Section id="engagement">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:mx-auto lg:max-w-4xl">
-                {items.map((model) => (
-                    <Card
-                        key={model.name}
-                        variant={model.featured ? "secondary" : "default"}
-                        className={`flex flex-col ${
-                            model.featured ? "ring-2 ring-accent/60" : ""
-                        }`}
-                    >
-                        <Card.Header>
-                            <Card.Title className="font-display text-xl font-semibold">
-                                {model.name}
-                            </Card.Title>
-                            <p className="mt-1.5 text-xs font-medium text-brand">
-                                {model.best}
-                            </p>
-                            <Card.Description className="mt-4 text-sm leading-relaxed text-ink-muted">
-                                {model.body}
-                            </Card.Description>
-                        </Card.Header>
-
-                        <Card.Content className="grow">
-                            <Separator className="mb-5" />
-                            <ul className="flex flex-col gap-2.5">
-                                {model.points.map((point) => (
-                                    <li
-                                        key={point}
-                                        className="flex gap-2.5 text-sm text-ink-muted"
-                                    >
-                                        <span
-                                            aria-hidden
-                                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand"
-                                        />
-                                        {point}
-                                    </li>
-                                ))}
-                            </ul>
-                        </Card.Content>
-
-                        <Card.Footer>
-                            <CtaLink
-                                href="#contact"
-                                size="md"
-                                variant={
-                                    model.featured ? "primary" : "outline"
-                                }
-                                className="w-full"
-                            >
-                                {model.cta}
-                            </CtaLink>
-                        </Card.Footer>
-                    </Card>
-                ))}
-            </div>
-        </Section>
+        <Tree
+            contract="page-band"
+            render={defineContractComponent("page-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="engagement-card-grid"
+                                render={defineContractComponent("engagement-card-grid", {
+                                    items: items.map((model) => {
+                                        const contract: ContractKey = model.featured ? "engagement-card-featured" : "engagement-card"
+                                        return defineContractComponent(contract, {
+                                            header: defineContractComponent("engagement-card-header", {
+                                                name: defineLeafComponent("heading", {}, () => (
+                                                    <Heading props={{ content: model.name, level: 3 }} />
+                                                )),
+                                                best: defineLeafComponent("text", {}, () => (
+                                                    <Text props={{ content: model.best, variant: "label" }} />
+                                                )),
+                                                body: defineLeafComponent("text", {}, () => (
+                                                    <Text props={{ content: model.body, variant: "body" }} />
+                                                )),
+                                            }),
+                                            points: defineContractComponent("engagement-points-block", {
+                                                divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
+                                                list: defineContractComponent("bullet-list", {
+                                                    items: model.points.map((point) => defineContractComponent("labelled-bullet-item", {
+                                                        mark: defineContractProjection("opaque-content-unit", () => (
+                                                            <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
+                                                        )),
+                                                        label: defineLeafComponent("text", {}, () => (
+                                                            <Text props={{ content: point, variant: "body" }} />
+                                                        )),
+                                                    })),
+                                                }),
+                                            }),
+                                            cta: defineLeafComponent("action-link", {}, () => (
+                                                <ActionLink
+                                                    props={{ href: "#contact", content: model.cta, variant: model.featured ? "primary" : "outline", size: "md" }}
+                                                />
+                                            )),
+                                        })
+                                    }),
+                                })}
+                            />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

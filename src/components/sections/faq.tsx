@@ -1,8 +1,9 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Accordion } from "@heroui/react"
-import { Eyebrow, Section, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Icon } from "@/components/leaves/Icon"
 
 type Faq = { q: string; a: string }
 
@@ -12,27 +13,45 @@ export const Faq = () => {
     const items = t.raw("items") as Faq[]
 
     return (
-        <Section id="faq" className="bg-surface/30">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-
-            <Accordion className="mt-10 max-w-3xl">
-                {items.map((item, i) => (
-                    <Accordion.Item key={item.q} id={String(i)}>
-                        <Accordion.Heading>
-                            <Accordion.Trigger className="text-pretty font-medium">
-                                {item.q}
-                                <Accordion.Indicator />
-                            </Accordion.Trigger>
-                        </Accordion.Heading>
-                        <Accordion.Panel>
-                            <Accordion.Body className="max-w-2xl text-sm leading-relaxed text-ink-muted">
-                                {item.a}
-                            </Accordion.Body>
-                        </Accordion.Panel>
-                    </Accordion.Item>
-                ))}
-            </Accordion>
-        </Section>
+        <Tree
+            contract="page-band-tinted"
+            render={defineContractComponent("page-band-tinted", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="faq-list"
+                                render={defineContractComponent("faq-list", {
+                                    items: items.map((item) => defineContractComponent("faq-item", {
+                                        content: defineContractProjection("opaque-content-unit", () => (
+                                            <details>
+                                                <summary className="faq-summary text-pretty font-medium">
+                                                    {item.q}
+                                                    <span className="faq-chevron">
+                                                        <Icon props={{ name: "ChevronDownIcon", size: "sm" }} />
+                                                    </span>
+                                                </summary>
+                                                <p className="mt-3 text-sm leading-relaxed text-ink-muted">{item.a}</p>
+                                            </details>
+                                        )),
+                                    })),
+                                })}
+                            />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

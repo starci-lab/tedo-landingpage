@@ -3,9 +3,13 @@
 import { useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
-import { Chip } from "@heroui/react"
-import { Link } from "@/i18n/routing"
-import { Container, Eyebrow } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Chip } from "@/components/leaves/Chip"
+import { FilterChip } from "@/components/leaves/FilterChip"
+import { RouteCtaAction } from "@/components/composites/RouteCtaAction"
 
 type Project = {
     category: string
@@ -48,200 +52,174 @@ export const ProjectsGallery = () => {
     const shown = active ? items.filter((p) => p.category === active) : items
 
     return (
-        <section className="py-16 sm:py-20">
-            <Container>
-                <Eyebrow>{t("eyebrow")}</Eyebrow>
-                <h1 className="max-w-3xl text-balance font-display text-3xl font-extrabold leading-[1.1] tracking-tight text-ink sm:text-5xl">
-                    {t("title")}
-                </h1>
-                <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-ink-muted sm:text-lg">
-                    {t("subtitle")}
-                </p>
-
-                {/* filter */}
-                <div className="mt-8 flex flex-wrap gap-2">
-                    <FilterChip
-                        label={t("filterAll")}
-                        active={active === null}
-                        onClick={() => setActive(null)}
-                    />
-                    {categories.map((c) => (
-                        <FilterChip
-                            key={c}
-                            label={c}
-                            active={active === c}
-                            onClick={() => setActive(c)}
-                        />
-                    ))}
-                </div>
-
-                <div className="mt-10 grid gap-6 sm:grid-cols-2">
-                    {shown.map((project) => (
-                        <ProjectCard
-                            key={project.title}
-                            project={project}
-                            pendingImage={t("pendingImage")}
-                            stackLabel={t("stackLabel")}
-                            imageAlt={(title) => t("imageAlt", { title })}
-                        />
-                    ))}
-                </div>
-
-                {/* bottom CTA */}
-                <div className="mt-14 rounded-3xl border border-line bg-brand-soft/50 px-6 py-10 text-center sm:px-10">
-                    <h2 className="mx-auto max-w-xl text-balance font-display text-2xl font-bold tracking-tight text-ink sm:text-3xl">
-                        {t("ctaTitle")}
-                    </h2>
-                    <div className="mt-6 flex justify-center">
-                        <Link
-                            href="/#contact"
-                            className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-accent px-6 text-base font-medium text-accent-ink shadow-[0_6px_18px_-6px_rgba(245,130,32,0.6)] transition-colors hover:bg-accent-dim"
-                        >
-                            {t("cta")}
-                        </Link>
-                    </div>
-                </div>
-            </Container>
-        </section>
-    )
-}
-
-type FilterChipProps = {
-    label: string
-    active: boolean
-    onClick: () => void
-}
-
-const FilterChip = ({
-    label,
-    active,
-    onClick,
-}: FilterChipProps) => {
-    return (
-        <button
-            type="button"
-            onClick={onClick}
-            aria-pressed={active}
-            className={`cursor-pointer rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
-                active
-                    ? "border-brand bg-brand text-white"
-                    : "border-line bg-white text-ink-muted hover:border-brand hover:text-brand"
-            }`}
-        >
-            {label}
-        </button>
-    )
-}
-
-type ProjectCardProps = {
-    project: Project
-    pendingImage: string
-    stackLabel: string
-    imageAlt: (title: string) => string
-}
-
-const ProjectCard = ({
-    project,
-    pendingImage,
-    stackLabel,
-    imageAlt,
-}: ProjectCardProps) => {
-    const initial = project.title.charAt(0)
-    return (
-        <article className="flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-[0_24px_50px_-40px_rgba(20,48,92,0.5)]">
-            <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand-soft to-surface-2">
-                {project.image ? (
-                    <Image
-                        src={project.image}
-                        alt={imageAlt(project.title)}
-                        fill
-                        sizes="(max-width: 640px) 100vw, 50vw"
-                        className="absolute inset-0 h-full w-full object-cover"
-                    />
-                ) : (
-                    <>
-                        <div className="tedo-dots absolute inset-0 opacity-40" />
-                        <span
-                            aria-hidden
-                            className="absolute inset-0 grid place-items-center font-display text-7xl font-extrabold text-brand/15"
-                        >
-                            {initial}
-                        </span>
-                    </>
-                )}
-                <span className="absolute left-4 top-4">
-                    <Chip size="sm" variant="secondary">
-                        {project.badge}
-                    </Chip>
-                </span>
-                {project.pending && (
-                    <span className="absolute bottom-3 right-4 rounded bg-white/85 px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide text-ink-faint">
-                        {pendingImage}
-                    </span>
-                )}
-            </div>
-
-            <div className="flex flex-1 flex-col p-6">
-                <p className="font-mono text-[11px] uppercase tracking-wide text-brand">
-                    {project.category}
-                </p>
-                <h3 className="mt-1 font-display text-xl font-bold text-ink">
-                    {project.title}
-                </h3>
-                <p className="text-sm font-medium text-ink-muted">
-                    {project.tagline}
-                </p>
-                <p className="mt-3 text-sm leading-relaxed text-ink-muted">
-                    {project.body}
-                </p>
-
-                {project.highlights.length > 0 && (
-                    <ul className="mt-4 flex flex-col gap-2">
-                        {project.highlights.map((h) => (
-                            <li
-                                key={h}
-                                className="flex gap-2.5 text-sm text-ink-body"
-                            >
-                                <span
-                                    aria-hidden
-                                    className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand"
-                                />
-                                {h}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-
-                <div className="mt-auto pt-6">
-                    <div className="flex items-end justify-between gap-4 border-t border-line pt-4">
-                        <div>
-                            <p className="font-display text-2xl font-bold text-brand">
-                                {project.metric}
-                            </p>
-                            <p className="text-xs text-ink-faint">
-                                {project.metricLabel}
-                            </p>
-                        </div>
-                        {project.stack.length > 0 && (
-                            <div className="max-w-[62%] text-right">
-                                <p className="mb-1.5 font-mono text-[10px] uppercase tracking-wide text-ink-faint">
-                                    {stackLabel}
-                                </p>
-                                <div className="flex flex-wrap justify-end gap-1.5">
-                                    {project.stack.map((s) => (
-                                        <span
-                                            key={s}
-                                            className="rounded-md bg-surface-2 px-2 py-0.5 font-mono text-[11px] text-ink-muted"
-                                        >
-                                            {s}
-                                        </span>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </article>
+        <Tree
+            contract="gallery-band"
+            render={defineContractComponent("gallery-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 1 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="gallery-filter-row"
+                                render={defineContractComponent("gallery-filter-row", {
+                                    items: [
+                                        defineLeafComponent("filter-chip", {}, () => (
+                                            <FilterChip
+                                                props={{ content: t("filterAll"), selected: active === null }}
+                                                on={{ onPress: () => setActive(null) }}
+                                            />
+                                        )),
+                                        ...categories.map((c) => defineLeafComponent("filter-chip", {}, () => (
+                                            <FilterChip
+                                                props={{ content: c, selected: active === c }}
+                                                on={{ onPress: () => setActive(c) }}
+                                            />
+                                        ))),
+                                    ],
+                                })}
+                            />
+                            <Tree
+                                contract="project-card-grid"
+                                render={defineContractComponent("project-card-grid", {
+                                    items: shown.map((project) => defineContractComponent("project-card", {
+                                        media: defineContractComponent("project-card-media", {
+                                            content: defineContractProjection("opaque-content-unit", () => (
+                                                <>
+                                                    {project.image ? (
+                                                        <Tree
+                                                            contract="project-card-image-slot"
+                                                            render={defineContractComponent("project-card-image-slot", {
+                                                                content: defineContractProjection("opaque-content-unit", () => (
+                                                                    <Image
+                                                                        src={project.image ?? ""}
+                                                                        alt={t("imageAlt", { title: project.title })}
+                                                                        fill
+                                                                        sizes="(max-width: 640px) 100vw, 50vw"
+                                                                        className="h-full w-full object-cover"
+                                                                    />
+                                                                )),
+                                                            })}
+                                                        />
+                                                    ) : (
+                                                        <>
+                                                            <Tree
+                                                                contract="project-card-dots-layer"
+                                                                render={defineContractComponent("project-card-dots-layer", {})}
+                                                            />
+                                                            <Tree
+                                                                contract="project-card-initial-slot"
+                                                                render={defineContractComponent("project-card-initial-slot", {
+                                                                    value: defineLeafComponent("text", {}, () => (
+                                                                        <Text props={{ content: project.title.charAt(0), variant: "stat" }} />
+                                                                    )),
+                                                                })}
+                                                            />
+                                                        </>
+                                                    )}
+                                                    <Tree
+                                                        contract="project-card-badge-slot"
+                                                        render={defineContractComponent("project-card-badge-slot", {
+                                                            badge: defineLeafComponent("chip", {}, () => (
+                                                                <Chip props={{ content: project.badge, variant: "secondary", size: "sm" }} />
+                                                            )),
+                                                        })}
+                                                    />
+                                                    {project.pending && (
+                                                        <Tree
+                                                            contract="project-card-pending-note"
+                                                            render={defineContractComponent("project-card-pending-note", {
+                                                                content: defineLeafComponent("text", {}, () => (
+                                                                    <Text props={{ content: t("pendingImage"), variant: "label" }} />
+                                                                )),
+                                                            })}
+                                                        />
+                                                    )}
+                                                </>
+                                            )),
+                                        }),
+                                        body: defineContractComponent("project-card-body", {
+                                            category: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: project.category, variant: "label" }} />
+                                            )),
+                                            title: defineLeafComponent("heading", {}, () => (
+                                                <Heading props={{ content: project.title, level: 3 }} />
+                                            )),
+                                            tagline: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: project.tagline, variant: "body" }} />
+                                            )),
+                                            body: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: project.body, variant: "body" }} />
+                                            )),
+                                            highlights: project.highlights.length > 0
+                                                ? defineContractComponent("bullet-list", {
+                                                    items: project.highlights.map((h) => defineContractComponent("labelled-bullet-item", {
+                                                        mark: defineContractProjection("opaque-content-unit", () => (
+                                                            <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
+                                                        )),
+                                                        label: defineLeafComponent("text", {}, () => (
+                                                            <Text props={{ content: h, variant: "body" }} />
+                                                        )),
+                                                    })),
+                                                })
+                                                : undefined,
+                                            footer: defineContractComponent("project-card-footer", {
+                                                row: defineContractComponent("project-card-footer-row", {
+                                                    metric: defineContractComponent("project-card-metric", {
+                                                        value: defineLeafComponent("text", {}, () => (
+                                                            <Text props={{ content: project.metric, variant: "stat" }} />
+                                                        )),
+                                                        label: defineLeafComponent("text", {}, () => (
+                                                            <Text props={{ content: project.metricLabel, variant: "body" }} />
+                                                        )),
+                                                    }),
+                                                    stack: project.stack.length > 0
+                                                        ? defineContractComponent("project-card-stack", {
+                                                            label: defineLeafComponent("text", {}, () => (
+                                                                <Text props={{ content: t("stackLabel"), variant: "label" }} />
+                                                            )),
+                                                            chips: defineContractComponent("project-card-stack-row", {
+                                                                items: project.stack.map((s) => defineLeafComponent("chip", {}, () => (
+                                                                    <Chip props={{ content: s, size: "sm" }} />
+                                                                ))),
+                                                            }),
+                                                        })
+                                                        : undefined,
+                                                }),
+                                            }),
+                                        }),
+                                    })),
+                                })}
+                            />
+                            <Tree
+                                contract="gallery-cta-panel"
+                                render={defineContractComponent("gallery-cta-panel", {
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("ctaTitle"), level: 2 }} />
+                                    )),
+                                    action: defineContractComponent("gallery-cta-row", {
+                                        cta: defineContractProjection("opaque-content-unit", () => (
+                                            <RouteCtaAction to="/#contact" label={t("cta")} size="md" />
+                                        )),
+                                    }),
+                                })}
+                            />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

@@ -1,22 +1,43 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { Link } from "@/i18n/routing"
+import { useRouter } from "@/i18n/routing"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineLeafComponent } from "@/components/contracts/props"
+import { Heading } from "@/components/leaves/Heading"
+import { Text } from "@/components/leaves/Text"
+import { ActionButton } from "@/components/leaves/ActionButton"
 
 type ConsultationErrorProps = { error: Error; reset: () => void }
 
 /** Renders the recovery actions shown when consultation loading fails. */
 const ConsultationError = ({ reset }: ConsultationErrorProps) => {
     const t = useTranslations("consultation")
+    const router = useRouter()
+
     return (
-        <main className="mx-auto grid min-h-screen max-w-xl place-content-center px-5 text-center">
-            <h1 className="font-display text-3xl font-bold text-ink">{t("pageErrorTitle")}</h1>
-            <p className="mt-3 text-ink-muted">{t("pageErrorBody")}</p>
-            <div className="mt-6 flex justify-center gap-3">
-                <button type="button" onClick={reset} className="min-h-11 rounded-xl bg-brand px-5 font-medium text-white">{t("retry")}</button>
-                <Link href="/" className="inline-flex min-h-11 items-center rounded-xl border border-line-strong px-5 font-medium text-ink">{t("back")}</Link>
-            </div>
-        </main>
+        <Tree
+            contract="error-panel"
+            render={defineContractComponent("error-panel", {
+                heading: defineLeafComponent("heading", {}, () => (
+                    <Heading props={{ content: t("pageErrorTitle"), level: 1 }} />
+                )),
+                body: defineLeafComponent("text", {}, () => (
+                    <Text props={{ content: t("pageErrorBody"), variant: "body" }} />
+                )),
+                actions: defineContractComponent("inline-action-row", {
+                    primary: defineLeafComponent("action-button", {}, () => (
+                        <ActionButton props={{ content: t("retry"), variant: "brand" }} on={{ onPress: reset }} />
+                    )),
+                    secondary: defineLeafComponent("action-button", {}, () => (
+                        <ActionButton
+                            props={{ content: t("back"), variant: "outline" }}
+                            on={{ onPress: () => router.push("/") }}
+                        />
+                    )),
+                }),
+            })}
+        />
     )
 }
 

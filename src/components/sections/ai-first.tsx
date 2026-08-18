@@ -1,8 +1,8 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Card } from "@heroui/react"
-import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
 
 type Item = { title: string; body: string }
 
@@ -12,28 +12,46 @@ export const AiFirst = () => {
     const items = t.raw("items") as Item[]
 
     return (
-        <Section id="ai-first">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <div className="mt-12 grid gap-4 md:grid-cols-2">
-                {items.map((item, i) => (
-                    <Card key={item.title}>
-                        <Card.Content className="flex flex-col gap-3">
-                            <span className="font-mono text-xs font-semibold text-brand">
-                                {String(i + 1).padStart(2, "0")}
-                            </span>
-                            <Card.Title className="text-pretty text-lg font-medium leading-snug">
-                                {item.title}
-                            </Card.Title>
-                            <Card.Description className="text-sm leading-relaxed text-ink-muted">
-                                {item.body}
-                            </Card.Description>
-                        </Card.Content>
-                    </Card>
-                ))}
-            </div>
-        </Section>
+        <Tree
+            contract="page-band"
+            render={defineContractComponent("page-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="insight-card-grid"
+                                render={defineContractComponent("insight-card-grid", {
+                                    items: items.map((item, i) => defineContractComponent("insight-card", {
+                                        index: defineLeafComponent("text", {}, () => (
+                                            <Text props={{ content: String(i + 1).padStart(2, "0"), variant: "label" }} />
+                                        )),
+                                        title: defineLeafComponent("heading", {}, () => (
+                                            <Heading props={{ content: item.title, level: 4 }} />
+                                        )),
+                                        body: defineLeafComponent("text", {}, () => (
+                                            <Text props={{ content: item.body, variant: "body" }} />
+                                        )),
+                                    })),
+                                })}
+                            />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

@@ -2,6 +2,11 @@
 
 import { useTranslations } from "next-intl"
 import { useConsultationLeadForm } from "@/hooks/rhf/useConsultationLeadForm"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Heading } from "@/components/leaves/Heading"
+import { Text } from "@/components/leaves/Text"
+import { ActionButton } from "@/components/leaves/ActionButton"
 
 interface ConsultationLeadFormProps {
     conversationId: string
@@ -11,23 +16,127 @@ interface ConsultationLeadFormProps {
 export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormProps) => {
     const t = useTranslations("consultation.lead")
     const { register, onSubmit, sent, submitError, formState: { errors, isSubmitting } } = useConsultationLeadForm(conversationId)
+
     if (sent) {
-        return <div role="status" className="rounded-2xl border border-green/30 bg-green/10 p-5 text-sm leading-relaxed text-ink">{t("success")}</div>
+        return (
+            <Tree
+                contract="lead-success-panel"
+                render={defineContractComponent("lead-success-panel", {
+                    message: defineLeafComponent("text", {}, () => (
+                        <Text props={{ content: t("success"), variant: "body" }} />
+                    )),
+                })}
+            />
+        )
     }
+
     return (
-        <form onSubmit={onSubmit} className="grid gap-4 rounded-2xl border border-line bg-white p-5">
-            <div><h3 className="font-display text-lg font-semibold text-ink">{t("title")}</h3><p className="mt-1 text-sm leading-relaxed text-ink-muted">{t("subtitle")}</p></div>
-            <label className="grid gap-1.5 text-sm text-ink"><span>{t("name")}</span><input {...register("name")} autoComplete="name" className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand" />{errors.name ? <span className="text-red-700">{errors.name.message}</span> : null}</label>
-            <div className="grid gap-4 sm:grid-cols-2">
-                <label className="grid gap-1.5 text-sm text-ink"><span>{t("phone")}</span><input {...register("phone")} inputMode="tel" autoComplete="tel" className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand" />{errors.phone ? <span className="text-red-700">{errors.phone.message}</span> : null}</label>
-                <label className="grid gap-1.5 text-sm text-ink"><span>{t("email")}</span><input {...register("email")} type="email" autoComplete="email" className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand" />{errors.email ? <span className="text-red-700">{errors.email.message}</span> : null}</label>
-            </div>
-            <label className="grid gap-1.5 text-sm text-ink"><span>{t("company")}</span><input {...register("company")} autoComplete="organization" className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand" /></label>
-            <label className="grid gap-1.5 text-sm text-ink"><span>{t("preferred")}</span><select {...register("preferredChannel")} className="min-h-11 rounded-xl border border-line bg-white px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand"><option value="zalo">Zalo</option><option value="phone">{t("phoneOption")}</option><option value="email">Email</option></select></label>
-            <label className="flex min-h-11 items-start gap-3 text-sm leading-relaxed text-ink-muted"><input {...register("consent")} type="checkbox" className="mt-1 h-5 w-5 accent-brand" /><span>{t("consent")}</span></label>
-            {errors.consent ? <p className="text-sm text-red-700">{errors.consent.message}</p> : null}
-            {submitError ? <p role="alert" className="text-sm text-red-700">{t("error")}</p> : null}
-            <button type="submit" disabled={isSubmitting} className="min-h-12 cursor-pointer rounded-xl bg-accent px-5 font-medium text-white transition-colors hover:bg-accent-dim disabled:cursor-not-allowed disabled:opacity-50">{isSubmitting ? t("sending") : t("submit")}</button>
+        <form onSubmit={onSubmit}>
+            <Tree
+                contract="lead-form-shell"
+                render={defineContractComponent("lead-form-shell", {
+                    intro: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Heading props={{ content: t("title"), level: 3 }} />
+                            <Text props={{ content: t("subtitle"), variant: "body" }} />
+                        </>
+                    )),
+                    name: defineContractComponent("field-row", {
+                        control: defineContractProjection("opaque-content-unit", () => (
+                            <>
+                                <label className="text-sm text-ink">{t("name")}</label>
+                                <input
+                                    {...register("name")}
+                                    autoComplete="name"
+                                    className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                                />
+                                {errors.name ? <span className="text-sm text-red-700">{errors.name.message}</span> : null}
+                            </>
+                        )),
+                    }),
+                    contactPair: defineContractComponent("two-col-row", {
+                        first: defineContractComponent("field-row", {
+                            control: defineContractProjection("opaque-content-unit", () => (
+                                <>
+                                    <label className="text-sm text-ink">{t("phone")}</label>
+                                    <input
+                                        {...register("phone")}
+                                        inputMode="tel"
+                                        autoComplete="tel"
+                                        className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                                    />
+                                    {errors.phone ? <span className="text-sm text-red-700">{errors.phone.message}</span> : null}
+                                </>
+                            )),
+                        }),
+                        second: defineContractComponent("field-row", {
+                            control: defineContractProjection("opaque-content-unit", () => (
+                                <>
+                                    <label className="text-sm text-ink">{t("email")}</label>
+                                    <input
+                                        {...register("email")}
+                                        type="email"
+                                        autoComplete="email"
+                                        className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                                    />
+                                    {errors.email ? <span className="text-sm text-red-700">{errors.email.message}</span> : null}
+                                </>
+                            )),
+                        }),
+                    }),
+                    company: defineContractComponent("field-row", {
+                        control: defineContractProjection("opaque-content-unit", () => (
+                            <>
+                                <label className="text-sm text-ink">{t("company")}</label>
+                                <input
+                                    {...register("company")}
+                                    autoComplete="organization"
+                                    className="min-h-11 rounded-xl border border-line px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                                />
+                            </>
+                        )),
+                    }),
+                    preferred: defineContractComponent("field-row", {
+                        control: defineContractProjection("opaque-content-unit", () => (
+                            <>
+                                <label className="text-sm text-ink">{t("preferred")}</label>
+                                <select
+                                    {...register("preferredChannel")}
+                                    className="min-h-11 rounded-xl border border-line bg-white px-3 outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                                >
+                                    <option value="zalo">Zalo</option>
+                                    <option value="phone">{t("phoneOption")}</option>
+                                    <option value="email">Email</option>
+                                </select>
+                            </>
+                        )),
+                    }),
+                    consent: defineContractComponent("checkbox-consent-row", {
+                        control: defineContractProjection("opaque-content-unit", () => (
+                            <>
+                                <input {...register("consent")} type="checkbox" className="mt-1 h-5 w-5 accent-brand" />
+                                <span className="text-sm leading-relaxed text-ink-muted">{t("consent")}</span>
+                            </>
+                        )),
+                    }),
+                    consentError: errors.consent
+                        ? defineLeafComponent("text", {}, () => (
+                            <Text props={{ content: errors.consent?.message ?? "", variant: "body", tone: "danger" }} />
+                        ))
+                        : undefined,
+                    submitError: submitError
+                        ? defineLeafComponent("text", {}, () => (
+                            <Text props={{ content: t("error"), variant: "body", tone: "danger" }} />
+                        ))
+                        : undefined,
+                    submit: defineLeafComponent("action-button", {}, () => (
+                        <ActionButton
+                            props={{ content: isSubmitting ? t("sending") : t("submit"), variant: "primary", type: "submit", disabled: isSubmitting }}
+                            isLoading={isSubmitting}
+                        />
+                    )),
+                })}
+            />
         </form>
     )
 }

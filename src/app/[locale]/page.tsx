@@ -1,7 +1,10 @@
+import type { ComponentType } from "react"
 import { setRequestLocale } from "next-intl/server"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
-import { Reveal } from "@/components/reveal"
+import { Tree } from "@/components/branches/Tree"
+import { Reveal } from "@/components/branches/Reveal"
+import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
 import { Hero } from "@/components/sections/hero"
 import { Services } from "@/components/sections/services"
 import { Design } from "@/components/sections/design"
@@ -18,6 +21,12 @@ import { StickyCta } from "@/components/sticky-cta"
 
 type HomePageParams = { params: Promise<{ locale: string }> }
 
+/** One landing section, closed into an opaque unit and revealed on scroll. */
+const revealedSection = (Section: ComponentType) =>
+    defineContractProjection("opaque-content-unit", () => (
+        <Reveal content={<Section />} />
+    ))
+
 /** Renders the localized landing page. */
 const HomePage = async ({ params }: HomePageParams) => {
     const { locale } = await params
@@ -31,20 +40,25 @@ const HomePage = async ({ params }: HomePageParams) => {
                 nothing said after it lands before the visitor believes anyone has
                 done this before; price sits mid-page because budget is the filter
                 small clients apply first, and filtering early saves both sides. */}
-            <main>
-                <Hero />
-                <Reveal><Cases /></Reveal>
-                <Reveal><Fit /></Reveal>
-                <Reveal><Services /></Reveal>
-                <Reveal><Pricing /></Reveal>
-                <Reveal><Process /></Reveal>
-                <Reveal><Aftercare /></Reveal>
-                <Reveal><Engagement /></Reveal>
-                <Reveal><Design /></Reveal>
-                <Reveal><Stack /></Reveal>
-                <Reveal><Faq /></Reveal>
-                <Reveal><Contact /></Reveal>
-            </main>
+            <Tree
+                contract="landing-main"
+                render={defineContractComponent("landing-main", {
+                    hero: defineContractProjection("opaque-content-unit", () => <Hero />),
+                    sections: [
+                        revealedSection(Cases),
+                        revealedSection(Fit),
+                        revealedSection(Services),
+                        revealedSection(Pricing),
+                        revealedSection(Process),
+                        revealedSection(Aftercare),
+                        revealedSection(Engagement),
+                        revealedSection(Design),
+                        revealedSection(Stack),
+                        revealedSection(Faq),
+                        revealedSection(Contact),
+                    ],
+                })}
+            />
             <Footer />
             <StickyCta />
         </>

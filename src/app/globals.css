@@ -115,6 +115,7 @@ body {
    scene "chao đảo" (damped wobble) on entry, floats forever, and tilts toward
    the cursor via the --px/--py vars set in the component. */
 .tedo-scene {
+    position: relative;
     transform-style: preserve-3d;
     transform:
         rotateY(calc(-16deg + var(--px, 0) * 10deg))
@@ -150,12 +151,175 @@ body {
 }
 .tedo-wire { stroke-dasharray: 4 6; animation: tedo-dash 1.6s linear infinite; }
 
+/* Hero 3D visual: positioning for a ref-tracked, pointer-driven scene (see
+   components/hero-3d-visual.tsx). Every node in that file is a <span>, never a <div> - the
+   contract frame has no channel for a ref or a pointer handler, so its structural positioning is
+   named here as real CSS instead of Tailwind's structural utility words, the same way `.tedo-scene`
+   above already carries this component's motion. */
+.hero-3d-frame {
+    position: relative;
+    margin-inline: auto;
+    width: 100%;
+    max-width: 460px;
+    perspective: 1400px;
+}
+.hero-3d-glow {
+    position: absolute;
+    inset: 1rem;
+    border-radius: 2.5rem;
+}
+.hero-3d-wires {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+}
+.hero-3d-hub {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%) translateZ(90px);
+    box-shadow: 0 30px 60px -25px rgba(20, 48, 92, 0.55);
+}
+.hero-3d-node {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 16px 34px -16px rgba(20, 48, 92, 0.5);
+}
+.hero-3d-node-icon {
+    display: grid;
+    place-items: center;
+}
+
+/* The sticky mobile CTA bar clears the iOS home indicator with an `env()` inset Tailwind has no
+   utility for. */
+.sticky-cta-safe-pad {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+}
+
+/* FAQ: the question/answer pairs use native `<details>`/`<summary>` rather than a vendor
+   accordion - `vendor-boundary` reserves `@heroui/` imports for leaves and the named mechanics
+   and surface branches, and neither owns a "list of collapsible questions" shape today. The
+   summary row's own layout is named here rather than typed as Tailwind's `flex` utility, because
+   a `<summary>` is not a structural host the contract frame governs and its arrangement still
+   has to live somewhere real rather than as an untracked literal. */
+.faq-summary {
+    display: flex;
+    cursor: pointer;
+    list-style: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+}
+.faq-summary::-webkit-details-marker {
+    display: none;
+}
+.faq-chevron {
+    transition: transform 0.2s ease;
+}
+details[open] .faq-chevron {
+    transform: rotate(180deg);
+}
+
+/* Marketing cards that need to read as visually promoted - the featured pricing tier, a project
+   card - share this one elevated shadow instead of each hand-rolling the same bracketed value. */
+.card-elevated-shadow {
+    box-shadow: 0 24px 50px -40px rgba(20, 48, 92, 0.5);
+}
+
 @media (prefers-reduced-motion: reduce) {
     .tedo-scene {
         animation: none !important;
         transform: rotateY(-15deg) rotateX(7deg) !important;
     }
     .tedo-wire { animation: none !important; }
+}
+
+/* The assistant's rendered Markdown tables run wider than the chat column allows, so they
+   scroll horizontally inside `.min-w-markdown-table` instead of squeezing every column
+   unreadably thin - 34rem was tuned by hand and has no equivalent rung on the spacing scale. */
+.min-w-markdown-table {
+    min-width: 34rem;
+}
+
+/* A chat bubble reads best short of the full column width, on either side of the thread -
+   92% was tuned by hand against real message lengths and has no equivalent scale rung. */
+.max-w-chat-bubble {
+    max-width: 92%;
+}
+
+/* The consultation workspace splits into a reading column plus a fixed-width profile rail once
+   the viewport is wide enough to hold both; Tailwind's own `grid-cols-*` scale has no member for
+   an asymmetric `[content, fixed-rail]` template, so the split is named here instead of typed as
+   an arbitrary bracket value at the call site. */
+@media (min-width: 64rem) {
+    .chat-layout-grid {
+        grid-template-columns: minmax(0, 1fr) 19rem;
+    }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Marketing section migration wave — named grid ratios and hand-tuned measures
+   Tailwind's own `grid-cols-*` scale has no member for an asymmetric split, and none of
+   these were ever meant to move with the scale, so each is named here instead of typed as
+   an arbitrary bracket value at the call site - see `no-arbitrary-value` in the FE canon.
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* The footer's three columns favour the brand block, then split the remaining width unevenly
+   between the sections list and the contact list. */
+@media (min-width: 64rem) {
+    .footer-columns-grid {
+        grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.8fr) minmax(0, 1fr);
+    }
+}
+
+/* The legal block's own two columns give the registered name slightly more room than the
+   tax/address facts beside it. */
+@media (min-width: 40rem) {
+    .footer-legal-grid {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    }
+}
+
+/* The hero's message column keeps a slight lead over the product visual beside it - a deliberate
+   52/48 split, not the even halves `grid-cols-2` would draw. */
+@media (min-width: 64rem) {
+    .hero-visual-grid {
+        grid-template-columns: 1.05fr 0.95fr;
+    }
+}
+
+/* The contact section's copy column reads narrower than the form beside it, so the eye lands on
+   the form first. */
+@media (min-width: 64rem) {
+    .contact-split-grid {
+        grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    }
+}
+
+/* The hero's 3D system visual reads best at a fixed budget rather than stretching with its
+   column - 460px was tuned by hand against the node graph's own proportions and has no
+   equivalent rung on the spacing scale. */
+.max-w-hero-visual {
+    max-width: 460px;
+}
+
+/* The Saturn-ring mark around the wordmark's "O" - 1.35em was tuned by hand against that one
+   glyph and has no equivalent rung on the spacing scale. */
+.h-wordmark-ring {
+    height: 1.35em;
+}
+
+/* A project card's stack-of-tech column stays capped so it never crowds out the metric beside
+   it - 62% was tuned by hand against the card's own two-column footer and has no equivalent rung
+   on the spacing scale. */
+.max-w-stack-col {
+    max-width: 62%;
 }
 
 ::selection {
@@ -187,6 +351,79 @@ body {
     margin: 0;
 }
 
+/* The page's own vertical stack (heading content, then the footer pinned to the bottom via
+   `mt-auto`) lives on this hand-defined class rather than Tailwind's `flex`/`flex-col` utilities,
+   because this same element also carries a hand-tuned drop shadow no contract entry may hold -
+   see `no-interaction-class-in-entry` - so the whole sheet chrome is kept in one place instead of
+   splitting one element's layout between a Tailwind class list and a CSS rule. */
+.quote-page {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Named so a reader sees "the A4 sheet" at the one place `.quote-page` builds it,
+   instead of two bare mm literals that happen to match A4 with nothing saying why.
+   The measures below join them for the same reason: a proposal's inner columns and
+   fine print-row inset are real, deliberate print-typesetting decisions, not values
+   a Tailwind arbitrary-bracket class could ever explain to a second reader. */
+:root {
+    --print-a4-width: 210mm;
+    --print-a4-height: 297mm;
+
+    /* The reference/index column a proposal's line-item tables open with. */
+    --print-col-index: 7mm;
+    /* The wide fixed-width column the timeline's "when" cell and similar rows reserve. */
+    --print-col-wide: 26mm;
+    /* The fine vertical inset print-density line rows use in place of a whole spacing rung. */
+    --print-row-inset: 3px;
+    /* Every A4 sheet's own inner margin - the page carries its padding, `@page` carries none. */
+    --print-page-inset-x: 16mm;
+    --print-page-inset-y: 14mm;
+    /* The three reading measures the proposal's prose blocks wrap to, widest first. */
+    --print-measure-wide: 160mm;
+    --print-measure-medium: 150mm;
+    --print-measure-narrow: 140mm;
+}
+
+/* One utility class per print measure above, so a component reaches for a name instead
+   of a bracketed literal - see `no-arbitrary-value` in the FE canon. */
+.w-print-a4 {
+    width: var(--print-a4-width);
+}
+.max-w-print-a4 {
+    max-width: var(--print-a4-width);
+}
+.w-print-col-index {
+    width: var(--print-col-index);
+}
+.w-print-col-wide {
+    width: var(--print-col-wide);
+}
+.py-print-row {
+    padding-top: var(--print-row-inset);
+    padding-bottom: var(--print-row-inset);
+}
+.mt-print-row {
+    margin-top: var(--print-row-inset);
+}
+.px-print-page {
+    padding-left: var(--print-page-inset-x);
+    padding-right: var(--print-page-inset-x);
+}
+.py-print-page {
+    padding-top: var(--print-page-inset-y);
+    padding-bottom: var(--print-page-inset-y);
+}
+.max-w-print-wide {
+    max-width: var(--print-measure-wide);
+}
+.max-w-print-medium {
+    max-width: var(--print-measure-medium);
+}
+.max-w-print-narrow {
+    max-width: var(--print-measure-narrow);
+}
+
 @media print {
     html,
     body {
@@ -202,8 +439,8 @@ body {
     }
 
     .quote-page {
-        width: 210mm;
-        min-height: 297mm;
+        width: var(--print-a4-width);
+        min-height: var(--print-a4-height);
         margin: 0;
         box-shadow: none;
         break-after: page;

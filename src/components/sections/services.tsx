@@ -1,8 +1,9 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Card, Separator } from "@heroui/react"
-import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Separator } from "@/components/leaves/Separator"
 
 type Service = { title: string; body: string; points: string[] }
 
@@ -12,43 +13,56 @@ export const Services = () => {
     const items = t.raw("items") as Service[]
 
     return (
-        <Section id="services">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <div className="mt-12 grid gap-4 md:grid-cols-2">
-                {items.map((service) => (
-                    <Card key={service.title} className="flex flex-col">
-                        <Card.Header>
-                            <Card.Title className="text-pretty text-xl font-medium leading-snug">
-                                {service.title}
-                            </Card.Title>
-                            <Card.Description className="mt-3 text-sm leading-relaxed text-ink-muted">
-                                {service.body}
-                            </Card.Description>
-                        </Card.Header>
-
-                        <Card.Content>
-                            <Separator className="mb-5" />
-                            <ul className="flex flex-col gap-2">
-                                {service.points.map((point) => (
-                                    <li
-                                        key={point}
-                                        className="flex gap-2.5 text-sm text-ink-muted"
-                                    >
-                                        <span
-                                            aria-hidden
-                                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand"
-                                        />
-                                        {point}
-                                    </li>
-                                ))}
-                            </ul>
-                        </Card.Content>
-                    </Card>
-                ))}
-            </div>
-        </Section>
+        <Tree
+            contract="page-band"
+            render={defineContractComponent("page-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="service-card-grid"
+                                render={defineContractComponent("service-card-grid", {
+                                    items: items.map((service) => defineContractComponent("service-card", {
+                                        title: defineLeafComponent("heading", {}, () => (
+                                            <Heading props={{ content: service.title, level: 3 }} />
+                                        )),
+                                        body: defineLeafComponent("text", {}, () => (
+                                            <Text props={{ content: service.body, variant: "body" }} />
+                                        )),
+                                        points: defineContractComponent("service-points-block", {
+                                            divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
+                                            list: defineContractComponent("bullet-list", {
+                                                items: service.points.map((point) => defineContractComponent("labelled-bullet-item", {
+                                                    mark: defineContractProjection("opaque-content-unit", () => (
+                                                        <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
+                                                    )),
+                                                    label: defineLeafComponent("text", {}, () => (
+                                                        <Text props={{ content: point, variant: "body" }} />
+                                                    )),
+                                                })),
+                                            }),
+                                        }),
+                                    })),
+                                })}
+                            />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

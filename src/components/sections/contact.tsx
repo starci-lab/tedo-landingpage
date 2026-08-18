@@ -2,21 +2,17 @@
 
 import { useState, type FormEvent } from "react"
 import { useTranslations } from "next-intl"
-import {
-    Button,
-    Card,
-    Input,
-    Label,
-    ListBox,
-    ListBoxItem,
-    Select,
-    Separator,
-    Spinner,
-    TextArea,
-    TextField,
-} from "@heroui/react"
 import { brand } from "@/config/brand"
-import { CtaLink, Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Separator } from "@/components/leaves/Separator"
+import { ActionLink } from "@/components/leaves/ActionLink"
+import { ActionButton } from "@/components/leaves/ActionButton"
+import { Field } from "@/components/leaves/Field"
+import { SelectField } from "@/components/leaves/SelectField"
+import { TextAreaField } from "@/components/leaves/TextAreaField"
 
 type Status = "idle" | "sending" | "sent" | "error"
 
@@ -26,6 +22,7 @@ export const Contact = () => {
     const tf = useTranslations("contact.form")
     const options = tf.raw("serviceOptions") as string[]
     const [status, setStatus] = useState<Status>("idle")
+    const [service, setService] = useState(options[0])
 
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault()
@@ -48,154 +45,111 @@ export const Contact = () => {
         }
     }
 
+    const statusText = status === "sent"
+        ? tf("success")
+        : status === "error"
+            ? tf("error", { email: brand.email })
+            : tf("privacy")
+    const statusTone = status === "error" ? "danger" : "default"
+
     return (
-        <Section id="contact">
-            <div className="grid gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)] lg:gap-16">
-                <div>
-                    <Eyebrow>{t("eyebrow")}</Eyebrow>
-                    <SectionTitle>{t("title")}</SectionTitle>
-                    <SectionLead>{t("subtitle")}</SectionLead>
-
-                    <Separator className="my-8" />
-
-                    <p className="text-sm text-ink-muted">{t("orBook")}</p>
-                    <div className="mt-3 flex flex-wrap gap-3">
-                        <CtaLink
-                            href={brand.calendarUrl}
-                            variant="outline"
-                            size="md"
-                            external
-                        >
-                            {brand.calendarUrl.replace("https://", "")}
-                        </CtaLink>
-                        <CtaLink
-                            href={`mailto:${brand.email}`}
-                            variant="ghost"
-                            size="md"
-                            className="font-mono"
-                        >
-                            {brand.email}
-                        </CtaLink>
-                    </div>
-                </div>
-
-                <Card>
-                    <Card.Content>
-                        <form
-                            onSubmit={handleSubmit}
-                            className="flex flex-col gap-4"
-                        >
-                            <div className="grid gap-4 sm:grid-cols-2">
-                                <TextField
-                                    name="name"
-                                    isRequired
-                                    autoComplete="name"
-                                >
-                                    <Label>{tf("name")}</Label>
-                                    <Input
-                                        className="h-11"
-                                        placeholder={tf("namePlaceholder")}
-                                    />
-                                </TextField>
-
-                                <TextField
-                                    name="email"
-                                    type="email"
-                                    isRequired
-                                    autoComplete="email"
-                                >
-                                    <Label>{tf("email")}</Label>
-                                    <Input
-                                        className="h-11"
-                                        placeholder={tf("emailPlaceholder")}
-                                    />
-                                </TextField>
-                            </div>
-
-                            <TextField
-                                name="company"
-                                autoComplete="organization"
-                            >
-                                <Label>{tf("company")}</Label>
-                                <Input
-                                    className="h-11"
-                                    placeholder={tf("companyPlaceholder")}
+        <Tree
+            contract="page-band"
+            render={defineContractComponent("page-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractComponent("contact-layout", {
+                        info: defineContractComponent("contact-info-column", {
+                            intro: defineContractComponent("section-intro", {
+                                eyebrow: defineLeafComponent("text", {}, () => (
+                                    <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                )),
+                                title: defineLeafComponent("heading", {}, () => (
+                                    <Heading props={{ content: t("title"), level: 2 }} />
+                                )),
+                                lead: defineLeafComponent("text", {}, () => (
+                                    <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                )),
+                            }),
+                            booking: defineContractComponent("contact-booking-block", {
+                                divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
+                                label: defineLeafComponent("text", {}, () => (
+                                    <Text props={{ content: t("orBook"), variant: "body" }} />
+                                )),
+                                links: defineContractComponent("contact-booking-links", {
+                                    items: [
+                                        defineLeafComponent("action-link", {}, () => (
+                                            <ActionLink
+                                                props={{
+                                                    href: brand.calendarUrl,
+                                                    content: brand.calendarUrl.replace("https://", ""),
+                                                    variant: "outline",
+                                                    size: "md",
+                                                    external: true,
+                                                }}
+                                            />
+                                        )),
+                                        defineLeafComponent("action-link", {}, () => (
+                                            <ActionLink
+                                                props={{ href: `mailto:${brand.email}`, content: brand.email, variant: "ghost", size: "md" }}
+                                            />
+                                        )),
+                                    ],
+                                }),
+                            }),
+                        }),
+                        form: defineContractProjection("opaque-content-unit", () => (
+                            // Bare on purpose - see the note on `contact-form-shell` for why the
+                            // raised card ground lives on the `Tree` node one level in instead.
+                            <form onSubmit={handleSubmit}>
+                                <Tree
+                                    contract="contact-form-shell"
+                                    render={defineContractComponent("contact-form-shell", {
+                                        contactPair: defineContractComponent("two-col-row", {
+                                            first: defineContractComponent("field-row", {
+                                                control: defineContractProjection("opaque-content-unit", () => (
+                                                    <Field props={{ name: "name", label: tf("name"), placeholder: tf("namePlaceholder"), autoComplete: "name", required: true }} />
+                                                )),
+                                            }),
+                                            second: defineContractComponent("field-row", {
+                                                control: defineContractProjection("opaque-content-unit", () => (
+                                                    <Field props={{ name: "email", label: tf("email"), type: "email", placeholder: tf("emailPlaceholder"), autoComplete: "email", required: true }} />
+                                                )),
+                                            }),
+                                        }),
+                                        company: defineContractComponent("field-row", {
+                                            control: defineContractProjection("opaque-content-unit", () => (
+                                                <Field props={{ name: "company", label: tf("company"), placeholder: tf("companyPlaceholder"), autoComplete: "organization" }} />
+                                            )),
+                                        }),
+                                        service: defineContractComponent("field-row", {
+                                            control: defineContractProjection("opaque-content-unit", () => (
+                                                <SelectField
+                                                    props={{ name: "service", label: tf("service"), options, value: service }}
+                                                    on={{ onChange: setService }}
+                                                />
+                                            )),
+                                        }),
+                                        message: defineContractComponent("field-row", {
+                                            control: defineContractProjection("opaque-content-unit", () => (
+                                                <TextAreaField props={{ name: "message", label: tf("message"), placeholder: tf("messagePlaceholder"), rows: 4, required: true }} />
+                                            )),
+                                        }),
+                                        submit: defineLeafComponent("action-button", {}, () => (
+                                            <ActionButton
+                                                props={{ content: status === "sending" ? tf("submitting") : tf("submit"), variant: "primary", type: "submit", disabled: status === "sending" }}
+                                                isLoading={status === "sending"}
+                                            />
+                                        )),
+                                        status: defineLeafComponent("text", {}, () => (
+                                            <Text props={{ content: statusText, variant: "body", tone: statusTone }} />
+                                        )),
+                                    })}
                                 />
-                            </TextField>
-
-                            <Select
-                                name="service"
-                                defaultSelectedKey={options[0]}
-                                placeholder={options[0]}
-                            >
-                                <Label>{tf("service")}</Label>
-                                <Select.Trigger>
-                                    <Select.Value />
-                                    <Select.Indicator />
-                                </Select.Trigger>
-                                <Select.Popover>
-                                    <ListBox>
-                                        {options.map((option) => (
-                                            <ListBoxItem
-                                                key={option}
-                                                id={option}
-                                            >
-                                                {option}
-                                            </ListBoxItem>
-                                        ))}
-                                    </ListBox>
-                                </Select.Popover>
-                            </Select>
-
-                            <TextField name="message" isRequired>
-                                <Label>{tf("message")}</Label>
-                                <TextArea
-                                    rows={4}
-                                    placeholder={tf("messagePlaceholder")}
-                                />
-                            </TextField>
-
-                            <Button
-                                type="submit"
-                                size="lg"
-                                isDisabled={status === "sending"}
-                                className="mt-1"
-                            >
-                                {status === "sending" ? (
-                                    <>
-                                        <Spinner size="sm" />
-                                        {tf("submitting")}
-                                    </>
-                                ) : (
-                                    tf("submit")
-                                )}
-                            </Button>
-
-                            <p
-                                aria-live="polite"
-                                className="min-h-5 text-xs leading-relaxed"
-                            >
-                                {status === "sent" && (
-                                    <span className="text-accent">
-                                        {tf("success")}
-                                    </span>
-                                )}
-                                {status === "error" && (
-                                    <span className="text-ink-muted">
-                                        {tf("error", { email: brand.email })}
-                                    </span>
-                                )}
-                                {(status === "idle" ||
-                                    status === "sending") && (
-                                    <span className="text-ink-faint">
-                                        {tf("privacy")}
-                                    </span>
-                                )}
-                            </p>
-                        </form>
-                    </Card.Content>
-                </Card>
-            </div>
-        </Section>
+                            </form>
+                        )),
+                    }),
+                }),
+            })}
+        />
     )
 }

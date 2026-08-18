@@ -1,3 +1,6 @@
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+
 /**
  * Fixed light "sky" backdrop behind the whole page — the marketing counterpart
  * to the old technical grid, tuned to the Canva deck's airy blue/cloud world.
@@ -11,12 +14,16 @@
 /** Fixed decorative sky and dotted backdrop behind the page content. */
 export const SkyBackground = () => {
     return (
-        <div
-            aria-hidden
-            className="pointer-events-none fixed inset-0 -z-10 overflow-hidden"
-        >
-            <div className="tedo-sky absolute inset-0" />
-            <div className="tedo-dots absolute inset-0" />
-        </div>
+        <Tree
+            contract="sky-backdrop"
+            render={defineContractComponent("sky-backdrop", {
+                layers: defineContractProjection("opaque-content-unit", () => (
+                    <>
+                        <Tree contract="sky-wash-layer" render={defineContractComponent("sky-wash-layer", {})} />
+                        <Tree contract="sky-dots-layer" render={defineContractComponent("sky-dots-layer", {})} />
+                    </>
+                )),
+            })}
+        />
     )
 }

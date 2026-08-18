@@ -1,7 +1,11 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { CtaLink, Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import type { ContractKey } from "@/components/contracts"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Icon } from "@/components/leaves/Icon"
+import { ActionLink } from "@/components/leaves/ActionLink"
 
 type Tier = {
     name: string
@@ -11,6 +15,20 @@ type Tier = {
     points: Array<string>
     featured?: boolean
 }
+
+const bulletList = (items: Array<string>, icon?: "CheckIcon" | "MinusIcon") =>
+    defineContractComponent("bullet-list", {
+        items: items.map((item) => defineContractComponent("labelled-bullet-item", {
+            mark: defineContractProjection("opaque-content-unit", () => (
+                icon
+                    ? <Icon props={{ name: icon, size: "sm" }} />
+                    : <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
+            )),
+            label: defineLeafComponent("text", {}, () => (
+                <Text props={{ content: item, variant: "body" }} />
+            )),
+        })),
+    })
 
 /**
  * Price ranges on the page.
@@ -29,88 +47,83 @@ export const Pricing = () => {
     const excluded = t.raw("excluded") as Array<string>
 
     return (
-        <Section id="bang-gia">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <div className="mt-10 grid gap-5 md:grid-cols-2">
-                {tiers.map((tier) => (
-                    <article
-                        key={tier.name}
-                        className={`flex flex-col rounded-3xl border p-6 sm:p-7 ${
-                            tier.featured
-                                ? "border-brand bg-brand-soft/40 shadow-[0_24px_50px_-40px_rgba(20,48,92,0.5)]"
-                                : "border-line bg-white"
-                        }`}
-                    >
-                        <h3 className="font-display text-lg font-bold text-ink">{tier.name}</h3>
-                        <p className="mt-3 font-display text-3xl font-extrabold tracking-tight text-brand-deep">
-                            {tier.price}
-                        </p>
-                        <p className="mt-1 font-mono text-xs uppercase tracking-wide text-ink-faint">
-                            {tier.time}
-                        </p>
-                        <p className="mt-4 text-sm leading-relaxed text-ink-muted">{tier.body}</p>
-
-                        <ul className="mt-5 flex flex-col gap-2.5">
-                            {tier.points.map((point) => (
-                                <li key={point} className="flex gap-2.5 text-sm text-ink-body">
-                                    <span aria-hidden className="mt-2 h-1 w-1 shrink-0 rounded-full bg-brand" />
-                                    {point}
-                                </li>
-                            ))}
-                        </ul>
-                    </article>
-                ))}
-            </div>
-
-            {/* What the number covers, and what it deliberately does not. */}
-            <div className="mt-6 grid gap-5 rounded-3xl border border-line bg-surface-2/60 p-6 sm:grid-cols-2 sm:p-7">
-                <div>
-                    <h3 className="font-mono text-xs uppercase tracking-wide text-brand">
-                        {t("includedTitle")}
-                    </h3>
-                    <ul className="mt-3 flex flex-col gap-2">
-                        {included.map((item) => (
-                            <li key={item} className="flex gap-2.5 text-sm text-ink-body">
-                                <span aria-hidden className="text-green">✓</span>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-                <div>
-                    <h3 className="font-mono text-xs uppercase tracking-wide text-ink-faint">
-                        {t("excludedTitle")}
-                    </h3>
-                    <ul className="mt-3 flex flex-col gap-2">
-                        {excluded.map((item) => (
-                            <li key={item} className="flex gap-2.5 text-sm text-ink-muted">
-                                <span aria-hidden className="text-ink-faint">–</span>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </div>
-
-            <div className="mt-6 rounded-3xl border-l-[3px] border-accent bg-accent/6 p-6 sm:p-7">
-                <h3 className="font-display text-base font-semibold text-ink">
-                    {t("instalmentTitle")}
-                </h3>
-                <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-body">
-                    {t("instalmentBody")}
-                </p>
-            </div>
-
-            <p className="mt-6 max-w-3xl text-sm leading-relaxed text-ink-muted">
-                {t("savingNote")}
-            </p>
-
-            <div className="mt-8">
-                <CtaLink href="#contact">{t("cta")}</CtaLink>
-            </div>
-        </Section>
+        <Tree
+            contract="page-band"
+            render={defineContractComponent("page-band", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="pricing-tier-grid"
+                                render={defineContractComponent("pricing-tier-grid", {
+                                    items: tiers.map((tier) => {
+                                        const contract: ContractKey = tier.featured ? "pricing-tier-card-featured" : "pricing-tier-card"
+                                        return defineContractComponent(contract, {
+                                            name: defineLeafComponent("heading", {}, () => (
+                                                <Heading props={{ content: tier.name, level: 3 }} />
+                                            )),
+                                            price: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: tier.price, variant: "stat" }} />
+                                            )),
+                                            time: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: tier.time, variant: "label" }} />
+                                            )),
+                                            body: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: tier.body, variant: "body" }} />
+                                            )),
+                                            points: bulletList(tier.points),
+                                        })
+                                    }),
+                                })}
+                            />
+                            <Tree
+                                contract="pricing-coverage-panel"
+                                render={defineContractComponent("pricing-coverage-panel", {
+                                    included: defineContractComponent("pricing-coverage-column", {
+                                        title: defineLeafComponent("heading", {}, () => (
+                                            <Heading props={{ content: t("includedTitle"), level: 4 }} />
+                                        )),
+                                        list: bulletList(included, "CheckIcon"),
+                                    }),
+                                    excluded: defineContractComponent("pricing-coverage-column", {
+                                        title: defineLeafComponent("heading", {}, () => (
+                                            <Heading props={{ content: t("excludedTitle"), level: 4 }} />
+                                        )),
+                                        list: bulletList(excluded, "MinusIcon"),
+                                    }),
+                                })}
+                            />
+                            <Tree
+                                contract="pricing-instalment-panel"
+                                render={defineContractComponent("pricing-instalment-panel", {
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("instalmentTitle"), level: 4 }} />
+                                    )),
+                                    body: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("instalmentBody"), variant: "body" }} />
+                                    )),
+                                })}
+                            />
+                            <Text props={{ content: t("savingNote"), variant: "body" }} />
+                            <ActionLink props={{ href: "#contact", content: t("cta") }} />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }

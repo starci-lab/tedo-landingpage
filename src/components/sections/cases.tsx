@@ -1,9 +1,11 @@
-"use client"
-
 import { useTranslations } from "next-intl"
-import { Card, Chip, Separator } from "@heroui/react"
-import { Link } from "@/i18n/routing"
-import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
+import { Tree } from "@/components/branches/Tree"
+import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { Text } from "@/components/leaves/Text"
+import { Heading } from "@/components/leaves/Heading"
+import { Chip } from "@/components/leaves/Chip"
+import { Separator } from "@/components/leaves/Separator"
+import { RouteCtaAction } from "@/components/composites/RouteCtaAction"
 
 type CaseStudy = {
     sector: string
@@ -25,59 +27,63 @@ export const Cases = () => {
     const items = t.raw("items") as CaseStudy[]
 
     return (
-        <Section id="cases" className="bg-surface/30">
-            <Eyebrow>{t("eyebrow")}</Eyebrow>
-            <SectionTitle>{t("title")}</SectionTitle>
-            <SectionLead>{t("subtitle")}</SectionLead>
-
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
-                {items.map((item) => (
-                    <Card key={item.title} className="flex flex-col">
-                        <Card.Header>
-                            <div className="flex items-center justify-between gap-3">
-                                <span className="font-mono text-xs uppercase tracking-wider text-ink-faint">
-                                    {item.sector}
-                                </span>
-                                <Chip size="sm" variant="secondary">
-                                    {item.badge}
-                                </Chip>
-                            </div>
-
-                            <Card.Title className="mt-5 text-pretty text-lg font-medium leading-snug">
-                                {item.title}
-                            </Card.Title>
-                            <Card.Description className="mt-3 text-sm leading-relaxed text-ink-muted">
-                                {item.body}
-                            </Card.Description>
-                        </Card.Header>
-
-                        <Card.Footer className="mt-auto flex-col items-start">
-                            <Separator className="mb-5" />
-                            <p className="font-display text-2xl font-bold text-brand">
-                                {item.metric}
-                            </p>
-                            <p className="mt-1 text-xs text-ink-faint">
-                                {item.metricLabel}
-                            </p>
-                        </Card.Footer>
-                    </Card>
-                ))}
-            </div>
-
-            <div className="mt-8">
-                <Link
-                    href="/du-an"
-                    className="group -mx-2 inline-flex min-h-11 items-center gap-1.5 rounded-lg px-2 font-medium text-brand transition-colors hover:text-brand-deep"
-                >
-                    {t("viewAll")}
-                    <span
-                        aria-hidden
-                        className="transition-transform group-hover:translate-x-0.5"
-                    >
-                        →
-                    </span>
-                </Link>
-            </div>
-        </Section>
+        <Tree
+            contract="page-band-tinted"
+            render={defineContractComponent("page-band-tinted", {
+                content: defineContractComponent("page-measure", {
+                    content: defineContractProjection("opaque-content-unit", () => (
+                        <>
+                            <Tree
+                                contract="section-intro"
+                                render={defineContractComponent("section-intro", {
+                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
+                                    )),
+                                    title: defineLeafComponent("heading", {}, () => (
+                                        <Heading props={{ content: t("title"), level: 2 }} />
+                                    )),
+                                    lead: defineLeafComponent("text", {}, () => (
+                                        <Text props={{ content: t("subtitle"), variant: "lead" }} />
+                                    )),
+                                })}
+                            />
+                            <Tree
+                                contract="case-card-grid"
+                                render={defineContractComponent("case-card-grid", {
+                                    items: items.map((item) => defineContractComponent("case-card", {
+                                        header: defineContractComponent("case-card-header", {
+                                            meta: defineContractComponent("case-card-meta-row", {
+                                                sector: defineLeafComponent("text", {}, () => (
+                                                    <Text props={{ content: item.sector, variant: "label" }} />
+                                                )),
+                                                badge: defineLeafComponent("chip", {}, () => (
+                                                    <Chip props={{ content: item.badge, variant: "secondary", size: "sm" }} />
+                                                )),
+                                            }),
+                                            title: defineLeafComponent("heading", {}, () => (
+                                                <Heading props={{ content: item.title, level: 4 }} />
+                                            )),
+                                            body: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: item.body, variant: "body" }} />
+                                            )),
+                                        }),
+                                        footer: defineContractComponent("case-card-footer", {
+                                            divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
+                                            metric: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: item.metric, variant: "stat" }} />
+                                            )),
+                                            metricLabel: defineLeafComponent("text", {}, () => (
+                                                <Text props={{ content: item.metricLabel, variant: "body" }} />
+                                            )),
+                                        }),
+                                    })),
+                                })}
+                            />
+                            <RouteCtaAction to="/du-an" label={t("viewAll")} variant="ghost" size="sm" />
+                        </>
+                    )),
+                }),
+            })}
+        />
     )
 }
