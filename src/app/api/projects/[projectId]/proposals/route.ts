@@ -1,4 +1,4 @@
-import { forwardConsultationRequest } from "@/lib/consultation/backend"
+import { generateProjectProposal, toBackendErrorResponse } from "@/lib/consultation/graphql"
 
 type ProjectRouteContext = { params: Promise<{ projectId: string }> }
 
@@ -6,5 +6,9 @@ type ProjectRouteContext = { params: Promise<{ projectId: string }> }
 export const POST = async (_request: Request, context: ProjectRouteContext): Promise<Response> => {
     const { projectId } = await context.params
     if (!/^[0-9a-f-]{36}$/i.test(projectId)) return Response.json({ error: "invalid-project" }, { status: 400 })
-    return forwardConsultationRequest(`/v1/projects/${projectId}/proposals`, { method: "POST" })
+    try {
+        return Response.json(await generateProjectProposal(projectId))
+    } catch (error) {
+        return toBackendErrorResponse(error)
+    }
 }
