@@ -13,7 +13,7 @@ export const Wordmark = ({ onDark = false }: WordmarkProps) => {
                 O
                 <span
                     aria-hidden
-                    className="pointer-events-none absolute -inset-x-1 top-1/2 h-[1.35em] -translate-y-1/2 -rotate-[18deg] rounded-[50%] border-[2px] border-accent/80"
+                    className="pointer-events-none absolute -inset-x-1 top-1/2 h-wordmark-ring -translate-y-1/2 -rotate-[18deg] rounded-[50%] border-[2px] border-accent/80"
                 />
             </span>
         </span>
