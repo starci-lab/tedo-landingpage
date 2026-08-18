@@ -14,6 +14,7 @@
   "dependencies": {
     "@emnapi/core": "^1.11.3",
     "@emnapi/runtime": "^1.11.3",
+    "@heroicons/react": "^2.2.0",
     "@heroui/react": "^3.2.2",
     "@hookform/resolvers": "^5.7.1",
     "@swc/helpers": "^0.5.23",
@@ -28,7 +29,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@starci/eslint-canon-fe": "^1.2.0",
+    "@starci/eslint-canon-fe": "^1.3.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
