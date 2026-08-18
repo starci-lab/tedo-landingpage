@@ -28,6 +28,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@starci/eslint-canon-fe": "^1.2.0",
     "@tailwindcss/postcss": "^4.1.13",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
