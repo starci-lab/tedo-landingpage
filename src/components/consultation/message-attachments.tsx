@@ -1,12 +1,16 @@
 import type { ConsultationAttachment } from "@/lib/consultation/types"
 
+interface MessageAttachmentsProps {
+    attachments?: ConsultationAttachment[]
+    conversationId?: string
+}
+
 const formatBytes = (bytes: number): string => bytes < 1024 * 1024
     ? `${Math.max(1, Math.round(bytes / 1024))} KB`
     : `${(bytes / (1024 * 1024)).toFixed(1)} MB`
 
-export function MessageAttachments({
-    attachments, conversationId,
-}: { attachments?: ConsultationAttachment[]; conversationId?: string }) {
+/** Renders downloadable files and previewable images attached to a consultation message. */
+export const MessageAttachments = ({ attachments, conversationId }: MessageAttachmentsProps) => {
     if (!attachments?.length) return null
     return (
         <div className="mb-3 grid max-w-2xl grid-cols-2 gap-2 first:mt-0 sm:grid-cols-3">
@@ -15,7 +19,6 @@ export function MessageAttachments({
                     ? `/api/consultations/${conversationId}/attachments/${attachment.id}` : undefined)
                 if (attachment.kind === "image" && href) {
                     return <a key={attachment.id} href={href} target="_blank" rel="noopener noreferrer" className="group overflow-hidden rounded-xl border border-white/20 bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                        {/* eslint-disable-next-line @next/next/no-img-element -- authenticated chat media is served dynamically */}
                         <img src={href} alt={attachment.fileName} className="aspect-[4/3] w-full object-cover transition-transform group-hover:scale-[1.03]" />
                         <span className="block truncate px-2 py-1.5 text-xs">{attachment.fileName}</span>
                     </a>

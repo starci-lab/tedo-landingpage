@@ -6,8 +6,12 @@ import { isGeneratedProposalResponse, type GeneratedDocumentSummary } from "@/li
 
 type ProposalStatus = "idle" | "generating" | "ready" | "error"
 
+interface ProposalActionsProps {
+    projectId: string
+}
+
 /** Confirms a completed scope and exposes immutable generated brief, spec, and proposal files. */
-export function ProposalActions({ projectId }: { projectId: string }) {
+export const ProposalActions = ({ projectId }: ProposalActionsProps) => {
     const t = useTranslations("consultation.proposal")
     const [status, setStatus] = useState<ProposalStatus>("idle")
     const [documents, setDocuments] = useState<GeneratedDocumentSummary[]>([])

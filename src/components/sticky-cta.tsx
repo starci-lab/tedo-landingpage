@@ -16,7 +16,7 @@ import { Link } from "@/i18n/routing"
  *
  * Desktop is excluded (`md:hidden`) because the header CTA stays reachable there.
  */
-export function StickyCta() {
+export const StickyCta = () => {
     const t = useTranslations("stickyCta")
     const [shown, setShown] = useState(false)
 

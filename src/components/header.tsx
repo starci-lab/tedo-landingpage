@@ -4,7 +4,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { Link, usePathname } from "@/i18n/routing"
 import { routing } from "@/i18n/routing"
 import { Container, CtaLink } from "./ui"
-import { Wordmark } from "./wordmark"
+import { Wordmark } from "./leaves/Wordmark"
 
 const NAV = [
     { href: "#cases", key: "cases" },
@@ -13,7 +13,8 @@ const NAV = [
     { href: "#engagement", key: "pricing" },
 ] as const
 
-export function Header() {
+/** Sticky site header with primary navigation, locale switcher, and contact CTA. */
+export const Header = () => {
     const t = useTranslations("nav")
     const locale = useLocale()
     const pathname = usePathname()

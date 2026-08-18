@@ -1,5 +1,7 @@
+/** The participant responsible for one consultation message. */
 export type ConsultationRole = "user" | "assistant"
 
+/** Metadata needed to present an uploaded consultation file. */
 export interface ConsultationAttachment {
     id: string
     fileName: string
@@ -9,6 +11,7 @@ export interface ConsultationAttachment {
     previewUrl?: string
 }
 
+/** One persisted message in a consultation conversation. */
 export interface ConsultationMessage {
     id: string
     role: ConsultationRole
@@ -18,8 +21,10 @@ export interface ConsultationMessage {
     attachments?: ConsultationAttachment[]
 }
 
+/** One selectable answer offered during requirements discovery. */
 export interface DiscoveryOption { value: string; label: string }
 
+/** A question that advances requirements discovery. */
 export interface DiscoveryQuestion {
     id: string
     field: string
@@ -29,6 +34,7 @@ export interface DiscoveryQuestion {
     options?: DiscoveryOption[]
 }
 
+/** Progress and remaining questions for requirements discovery. */
 export interface DiscoveryState {
     completeness: number
     missingFields: string[]
@@ -36,6 +42,7 @@ export interface DiscoveryState {
     readyForProposal: boolean
 }
 
+/** Commercial estimate derived from the currently known scope. */
 export interface CommercialQuote {
     status: "insufficient-scope" | "comparable-match" | "proposal-ready" | "manual-review"
     currency: "VND"
@@ -47,6 +54,7 @@ export interface CommercialQuote {
     reviewReasons: string[]
 }
 
+/** Complete backend response after processing one consultation turn. */
 export interface ConsultationTurnResponse {
     conversationId: string
     projectId: string
@@ -61,6 +69,7 @@ export interface ConsultationTurnResponse {
     attachments: ConsultationAttachment[]
 }
 
+/** Resumable snapshot of a consultation and its associated project. */
 export interface ConsultationSessionResponse {
     conversationId: string
     status: "open" | "handoff" | "closed"
@@ -73,6 +82,7 @@ export interface ConsultationSessionResponse {
     }
 }
 
+/** Download metadata for one generated proposal document. */
 export interface GeneratedDocumentSummary {
     id: string
     kind: string
@@ -80,6 +90,7 @@ export interface GeneratedDocumentSummary {
     mimeType: string
 }
 
+/** Proposal generation result and all documents produced for it. */
 export interface GeneratedProposalResponse {
     id: string
     projectId: string

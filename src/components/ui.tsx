@@ -3,13 +3,36 @@
 import type { ReactNode } from "react"
 import { Link } from "@heroui/react"
 
-export function Container({
-    children,
-    className = "",
-}: {
+type ContainerProps = {
     children: ReactNode
     className?: string
-}) {
+}
+
+type SectionProps = {
+    id?: string
+    children: ReactNode
+    className?: string
+}
+
+type ToneProps = {
+    children: ReactNode
+    onDark?: boolean
+}
+
+type CtaLinkProps = {
+    href: string
+    children: ReactNode
+    variant?: keyof typeof CTA_VARIANT
+    size?: keyof typeof CTA_SIZE
+    external?: boolean
+    className?: string
+}
+
+/** Centers page content within the site's responsive width and gutter. */
+export const Container = ({
+    children,
+    className = "",
+}: ContainerProps) => {
     return (
         <div className={`mx-auto w-full max-w-6xl px-5 sm:px-8 ${className}`}>
             {children}
@@ -17,15 +40,12 @@ export function Container({
     )
 }
 
-export function Section({
+/** Provides the standard vertical rhythm and scroll offset for a page section. */
+export const Section = ({
     id,
     children,
     className = "",
-}: {
-    id?: string
-    children: ReactNode
-    className?: string
-}) {
+}: SectionProps) => {
     return (
         <section
             id={id}
@@ -37,13 +57,11 @@ export function Section({
 }
 
 /** Small uppercase label with a lead rule — the deck's section-marker device. */
-export function Eyebrow({
+/** Renders the small section marker label used above headings. */
+export const Eyebrow = ({
     children,
     onDark = false,
-}: {
-    children: ReactNode
-    onDark?: boolean
-}) {
+}: ToneProps) => {
     return (
         <p
             className={`mb-4 flex items-center gap-2.5 font-mono text-xs font-medium uppercase tracking-[0.16em] ${
@@ -59,13 +77,11 @@ export function Eyebrow({
     )
 }
 
-export function SectionTitle({
+/** Renders a prominent section heading with the appropriate light/dark tone. */
+export const SectionTitle = ({
     children,
     onDark = false,
-}: {
-    children: ReactNode
-    onDark?: boolean
-}) {
+}: ToneProps) => {
     return (
         <h2
             className={`max-w-3xl text-balance font-display text-3xl font-bold leading-[1.12] tracking-tight sm:text-[2.6rem] ${
@@ -77,13 +93,11 @@ export function SectionTitle({
     )
 }
 
-export function SectionLead({
+/** Renders supporting copy beneath a section heading. */
+export const SectionLead = ({
     children,
     onDark = false,
-}: {
-    children: ReactNode
-    onDark?: boolean
-}) {
+}: ToneProps) => {
     return (
         <p
             className={`mt-4 max-w-2xl text-pretty text-base leading-relaxed sm:text-lg ${
@@ -125,21 +139,14 @@ const CTA_VARIANT = {
  * (React Aria), so navigation targets have to borrow the styling instead of
  * using the component — otherwise CTAs lose href, middle-click and SEO.
  */
-export function CtaLink({
+export const CtaLink = ({
     href,
     children,
     variant = "primary",
     size = "lg",
     external,
     className = "",
-}: {
-    href: string
-    children: ReactNode
-    variant?: keyof typeof CTA_VARIANT
-    size?: keyof typeof CTA_SIZE
-    external?: boolean
-    className?: string
-}) {
+}: CtaLinkProps) => {
     return (
         <Link
             href={href}

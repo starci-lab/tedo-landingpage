@@ -6,7 +6,8 @@ import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
 
 type Item = { title: string; body: string }
 
-export function AiFirst() {
+/** Explains the AI-first delivery approach and its practical outcomes. */
+export const AiFirst = () => {
     const t = useTranslations("aiFirst")
     const items = t.raw("items") as Item[]
 

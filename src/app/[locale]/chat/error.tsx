@@ -3,7 +3,10 @@
 import { useTranslations } from "next-intl"
 import { Link } from "@/i18n/routing"
 
-export default function ConsultationError({ reset }: { error: Error; reset: () => void }) {
+type ConsultationErrorProps = { error: Error; reset: () => void }
+
+/** Renders the recovery actions shown when consultation loading fails. */
+const ConsultationError = ({ reset }: ConsultationErrorProps) => {
     const t = useTranslations("consultation")
     return (
         <main className="mx-auto grid min-h-screen max-w-xl place-content-center px-5 text-center">
@@ -16,3 +19,5 @@ export default function ConsultationError({ reset }: { error: Error; reset: () =
         </main>
     )
 }
+
+export default ConsultationError

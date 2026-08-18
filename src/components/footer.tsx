@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl"
 import { brand } from "@/config/brand"
 import { Container } from "./ui"
-import { Wordmark } from "./wordmark"
+import { Wordmark } from "./leaves/Wordmark"
 
 const LINKS = [
     { href: "#cases", key: "cases" },
@@ -10,7 +10,8 @@ const LINKS = [
     { href: "#engagement", key: "pricing" },
 ] as const
 
-export function Footer() {
+/** Site footer with navigation, contact details, and legal information. */
+export const Footer = () => {
     const t = useTranslations("footer")
     const tNav = useTranslations("nav")
     const year = new Date().getFullYear()
@@ -61,7 +62,7 @@ export function Footer() {
                 </div>
             </Container>
 
-            {/* Legal entity block — updated registration (Đà Nẵng, new ward). */}
+            {/* Legal entity block — updated registration and address. */}
             <Container className="mt-12 border-t border-line pt-6">
                 <p className="font-mono text-xs font-medium uppercase tracking-wider text-ink-faint">
                     {t("legalTitle")}

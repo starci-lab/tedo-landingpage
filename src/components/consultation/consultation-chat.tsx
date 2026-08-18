@@ -6,7 +6,7 @@ import { Link } from "@/i18n/routing"
 import { useConsultationChat } from "@/hooks/useConsultationChat"
 import { useConsultationComposerForm } from "@/hooks/rhf/useConsultationComposerForm"
 import type { DiscoveryQuestion } from "@/lib/consultation/types"
-import { Wordmark } from "@/components/wordmark"
+import { Wordmark } from "@/components/leaves/Wordmark"
 import { ConsultationLeadForm } from "./consultation-lead-form"
 import { ProposalActions } from "./proposal-actions"
 import { AssistantMarkdown } from "./assistant-markdown"
@@ -21,8 +21,12 @@ const ACCEPTED_MIME_TYPES = new Set(ACCEPTED_FILES.split(","))
 const readString = (record: Record<string, unknown>, key: string): string | undefined =>
     typeof record[key] === "string" ? record[key] : undefined
 
+interface ConsultationChatProps {
+    initialConversationId?: string
+}
+
 /** Full-page consultation workspace with durable history, discovery progress, and handoff. */
-export function ConsultationChat({ initialConversationId }: { initialConversationId?: string }) {
+export const ConsultationChat = ({ initialConversationId }: ConsultationChatProps) => {
     const t = useTranslations("consultation")
     const locale = useLocale()
     const chat = useConsultationChat(initialConversationId)
@@ -136,6 +140,6 @@ export function ConsultationChat({ initialConversationId }: { initialConversatio
     )
 }
 
-function ChatSkeleton() {
+const ChatSkeleton = () => {
     return <div className="grid animate-pulse gap-4" aria-hidden><div className="h-16 w-3/4 rounded-2xl bg-brand-soft" /><div className="ml-auto h-14 w-2/3 rounded-2xl bg-line" /></div>
 }

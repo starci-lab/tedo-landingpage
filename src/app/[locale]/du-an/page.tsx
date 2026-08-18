@@ -8,15 +8,17 @@ import { Footer } from "@/components/footer"
 import { ProjectsGallery } from "@/components/sections/projects-gallery"
 import { Container } from "@/components/ui"
 
-export function generateStaticParams() {
+type LocaleParams = { params: Promise<{ locale: string }> }
+
+/** Provides the locales generated for the projects route. */
+export const generateStaticParams = () => {
     return routing.locales.map((locale) => ({ locale }))
 }
 
-export async function generateMetadata({
+/** Supplies localized metadata for the projects route. */
+export const generateMetadata = async ({
     params,
-}: {
-    params: Promise<{ locale: string }>
-}): Promise<Metadata> {
+}: LocaleParams): Promise<Metadata> => {
     const { locale } = await params
     const t = await getTranslations({ locale, namespace: "projects" })
     return {
@@ -25,11 +27,8 @@ export async function generateMetadata({
     }
 }
 
-export default async function ProjectsPage({
-    params,
-}: {
-    params: Promise<{ locale: string }>
-}) {
+/** Renders the localized projects gallery page. */
+const ProjectsPage = async ({ params }: LocaleParams) => {
     const { locale } = await params
     if (!hasLocale(routing.locales, locale)) notFound()
     setRequestLocale(locale)
@@ -53,3 +52,5 @@ export default async function ProjectsPage({
         </>
     )
 }
+
+export default ProjectsPage

@@ -6,6 +6,7 @@ import { useMemo, useState } from "react"
 import { useForm, type UseFormReturn } from "react-hook-form"
 import { z } from "zod"
 
+/** Contact details and consent collected before a consultation handoff. */
 export interface ConsultationLeadValues {
     name: string
     phone: string

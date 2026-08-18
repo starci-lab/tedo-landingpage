@@ -20,7 +20,7 @@ type CaseStudy = {
  * without written consent falls under contract 01/010726/WS §7.1–7.2. Swap in
  * the real name once a signed consent email lands. See MO-HINH-KINH-DOANH.md §7.3.
  */
-export function Cases() {
+export const Cases = () => {
     const t = useTranslations("cases")
     const items = t.raw("items") as CaseStudy[]
 

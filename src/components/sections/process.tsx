@@ -3,7 +3,8 @@ import { Eyebrow, Section, SectionTitle } from "../ui"
 
 type Step = { step: string; title: string; body: string; duration: string }
 
-export function Process() {
+/** Four-step delivery process and indicative timing. */
+export const Process = () => {
     const t = useTranslations("process")
     const items = t.raw("items") as Step[]
 

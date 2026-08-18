@@ -3,7 +3,8 @@ import { Container, CtaLink, Eyebrow } from "../ui"
 import { LeadPrompt } from "../consultation/lead-prompt"
 import { Hero3DVisual } from "../hero-3d-visual"
 
-export function Hero() {
+/** Primary landing-page hero with the lead prompt and product visual. */
+export const Hero = () => {
     const t = useTranslations("hero")
 
     return (

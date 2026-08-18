@@ -32,7 +32,8 @@ const STACK = [
     "Claude",
 ]
 
-export function Stack() {
+/** Technology ecosystem used across delivered products. */
+export const Stack = () => {
     const t = useTranslations("stack")
 
     return (

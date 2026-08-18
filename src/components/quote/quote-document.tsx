@@ -43,6 +43,14 @@ const money = (amount: number) => `${formatDong(amount)} đ`
  */
 const FIRST_PRICING_SHEET_ROWS = 16
 
+type PageProps = { children: React.ReactNode; index: number; total: number }
+type HeadingProps = { eyebrow: string; title: string }
+type LineBadgeProps = { badge: NonNullable<QuoteLine["badge"]> }
+type GroupBlockProps = { group: QuoteGroup }
+type NoteTableRow = { label: string; note?: string; cost: string }
+type NoteTableProps = { rows: Array<NoteTableRow>; head: [string, string, string] }
+type QuoteDocumentProps = { doc: QuoteData }
+
 /** Splits pricing groups across sheets without ever breaking a group in half. */
 const splitGroups = (groups: Array<QuoteGroup>) => {
     const first: Array<QuoteGroup> = []
@@ -61,7 +69,7 @@ const splitGroups = (groups: Array<QuoteGroup>) => {
 }
 
 /** One A4 sheet. Fixed size so screen preview and print agree. */
-const Page = ({ children, index, total }: { children: React.ReactNode; index: number; total: number }) => (
+const Page = ({ children, index, total }: PageProps) => (
     <article
         className="quote-page relative mx-auto flex w-[210mm] flex-col bg-canvas px-[16mm] py-[14mm] text-ink-body shadow-[0_1px_3px_rgba(20,48,92,0.12)] print:shadow-none"
         style={{ minHeight: "297mm" }}
@@ -79,7 +87,7 @@ const Page = ({ children, index, total }: { children: React.ReactNode; index: nu
 )
 
 /** Section heading used on every inner page. */
-const Heading = ({ eyebrow, title }: { eyebrow: string; title: string }) => (
+const Heading = ({ eyebrow, title }: HeadingProps) => (
     <header className="mb-6">
         <p className="font-mono text-[8pt] uppercase tracking-[0.18em] text-accent">{eyebrow}</p>
         <h2 className="mt-1.5 font-display text-[19pt] font-semibold leading-tight text-ink">{title}</h2>
@@ -87,7 +95,7 @@ const Heading = ({ eyebrow, title }: { eyebrow: string; title: string }) => (
 )
 
 /** Zero-cost lines are marked, never left blank — blank reads as "not priced yet". */
-const LineBadge = ({ badge }: { badge: NonNullable<QuoteLine["badge"]> }) => {
+const LineBadge = ({ badge }: LineBadgeProps) => {
     const map = {
         gift: { text: "Quà tặng", className: "bg-accent/12 text-accent-dim" },
         included: { text: "Đã gồm", className: "bg-brand-soft text-brand" },
@@ -101,7 +109,7 @@ const LineBadge = ({ badge }: { badge: NonNullable<QuoteLine["badge"]> }) => {
 }
 
 /** A pricing group: tinted header row carrying its own subtotal, then its lines. */
-const GroupBlock = ({ group }: { group: QuoteGroup }) => (
+const GroupBlock = ({ group }: GroupBlockProps) => (
     <tbody className="break-inside-avoid">
         <tr className="bg-brand-soft/70">
             <td className="w-[7mm] py-1.5 pl-2 align-middle font-display text-[10pt] font-bold text-brand">
@@ -137,7 +145,7 @@ const GroupBlock = ({ group }: { group: QuoteGroup }) => (
 )
 
 /** Simple two-or-three column reference table used for running costs and scale notes. */
-const NoteTable = ({ rows, head }: { rows: Array<{ label: string; note?: string; cost: string }>; head: [string, string, string] }) => (
+const NoteTable = ({ rows, head }: NoteTableProps) => (
     <table className="w-full border-collapse text-[8.5pt]">
         <thead>
             <tr className="border-b border-line-strong text-left">
@@ -168,7 +176,7 @@ const NoteTable = ({ rows, head }: { rows: Array<{ label: string; note?: string;
  *
  * @param doc - the proposal data; see `lib/quote/types.ts`
  */
-export function QuoteDocument({ doc }: { doc: QuoteData }) {
+export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
     const total = quoteTotal(doc)
     const priced = splitGroups(doc.groups)
     const hasSecondPricingSheet = priced.rest.length > 0

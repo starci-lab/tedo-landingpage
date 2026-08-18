@@ -14,7 +14,7 @@ interface AssistantMarkdownProps {
 }
 
 /** Safely renders assistant Markdown and progressively reveals the newest response. */
-export function AssistantMarkdown({ content, animate = false }: AssistantMarkdownProps) {
+export const AssistantMarkdown = ({ content, animate = false }: AssistantMarkdownProps) => {
     const reduceMotion = useReducedMotion()
     const shouldAnimate = animate && !reduceMotion
     const [visibleLength, setVisibleLength] = useState(shouldAnimate ? 0 : content.length)

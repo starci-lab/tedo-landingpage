@@ -20,7 +20,8 @@ import { CtaLink, Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
 
 type Status = "idle" | "sending" | "sent" | "error"
 
-export function Contact() {
+/** Presents contact options and submits the project enquiry form. */
+export const Contact = () => {
     const t = useTranslations("contact")
     const tf = useTranslations("contact.form")
     const options = tf.raw("serviceOptions") as string[]

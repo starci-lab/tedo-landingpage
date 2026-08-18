@@ -6,7 +6,8 @@ import { Eyebrow, Section, SectionTitle } from "../ui"
 
 type Faq = { q: string; a: string }
 
-export function Faq() {
+/** Answers common questions about the studio's work and process. */
+export const Faq = () => {
     const t = useTranslations("faq")
     const items = t.raw("items") as Faq[]
 

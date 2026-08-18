@@ -8,7 +8,8 @@
  * whisper-quiet dotted field (`tedo-dots`, the deck's world-map texture) masked
  * so it dissolves before it reaches body copy.
  */
-export function SkyBackground() {
+/** Fixed decorative sky and dotted backdrop behind the page content. */
+export const SkyBackground = () => {
     return (
         <div
             aria-hidden

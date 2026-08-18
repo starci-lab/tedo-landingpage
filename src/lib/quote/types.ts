@@ -6,7 +6,7 @@
  * one, a human can edit it, and two proposals sent a month apart cannot drift into
  * different shapes the way hand-edited Canva files do.
  *
- * Money is stored in đồng as a plain number. No decimals exist in VND pricing, and
+ * Money is stored in Vietnamese dong as a plain number. No decimals exist in VND pricing, and
  * keeping it integral avoids float drift when the template sums group totals.
  */
 
@@ -16,7 +16,7 @@ export interface QuoteLine {
     label: string
     /** Sub-note under the label — scope detail, not a second heading. */
     detail?: string
-    /** Đồng. Omit for lines that carry no charge (see `badge`). */
+    /** Vietnamese dong. Omit for lines that carry no charge (see `badge`). */
     amount?: number
     /**
      * Marks a zero-cost line as something deliberate rather than unpriced:
@@ -26,19 +26,19 @@ export interface QuoteLine {
     badge?: "gift" | "included"
 }
 
-/** A lettered pricing group (A · THIẾT KẾ, B · APP KHÁCH HÀNG, …). */
+/** A lettered pricing group (A · DESIGN, B · CUSTOMER APP, ...). */
 export interface QuoteGroup {
     /** Single letter shown in the group rule and the summary table. */
     code: string
     title: string
-    /** Optional duration note shown beside the title, e.g. "2–3 ngày". */
+    /** Optional duration note shown beside the title, e.g. "2–3 days". */
     note?: string
     lines: Array<QuoteLine>
 }
 
 /** One row of the delivery timeline. */
 export interface QuotePhase {
-    /** Day range as the client reads it, e.g. "Ngày 1–3". */
+    /** Day range as the client reads it, e.g. "Day 1–3". */
     when: string
     title: string
     body: string

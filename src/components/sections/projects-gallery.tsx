@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
+import Image from "next/image"
 import { Chip } from "@heroui/react"
 import { Link } from "@/i18n/routing"
 import { Container, Eyebrow } from "../ui"
@@ -19,7 +20,7 @@ type Project = {
     /** Path under `public/`. Omitted while a project has no shot we may publish. */
     image?: string
     /**
-     * `true` shows the "ảnh sắp cập nhật" note.
+     * `true` shows the pending-image note.
      *
      * Its own flag on purpose: this used to be inferred from `stack.length === 0`,
      * which quietly mislabels any finished project whose stack we chose not to list —
@@ -35,7 +36,7 @@ type Project = {
  * use a styled placeholder in place of screenshots we do not have rights to /
  * have not captured yet.
  */
-export function ProjectsGallery() {
+export const ProjectsGallery = () => {
     const t = useTranslations("projects")
     const items = t.raw("items") as Array<Project>
 
@@ -104,15 +105,17 @@ export function ProjectsGallery() {
     )
 }
 
-function FilterChip({
-    label,
-    active,
-    onClick,
-}: {
+type FilterChipProps = {
     label: string
     active: boolean
     onClick: () => void
-}) {
+}
+
+const FilterChip = ({
+    label,
+    active,
+    onClick,
+}: FilterChipProps) => {
     return (
         <button
             type="button"
@@ -129,25 +132,27 @@ function FilterChip({
     )
 }
 
-function ProjectCard({
-    project,
-    pendingImage,
-    stackLabel,
-}: {
+type ProjectCardProps = {
     project: Project
     pendingImage: string
     stackLabel: string
-}) {
+}
+
+const ProjectCard = ({
+    project,
+    pendingImage,
+    stackLabel,
+}: ProjectCardProps) => {
     const initial = project.title.charAt(0)
     return (
         <article className="flex flex-col overflow-hidden rounded-3xl border border-line bg-white shadow-[0_24px_50px_-40px_rgba(20,48,92,0.5)]">
             <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-brand-soft to-surface-2">
                 {project.image ? (
-                    <img
+                    <Image
                         src={project.image}
                         alt={`Giao diện ${project.title}`}
-                        loading="lazy"
-                        decoding="async"
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
                         className="absolute inset-0 h-full w-full object-cover"
                     />
                 ) : (

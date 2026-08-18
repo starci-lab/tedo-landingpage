@@ -3,7 +3,8 @@ import { Container } from "../ui"
 
 type Metric = { value: string; label: string; detail: string }
 
-export function Metrics() {
+/** Compact proof-point strip summarizing measurable outcomes. */
+export const Metrics = () => {
     const t = useTranslations("metrics")
     const items = t.raw("items") as Metric[]
 

@@ -20,19 +20,23 @@ import { sampleYabai } from "@/lib/quote/sample-yabai"
  * password, same as the rest of `/admin`.
  */
 export const metadata: Metadata = {
-    title: "Preview mẫu báo giá — Tedo",
+    title: "Preview mẫu báo giá — Tedo", // vn-ok: this is the user-facing route metadata.
     robots: { index: false, follow: false },
 }
 
-export function generateStaticParams() {
+/** Provides the locale variants for the static quote preview route. */
+export const generateStaticParams = () => {
     return routing.locales.map((locale) => ({ locale }))
 }
 
-export default async function QuotePreviewPage({
-    params,
-}: {
+type QuotePreviewPageProps = {
     params: Promise<{ locale: string }>
-}) {
+}
+
+/** Renders the admin-only proposal preview using the checked-in sample document. */
+const QuotePreviewPage = async ({
+    params,
+}: QuotePreviewPageProps) => {
     const { locale } = await params
     if (!hasLocale(routing.locales, locale)) notFound()
     setRequestLocale(locale)
@@ -43,12 +47,12 @@ export default async function QuotePreviewPage({
             <div className="border-b border-line bg-surface px-6 py-3 print:hidden">
                 <div className="mx-auto flex max-w-[210mm] items-baseline justify-between gap-4">
                     <div>
-                        <p className="font-display text-sm font-semibold text-ink">Preview mẫu báo giá</p>
+                        <p className="font-display text-sm font-semibold text-ink">Preview mẫu báo giá</p> {/* vn-ok: this is rendered quote-preview copy. */}
                         <p className="text-xs text-ink-muted">
-                            Dữ liệu mẫu: {sampleYabai.client.name} · {sampleYabai.reference}
+                            Dữ liệu mẫu: {sampleYabai.client.name} · {sampleYabai.reference} {/* vn-ok: this is rendered quote-preview copy. */}
                         </p>
                     </div>
-                    <p className="text-xs text-ink-faint">Ctrl/Cmd + P để xuất PDF · khổ A4 · bỏ header/footer trình duyệt</p>
+                    <p className="text-xs text-ink-faint">Ctrl/Cmd + P để xuất PDF · khổ A4 · bỏ header/footer trình duyệt</p> {/* vn-ok: this is rendered quote-preview copy. */}
                 </div>
             </div>
 
@@ -56,3 +60,5 @@ export default async function QuotePreviewPage({
         </main>
     )
 }
+
+export default QuotePreviewPage

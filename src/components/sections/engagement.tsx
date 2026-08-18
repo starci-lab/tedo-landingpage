@@ -13,7 +13,8 @@ type Model = {
     featured?: boolean
 }
 
-export function Engagement() {
+/** Compares the available engagement models and their included work. */
+export const Engagement = () => {
     const t = useTranslations("engagement")
     const items = t.raw("items") as Model[]
 

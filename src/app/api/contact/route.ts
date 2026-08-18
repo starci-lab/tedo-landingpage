@@ -8,7 +8,8 @@ type Payload = {
     message?: string
 }
 
-export async function POST(request: Request) {
+/** Validates and forwards contact leads to the configured delivery webhook. */
+export const POST = async (request: Request) => {
     const body = (await request.json().catch(() => null)) as Payload | null
 
     if (!body?.name || !body.email || !body.message) {

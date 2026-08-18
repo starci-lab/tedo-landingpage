@@ -3,7 +3,8 @@ import { Eyebrow, Section, SectionTitle } from "../ui"
 
 type Step = { title: string; body: string }
 
-export function Design() {
+/** Shows the design and delivery steps used for each project. */
+export const Design = () => {
     const t = useTranslations("design")
     const steps = t.raw("steps") as Step[]
 

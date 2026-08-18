@@ -6,7 +6,8 @@ import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
 
 type Service = { title: string; body: string; points: string[] }
 
-export function Services() {
+/** Service cards describing the main engagement offers. */
+export const Services = () => {
     const t = useTranslations("services")
     const items = t.raw("items") as Service[]
 

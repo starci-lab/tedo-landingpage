@@ -32,7 +32,8 @@ const NODES: Array<Node> = [
     { label: "SEO", x: 12, y: 74, z: 50, color: "var(--color-brand)" },
 ]
 
-export function Hero3DVisual() {
+/** Interactive CSS 3D system visual for the hero section. */
+export const Hero3DVisual = () => {
     const ref = useRef<HTMLDivElement>(null)
 
     function onMove(e: PointerEvent<HTMLDivElement>) {

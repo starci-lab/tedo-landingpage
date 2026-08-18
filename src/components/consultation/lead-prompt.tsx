@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl"
 import { useLeadPromptForm } from "@/hooks/rhf/useLeadPromptForm"
 
 /** Low-friction landing entry that hands one concrete intent to the dedicated chat route. */
-export function LeadPrompt() {
+export const LeadPrompt = () => {
     const t = useTranslations("consultation")
     const suggestions = t.raw("suggestions") as string[]
     const { register, onSubmit, startWithSuggestion, formState: { errors } } = useLeadPromptForm()

@@ -10,7 +10,7 @@ import { Eyebrow, Section, SectionLead, SectionTitle } from "../ui"
  * out browsers who were never going to buy — and the sales deck already argues
  * this well (slide 7 of `PAID_SERVICE_TEDO`), it just never reached the website.
  */
-export function Fit() {
+export const Fit = () => {
     const t = useTranslations("fit")
     const yes = t.raw("yes") as Array<string>
     const no = t.raw("no") as Array<string>

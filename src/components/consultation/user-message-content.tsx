@@ -2,8 +2,10 @@ import React from "react"
 
 const URL_PARTS = /(https?:\/\/[^\s]+)/giu
 
+type UserMessageContentProps = { readonly content: string }
+
 /** Linkifies customer-provided HTTP(S) URLs without interpreting the rest as HTML. */
-export function UserMessageContent({ content }: { content: string }) {
+export const UserMessageContent = ({ content }: UserMessageContentProps) => {
     return (
         <p className="whitespace-pre-wrap">
             {content.split(URL_PARTS).map((part, index) => part.match(/^https?:\/\//iu)

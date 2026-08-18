@@ -22,7 +22,7 @@ type Tier = {
  * Ranges, never a fixed number — `biz.md` §2.5 keeps the exact figure for
  * discovery, and the subtitle says so plainly so nothing here reads as a quote.
  */
-export function Pricing() {
+export const Pricing = () => {
     const t = useTranslations("pricing")
     const tiers = t.raw("tiers") as Array<Tier>
     const included = t.raw("included") as Array<string>
@@ -65,8 +65,7 @@ export function Pricing() {
                 ))}
             </div>
 
-            {/* What the number covers, and what it deliberately does not. Stating the
-                exclusions here is what stops "phát sinh" arguments later. */}
+            {/* What the number covers, and what it deliberately does not. */}
             <div className="mt-6 grid gap-5 rounded-3xl border border-line bg-surface-2/60 p-6 sm:grid-cols-2 sm:p-7">
                 <div>
                     <h3 className="font-mono text-xs uppercase tracking-wide text-brand">

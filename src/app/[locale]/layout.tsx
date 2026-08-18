@@ -23,15 +23,18 @@ const body = Be_Vietnam_Pro({
     display: "swap",
 })
 
-export function generateStaticParams() {
+type LocaleParams = { params: Promise<{ locale: string }> }
+type LocaleLayoutParams = LocaleParams & { children: React.ReactNode }
+
+/** Provides the locales generated for the application shell. */
+export const generateStaticParams = () => {
     return routing.locales.map((locale) => ({ locale }))
 }
 
-export async function generateMetadata({
+/** Supplies localized metadata for the application shell. */
+export const generateMetadata = async ({
     params,
-}: {
-    params: Promise<{ locale: string }>
-}): Promise<Metadata> {
+}: LocaleParams): Promise<Metadata> => {
     const { locale } = await params
     const t = await getTranslations({ locale, namespace: "meta" })
 
@@ -41,13 +44,11 @@ export async function generateMetadata({
     }
 }
 
-export default async function LocaleLayout({
+/** Renders the localized document shell and providers. */
+const LocaleLayout = async ({
     children,
     params,
-}: {
-    children: React.ReactNode
-    params: Promise<{ locale: string }>
-}) {
+}: LocaleLayoutParams) => {
     const { locale } = await params
     if (!hasLocale(routing.locales, locale)) notFound()
 
@@ -67,3 +68,5 @@ export default async function LocaleLayout({
         </html>
     )
 }
+
+export default LocaleLayout

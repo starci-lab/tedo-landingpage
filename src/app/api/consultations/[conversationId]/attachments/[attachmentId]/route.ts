@@ -1,6 +1,9 @@
 import { getTedoBackendUrl } from "@/lib/consultation/backend"
 
-export async function GET(_request: Request, context: { params: Promise<{ conversationId: string; attachmentId: string }> }): Promise<Response> {
+type AttachmentRouteContext = { params: Promise<{ conversationId: string; attachmentId: string }> }
+
+/** Streams one consultation attachment from the private backend. */
+export const GET = async (_request: Request, context: AttachmentRouteContext): Promise<Response> => {
     const { conversationId, attachmentId } = await context.params
     const response = await fetch(`${getTedoBackendUrl()}/v1/consultations/${encodeURIComponent(conversationId)}/attachments/${encodeURIComponent(attachmentId)}`, { cache: "no-store" })
     const headers = new Headers({

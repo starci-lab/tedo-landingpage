@@ -16,11 +16,10 @@ import { Faq } from "@/components/sections/faq"
 import { Contact } from "@/components/sections/contact"
 import { StickyCta } from "@/components/sticky-cta"
 
-export default async function HomePage({
-    params,
-}: {
-    params: Promise<{ locale: string }>
-}) {
+type HomePageParams = { params: Promise<{ locale: string }> }
+
+/** Renders the localized landing page. */
+const HomePage = async ({ params }: HomePageParams) => {
     const { locale } = await params
     setRequestLocale(locale)
 
@@ -51,3 +50,5 @@ export default async function HomePage({
         </>
     )
 }
+
+export default HomePage

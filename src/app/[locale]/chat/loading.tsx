@@ -1,4 +1,5 @@
-export default function ConsultationLoading() {
+/** Renders the consultation page loading skeleton. */
+const ConsultationLoading = () => {
     return (
         <main className="mx-auto min-h-screen max-w-6xl animate-pulse px-5 py-12 sm:px-8" aria-busy="true">
             <div className="h-8 w-52 rounded-lg bg-brand-soft" />
@@ -8,3 +9,5 @@ export default function ConsultationLoading() {
         </main>
     )
 }
+
+export default ConsultationLoading

@@ -1,13 +1,13 @@
 import type { QuoteDocument } from "./types"
 
 /**
- * Real proposal data (YABAI NAIL, 06/08/2026) used as the preview fixture.
+ * Real client proposal data from 06/08/2026 used as the preview fixture.
  *
  * Deliberately the REAL one rather than invented filler: a template only proves it
  * works when the copy is as long, as awkward and as unevenly sized as the actual
  * thing. Lorem ipsum makes every table look balanced.
  *
- * ⚠️ Two things in here are flagged in `biz.md` as unresolved and are NOT to be
+ * NOTE: Two things in here are flagged in `biz.md` as unresolved and are NOT to be
  * treated as settled house policy just because they appear in a fixture:
  *   1. The 25.000.000đ total sits below the 25tr floor agreed for the cheapest
  *      advertised WEB tier, while this scope is a dual-platform app suite.

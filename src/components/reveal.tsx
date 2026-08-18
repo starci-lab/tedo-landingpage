@@ -3,18 +3,20 @@
 import { motion, useReducedMotion } from "framer-motion"
 import type { ReactNode } from "react"
 
+type RevealProps = {
+    readonly children: ReactNode
+    readonly delay?: number
+}
+
 /**
  * Scroll-reveal wrapper: fades + lifts its children into place the first time
  * they enter the viewport. Used to give the whole page the deck's "things
  * settle into view" feel. Honors prefers-reduced-motion by rendering statically.
  */
-export function Reveal({
+export const Reveal = ({
     children,
     delay = 0,
-}: {
-    children: ReactNode
-    delay?: number
-}) {
+}: RevealProps) => {
     const reduce = useReducedMotion()
     if (reduce) return <>{children}</>
 

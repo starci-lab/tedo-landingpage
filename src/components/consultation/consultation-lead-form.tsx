@@ -3,8 +3,12 @@
 import { useTranslations } from "next-intl"
 import { useConsultationLeadForm } from "@/hooks/rhf/useConsultationLeadForm"
 
+interface ConsultationLeadFormProps {
+    conversationId: string
+}
+
 /** Collects reachable contact details only after the consultation has delivered value. */
-export function ConsultationLeadForm({ conversationId }: { conversationId: string }) {
+export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormProps) => {
     const t = useTranslations("consultation.lead")
     const { register, onSubmit, sent, submitError, formState: { errors, isSubmitting } } = useConsultationLeadForm(conversationId)
     if (sent) {

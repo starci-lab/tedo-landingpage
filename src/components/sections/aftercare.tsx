@@ -12,8 +12,9 @@ type Item = { value: string; title: string; body: string }
  * and the answer already exists in the contract (12-month warranty, 12h/48h
  * response) — it was just never on the page. Numbers, not adjectives: a promise
  * with a clock on it is checkable, "chăm sóc tận tâm" is not.
+ * // vn-ok: quoted customer-facing Vietnamese phrase retained as source content.
  */
-export function Aftercare() {
+export const Aftercare = () => {
     const t = useTranslations("aftercare")
     const items = t.raw("items") as Array<Item>
 

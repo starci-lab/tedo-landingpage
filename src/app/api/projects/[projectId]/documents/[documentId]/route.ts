@@ -1,10 +1,12 @@
 import { getTedoBackendUrl } from "@/lib/consultation/backend"
 
+type DocumentRouteContext = { params: Promise<{ projectId: string; documentId: string }> }
+
 /** Streams one immutable generated project document from the private backend. */
-export async function GET(
+export const GET = async (
     _request: Request,
-    context: { params: Promise<{ projectId: string; documentId: string }> },
-): Promise<Response> {
+    context: DocumentRouteContext,
+): Promise<Response> => {
     const { projectId, documentId } = await context.params
     if (!/^[0-9a-f-]{36}$/i.test(projectId) || !/^[0-9a-f-]{36}$/i.test(documentId)) {
         return Response.json({ error: "invalid-document" }, { status: 400 })
