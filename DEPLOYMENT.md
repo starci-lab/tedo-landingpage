@@ -1,6 +1,6 @@
 # TEDO landing deployment
 
-The browser talks only to same-origin `/api/*` routes. The Next.js server proxies consultation traffic to the private backend through `TEDO_BACKEND_URL`, so OpenRouter, PostgreSQL, Qdrant, and Zalo credentials never enter the browser bundle.
+The browser talks only to same-origin `/api/*` routes. The Next.js server proxies consultation traffic to the private backend through `TEDO_BACKEND_URL`, so OpenRouter, PostgreSQL, Qdrant, and Zalo credentials never enter the browser bundle. Internally, the `/api/consultations/[conversationId]` (GET), `/api/consultations/[conversationId]/lead`, `/api/projects/[projectId]/confirm`, and `/api/projects/[projectId]/proposals` routes speak GraphQL to the backend's `/graphql` endpoint (`src/lib/consultation/graphql.ts`) instead of REST — the browser-facing path, method, and JSON shape on each route are unchanged. No route under `/api/*` exposes GraphQL to the browser, and no browser bundle carries a GraphQL client; only server-side route handlers reach `/graphql`.
 
 ## Runtime variables
 
