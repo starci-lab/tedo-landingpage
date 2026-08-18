@@ -262,6 +262,7 @@
     "filterAll": "All",
     "stackLabel": "Stack",
     "pendingImage": "Image coming soon",
+    "imageAlt": "{title} interface",
     "items": [
       {
         "category": "Education & training",
@@ -340,6 +341,73 @@
     ],
     "ctaTitle": "Your project could be the next one here.",
     "cta": "Book a discovery call"
+  },
+  "quote": {
+    "footer": {
+      "service": "Web & App design",
+      "page": "Page {index} / {total}"
+    },
+    "badge": {
+      "gift": "Gift",
+      "included": "Included"
+    },
+    "cover": {
+      "tagline": "Teach · Empower · Do · Optimize",
+      "date": "Issued {date}",
+      "expiry": "Valid until {date}",
+      "eyebrow": "Project proposal & quote",
+      "totalDescription": "Includes design, development, testing and handover. {months}-month warranty. Infrastructure paid to providers is excluded — see page {page}."
+    },
+    "totalLabel": "Total project investment",
+    "features": {
+      "eyebrow": "Overview",
+      "title": "Four core features",
+      "description": "This is the core that brings revenue and keeps customers. Every other line in the quote serves these four jobs.",
+      "core": "Core"
+    },
+    "scope": {
+      "eyebrow": "Scope",
+      "title": "Do it properly now, no phase two",
+      "outOfScope": "Outside this scope",
+      "timeline": "Expected timeline"
+    },
+    "pricing": {
+      "eyebrow": "Quote",
+      "title": "A line-by-line breakdown",
+      "continuedTitle": "A line-by-line breakdown (continued)",
+      "unitDescription": "Currency: Vietnamese dong. The app is cross-platform — one codebase runs on both iPhone and Android.",
+      "item": "Item",
+      "amount": "Amount",
+      "includedNote": "Included at no extra charge: first-year domain · {brand} publishes the app to the App Store and Google Play · salon training and handover."
+    },
+    "running": {
+      "eyebrow": "Running costs",
+      "title": "Monthly costs and the risk of growth",
+      "costTitle": "Operating costs",
+      "providerBadge": "Paid to providers, not a {brand} fee",
+      "item": "Item",
+      "note": "Note",
+      "cost": "Cost",
+      "scaleTitle": "As usage grows",
+      "scaleDescription": "The figures above suit the early stage. As more customers arrive, infrastructure costs can rise — the figures below are reference estimates and depend on actual traffic.",
+      "factor": "Factor",
+      "impact": "Impact",
+      "estimatedCost": "Estimated cost",
+      "warrantyTitle": "{months}-month warranty, then an optional maintenance plan",
+      "warrantyDescription": "For the first {months} months after sign-off: the system runs, stays secure, backs up daily, and includes advice and training — free of charge. Issues are acknowledged within 12 hours and the cause confirmed within 48 hours.",
+      "maintenanceDescription": "After {months} months, the salon can continue with an annual maintenance plan — around <strong>{min}–{max}% of the project value each year</strong>, covering infrastructure, security patches, backups, monitoring and support under the commitment above. Optional."
+    },
+    "terms": {
+      "eyebrow": "Terms",
+      "title": "Payment and commitments",
+      "installment": "Stage",
+      "milestone": "Milestone",
+      "percent": "Share",
+      "amount": "Amount",
+      "total": "Total",
+      "nextStep": "Next step",
+      "nextStepDescription": "Once you approve the proposal, {brand} starts UX/UI within two days. This quote is valid until {date}."
+    }
   },
   "stack": {
     "title": "The tools we actually use",

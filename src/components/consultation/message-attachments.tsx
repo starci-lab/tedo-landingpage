@@ -1,3 +1,4 @@
+import Image from "next/image"
 import type { ConsultationAttachment } from "@/lib/consultation/types"
 
 interface MessageAttachmentsProps {
@@ -19,7 +20,7 @@ export const MessageAttachments = ({ attachments, conversationId }: MessageAttac
                     ? `/api/consultations/${conversationId}/attachments/${attachment.id}` : undefined)
                 if (attachment.kind === "image" && href) {
                     return <a key={attachment.id} href={href} target="_blank" rel="noopener noreferrer" className="group overflow-hidden rounded-xl border border-white/20 bg-black/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
-                        <img src={href} alt={attachment.fileName} className="aspect-[4/3] w-full object-cover transition-transform group-hover:scale-[1.03]" />
+                        <Image src={href} alt={attachment.fileName} width={400} height={300} className="aspect-[4/3] w-full object-cover transition-transform group-hover:scale-[1.03]" unoptimized />
                         <span className="block truncate px-2 py-1.5 text-xs">{attachment.fileName}</span>
                     </a>
                 }

@@ -244,6 +244,7 @@
     "filterAll": "Tất cả",
     "stackLabel": "Công nghệ",
     "pendingImage": "Ảnh sắp cập nhật",
+    "imageAlt": "Giao diện {title}",
     "items": [
       {
         "category": "Giáo dục & đào tạo",
@@ -322,6 +323,73 @@
     ],
     "ctaTitle": "Dự án của bạn có thể là mục tiếp theo.",
     "cta": "Đặt lịch tư vấn"
+  },
+  "quote": {
+    "footer": {
+      "service": "Thiết kế Web & App",
+      "page": "Trang {index} / {total}"
+    },
+    "badge": {
+      "gift": "Quà tặng",
+      "included": "Đã gồm"
+    },
+    "cover": {
+      "tagline": "Teach · Empower · Do · Optimize",
+      "date": "Ngày {date}",
+      "expiry": "Hiệu lực đến {date}",
+      "eyebrow": "Đề xuất & báo giá dự án",
+      "totalDescription": "Đã gồm thiết kế, lập trình, kiểm thử và bàn giao. Bảo hành {months} tháng. Chưa gồm chi phí hạ tầng trả cho nhà cung cấp — bóc tách ở trang {page}."
+    },
+    "totalLabel": "Tổng đầu tư trọn gói",
+    "features": {
+      "eyebrow": "Tổng quan",
+      "title": "Bốn tính năng cốt lõi",
+      "description": "Đây là phần lõi mang lại doanh thu và giữ chân khách. Mọi hạng mục khác trong báo giá đều phục vụ bốn việc này.",
+      "core": "Cốt lõi"
+    },
+    "scope": {
+      "eyebrow": "Phạm vi",
+      "title": "Làm đầy đủ ngay, không chia giai đoạn hai",
+      "outOfScope": "Ngoài phạm vi lần này",
+      "timeline": "Tiến độ dự kiến"
+    },
+    "pricing": {
+      "eyebrow": "Báo giá",
+      "title": "Bóc tách theo từng hạng mục",
+      "continuedTitle": "Bóc tách theo từng hạng mục (tiếp)",
+      "unitDescription": "Đơn vị: đồng. App xây dựng cross-platform — một mã nguồn chạy cả iPhone và Android.",
+      "item": "Hạng mục",
+      "amount": "Thành tiền",
+      "includedNote": "Đã bao gồm quà tặng: tên miền miễn phí năm đầu · {brand} đăng app lên App Store và CH Play · hướng dẫn và đào tạo cho salon."
+    },
+    "running": {
+      "eyebrow": "Vận hành",
+      "title": "Chi phí hằng tháng và rủi ro khi mở rộng",
+      "costTitle": "Chi phí vận hành",
+      "providerBadge": "Trả cho nhà cung cấp, không phải phí {brand}",
+      "item": "Khoản mục",
+      "note": "Ghi chú",
+      "cost": "Chi phí",
+      "scaleTitle": "Khi lượng dùng tăng",
+      "scaleDescription": "Mức trên phù hợp giai đoạn đầu. Khi đông khách hơn, chi phí hạ tầng có thể tăng — con số dưới đây là ước tính tham khảo, thực tế tuỳ lưu lượng.",
+      "factor": "Yếu tố",
+      "impact": "Ảnh hưởng",
+      "estimatedCost": "Chi phí tham khảo",
+      "warrantyTitle": "Bảo hành {months} tháng, sau đó là gói duy trì",
+      "warrantyDescription": "{months} tháng đầu kể từ ngày nghiệm thu: bảo đảm hệ thống chạy, bảo mật, sao lưu hằng ngày, tư vấn và đào tạo sử dụng — miễn phí. Tiếp nhận sự cố chậm nhất 12 giờ, xác minh nguyên nhân chậm nhất 48 giờ.",
+      "maintenanceDescription": "Hết {months} tháng, salon có thể tiếp tục với gói duy trì hằng năm — khoảng <strong>{min} – {max}% giá trị dự án mỗi năm</strong>, gồm hạ tầng, vá lỗi bảo mật, sao lưu, giám sát và hỗ trợ theo cam kết trên. Không bắt buộc."
+    },
+    "terms": {
+      "eyebrow": "Điều khoản",
+      "title": "Thanh toán và cam kết",
+      "installment": "Đợt",
+      "milestone": "Mốc",
+      "percent": "Tỷ lệ",
+      "amount": "Số tiền",
+      "total": "Tổng",
+      "nextStep": "Bước tiếp theo",
+      "nextStepDescription": "Sau khi anh/chị duyệt đề xuất, {brand} bắt đầu UX/UI trong hai ngày. Báo giá có hiệu lực đến {date}."
+    }
   },
   "stack": {
     "title": "Công nghệ chúng tôi thực sự dùng",

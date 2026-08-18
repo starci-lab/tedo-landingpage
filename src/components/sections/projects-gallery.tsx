@@ -82,6 +82,7 @@ export const ProjectsGallery = () => {
                             project={project}
                             pendingImage={t("pendingImage")}
                             stackLabel={t("stackLabel")}
+                            imageAlt={(title) => t("imageAlt", { title })}
                         />
                     ))}
                 </div>
@@ -136,12 +137,14 @@ type ProjectCardProps = {
     project: Project
     pendingImage: string
     stackLabel: string
+    imageAlt: (title: string) => string
 }
 
 const ProjectCard = ({
     project,
     pendingImage,
     stackLabel,
+    imageAlt,
 }: ProjectCardProps) => {
     const initial = project.title.charAt(0)
     return (
@@ -150,7 +153,7 @@ const ProjectCard = ({
                 {project.image ? (
                     <Image
                         src={project.image}
-                        alt={`Giao diện ${project.title}`}
+                        alt={imageAlt(project.title)}
                         fill
                         sizes="(max-width: 640px) 100vw, 50vw"
                         className="absolute inset-0 h-full w-full object-cover"

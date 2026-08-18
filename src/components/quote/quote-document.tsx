@@ -1,4 +1,5 @@
 import { brand } from "@/config/brand"
+import { useTranslations } from "next-intl"
 import {
     expiryDate,
     formatDate,
@@ -29,7 +30,7 @@ import {
  * dependency, and the client can read it on a phone as a web page instead.
  */
 
-const money = (amount: number) => `${formatDong(amount)} đ`
+const money = (amount: number) => `${formatDong(amount)} đ` // vn-ok: VND currency symbol is deliberate in every quote locale.
 
 /**
  * How many table rows the FIRST pricing sheet can hold once the summary table and
@@ -69,22 +70,23 @@ const splitGroups = (groups: Array<QuoteGroup>) => {
 }
 
 /** One A4 sheet. Fixed size so screen preview and print agree. */
-const Page = ({ children, index, total }: PageProps) => (
-    <article
-        className="quote-page relative mx-auto flex w-[210mm] flex-col bg-canvas px-[16mm] py-[14mm] text-ink-body shadow-[0_1px_3px_rgba(20,48,92,0.12)] print:shadow-none"
-        style={{ minHeight: "297mm" }}
-    >
-        {children}
-        <footer className="mt-auto flex items-end justify-between border-t border-line pt-3 text-[8pt] text-ink-faint">
-            <span>
-                {brand.name} · Thiết kế Web &amp; App
-            </span>
-            <span>
-                Trang {index} / {total}
-            </span>
-        </footer>
-    </article>
-)
+const Page = ({ children, index, total }: PageProps) => {
+    const t = useTranslations("quote")
+    return (
+        <article
+            className="quote-page relative mx-auto flex w-[210mm] flex-col bg-canvas px-[16mm] py-[14mm] text-ink-body shadow-[0_1px_3px_rgba(20,48,92,0.12)] print:shadow-none"
+            style={{ minHeight: "297mm" }}
+        >
+            {children}
+            <footer className="mt-auto flex items-end justify-between border-t border-line pt-3 text-[8pt] text-ink-faint">
+                <span>
+                    {brand.name} · {t("footer.service")}
+                </span>
+                <span>{t("footer.page", { index, total })}</span>
+            </footer>
+        </article>
+    )
+}
 
 /** Section heading used on every inner page. */
 const Heading = ({ eyebrow, title }: HeadingProps) => (
@@ -96,9 +98,10 @@ const Heading = ({ eyebrow, title }: HeadingProps) => (
 
 /** Zero-cost lines are marked, never left blank — blank reads as "not priced yet". */
 const LineBadge = ({ badge }: LineBadgeProps) => {
+    const t = useTranslations("quote")
     const map = {
-        gift: { text: "Quà tặng", className: "bg-accent/12 text-accent-dim" },
-        included: { text: "Đã gồm", className: "bg-brand-soft text-brand" },
+        gift: { text: t("badge.gift"), className: "bg-accent/12 text-accent-dim" },
+        included: { text: t("badge.included"), className: "bg-brand-soft text-brand" },
     } as const
     const style = map[badge]
     return (
@@ -177,6 +180,7 @@ const NoteTable = ({ rows, head }: NoteTableProps) => (
  * @param doc - the proposal data; see `lib/quote/types.ts`
  */
 export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
+    const t = useTranslations("quote")
     const total = quoteTotal(doc)
     const priced = splitGroups(doc.groups)
     const hasSecondPricingSheet = priced.rest.length > 0
@@ -194,19 +198,17 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                 <div className="flex items-start justify-between">
                     <div>
                         <p className="font-display text-[13pt] font-bold tracking-tight text-brand-deep">{brand.name}</p>
-                        <p className="mt-0.5 font-mono text-[7.5pt] uppercase tracking-[0.22em] text-ink-faint">
-                            Teach · Empower · Do · Optimize
-                        </p>
+                        <p className="mt-0.5 font-mono text-[7.5pt] uppercase tracking-[0.22em] text-ink-faint">{t("cover.tagline")}</p>
                     </div>
                     <div className="text-right text-[8pt] text-ink-muted">
-                        <p>Ngày {formatDate(doc.issuedAt)}</p>
-                        <p className="text-ink-faint">Hiệu lực đến {formatDate(expiryDate(doc))}</p>
+                        <p>{t("cover.date", { date: formatDate(doc.issuedAt) })}</p>
+                        <p className="text-ink-faint">{t("cover.expiry", { date: formatDate(expiryDate(doc)) })}</p>
                         <p className="mt-1 font-mono text-[7.5pt] text-ink-faint">{doc.reference}</p>
                     </div>
                 </div>
 
                 <div className="mt-16">
-                    <p className="font-mono text-[8pt] uppercase tracking-[0.2em] text-accent">Đề xuất &amp; báo giá dự án</p>
+                    <p className="font-mono text-[8pt] uppercase tracking-[0.2em] text-accent">{t("cover.eyebrow")}</p>
                     <h1 className="mt-3 font-display text-[34pt] font-bold leading-[1.05] tracking-tight text-ink">
                         {doc.client.name}
                     </h1>
@@ -229,22 +231,20 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
 
                 <div className="mt-8 rounded-xl bg-brand-deep px-7 py-6 text-white">
                     <p className="font-mono text-[7.5pt] uppercase tracking-[0.2em] text-white/60">
-                        Tổng đầu tư trọn gói
+                        {t("totalLabel")}
                     </p>
                     <p className="mt-1.5 font-display text-[30pt] font-bold leading-none tabular-nums">{money(total)}</p>
                     <p className="mt-2.5 text-[8.5pt] leading-relaxed text-white/70">
-                        Đã gồm thiết kế, lập trình, kiểm thử và bàn giao. Bảo hành {doc.warrantyMonths} tháng.
-                        Chưa gồm chi phí hạ tầng trả cho nhà cung cấp — bóc tách ở trang 5.
+                        {t("cover.totalDescription", { months: doc.warrantyMonths, page: runningSheet })}
                     </p>
                 </div>
             </Page>
 
             {/* ── 2 · Core features ─────────────────────────────────────── */}
             <Page index={2} total={pages}>
-                <Heading eyebrow="Tổng quan" title="Bốn tính năng cốt lõi" />
+                <Heading eyebrow={t("features.eyebrow")} title={t("features.title")} />
                 <p className="-mt-3 mb-6 max-w-[160mm] text-[9.5pt] leading-relaxed text-ink-muted">
-                    Đây là phần lõi mang lại doanh thu và giữ chân khách. Mọi hạng mục khác trong báo giá
-                    đều phục vụ bốn việc này.
+                    {t("features.description")}
                 </p>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -257,7 +257,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                 <span className="font-mono text-[8pt] text-ink-faint">{String(i + 1).padStart(2, "0")}</span>
                                 {feature.core ? (
                                     <span className="rounded bg-accent/12 px-1.5 py-0.5 text-[7pt] font-semibold uppercase tracking-wider text-accent-dim">
-                                        Cốt lõi
+                                        {t("features.core")}
                                     </span>
                                 ) : null}
                             </div>
@@ -272,7 +272,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
 
             {/* ── 3 · Scope ─────────────────────────────────────────────── */}
             <Page index={3} total={pages}>
-                <Heading eyebrow="Phạm vi" title="Làm đầy đủ ngay, không chia giai đoạn hai" />
+                <Heading eyebrow={t("scope.eyebrow")} title={t("scope.title")} />
 
                 <ul className="grid grid-cols-2 gap-x-6 gap-y-2">
                     {doc.scope.map((item) => (
@@ -285,7 +285,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
 
                 {doc.outOfScope.length > 0 ? (
                     <div className="mt-7 rounded-lg border-l-[3px] border-accent bg-accent/6 py-4 pl-4 pr-5">
-                        <p className="font-display text-[9.5pt] font-semibold text-accent-dim">Ngoài phạm vi lần này</p>
+                        <p className="font-display text-[9.5pt] font-semibold text-accent-dim">{t("scope.outOfScope")}</p>
                         <ul className="mt-1.5 space-y-1">
                             {doc.outOfScope.map((item) => (
                                 <li key={item} className="text-[9pt] leading-relaxed text-ink-body">
@@ -296,7 +296,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                     </div>
                 ) : null}
 
-                <h3 className="mt-9 font-display text-[12pt] font-semibold text-ink">Tiến độ dự kiến</h3>
+                <h3 className="mt-9 font-display text-[12pt] font-semibold text-ink">{t("scope.timeline")}</h3>
                 <ol className="mt-4">
                     {doc.phases.map((phase) => (
                         <li key={phase.when} className="flex break-inside-avoid gap-4 border-b border-line/70 py-3 last:border-b-0">
@@ -317,7 +317,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
 
             {/* ── 4 · Pricing ───────────────────────────────────────────── */}
             <Page index={4} total={pages}>
-                <Heading eyebrow="Báo giá" title="Bóc tách theo từng hạng mục" />
+                <Heading eyebrow={t("pricing.eyebrow")} title={t("pricing.title")} />
 
                 {/* Summary first: the shape of the number before the 25 lines that make it. */}
                 <table className="mb-5 w-full border-collapse">
@@ -333,7 +333,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         ))}
                         <tr className="border-t-2 border-brand-deep">
                             <td colSpan={2} className="pt-2 font-display text-[10.5pt] font-bold text-ink">
-                                Tổng đầu tư trọn gói
+                                {t("totalLabel")}
                             </td>
                             <td className="pt-2 text-right font-display text-[13pt] font-bold tabular-nums text-brand-deep">
                                 {money(total)}
@@ -343,7 +343,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                 </table>
 
                 <p className="mb-2 text-[8.5pt] leading-relaxed text-ink-muted">
-                    Đơn vị: đồng. App xây dựng cross-platform — một mã nguồn chạy cả iPhone và Android.
+                    {t("pricing.unitDescription")}
                 </p>
 
                 <table className="w-full border-collapse">
@@ -351,10 +351,10 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         <tr className="border-b border-line-strong">
                             <th className="w-[7mm]" />
                             <th className="pb-1.5 text-left font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                Hạng mục
+                                {t("pricing.item")}
                             </th>
                             <th className="pb-1.5 pr-2 text-right font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                Thành tiền
+                                {t("pricing.amount")}
                             </th>
                         </tr>
                     </thead>
@@ -367,16 +367,16 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
             {/* ── 5 · Pricing, continued ────────────────────────────────── */}
             {hasSecondPricingSheet ? (
                 <Page index={5} total={pages}>
-                    <Heading eyebrow="Báo giá" title="Bóc tách theo từng hạng mục (tiếp)" />
+                    <Heading eyebrow={t("pricing.eyebrow")} title={t("pricing.continuedTitle")} />
                     <table className="w-full border-collapse">
                         <thead>
                             <tr className="border-b border-line-strong">
                                 <th className="w-[7mm]" />
                                 <th className="pb-1.5 text-left font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                    Hạng mục
+                                    {t("pricing.item")}
                                 </th>
                                 <th className="pb-1.5 pr-2 text-right font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                    Thành tiền
+                                    {t("pricing.amount")}
                                 </th>
                             </tr>
                         </thead>
@@ -386,7 +386,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         <tbody>
                             <tr className="border-t-2 border-brand-deep">
                                 <td colSpan={2} className="pt-2 font-display text-[10.5pt] font-bold text-ink">
-                                    Tổng đầu tư trọn gói
+                                    {t("totalLabel")}
                                 </td>
                                 <td className="pt-2 pr-2 text-right font-display text-[13pt] font-bold tabular-nums text-brand-deep">
                                     {money(total)}
@@ -396,47 +396,44 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                     </table>
 
                     <p className="mt-5 rounded-lg bg-surface-2/70 px-4 py-3 text-[8.5pt] leading-relaxed text-ink-muted">
-                        Đã bao gồm quà tặng: tên miền miễn phí năm đầu · {brand.name} đăng app lên App Store và
-                        CH Play · hướng dẫn và đào tạo cho salon.
+                        {t("pricing.includedNote", { brand: brand.name })}
                     </p>
                 </Page>
             ) : null}
 
             {/* ── Running cost ──────────────────────────────────────────── */}
             <Page index={runningSheet} total={pages}>
-                <Heading eyebrow="Vận hành" title="Chi phí hằng tháng và rủi ro khi mở rộng" />
+                <Heading eyebrow={t("running.eyebrow")} title={t("running.title")} />
 
                 <div className="mb-2 flex items-baseline gap-2">
-                    <h3 className="font-display text-[11pt] font-semibold text-ink">Chi phí vận hành</h3>
+                    <h3 className="font-display text-[11pt] font-semibold text-ink">{t("running.costTitle")}</h3>
                     <span className="rounded bg-brand-soft px-2 py-0.5 text-[7.5pt] font-medium text-brand">
-                        Trả cho nhà cung cấp, không phải phí {brand.name}
+                        {t("running.providerBadge", { brand: brand.name })}
                     </span>
                 </div>
-                <NoteTable rows={doc.runningCosts} head={["Khoản mục", "Ghi chú", "Chi phí"]} />
+                <NoteTable rows={doc.runningCosts} head={[t("running.item"), t("running.note"), t("running.cost")]} />
 
-                <h3 className="mb-2 mt-8 font-display text-[11pt] font-semibold text-ink">Khi lượng dùng tăng</h3>
+                <h3 className="mb-2 mt-8 font-display text-[11pt] font-semibold text-ink">{t("running.scaleTitle")}</h3>
                 <p className="mb-2.5 text-[8.5pt] leading-relaxed text-ink-muted">
-                    Mức trên phù hợp giai đoạn đầu. Khi đông khách hơn, chi phí hạ tầng có thể tăng —
-                    con số dưới đây là ước tính tham khảo, thực tế tuỳ lưu lượng.
+                    {t("running.scaleDescription")}
                 </p>
-                <NoteTable rows={doc.scaleNotes} head={["Yếu tố", "Ảnh hưởng", "Chi phí tham khảo"]} />
+                <NoteTable rows={doc.scaleNotes} head={[t("running.factor"), t("running.impact"), t("running.estimatedCost")] } />
 
                 <div className="mt-8 rounded-lg border border-line bg-surface-2/70 p-5">
                     <h3 className="font-display text-[11pt] font-semibold text-ink">
-                        Bảo hành {doc.warrantyMonths} tháng, sau đó là gói duy trì
+                        {t("running.warrantyTitle", { months: doc.warrantyMonths })}
                     </h3>
                     <p className="mt-2 text-[9pt] leading-relaxed text-ink-body">
-                        {doc.warrantyMonths} tháng đầu kể từ ngày nghiệm thu: bảo đảm hệ thống chạy, bảo mật,
-                        sao lưu hằng ngày, tư vấn và đào tạo sử dụng — miễn phí. Tiếp nhận sự cố chậm nhất 12 giờ,
-                        xác minh nguyên nhân chậm nhất 48 giờ.
+                        {t("running.warrantyDescription", { months: doc.warrantyMonths })}
                     </p>
                     {doc.maintenancePercent ? (
                         <p className="mt-2 text-[9pt] leading-relaxed text-ink-body">
-                            Hết {doc.warrantyMonths} tháng, salon có thể tiếp tục với gói duy trì hằng năm — khoảng{" "}
-                            <strong className="font-semibold text-ink">
-                                {doc.maintenancePercent[0]} – {doc.maintenancePercent[1]}% giá trị dự án mỗi năm
-                            </strong>
-                            , gồm hạ tầng, vá lỗi bảo mật, sao lưu, giám sát và hỗ trợ theo cam kết trên. Không bắt buộc.
+                            {t.rich("running.maintenanceDescription", {
+                                months: doc.warrantyMonths,
+                                min: doc.maintenancePercent[0],
+                                max: doc.maintenancePercent[1],
+                                strong: (chunks) => <strong className="font-semibold text-ink">{chunks}</strong>,
+                            })}
                         </p>
                     ) : null}
                 </div>
@@ -444,22 +441,22 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
 
             {/* ── Terms ─────────────────────────────────────────────────── */}
             <Page index={termsSheet} total={pages}>
-                <Heading eyebrow="Điều khoản" title="Thanh toán và cam kết" />
+                <Heading eyebrow={t("terms.eyebrow")} title={t("terms.title")} />
 
                 <table className="w-full border-collapse">
                     <thead>
                         <tr className="border-b border-line-strong">
                             <th className="pb-1.5 text-left font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                Đợt
+                                {t("terms.installment")}
                             </th>
                             <th className="pb-1.5 text-left font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                Mốc
+                                {t("terms.milestone")}
                             </th>
                             <th className="pb-1.5 text-right font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                Tỷ lệ
+                                {t("terms.percent")}
                             </th>
                             <th className="pb-1.5 pr-1 text-right font-display text-[8pt] font-semibold uppercase tracking-wide text-brand">
-                                Số tiền
+                                {t("terms.amount")}
                             </th>
                         </tr>
                     </thead>
@@ -476,7 +473,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         ))}
                         <tr className="border-t-2 border-brand-deep">
                             <td colSpan={2} className="pt-2 font-display text-[10pt] font-bold text-ink">
-                                Tổng
+                                {t("terms.total")}
                             </td>
                             <td className="pt-2 text-right font-display text-[10pt] font-bold tabular-nums text-ink">
                                 {doc.instalments.reduce((sum, i) => sum + i.percent, 0)}%
@@ -498,10 +495,9 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                 </div>
 
                 <div className="mt-auto rounded-xl bg-brand-deep px-7 py-6 text-white">
-                    <p className="font-display text-[13pt] font-semibold">Bước tiếp theo</p>
+                    <p className="font-display text-[13pt] font-semibold">{t("terms.nextStep")}</p>
                     <p className="mt-2 max-w-[140mm] text-[9.5pt] leading-relaxed text-white/75">
-                        Sau khi anh/chị duyệt đề xuất, {brand.name} bắt đầu UX/UI trong hai ngày.
-                        Báo giá có hiệu lực đến {formatDate(expiryDate(doc))}.
+                        {t("terms.nextStepDescription", { brand: brand.name, date: formatDate(expiryDate(doc)) })}
                     </p>
                     <p className="mt-4 text-[9pt] text-white/60">
                         {brand.email} · {brand.domain}

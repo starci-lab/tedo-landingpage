@@ -79,7 +79,7 @@ export const Footer = () => {
                     </p>
                 </div>
                 <p className="mt-6 text-xs text-ink-faint">
-                    © {year} {t("legalName")}. {t("rights")}
+                    {String.fromCharCode(0xa9)} {year} {t("legalName")}. {t("rights")}
                 </p>
             </Container>
         </footer>
