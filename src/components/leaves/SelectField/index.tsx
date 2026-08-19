@@ -51,9 +51,9 @@ export const SelectField = ({ props, on }: SelectFieldProps) => {
             data-tier="leaf"
             data-component="SelectField"
             name={props.name}
-            selectedKey={props.value}
+            value={props.value}
             isRequired={props.required}
-            onSelectionChange={(key) => on?.onChange?.(String(key))}
+            onChange={(value) => on?.onChange?.(String(value))}
         >
             <Label>{props.label}</Label>
             <Select.Trigger>

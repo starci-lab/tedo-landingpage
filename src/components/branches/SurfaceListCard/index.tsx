@@ -20,7 +20,6 @@ import type { ContractSlots } from "@/components/contracts/props"
 export interface SurfaceListCardProps {
     /** Checked slots for `labelled-surface-section` - never a projection, since projecting IS this branch's job. */
     readonly render: ContractSlots<"labelled-surface-section">
-    readonly isLoading?: boolean
 }
 
 /**

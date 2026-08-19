@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { fireEvent, render, screen, waitFor } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 import { Contact } from "./contact"
 
@@ -14,7 +14,7 @@ describe("Contact form handlers", () => {
         const fetchMock = vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null, { status: 200 }))
         render(<Contact />)
         fireEvent.submit(document.querySelector("form") as HTMLFormElement)
-        await waitFor(() => expect(screen.getByText("success")).toBeTruthy())
+        expect(await screen.findByText("success")).toBeTruthy()
         expect(fetchMock).toHaveBeenCalledWith("/api/contact", expect.objectContaining({ method: "POST" }))
     })
 
@@ -22,6 +22,6 @@ describe("Contact form handlers", () => {
         vi.spyOn(globalThis, "fetch").mockRejectedValue(new Error("offline"))
         render(<Contact />)
         fireEvent.submit(document.querySelector("form") as HTMLFormElement)
-        await waitFor(() => expect(screen.getByText(/error/)).toBeTruthy())
+        expect(await screen.findByText(/error/)).toBeTruthy()
     })
 })

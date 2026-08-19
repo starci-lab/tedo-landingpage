@@ -28,7 +28,6 @@ export interface SurfaceCardProps {
     readonly render: ContractSlots<"labelled-surface-section">
     /** The card's visual weight. `transparent` drops the border/shadow while the label still leads it. */
     readonly variant?: "default" | "secondary" | "tertiary" | "transparent"
-    readonly isLoading?: boolean
 }
 
 /**

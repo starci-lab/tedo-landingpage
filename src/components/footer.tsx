@@ -99,7 +99,7 @@ export const Footer = () => {
                     copyright: defineLeafComponent("text", {}, () => (
                         <Text
                             props={{
-                                content: `${String.fromCharCode(0xa9)} ${year} ${t("legalName")}. ${t("rights")}`,
+                                content: `${String.fromCodePoint(0xa9)} ${year} ${t("legalName")}. ${t("rights")}`,
                                 variant: "body",
                             }}
                         />

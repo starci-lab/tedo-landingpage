@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { fireEvent, render, screen, waitFor } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 import { describe, expect, it, vi } from "vitest"
 import { ProposalActions } from "./proposal-actions"
 
@@ -12,7 +12,7 @@ describe("ProposalActions interactions", () => {
             .mockResolvedValueOnce(new Response(JSON.stringify({ id: "proposal-1", projectId: "p1", version: 1, documents: [{ id: "doc-1", kind: "proposal", fileName: "proposal.pdf", mimeType: "application/pdf" }] }), { status: 200 }))
         render(<ProposalActions projectId="p1" />)
         fireEvent.click(screen.getByRole("button", { name: "generate" }))
-        await waitFor(() => expect(screen.getByText("ready")).toBeTruthy())
+        expect(await screen.findByText("ready")).toBeTruthy()
         expect(fetchMock).toHaveBeenNthCalledWith(1, "/api/projects/p1/confirm", expect.objectContaining({ method: "POST" }))
         expect(screen.getByText("proposal.pdf")).toBeTruthy()
     })
@@ -21,6 +21,6 @@ describe("ProposalActions interactions", () => {
         vi.spyOn(globalThis, "fetch").mockResolvedValue(new Response(null, { status: 400 }))
         render(<ProposalActions projectId="p2" />)
         fireEvent.click(screen.getByRole("button", { name: "generate" }))
-        await waitFor(() => expect(screen.getByText("error")).toBeTruthy())
+        expect(await screen.findByText("error")).toBeTruthy()
     })
 })

@@ -66,6 +66,9 @@ type GroupBlockProps = { group: QuoteGroup }
 type NoteTableRow = { label: string; note?: string; cost: string }
 type NoteTableProps = { rows: Array<NoteTableRow>; head: [string, string, string] }
 type QuoteDocumentProps = { doc: QuoteData }
+type FeatureMetaRowProps = { index: number; isCore: boolean; coreLabel: string }
+type PhaseWhenProps = { value: string }
+type PhaseBodyProps = { title: string; body: string }
 
 /** Splits pricing groups across sheets without ever breaking a group in half. */
 const splitGroups = (groups: Array<QuoteGroup>) => {
@@ -122,6 +125,51 @@ const SectionHeading = ({ eyebrow, title }: SectionHeadingProps) => (
     />
 )
 
+const FeatureMetaRow = ({ index, isCore, coreLabel }: FeatureMetaRowProps) => (
+    <Tree
+        contract="quote-feature-meta-row"
+        render={defineContractComponent("quote-feature-meta-row", {
+            index: opaque(() => (
+                <span className="font-mono text-[8pt] text-ink-faint">{String(index + 1).padStart(2, "0")}</span>
+            )),
+            badge: isCore
+                ? opaque(() => (
+                    <span className="rounded bg-accent/12 px-1 py-1 text-[7pt] font-semibold uppercase tracking-wider text-accent-dim">
+                        {coreLabel}
+                    </span>
+                ))
+                : undefined,
+        })}
+    />
+)
+
+const PhaseWhen = ({ value }: PhaseWhenProps) => (
+    <Tree
+        contract="quote-phase-when"
+        render={defineContractComponent("quote-phase-when", {
+            value: defineLeafComponent("text", {}, () => <span>{value}</span>),
+        })}
+    />
+)
+
+const PhaseBody = ({ title, body }: PhaseBodyProps) => (
+    <Tree
+        contract="quote-phase-body"
+        render={defineContractComponent("quote-phase-body", {
+            title: opaque(() => <p className="font-display text-[10pt] font-semibold text-ink">{title}</p>),
+            body: opaque(() => <p className="mt-1 text-[8.5pt] leading-relaxed text-ink-muted">{body}</p>),
+        })}
+    />
+)
+
+const renderMaintenanceStrong = (chunks: ReactNode) => <strong className="font-semibold text-ink">{chunks}</strong>
+
+const lineAmount = (line: QuoteLine): ReactNode => {
+    if (line.amount != null) return <span className="text-[9pt] tabular-nums text-ink-body">{money(line.amount)}</span>
+    if (line.badge) return <LineBadge badge={line.badge} />
+    return null
+}
+
 /** Zero-cost lines are marked, never left blank — blank reads as "not priced yet". */
 const LineBadge = ({ badge }: LineBadgeProps) => {
     const t = useTranslations("quote")
@@ -161,11 +209,7 @@ const GroupBlock = ({ group }: GroupBlockProps) => (
                     ) : null}
                 </td>
                 <td className="py-print-row pr-2 text-right align-top">
-                    {line.amount != null ? (
-                        <span className="text-[9pt] tabular-nums text-ink-body">{money(line.amount)}</span>
-                    ) : line.badge ? (
-                        <LineBadge badge={line.badge} />
-                    ) : null}
+                    {lineAmount(line)}
                 </td>
             </tr>
         ))}
@@ -305,21 +349,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                                         key={feature.title}
                                                         className="break-inside-avoid rounded-lg border border-line bg-surface-2/60 p-5"
                                                     >
-                                                        <Tree
-                                                            contract="quote-feature-meta-row"
-                                                            render={defineContractComponent("quote-feature-meta-row", {
-                                                                index: opaque(() => (
-                                                                    <span className="font-mono text-[8pt] text-ink-faint">{String(i + 1).padStart(2, "0")}</span>
-                                                                )),
-                                                                badge: feature.core
-                                                                    ? opaque(() => (
-                                                                        <span className="rounded bg-accent/12 px-1 py-1 text-[7pt] font-semibold uppercase tracking-wider text-accent-dim">
-                                                                            {t("features.core")}
-                                                                        </span>
-                                                                    ))
-                                                                    : undefined,
-                                                            })}
-                                                        />
+                                                        <FeatureMetaRow index={i} isCore={feature.core === true} coreLabel={t("features.core")} />
                                                         <span className="mt-2 block">
                                                             <Heading props={{ content: feature.title, level: 3 }} />
                                                         </span>
@@ -372,27 +402,8 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                                 key={phase.when}
                                                 contract="quote-phase-item"
                                                 render={defineContractComponent("quote-phase-item", {
-                                                    when: opaque(() => (
-                                                        <Tree
-                                                            contract="quote-phase-when"
-                                                            render={defineContractComponent("quote-phase-when", {
-                                                                value: defineLeafComponent("text", {}, () => <span>{phase.when}</span>),
-                                                            })}
-                                                        />
-                                                    )),
-                                                    body: opaque(() => (
-                                                        <Tree
-                                                            contract="quote-phase-body"
-                                                            render={defineContractComponent("quote-phase-body", {
-                                                                title: opaque(() => (
-                                                                    <p className="font-display text-[10pt] font-semibold text-ink">{phase.title}</p>
-                                                                )),
-                                                                body: opaque(() => (
-                                                                    <p className="mt-1 text-[8.5pt] leading-relaxed text-ink-muted">{phase.body}</p>
-                                                                )),
-                                                            })}
-                                                        />
-                                                    )),
+                                                    when: opaque(() => <PhaseWhen value={phase.when} />),
+                                                    body: opaque(() => <PhaseBody title={phase.title} body={phase.body} />),
                                                     tag: phase.tag
                                                         ? opaque(() => (
                                                             <span className="rounded bg-surface-2 px-2 py-1 text-[7.5pt] text-ink-faint">
@@ -537,7 +548,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                                 months: doc.warrantyMonths,
                                                 min: doc.maintenancePercent[0],
                                                 max: doc.maintenancePercent[1],
-                                                strong: (chunks) => <strong className="font-semibold text-ink">{chunks}</strong>,
+                                                strong: renderMaintenanceStrong,
                                             })}
                                         </p>
                                     ) : null}

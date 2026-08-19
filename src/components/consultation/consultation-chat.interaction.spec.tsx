@@ -11,6 +11,7 @@ vi.mock("next-intl", () => ({ useTranslations: () => (key: string) => key, useLo
 vi.mock("@/i18n/routing", () => ({ useRouter: () => ({ push: vi.fn(), replace: vi.fn() }), Link: () => null, routing: { locales: ["vi"] }, usePathname: () => "/chat" }))
 vi.mock("@/hooks/useConsultationChat", () => ({ useConsultationChat: () => chat }))
 vi.mock("@/hooks/rhf/useConsultationComposerForm", () => ({ useConsultationComposerForm: () => ({ register: () => ({}), watch: () => "draft", onSubmit: vi.fn() }) }))
+vi.mock("./consultation-lead-form", () => ({ ConsultationLeadForm: () => <div>lead-form</div> }))
 
 import { ConsultationChat } from "./consultation-chat"
 
@@ -22,6 +23,7 @@ describe("ConsultationChat interaction callbacks", () => {
         fireEvent.click(screen.getByRole("button", { name: "back" }))
         fireEvent.click(screen.getByRole("button", { name: "Education" }))
         fireEvent.click(screen.getByRole("button", { name: "retrySend" }))
+        fireEvent.click(screen.getByRole("button", { name: "optionalFollowUp" }))
         fireEvent.keyDown(screen.getByRole("textbox"), { key: "Enter", shiftKey: false })
         const form = document.querySelector("form")
         expect(form).toBeTruthy()

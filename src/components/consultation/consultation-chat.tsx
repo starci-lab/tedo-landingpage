@@ -15,11 +15,11 @@ import { UserMessageContent } from "./user-message-content"
 import { Tree } from "@/components/branches/Tree"
 import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
 import { Heading } from "@/components/leaves/Heading"
-import { Text } from "@/components/leaves/Text"
-import { ActionButton } from "@/components/leaves/ActionButton"
-import { IconButton } from "@/components/leaves/IconButton"
-import { SelectedFileChip } from "@/components/leaves/SelectedFileChip"
-import { Placeholder } from "@/components/leaves/Placeholder"
+import { Text, type TextData } from "@/components/leaves/Text"
+import { ActionButton, type ActionButtonActions, type ActionButtonData } from "@/components/leaves/ActionButton"
+import { IconButton, type IconButtonActions, type IconButtonData } from "@/components/leaves/IconButton"
+import { SelectedFileChip, type SelectedFileChipActions, type SelectedFileChipData } from "@/components/leaves/SelectedFileChip"
+import { Placeholder, type PlaceholderData } from "@/components/leaves/Placeholder"
 
 const MAX_FILES = 5
 const MAX_FILE_BYTES = 10 * 1024 * 1024
@@ -28,6 +28,30 @@ const ACCEPTED_MIME_TYPES = new Set(ACCEPTED_FILES.split(","))
 
 const readString = (record: Record<string, unknown>, key: string): string | undefined =>
     typeof record[key] === "string" ? record[key] : undefined
+
+const textLeaf = (props: TextData) => defineLeafComponent("text", {}, () => <Text props={props} />)
+const placeholderLeaf = (props: PlaceholderData) => defineLeafComponent("placeholder", {}, () => <Placeholder props={props} />)
+const actionButtonLeaf = (props: ActionButtonData, on?: ActionButtonActions) => defineLeafComponent("action-button", {}, () => <ActionButton props={props} on={on} />)
+const iconButtonLeaf = (props: IconButtonData, on?: IconButtonActions) => defineLeafComponent("icon-button", {}, () => <IconButton props={props} on={on} />)
+const selectedFileChipLeaf = (props: SelectedFileChipData, on?: SelectedFileChipActions) => defineLeafComponent("selected-file-chip", {}, () => <SelectedFileChip props={props} on={on} />)
+
+type LeadExtrasProps = {
+    conversationId: string | undefined
+    showLeadForm: boolean
+    translate: (key: string) => string
+    onShowLeadForm: () => void
+}
+
+const leadExtras = ({ conversationId, showLeadForm, translate, onShowLeadForm }: LeadExtrasProps) => {
+    if (conversationId === undefined) return null
+    if (showLeadForm) return <ConsultationLeadForm conversationId={conversationId} />
+    return (
+        <ActionButton
+            props={{ content: translate("optionalFollowUp"), variant: "outline" }}
+            on={{ onPress: onShowLeadForm }}
+        />
+    )
+}
 
 interface ConsultationChatProps {
     initialConversationId?: string
@@ -141,12 +165,8 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                         contract="chat-thread-skeleton"
                                                                         render={defineContractComponent("chat-thread-skeleton", {
                                                                             bars: [
-                                                                                defineLeafComponent("placeholder", {}, () => (
-                                                                                    <Placeholder props={{ height: "lg", width: "threeQuarters", tone: "brand" }} />
-                                                                                )),
-                                                                                defineLeafComponent("placeholder", {}, () => (
-                                                                                    <Placeholder props={{ height: "md", width: "twoThirds", tone: "neutral", align: "end" }} />
-                                                                                )),
+                                                                                placeholderLeaf({ height: "lg", width: "threeQuarters", tone: "brand" }),
+                                                                                placeholderLeaf({ height: "md", width: "twoThirds", tone: "neutral", align: "end" }),
                                                                             ],
                                                                         })}
                                                                     />
@@ -155,9 +175,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                     <Tree
                                                                         contract="chat-empty-card"
                                                                         render={defineContractComponent("chat-empty-card", {
-                                                                            message: defineLeafComponent("text", {}, () => (
-                                                                                <Text props={{ content: t("greeting"), variant: "body" }} />
-                                                                            )),
+                                                                            message: textLeaf({ content: t("greeting"), variant: "body" }),
                                                                         })}
                                                                     />
                                                                 ) : null}
@@ -190,9 +208,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                     <Tree
                                                                         contract="chat-sending-indicator"
                                                                         render={defineContractComponent("chat-sending-indicator", {
-                                                                            message: defineLeafComponent("text", {}, () => (
-                                                                                <Text props={{ content: t("thinking"), variant: "body" }} />
-                                                                            )),
+                                                                            message: textLeaf({ content: t("thinking"), variant: "body" }),
                                                                         })}
                                                                     />
                                                                 ) : null}
@@ -201,16 +217,12 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                         <Tree
                                                                             contract="chat-error-alert"
                                                                             render={defineContractComponent("chat-error-alert", {
-                                                                                message: defineLeafComponent("text", {}, () => (
-                                                                                    <Text props={{ content: chat.error ?? "", variant: "body" }} />
-                                                                                )),
+                                                                                message: textLeaf({ content: chat.error ?? "", variant: "body" }),
                                                                                 retry: chat.failedMessage
-                                                                                    ? defineLeafComponent("action-button", {}, () => (
-                                                                                        <ActionButton
-                                                                                            props={{ content: t("retrySend"), variant: "outline", size: "sm" }}
-                                                                                            on={{ onPress: () => void chat.sendMessage(chat.failedMessage ?? "") }}
-                                                                                        />
-                                                                                    ))
+                                                                                    ? actionButtonLeaf(
+                                                                                        { content: t("retrySend"), variant: "outline", size: "sm" },
+                                                                                        { onPress: () => void chat.sendMessage(chat.failedMessage ?? "") },
+                                                                                    )
                                                                                     : undefined,
                                                                             })}
                                                                         />
@@ -221,16 +233,12 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                         key={question.id}
                                                                         contract="chat-discovery-card"
                                                                         render={defineContractComponent("chat-discovery-card", {
-                                                                            question: defineLeafComponent("text", {}, () => (
-                                                                                <Text props={{ content: question.label, variant: "body" }} />
-                                                                            )),
+                                                                            question: textLeaf({ content: question.label, variant: "body" }),
                                                                             options: defineContractComponent("chat-discovery-options-row", {
-                                                                                items: (question.options ?? []).map((option) => defineLeafComponent("action-button", {}, () => (
-                                                                                    <ActionButton
-                                                                                        props={{ content: option.label, variant: "outline", size: "sm" }}
-                                                                                        on={{ onPress: () => answerQuestion(question, option.label) }}
-                                                                                    />
-                                                                                ))),
+                                                                                items: (question.options ?? []).map((option) => actionButtonLeaf(
+                                                                                    { content: option.label, variant: "outline", size: "sm" },
+                                                                                    { onPress: () => answerQuestion(question, option.label) },
+                                                                                )),
                                                                             }),
                                                                         })}
                                                                     />
@@ -252,20 +260,16 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                 <Tree
                                                                     contract="composer-attachment-preview"
                                                                     render={defineContractComponent("composer-attachment-preview", {
-                                                                        chips: selectedFiles.map((file, index) => defineLeafComponent("selected-file-chip", {}, () => (
-                                                                            <SelectedFileChip
-                                                                                props={{ fileName: file.name, removeLabel: `${t("removeAttachment")} ${file.name}` }}
-                                                                                on={{ onRemove: () => setSelectedFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)) }}
-                                                                            />
-                                                                        ))),
+                                                                        chips: selectedFiles.map((file, index) => selectedFileChipLeaf(
+                                                                            { fileName: file.name, removeLabel: `${t("removeAttachment")} ${file.name}` },
+                                                                            { onRemove: () => setSelectedFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)) },
+                                                                        )),
                                                                     })}
                                                                 />
                                                             ))
                                                             : undefined,
                                                         error: attachmentError
-                                                            ? defineLeafComponent("text", {}, () => (
-                                                                <Text props={{ content: attachmentError, variant: "body", tone: "danger" }} />
-                                                            ))
+                                                            ? textLeaf({ content: attachmentError, variant: "body", tone: "danger" })
                                                             : undefined,
                                                         fields: defineContractProjection("opaque-content-unit", () => (
                                                             <>
@@ -277,12 +281,8 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                         controls: defineContractComponent("composer-input-row", {
                                                             icons: defineContractComponent("composer-icon-row", {
                                                                 items: [
-                                                                    defineLeafComponent("icon-button", {}, () => (
-                                                                        <IconButton props={{ icon: "PhotoIcon", label: t("addImage") }} on={{ onPress: () => imageInputRef.current?.click() }} />
-                                                                    )),
-                                                                    defineLeafComponent("icon-button", {}, () => (
-                                                                        <IconButton props={{ icon: "PaperClipIcon", label: t("addFile") }} on={{ onPress: () => fileInputRef.current?.click() }} />
-                                                                    )),
+                                                                    iconButtonLeaf({ icon: "PhotoIcon", label: t("addImage") }, { onPress: () => imageInputRef.current?.click() }),
+                                                                    iconButtonLeaf({ icon: "PaperClipIcon", label: t("addFile") }, { onPress: () => fileInputRef.current?.click() }),
                                                                 ],
                                                             }),
                                                             field: defineContractComponent("prompt-field-wrap", {
@@ -297,16 +297,12 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                     />
                                                                 )),
                                                             }),
-                                                            submit: defineLeafComponent("action-button", {}, () => (
-                                                                <ActionButton
-                                                                    props={{
-                                                                        content: t("send"),
-                                                                        variant: "primary",
-                                                                        type: "submit",
-                                                                        disabled: chat.isSending || (!composer.watch("message").trim() && selectedFiles.length === 0),
-                                                                    }}
-                                                                />
-                                                            )),
+                                                            submit: actionButtonLeaf({
+                                                                content: t("send"),
+                                                                variant: "primary",
+                                                                type: "submit",
+                                                                disabled: chat.isSending || (!composer.watch("message").trim() && selectedFiles.length === 0),
+                                                            }),
                                                         }),
                                                     })}
                                                 />
@@ -376,16 +372,12 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                         extras: defineContractProjection("opaque-content-unit", () => (
                                             <>
                                                 {chat.discovery?.readyForProposal && chat.projectId ? <ProposalActions projectId={chat.projectId} /> : null}
-                                                {chat.conversationId ? (
-                                                    showLeadForm
-                                                        ? <ConsultationLeadForm conversationId={chat.conversationId} />
-                                                        : (
-                                                            <ActionButton
-                                                                props={{ content: t("optionalFollowUp"), variant: "outline" }}
-                                                                on={{ onPress: () => setShowLeadForm(true) }}
-                                                            />
-                                                        )
-                                                ) : null}
+                                                {leadExtras({
+                                                    conversationId: chat.conversationId,
+                                                    showLeadForm,
+                                                    translate: t,
+                                                    onShowLeadForm: () => setShowLeadForm(true),
+                                                })}
                                             </>
                                         )),
                                     })}

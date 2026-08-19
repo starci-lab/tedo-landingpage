@@ -6,7 +6,7 @@ type WordmarkProps = { readonly onDark?: boolean }
 export const Wordmark = ({ onDark = false }: WordmarkProps) => {
     const tone = onDark ? "text-white" : "text-brand-deep"
     return (
-        <span className={`font-display text-2xl font-extrabold tracking-[-0.03em] ${tone}`} aria-hidden>
+        <span className={`font-display text-2xl font-extrabold tracking-tight ${tone}`} aria-hidden>
             <span className="text-brand">TE</span>
             <span className="text-green">D</span>
             <span className="relative">

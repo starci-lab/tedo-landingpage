@@ -11,7 +11,7 @@ import { ActionButton } from "@/components/leaves/ActionButton"
 type ConsultationErrorProps = { error: Error; reset: () => void }
 
 /** Renders the recovery actions shown when consultation loading fails. */
-const ConsultationError = ({ reset }: ConsultationErrorProps) => {
+const ConsultationError = ({ error, reset }: ConsultationErrorProps) => {
     const t = useTranslations("consultation")
     const router = useRouter()
 
@@ -23,7 +23,7 @@ const ConsultationError = ({ reset }: ConsultationErrorProps) => {
                     <Heading props={{ content: t("pageErrorTitle"), level: 1 }} />
                 )),
                 body: defineLeafComponent("text", {}, () => (
-                    <Text props={{ content: t("pageErrorBody"), variant: "body" }} />
+                    <Text props={{ content: error.message || t("pageErrorBody"), variant: "body" }} />
                 )),
                 actions: defineContractComponent("inline-action-row", {
                     primary: defineLeafComponent("action-button", {}, () => (

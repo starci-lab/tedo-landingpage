@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, type FormEvent } from "react"
+import { useState, type SyntheticEvent } from "react"
 import { useTranslations } from "next-intl"
 import { brand } from "@/config/brand"
 import { Tree } from "@/components/branches/Tree"
@@ -24,7 +24,7 @@ export const Contact = () => {
     const [status, setStatus] = useState<Status>("idle")
     const [service, setService] = useState(options[0])
 
-    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    async function handleSubmit(event: SyntheticEvent<HTMLFormElement>) {
         event.preventDefault()
         setStatus("sending")
 
@@ -45,11 +45,11 @@ export const Contact = () => {
         }
     }
 
-    const statusText = status === "sent"
-        ? tf("success")
-        : status === "error"
-            ? tf("error", { email: brand.email })
-            : tf("privacy")
+    const statusText = (() => {
+        if (status === "sent") return tf("success")
+        if (status === "error") return tf("error", { email: brand.email })
+        return tf("privacy")
+    })()
     const statusTone = status === "error" ? "danger" : "default"
 
     return (

@@ -59,9 +59,9 @@ export const ContractContent = <const K extends ContractKey>({ contract, render 
     const slots = render.slots
     return Object.keys(spec.children).flatMap((slot) => {
         const value = slots[slot as keyof typeof slots]
-        const values: ReadonlyArray<unknown> = Array.isArray(value)
-            ? value
-            : value === undefined ? [] : [value]
+        let values: ReadonlyArray<unknown> = []
+        if (Array.isArray(value)) values = value
+        else if (value !== undefined) values = [value]
         return values.map((component: unknown, index: number) => {
             const child = component as ContractComponent<ContractKey> | LeafComponent<string, Readonly<Record<never, never>>>
             if (child.meta.shape === "contract") {

@@ -30,7 +30,7 @@ export const useConsultationLeadForm = (conversationId: string): UseConsultation
     const schema = useMemo(() => z.object({
         name: z.string().trim().min(1, t("nameRequired")).max(120),
         phone: z.string().trim().max(40),
-        email: z.union([z.literal(""), z.string().trim().email(t("emailInvalid")).max(255)]),
+        email: z.union([z.literal(""), z.email(t("emailInvalid")).max(255)]),
         company: z.string().trim().max(160),
         preferredChannel: z.enum(["zalo", "phone", "email"]),
         consent: z.boolean().refine((value) => value, { message: t("consentRequired") }),

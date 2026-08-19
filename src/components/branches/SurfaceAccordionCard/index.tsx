@@ -26,7 +26,6 @@ export interface SurfaceAccordionCardProps {
     readonly render: ContractSlots<"labelled-surface-section">
     /** Stable id `Accordion.Root`'s own expanded-state tracking keys this item by. */
     readonly itemId: string
-    readonly isLoading?: boolean
 }
 
 /**

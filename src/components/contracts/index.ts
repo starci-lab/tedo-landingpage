@@ -50,7 +50,7 @@ export type LayoutClassName =
     // -- quote/print document wave --
     | "mt-auto" | "pt-3" | "text-[8pt]" | "mb-6"
     | "quote-root" | "bg-sky" | "print:gap-0" | "print:bg-canvas" | "print:py-0"
-    | "items-start" | "mt-10" | "grid-cols-4" | "gap-px" | "rounded-lg" | "bg-line"
+    | "mt-10" | "grid-cols-4" | "gap-px" | "rounded-lg" | "bg-line"
     | "gap-x-6" | "gap-y-2" | "text-[9.5pt]" | "leading-snug" | "mt-1"
     | "font-mono" | "text-[8.5pt]" | "font-medium" | "text-brand"
     | "border-line/70" | "last:border-b-0"

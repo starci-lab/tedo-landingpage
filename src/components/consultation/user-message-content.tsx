@@ -8,7 +8,7 @@ type UserMessageContentProps = { readonly content: string }
 export const UserMessageContent = ({ content }: UserMessageContentProps) => {
     return (
         <p className="whitespace-pre-wrap">
-            {content.split(URL_PARTS).map((part, index) => part.match(/^https?:\/\//iu)
+            {content.split(URL_PARTS).map((part, index) => /^https?:\/\//iu.exec(part)
                 ? <a key={`${part}-${index}`} href={part} target="_blank" rel="noopener noreferrer" className="underline decoration-white/50 underline-offset-3 hover:decoration-white">{part}</a>
                 : <React.Fragment key={`${part}-${index}`}>{part}</React.Fragment>)}
         </p>

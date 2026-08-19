@@ -9,6 +9,8 @@ node_modules/
 .next/
 out/
 coverage/
+.scannerwork/
+.sonar/
 .env
 .env*.local
 next-env.d.ts

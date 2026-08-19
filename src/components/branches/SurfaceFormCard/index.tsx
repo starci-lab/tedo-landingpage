@@ -1,6 +1,6 @@
 "use client"
 
-import type { FormEvent } from "react"
+import type { SyntheticEvent } from "react"
 import { Form } from "@heroui/react"
 import { Tree } from "@/components/branches/Tree"
 import type { ContractSlots } from "@/components/contracts/props"
@@ -29,8 +29,7 @@ import type { ContractSlots } from "@/components/contracts/props"
 export interface SurfaceFormCardProps {
     /** Checked slots for `labelled-surface-section` - never a projection, since projecting IS this branch's job. */
     readonly render: ContractSlots<"labelled-surface-section">
-    readonly onSubmit?: (event: FormEvent<HTMLFormElement>) => void
-    readonly isLoading?: boolean
+    readonly onSubmit?: (event: SyntheticEvent<HTMLFormElement>) => void
 }
 
 /**
