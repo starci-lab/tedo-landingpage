@@ -39,8 +39,12 @@ describe("remaining interactive leaves", () => {
         const { container } = render(<Wordmark />)
         expect(container.textContent).toMatch(/^TEDO\s/)
         expect(container.querySelector(".h-wordmark-ring")).toBeTruthy()
+        const dark = render(<Wordmark onDark />)
+        expect(dark.container.querySelector(".text-white")).toBeTruthy()
+        dark.unmount()
     })
 })
+
 
 describe("remaining visual components", () => {
     it("renders the sky and 3D visual shells", () => {

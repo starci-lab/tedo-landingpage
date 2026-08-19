@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
-import { fireEvent, render, screen } from "@testing-library/react"
-import { describe, expect, it, vi } from "vitest"
+import { cleanup, fireEvent, render, screen } from "@testing-library/react"
+import { afterEach, describe, expect, it, vi } from "vitest"
 
 const sendMessage = vi.fn().mockResolvedValue(true)
 const chat = {
@@ -16,6 +16,8 @@ vi.mock("./consultation-lead-form", () => ({ ConsultationLeadForm: () => <div>le
 import { ConsultationChat } from "./consultation-chat"
 
 describe("ConsultationChat interaction callbacks", () => {
+    afterEach(() => cleanup())
+
     it("invokes discovery, keyboard, retry, navigation, attachment and drag handlers", () => {
         Object.defineProperty(Element.prototype, "scrollIntoView", { configurable: true, value: vi.fn() })
         render(<ConsultationChat initialConversationId="c1" />)
@@ -33,8 +35,26 @@ describe("ConsultationChat interaction callbacks", () => {
         if (inputs[0] === undefined || inputs[1] === undefined) throw new Error("expected attachment inputs")
         fireEvent.change(inputs[0], { target: { files } })
         fireEvent.change(inputs[1], { target: { files } })
+        fireEvent.drop(form as HTMLFormElement, { dataTransfer: { files } })
+        const remove = screen.queryAllByRole("button", { name: /removeAttachment/ })[0]
+        if (remove) fireEvent.click(remove)
         fireEvent.click(screen.getByRole("button", { name: "addImage" }))
         fireEvent.click(screen.getByRole("button", { name: "addFile" }))
         expect(sendMessage.mock.calls.length).toBeGreaterThan(0)
+    })
+
+    it("renders loading, user-message, and sending branches", () => {
+        const original = { ...chat }
+        Object.assign(chat, {
+            messages: [{ id: "user-1", role: "user", content: "Question", attachments: [] }],
+            isLoading: true,
+            isSending: true,
+            error: undefined,
+            failedMessage: undefined,
+            discovery: undefined,
+        })
+        render(<ConsultationChat initialConversationId="c1" />)
+        expect(screen.getByText("thinking")).toBeTruthy()
+        Object.assign(chat, original)
     })
 })
