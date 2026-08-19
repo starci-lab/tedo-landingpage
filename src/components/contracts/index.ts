@@ -20,7 +20,7 @@
  * when the bad value cannot be typed.
  */
 export type LayoutClassName =
-    | "flex" | "flex-row" | "flex-col" | "flex-wrap"
+    | "flex" | "flex-row" | "flex-col" | SharedLayoutClassName
     | "items-center" | "items-baseline" | "justify-between"
     | "gap-2" | "gap-3"
     | "mx-auto" | "w-full" | "max-w-6xl" | "px-5" | "sm:px-8"
@@ -67,7 +67,7 @@ export type LayoutClassName =
     | "inset-x-0" | "bottom-0" | "z-40" | "transition-transform" | "duration-300" | "md:hidden"
     | "translate-y-0" | "translate-y-full" | "sticky-cta-safe-pad"
     | "bg-surface/30" | "lg:grid-cols-4" | "rounded-3xl" | "md:grid-cols-2" | "md:grid-cols-3"
-    | "contact-split-grid" | "lg:gap-16" | "flex-wrap"
+    | "contact-split-grid" | "lg:gap-16" | SharedLayoutClassName
     | "gap-5" | "py-5" | "first:pt-0" | "last:border-0" | "last:pb-0" | "h-7" | "w-7" | "bg-brand/10"
     | "lg:mx-auto" | "lg:max-w-4xl" | "ring-2" | "ring-accent/60" | "border-brand" | "bg-brand-soft/40"
     | "border-brand/30"
@@ -81,6 +81,9 @@ export type LayoutClassName =
 
 /** Literal values a contract may require from a child component's data props. */
 export type ContractPropValue = string | number | boolean | null
+
+/** Shared layout literal reused by the marketing and base layout groups. */
+type SharedLayoutClassName = "flex-wrap"
 
 /** A child appears once unless it explicitly declares a repeated run and its resting count. */
 export type ContractChildCardinality =

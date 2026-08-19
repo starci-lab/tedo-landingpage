@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from "next-intl"
 import { useRouter } from "@/i18n/routing"
 import { useConsultationChat } from "@/hooks/useConsultationChat"
 import { useConsultationComposerForm } from "@/hooks/rhf/useConsultationComposerForm"
-import type { DiscoveryQuestion } from "@/lib/consultation/types"
+import type { ConsultationMessage, DiscoveryQuestion } from "@/lib/consultation/types"
 import { Wordmark } from "@/components/leaves/Wordmark"
 import { ConsultationLeadForm } from "./consultation-lead-form"
 import { ProposalActions } from "./proposal-actions"
@@ -52,6 +52,53 @@ const leadExtras = ({ conversationId, showLeadForm, translate, onShowLeadForm }:
         />
     )
 }
+
+type MessageBubbleProps = {
+    message: ConsultationMessage
+    conversationId?: string
+    streamingMessageId?: string
+}
+
+const messageBubble = ({ message, conversationId, streamingMessageId }: MessageBubbleProps) => {
+    const bubbleContent = {
+        attachments: defineContractProjection("opaque-content-unit", () => (
+            <MessageAttachments attachments={message.attachments} conversationId={conversationId} />
+        )),
+        body: defineContractProjection("opaque-content-unit", () => (
+            message.role === "assistant"
+                ? <AssistantMarkdown content={message.content} animate={message.id === streamingMessageId} />
+                : <UserMessageContent content={message.content} />
+        )),
+    }
+    return message.role === "user"
+        ? <Tree key={message.id} contract="chat-bubble-user" render={defineContractComponent("chat-bubble-user", bubbleContent)} />
+        : <Tree key={message.id} contract="chat-bubble-assistant" render={defineContractComponent("chat-bubble-assistant", bubbleContent)} />
+}
+
+const discoveryCards = (questions: ReadonlyArray<DiscoveryQuestion>, onAnswer: (question: DiscoveryQuestion, label: string) => void) =>
+    questions.flatMap((question) => question.options?.length
+        ? [(
+            <Tree
+                key={question.id}
+                contract="chat-discovery-card"
+                render={defineContractComponent("chat-discovery-card", {
+                    question: textLeaf({ content: question.label, variant: "body" }),
+                    options: defineContractComponent("chat-discovery-options-row", {
+                        items: question.options.map((option) => actionButtonLeaf(
+                            { content: option.label, variant: "outline", size: "sm" },
+                            { onPress: () => onAnswer(question, option.label) },
+                        )),
+                    }),
+                })}
+            />
+        )]
+        : [])
+
+const selectedFileChips = (files: ReadonlyArray<File>, removeLabel: (name: string) => string, onRemove: (index: number) => void) =>
+    files.map((file, index) => selectedFileChipLeaf(
+        { fileName: file.name, removeLabel: removeLabel(file.name) },
+        { onRemove: () => onRemove(index) },
+    ))
 
 interface ConsultationChatProps {
     initialConversationId?: string
@@ -179,31 +226,11 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                         })}
                                                                     />
                                                                 ) : null}
-                                                                {chat.messages.map((message) => {
-                                                                    const bubbleContent = {
-                                                                        attachments: defineContractProjection("opaque-content-unit", () => (
-                                                                            <MessageAttachments attachments={message.attachments} conversationId={chat.conversationId} />
-                                                                        )),
-                                                                        body: defineContractProjection("opaque-content-unit", () => (
-                                                                            message.role === "assistant"
-                                                                                ? <AssistantMarkdown content={message.content} animate={message.id === chat.streamingMessageId} />
-                                                                                : <UserMessageContent content={message.content} />
-                                                                        )),
-                                                                    }
-                                                                    return message.role === "user" ? (
-                                                                        <Tree
-                                                                            key={message.id}
-                                                                            contract="chat-bubble-user"
-                                                                            render={defineContractComponent("chat-bubble-user", bubbleContent)}
-                                                                        />
-                                                                    ) : (
-                                                                        <Tree
-                                                                            key={message.id}
-                                                                            contract="chat-bubble-assistant"
-                                                                            render={defineContractComponent("chat-bubble-assistant", bubbleContent)}
-                                                                        />
-                                                                    )
-                                                                })}
+                                                                {chat.messages.map((message) => messageBubble({
+                                                                    message,
+                                                                    conversationId: chat.conversationId,
+                                                                    streamingMessageId: chat.streamingMessageId,
+                                                                }))}
                                                                 {chat.isSending ? (
                                                                     <Tree
                                                                         contract="chat-sending-indicator"
@@ -228,21 +255,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                         />
                                                                     </span>
                                                                 ) : null}
-                                                                {!chat.isSending && chat.discovery?.nextQuestions.map((question) => question.options?.length ? (
-                                                                    <Tree
-                                                                        key={question.id}
-                                                                        contract="chat-discovery-card"
-                                                                        render={defineContractComponent("chat-discovery-card", {
-                                                                            question: textLeaf({ content: question.label, variant: "body" }),
-                                                                            options: defineContractComponent("chat-discovery-options-row", {
-                                                                                items: (question.options ?? []).map((option) => actionButtonLeaf(
-                                                                                    { content: option.label, variant: "outline", size: "sm" },
-                                                                                    { onPress: () => answerQuestion(question, option.label) },
-                                                                                )),
-                                                                            }),
-                                                                        })}
-                                                                    />
-                                                                ) : null)}
+                                                                {!chat.isSending && chat.discovery ? discoveryCards(chat.discovery.nextQuestions, answerQuestion) : null}
                                                                 <span ref={endRef} />
                                                             </>
                                                         )),
@@ -260,10 +273,11 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                 <Tree
                                                                     contract="composer-attachment-preview"
                                                                     render={defineContractComponent("composer-attachment-preview", {
-                                                                        chips: selectedFiles.map((file, index) => selectedFileChipLeaf(
-                                                                            { fileName: file.name, removeLabel: `${t("removeAttachment")} ${file.name}` },
-                                                                            { onRemove: () => setSelectedFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)) },
-                                                                        )),
+                                                                        chips: selectedFileChips(
+                                                                            selectedFiles,
+                                                                            (name) => `${t("removeAttachment")} ${name}`,
+                                                                            (index) => setSelectedFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)),
+                                                                        ),
                                                                     })}
                                                                 />
                                                             ))

@@ -5,6 +5,7 @@ import { describe, expect, it, vi } from "vitest"
 import { AttachmentLink } from "./AttachmentLink"
 import { Placeholder } from "./Placeholder"
 import { SelectedFileChip } from "./SelectedFileChip"
+import { Wordmark } from "./Wordmark"
 import { SkyBackground } from "../sky-background"
 import { Hero3DVisual } from "../hero-3d-visual"
 
@@ -32,6 +33,12 @@ describe("remaining interactive leaves", () => {
         expect(classes).toContain("w-52")
         expect(classes).toContain("bg-brand-soft")
         expect(classes).toContain("ml-auto")
+    })
+
+    it("keeps the wordmark letters and ring separator explicit", () => {
+        const { container } = render(<Wordmark />)
+        expect(container.textContent).toMatch(/^TEDO\s/)
+        expect(container.querySelector(".h-wordmark-ring")).toBeTruthy()
     })
 })
 
