@@ -8,6 +8,7 @@ MO-HINH-KINH-DOANH.md
 node_modules/
 .next/
 out/
+coverage/
 .env
 .env*.local
 next-env.d.ts

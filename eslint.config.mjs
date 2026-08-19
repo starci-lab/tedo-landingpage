@@ -12,7 +12,7 @@ const directory = path.dirname(fileURLToPath(import.meta.url))
 const compat = new FlatCompat({ baseDirectory: directory, recommendedConfig: js.configs.recommended })
 
 const config = [
-    { ignores: [".next/**", "node_modules/**", "public/**", ".artifacts/**", ".claude/**", "next-env.d.ts"] },
+    { ignores: [".next/**", "coverage/**", "node_modules/**", "public/**", ".artifacts/**", ".claude/**", "next-env.d.ts"] },
     ...compat.extends("next/core-web-vitals", "next/typescript"),
     starciFeConfig({
         layout: "single-app",

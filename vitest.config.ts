@@ -24,4 +24,20 @@ export default defineConfig({
     esbuild: {
         jsx: "automatic",
     },
+    test: {
+        coverage: {
+            provider: "v8",
+            reporter: ["text", "text-summary", "lcov", "json-summary"],
+            reportsDirectory: "./coverage",
+            include: ["src/**/*.{ts,tsx}"],
+            exclude: [
+                "src/**/*.spec.{ts,tsx}",
+                "src/**/*.e2e-spec.{ts,tsx}",
+                "src/**/tests/**",
+                "src/**/*.d.ts",
+                "src/**/generated/**",
+            ],
+            thresholds: { statements: 80, lines: 80, functions: 80, branches: 75 },
+        },
+    },
 })
