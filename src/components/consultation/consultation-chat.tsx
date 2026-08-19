@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState, type ChangeEvent, type DragEvent, type KeyboardEvent } from "react"
+import { useCallback, useEffect, useRef, useState, type ChangeEvent, type Dispatch, type DragEvent, type KeyboardEvent, type SetStateAction } from "react"
 import { useLocale, useTranslations } from "next-intl"
 import { useRouter } from "@/i18n/routing"
 import { useConsultationChat } from "@/hooks/useConsultationChat"
@@ -75,6 +75,15 @@ const messageBubble = ({ message, conversationId, streamingMessageId }: MessageB
         : <Tree key={message.id} contract="chat-bubble-assistant" render={defineContractComponent("chat-bubble-assistant", bubbleContent)} />
 }
 
+const messageBubbles = (messages: ReadonlyArray<ConsultationMessage>, conversationId: string | undefined, streamingMessageId: string | undefined) =>
+    messages.map((message) => messageBubble({ message, conversationId, streamingMessageId }))
+
+const retryAction = (label: string, failedMessage: string, sendMessage: (message: string) => Promise<boolean>) =>
+    actionButtonLeaf(
+        { content: label, variant: "outline", size: "sm" },
+        { onPress: () => void sendMessage(failedMessage) },
+    )
+
 const discoveryCards = (questions: ReadonlyArray<DiscoveryQuestion>, onAnswer: (question: DiscoveryQuestion, label: string) => void) =>
     questions.flatMap((question) => question.options?.length
         ? [(
@@ -94,10 +103,10 @@ const discoveryCards = (questions: ReadonlyArray<DiscoveryQuestion>, onAnswer: (
         )]
         : [])
 
-const selectedFileChips = (files: ReadonlyArray<File>, removeLabel: (name: string) => string, onRemove: (index: number) => void) =>
+const selectedFileChips = (files: ReadonlyArray<File>, removeLabel: string, setFiles: Dispatch<SetStateAction<File[]>>) =>
     files.map((file, index) => selectedFileChipLeaf(
-        { fileName: file.name, removeLabel: removeLabel(file.name) },
-        { onRemove: () => onRemove(index) },
+        { fileName: file.name, removeLabel: `${removeLabel} ${file.name}` },
+        { onRemove: () => setFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)) },
     ))
 
 interface ConsultationChatProps {
@@ -226,11 +235,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                         })}
                                                                     />
                                                                 ) : null}
-                                                                {chat.messages.map((message) => messageBubble({
-                                                                    message,
-                                                                    conversationId: chat.conversationId,
-                                                                    streamingMessageId: chat.streamingMessageId,
-                                                                }))}
+                                                                {messageBubbles(chat.messages, chat.conversationId, chat.streamingMessageId)}
                                                                 {chat.isSending ? (
                                                                     <Tree
                                                                         contract="chat-sending-indicator"
@@ -246,10 +251,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                             render={defineContractComponent("chat-error-alert", {
                                                                                 message: textLeaf({ content: chat.error ?? "", variant: "body" }),
                                                                                 retry: chat.failedMessage
-                                                                                    ? actionButtonLeaf(
-                                                                                        { content: t("retrySend"), variant: "outline", size: "sm" },
-                                                                                        { onPress: () => void chat.sendMessage(chat.failedMessage ?? "") },
-                                                                                    )
+                                                                                    ? retryAction(t("retrySend"), chat.failedMessage, chat.sendMessage)
                                                                                     : undefined,
                                                                             })}
                                                                         />
@@ -273,11 +275,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                 <Tree
                                                                     contract="composer-attachment-preview"
                                                                     render={defineContractComponent("composer-attachment-preview", {
-                                                                        chips: selectedFileChips(
-                                                                            selectedFiles,
-                                                                            (name) => `${t("removeAttachment")} ${name}`,
-                                                                            (index) => setSelectedFiles((current) => current.filter((_, itemIndex) => itemIndex !== index)),
-                                                                        ),
+                                                                        chips: selectedFileChips(selectedFiles, t("removeAttachment"), setSelectedFiles),
                                                                     })}
                                                                 />
                                                             ))

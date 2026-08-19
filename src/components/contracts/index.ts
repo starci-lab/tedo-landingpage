@@ -67,7 +67,7 @@ export type LayoutClassName =
     | "inset-x-0" | "bottom-0" | "z-40" | "transition-transform" | "duration-300" | "md:hidden"
     | "translate-y-0" | "translate-y-full" | "sticky-cta-safe-pad"
     | "bg-surface/30" | "lg:grid-cols-4" | "rounded-3xl" | "md:grid-cols-2" | "md:grid-cols-3"
-    | "contact-split-grid" | "lg:gap-16" | SharedLayoutClassName
+    | "contact-split-grid" | "lg:gap-16"
     | "gap-5" | "py-5" | "first:pt-0" | "last:border-0" | "last:pb-0" | "h-7" | "w-7" | "bg-brand/10"
     | "lg:mx-auto" | "lg:max-w-4xl" | "ring-2" | "ring-accent/60" | "border-brand" | "bg-brand-soft/40"
     | "border-brand/30"
