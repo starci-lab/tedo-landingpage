@@ -1,6 +1,6 @@
 # tedo-landingpage
 
-[![Codecov](https://codecov.io/gh/starci-lab/tedo-landingpage/graph/badge.svg?token=H5BVDJFL0G)](https://codecov.io/gh/starci-lab/tedo-landingpage)
+[![Codecov](https://codecov.io/gh/starci-lab/tedo-landingpage/graph/badge.svg?branch=feat/landing-conversion-rewrite&token=H5BVDJFL0G)](https://codecov.io/gh/starci-lab/tedo-landingpage)
 [![SonarQube Quality Gate](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=alert_status&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
 [![SonarQube Coverage](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=coverage&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
 [![SonarQube Bugs](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=bugs&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
