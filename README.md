@@ -1,14 +1,14 @@
 # tedo-landingpage
 
-+[![Codecov](https://codecov.io/gh/starci-lab/tedo-landingpage/graph/badge.svg)](https://codecov.io/gh/starci-lab/tedo-landingpage)
-[![Quality Gate](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=alert_status)](https://sonar.starci.org/dashboard?id=tedo-landing)
-[![Coverage](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=coverage)](https://sonar.starci.org/dashboard?id=tedo-landing)
-[![Bugs](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=bugs)](https://sonar.starci.org/dashboard?id=tedo-landing)
-[![Vulnerabilities](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=vulnerabilities)](https://sonar.starci.org/dashboard?id=tedo-landing)
-[![Code Smells](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=code_smells)](https://sonar.starci.org/dashboard?id=tedo-landing)
-[![Maintainability](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=sqale_rating)](https://sonar.starci.org/dashboard?id=tedo-landing)
-[![Reliability](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=reliability_rating)](https://sonar.starci.org/dashboard?id=tedo-landing)
-[![Security](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=security_rating)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![Codecov](https://codecov.io/gh/starci-lab/tedo-landingpage/graph/badge.svg?token=H5BVDJFL0G)](https://codecov.io/gh/starci-lab/tedo-landingpage)
+[![SonarQube Quality Gate](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=alert_status&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![SonarQube Coverage](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=coverage&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![SonarQube Bugs](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=bugs&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![SonarQube Vulnerabilities](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=vulnerabilities&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![SonarQube Code Smells](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=code_smells&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![SonarQube Maintainability](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=sqale_rating&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![SonarQube Reliability](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=reliability_rating&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
+[![SonarQube Security](https://sonar.starci.org/api/project_badges/measure?project=tedo-landing&metric=security_rating&token=sqb_8e3f6a0eb90ecd0b631a85ba6174dd59456a562b)](https://sonar.starci.org/dashboard?id=tedo-landing)
 
 Landing page cho Tedo — công ty phần mềm AI-first. Song ngữ vi/en.
 
