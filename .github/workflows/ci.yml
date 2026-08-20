@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Lint (check only)
+        run: npm run lint:check
+      - run: npm run typecheck
+      - run: npm run build
+
+      # Unit is the sole coverage producer for Codecov and Sonar.
+      - name: Unit tests with mature coverage
+        env:
+          COVERAGE_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before || github.sha }}
+        run: npm run test:ci
+
+      # E2E is an independent behavior lane. It neither emits nor modifies Sonar coverage.
+      - name: End-to-end behavior
+        run: npm run test:e2e
+
+      - name: Upload unit LCOV to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          files: coverage/lcov.info
+          disable_search: true
+          fail_ci_if_error: true
+          use_oidc: true
+
+      - name: Scan unit LCOV with SonarQube
+        uses: SonarSource/sonarqube-scan-action@v7
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+
+      - name: Strict sonar-quality-gate proof
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 10
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}

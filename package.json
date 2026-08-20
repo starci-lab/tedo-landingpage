@@ -4,7 +4,20 @@
   "private": true,
   "packageManager": "npm@11.6.2",
   "type": "module",
+  "starci": {
+    "deliveryAssurance": {
+      "required": true,
+      "unitCoverage": {
+        "statements": 80,
+        "lines": 80,
+        "functions": 80,
+        "branches": 75,
+        "patch": 90
+      }
+    }
+  },
   "scripts": {
+    "prepare": "husky",
     "dev": "next dev -p 3020",
     "build": "next build",
     "start": "next start -p 3020",
@@ -12,11 +25,14 @@
     "lint:check": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
+    "test:unit": "npm test",
     "test:coverage": "vitest run --coverage",
-    "test:ci": "npm run test:coverage",
+    "test:ci": "npm run test:coverage && npm run coverage:patch",
     "test:e2e": "npm run build && vitest run --config vitest.e2e.config.ts",
     "sonar:check": "sonar-scanner-npm -Dsonar.qualitygate.wait=true -Dsonar.qualitygate.timeout=600",
-    "coverage:patch": "node scripts/check-coverage-change.mjs"
+    "coverage:patch": "node scripts/check-coverage-change.mjs",
+    "secret:set": "node scripts/stack-secret.mjs set",
+    "secret:list": "node scripts/stack-secret.mjs list"
   },
   "dependencies": {
     "@emnapi/core": "^1.11.3",
@@ -47,6 +63,7 @@
     "@vitest/coverage-v8": "^3.2.7",
     "eslint": "^9.39.5",
     "eslint-config-next": "^15.5.21",
+    "husky": "^9.1.7",
     "jsdom": "^29.1.1",
     "tailwindcss": "^4.1.13",
     "typescript": "^5.8.3",
