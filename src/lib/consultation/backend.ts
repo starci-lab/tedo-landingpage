@@ -15,13 +15,13 @@ export const forwardConsultationRequest = async (path: string, init?: RequestIni
             cache: "no-store",
             signal: controller.signal,
         })
+        clearTimeout(timeout)
         return new Response(await response.arrayBuffer(), {
             status: response.status,
             headers: { "content-type": response.headers.get("content-type") ?? "application/json" },
         })
     } catch {
-        return Response.json({ error: "backend-unavailable" }, { status: 503 })
-    } finally {
         clearTimeout(timeout)
+        return Response.json({ error: "backend-unavailable" }, { status: 503 })
     }
 }
