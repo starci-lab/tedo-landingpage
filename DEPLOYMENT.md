@@ -4,7 +4,7 @@ The browser talks only to same-origin `/api/*` routes. The Next.js server proxie
 
 ## Runtime variables
 
-- `TEDO_BACKEND_URL`: private backend origin, for example `http://tedo-backend:3030`
+- `TEDO_BACKEND_URL`: private backend origin, for example `http://tedo-backend:3003`
 - `SITE_URL`: canonical public landing origin
 - `CONTACT_WEBHOOK_URL`: optional destination for the legacy contact form
 - `NEXT_PUBLIC_ZALO_OA_URL`: optional public OA link
@@ -13,10 +13,10 @@ The browser talks only to same-origin `/api/*` routes. The Next.js server proxie
 
 ```powershell
 docker build -t tedo-landing:latest .
-docker run -d --restart unless-stopped --name tedo-landing --env-file .env.production -p 127.0.0.1:3020:3020 tedo-landing:latest
+docker run -d --restart unless-stopped --name tedo-landing --env-file .env.production -p 127.0.0.1:3002:3002 tedo-landing:latest
 ```
 
-Reverse proxy the public domain to port 3020 and verify `GET /api/health`. Keep port 3030 private except for an explicitly configured Zalo webhook route.
+Reverse proxy the public domain to port 3002 and verify `GET /api/health`. Keep port 3003 private except for an explicitly configured Zalo webhook route.
 
 ## Release checks
 

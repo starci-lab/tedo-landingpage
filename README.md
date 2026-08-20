@@ -23,12 +23,12 @@ Landing page cho Tedo — công ty phần mềm AI-first. Song ngữ vi/en.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3020
+npm run dev        # http://localhost:3002
 ```
 
 | Lệnh | Việc |
 | --- | --- |
-| `npm run dev` | Dev server, port 3020 |
+| `npm run dev` | Dev server, port 3002 |
 | `npm run build` | Build production |
 | `npm run typecheck` | `tsc --noEmit` |
 

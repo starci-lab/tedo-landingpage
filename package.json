@@ -18,9 +18,9 @@
   },
   "scripts": {
     "prepare": "husky",
-    "dev": "next dev -p 3020",
+    "dev": "next dev -p 3002",
     "build": "next build",
-    "start": "next start -p 3020",
+    "start": "next start -p 3002",
     "lint": "npm run lint:check",
     "lint:check": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",

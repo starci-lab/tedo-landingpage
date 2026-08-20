@@ -5,7 +5,7 @@
       "name": "tedo-landing",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 3020
+      "port": 3002
     }
   ]
 }

@@ -34,7 +34,7 @@ function upsert(name, value) {
 
 upsert("OPENROUTER_API_KEY", key)
 upsert("OPENROUTER_MODEL", model || "deepseek/deepseek-v4-flash")
-if (!/^SITE_URL=/m.test(text)) upsert("SITE_URL", "http://localhost:3020")
+if (!/^SITE_URL=/m.test(text)) upsert("SITE_URL", "http://localhost:3002")
 
 writeFileSync(ENV, text)
 

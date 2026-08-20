@@ -1,4 +1,4 @@
-const LOCAL_BACKEND_URL = "http://127.0.0.1:3030"
+const LOCAL_BACKEND_URL = "http://127.0.0.1:3003"
 
 /** Returns the private server-to-server TEDO backend origin. */
 export const getTedoBackendUrl = (): string =>
