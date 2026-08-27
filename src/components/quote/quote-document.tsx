@@ -262,8 +262,6 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
     // of thing that silently goes wrong the first time a quote gets one line longer.
     const runningSheet = hasSecondPricingSheet ? 6 : 5
     const termsSheet = runningSheet + 1
-    const pages = termsSheet
-
     return (
         <Tree
             contract="quote-document-shell"
@@ -271,7 +269,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                 pages: opaque(() => (
                     <>
                         {/* ── 1 · Cover ─────────────────────────────────────────────── */}
-                        <Page index={1} total={pages} render={opaque(() => (
+                        <Page index={1} total={termsSheet} render={opaque(() => (
                             <>
                                 <Tree
                                     contract="quote-cover-header-row"
@@ -332,7 +330,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         ))} />
 
                         {/* ── 2 · Core features ─────────────────────────────────────── */}
-                        <Page index={2} total={pages} render={opaque(() => (
+                        <Page index={2} total={termsSheet} render={opaque(() => (
                             <>
                                 <SectionHeading eyebrow={t("features.eyebrow")} title={t("features.title")} />
                                 <p className="-mt-3 mb-6 max-w-print-wide text-[9.5pt] leading-relaxed text-ink-muted">
@@ -364,7 +362,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         ))} />
 
                         {/* ── 3 · Scope ─────────────────────────────────────────────── */}
-                        <Page index={3} total={pages} render={opaque(() => (
+                        <Page index={3} total={termsSheet} render={opaque(() => (
                             <>
                                 <SectionHeading eyebrow={t("scope.eyebrow")} title={t("scope.title")} />
 
@@ -420,7 +418,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         ))} />
 
                         {/* ── 4 · Pricing ───────────────────────────────────────────── */}
-                        <Page index={4} total={pages} render={opaque(() => (
+                        <Page index={4} total={termsSheet} render={opaque(() => (
                             <>
                                 <SectionHeading eyebrow={t("pricing.eyebrow")} title={t("pricing.title")} />
 
@@ -472,7 +470,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
 
                         {/* ── 5 · Pricing, continued ────────────────────────────────── */}
                         {hasSecondPricingSheet ? (
-                            <Page index={5} total={pages} render={opaque(() => (
+                            <Page index={5} total={termsSheet} render={opaque(() => (
                                 <>
                                     <SectionHeading eyebrow={t("pricing.eyebrow")} title={t("pricing.continuedTitle")} />
                                     <table className="w-full border-collapse">
@@ -510,7 +508,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         ) : null}
 
                         {/* ── Running cost ──────────────────────────────────────────── */}
-                        <Page index={runningSheet} total={pages} render={opaque(() => (
+                        <Page index={runningSheet} total={termsSheet} render={opaque(() => (
                             <>
                                 <SectionHeading eyebrow={t("running.eyebrow")} title={t("running.title")} />
 
@@ -557,7 +555,7 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                         ))} />
 
                         {/* ── Terms ─────────────────────────────────────────────────── */}
-                        <Page index={termsSheet} total={pages} render={opaque(() => (
+                        <Page index={termsSheet} total={termsSheet} render={opaque(() => (
                             <>
                                 <SectionHeading eyebrow={t("terms.eyebrow")} title={t("terms.title")} />
 

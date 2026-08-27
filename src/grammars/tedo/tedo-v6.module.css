@@ -1,0 +1,1022 @@
+.page {
+    --tedo-night: #03070a;
+    --tedo-ink: #f3f7fa;
+    --tedo-muted: #96adbd;
+    --tedo-faint: #6e8799;
+    --tedo-line: rgba(166, 199, 222, 0.17);
+    --tedo-blue: #2b8ae0;
+    --tedo-blue-soft: #8fcaff;
+    --tedo-green: #43b04a;
+    --tedo-orange: #f58220;
+    position: relative;
+    isolation: isolate;
+    min-height: 100vh;
+    overflow: clip;
+    color: var(--tedo-ink);
+    background:
+        radial-gradient(ellipse 76% 22% at 76% 8%, rgba(28, 121, 194, 0.22), transparent 65%),
+        radial-gradient(ellipse 48% 22% at 78% 66%, rgba(67, 176, 74, 0.09), transparent 70%),
+        linear-gradient(155deg, #020608 0%, #07111a 42%, #06131a 70%, var(--tedo-night) 100%);
+    font-family: var(--font-be-vietnam-pro), "Be Vietnam Pro", sans-serif;
+}
+
+.contractScope { display: none; }
+
+.heroVisual {
+    --tedo-ink: #f3f7fa;
+    --tedo-muted: #96adbd;
+    --tedo-faint: #6e8799;
+    --tedo-line: rgba(166, 199, 222, 0.17);
+    --tedo-blue: #2b8ae0;
+    --tedo-blue-soft: #8fcaff;
+    --tedo-green: #43b04a;
+    --tedo-orange: #f58220;
+    position: relative;
+    min-width: 0;
+    min-height: 500px;
+}
+
+.heroVisual .agentRunway {
+    top: 12px;
+    right: -8%;
+    width: 116%;
+    min-height: 430px;
+    transform: perspective(1300px) rotateY(-6deg) rotateZ(-3deg);
+}
+
+.page::before {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    content: "";
+    opacity: 0.32;
+    background-image:
+        linear-gradient(rgba(135, 173, 200, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(135, 173, 200, 0.055) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.54) 74%, transparent 100%);
+}
+
+.nav {
+    position: sticky;
+    z-index: 20;
+    top: 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: 82px;
+    padding: 0 clamp(24px, 5vw, 76px);
+    border-bottom: 1px solid var(--tedo-line);
+    background: rgba(3, 8, 12, 0.78);
+    backdrop-filter: blur(20px) saturate(125%);
+}
+:global(body):has(.contractScope) :global([data-node="tedo-navigation"]) { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 34px; min-height: 76px; padding: 0 clamp(24px, 5vw, 76px); border-bottom: 1px solid var(--tedo-line); }
+:global(body):has(.contractScope) :global([data-node="tedo-navigation-links"]) { display: flex; align-items: center; gap: 28px; }
+
+.logoButton,
+.navCta,
+.missionCta button {
+    min-height: 44px;
+    cursor: pointer;
+}
+
+.logoButton {
+    justify-self: start;
+    border: 0;
+    background: transparent;
+}
+
+.logoButton:focus-visible,
+.navCta:focus-visible,
+.missionCta button:focus-visible,
+.primaryAction:focus-visible,
+.textAction:focus-visible,
+.navLinks a:focus-visible {
+    outline: 3px solid var(--tedo-orange);
+    outline-offset: 4px;
+}
+
+.navLinks {
+    display: flex;
+    gap: 32px;
+}
+
+.navLinks a {
+    color: var(--tedo-muted);
+    font-size: 13px;
+    text-decoration: none;
+    transition: color 180ms ease;
+}
+
+.navLinks a:hover { color: var(--tedo-ink); }
+
+.navCta {
+    justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    border: 0;
+    color: var(--tedo-ink);
+    background: transparent;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.globalRailFrame {
+    position: absolute;
+    z-index: 1;
+    top: 70px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-execution-rail"]) {
+    position: absolute;
+    z-index: 1;
+    top: 70px;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.globalRail {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.railGhost,
+.railActive,
+.missionGhost,
+.missionActive {
+    fill: none;
+}
+
+.railGhost { stroke: rgba(93, 143, 177, 0.2); stroke-width: 2; }
+.railBranch { fill: none; stroke: rgba(118, 174, 193, 0.16); stroke-width: 1.4; stroke-dasharray: 5 12; }
+.railActive { stroke: url(#tedo-rail-gradient); stroke-width: 3; stroke-dasharray: 12 22; animation: railDash 1.4s linear infinite; }
+.railPacket { fill: #fff; }
+.flowSignal {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px solid rgba(132, 178, 207, 0.24);
+    color: rgba(177, 204, 220, 0.66);
+    background: rgba(4, 12, 17, 0.74);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 7px;
+    letter-spacing: 0.12em;
+}
+.flowSignal i { width: 6px; height: 6px; border-radius: 50%; background: var(--tedo-blue-soft); box-shadow: 0 0 12px currentColor; }
+.flowSignalA { top: 30%; left: 36%; }
+.flowSignalB { top: 57%; right: 7%; }
+.flowSignalC { top: 84%; left: 28%; }
+.flowSignalB i { background: var(--tedo-orange); }
+.flowSignalC i { background: var(--tedo-green); }
+
+.hero,
+.runtime,
+.skills,
+.proof,
+.missionCta,
+.footer {
+    position: relative;
+    z-index: 2;
+}
+
+.hero {
+    min-height: 870px;
+    padding: 76px clamp(24px, 5vw, 76px) 80px;
+}
+
+.eyebrow,
+.sectionMeta,
+.heroReceipt > div,
+.theatreHeader span,
+.runtimeSteps,
+.skillIndex,
+.skillState,
+.receiptMeta,
+.receiptPanel dt,
+.missionCta > div > span {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.eyebrow {
+    max-width: 620px;
+    margin: 0 0 38px;
+    color: var(--tedo-orange);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.hero h1 {
+    position: relative;
+    z-index: 4;
+    max-width: 1030px;
+    margin: 0;
+    font-size: clamp(68px, 9.4vw, 138px);
+    font-weight: 500;
+    letter-spacing: -0.075em;
+    line-height: 0.86;
+}
+
+.hero h1 span { display: block; }
+.hero h1 span:last-child {
+    margin-left: clamp(16px, 7vw, 110px);
+    color: transparent;
+    background: linear-gradient(96deg, var(--tedo-ink) 4%, var(--tedo-blue-soft) 52%, var(--tedo-green) 122%);
+    background-clip: text;
+}
+
+.heroGrid {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: minmax(320px, 540px) 1fr;
+    align-items: end;
+    gap: clamp(48px, 8vw, 120px);
+    margin-top: 60px;
+}
+
+.lead,
+.splitHeading p,
+.skillsHeading p,
+.receiptPanel > p,
+.missionCta p {
+    color: var(--tedo-muted);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.75;
+}
+
+.lead { margin: 0; font-size: clamp(16px, 1.6vw, 20px); }
+.heroPrompt { max-width: 560px; margin-top: 28px; color: var(--tedo-ink); }
+.heroPrompt :global([data-node="prompt-composer-body"]) {
+    position: relative;
+    border-color: rgba(143, 202, 255, .28);
+    border-radius: 0;
+    background: rgba(5, 17, 24, .86);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, .42), inset 0 1px rgba(255, 255, 255, .05);
+    backdrop-filter: blur(18px) saturate(125%);
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+.heroPrompt :global(textarea) {
+    --tw-ring-color: var(--tedo-orange);
+    border: 1px solid rgba(143, 202, 255, .13);
+    border-radius: 0;
+    color: var(--tedo-ink);
+    background: rgba(11, 29, 38, .9);
+    caret-color: var(--tedo-orange);
+}
+.heroPrompt :global(textarea::placeholder) { color: rgba(150, 173, 189, .72); }
+.heroPrompt :global(textarea:focus-visible) {
+    border-color: rgba(245, 130, 32, .72);
+    outline: 0;
+    box-shadow: inset 0 0 0 1px rgba(245, 130, 32, .72), 0 0 22px rgba(245, 130, 32, .12);
+}
+.heroPrompt :global([data-slot="button"]) {
+    --tw-ring-color: var(--tedo-orange);
+    border-radius: 0;
+}
+.heroPrompt :global([data-variant="primary"]) {
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+.heroPrompt :global([data-variant="outline"]) {
+    border-color: rgba(143, 202, 255, .24);
+    color: var(--tedo-muted);
+    background: rgba(8, 24, 32, .76);
+}
+.heroPrompt :global([data-variant="outline"]:hover) {
+    border-color: var(--tedo-blue-soft);
+    color: var(--tedo-ink);
+    background: rgba(43, 138, 224, .14);
+}
+.heroPrompt + .textAction { margin-top: 22px; }
+.heroActions { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; margin-top: 30px; }
+.primaryAction,
+.textAction {
+    display: inline-flex;
+    align-items: center;
+    min-height: 50px;
+    text-decoration: none;
+}
+.primaryAction {
+    padding: 0 24px;
+    color: #081018;
+    background: var(--tedo-ink);
+    font-size: 13px;
+    font-weight: 600;
+    transition: background 180ms ease, transform 180ms ease;
+}
+.primaryAction:hover { background: var(--tedo-blue-soft); transform: translateY(-2px); }
+.textAction { gap: 10px; color: var(--tedo-muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.textAction:hover { color: var(--tedo-ink); }
+
+.heroReceipt {
+    justify-self: end;
+    width: min(100%, 430px);
+    padding-left: 24px;
+    border-left: 1px solid rgba(156, 190, 214, 0.3);
+}
+.heroReceipt > div { display: flex; justify-content: space-between; color: var(--tedo-faint); font-size: 9px; }
+.heroReceipt strong { display: block; margin: 20px 0 8px; font-size: clamp(28px, 3.5vw, 48px); font-weight: 400; letter-spacing: -0.05em; }
+.heroReceipt p { margin: 0; color: var(--tedo-muted); font-size: 13px; line-height: 1.6; }
+
+.agentRunway {
+    position: absolute;
+    z-index: 3;
+    top: 256px;
+    right: clamp(-130px, -5vw, -48px);
+    width: min(58vw, 830px);
+    min-height: 470px;
+    overflow: hidden;
+    border: 1px solid rgba(157, 200, 214, 0.25);
+    background: linear-gradient(110deg, rgba(5, 15, 19, 0.97), rgba(12, 34, 42, 0.88));
+    box-shadow: -30px 48px 110px rgba(0, 0, 0, 0.5);
+    transform: perspective(1300px) rotateY(-7deg) rotateZ(-5deg);
+}
+.agentRunway::before { position: absolute; inset: 0; content: ""; background: radial-gradient(circle at 80% 48%, rgba(143, 202, 255, 0.13), transparent 36%), linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.025)); }
+.runwayHeader,
+.runwayFooter { position: relative; z-index: 5; display: flex; justify-content: space-between; gap: 20px; padding: 20px 24px; color: var(--tedo-faint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; letter-spacing: .12em; }
+.runwayHeader { border-bottom: 1px solid var(--tedo-line); }
+.runwayHeader span:last-child { display: inline-flex; align-items: center; gap: 8px; color: #75d07e; }
+.runwayHeader span:last-child i { width: 6px; height: 6px; border-radius: 50%; background: var(--tedo-green); box-shadow: 0 0 14px var(--tedo-green); animation: nodePulse 1.8s ease-in-out infinite; }
+.runwayBody { position: relative; }
+.runwayLane { --runway-tone: var(--tedo-blue-soft); position: relative; display: grid; grid-template-columns: 42px 1fr; align-items: center; height: 86px; overflow: hidden; border-bottom: 1px solid var(--tedo-line); }
+.runwayLane[data-tone="orange"] { --runway-tone: var(--tedo-orange); }
+.runwayLane[data-tone="green"] { --runway-tone: var(--tedo-green); }
+.runwayLane > span { z-index: 3; padding-left: 15px; color: var(--tedo-faint); font-family: ui-monospace, monospace; font-size: 8px; }
+.runwayLane > i { height: 1px; background: repeating-linear-gradient(90deg, rgba(118, 163, 176, .5) 0 10px, transparent 10px 22px); }
+.runwayLane > b { position: absolute; z-index: 4; top: 24px; left: 58px; display: grid; grid-template-columns: 10px 1fr; gap: 3px 9px; width: 182px; min-height: 40px; padding: 8px 10px; border: 1px solid color-mix(in srgb, var(--runway-tone) 52%, transparent); color: #dbe9ed; background: #091920; box-shadow: 0 8px 24px rgba(0, 0, 0, .35); font: 500 8px ui-monospace, monospace; letter-spacing: .08em; animation: runwayFlow 8s linear infinite; }
+.runwayLane:nth-child(2) > b { animation-delay: -2s; }
+.runwayLane:nth-child(3) > b { animation-delay: -4s; }
+.runwayLane:nth-child(4) > b { animation-delay: -6s; }
+.runwayLane > b > i { grid-row: 1 / 3; align-self: center; width: 7px; height: 7px; border-radius: 50%; background: var(--runway-tone); box-shadow: 0 0 13px var(--runway-tone); }
+.runwayLane small { display: block; color: var(--tedo-faint); font-size: 7px; font-weight: 400; }
+.humanGate { position: absolute; z-index: 6; top: 0; bottom: 0; left: 68%; width: 2px; background: var(--tedo-orange); box-shadow: 0 0 24px rgba(245, 130, 32, .68); }
+.humanGate span { position: absolute; top: 14px; left: 10px; width: 150px; color: var(--tedo-orange); font: 8px ui-monospace, monospace; letter-spacing: .1em; }
+.runwayFooter { border-top: 1px solid var(--tedo-line); }
+
+.constellation {
+    position: absolute;
+    z-index: 2;
+    top: 30px;
+    right: clamp(-170px, -6vw, -40px);
+    width: min(62vw, 760px);
+    aspect-ratio: 1;
+    transform: perspective(1000px) rotateX(56deg) rotateZ(-8deg);
+}
+.systemHalo {
+    position: absolute;
+    inset: 25%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(43, 138, 224, 0.19), rgba(43, 138, 224, 0.035) 42%, transparent 70%);
+    filter: blur(2px);
+    animation: systemBreathe 5s ease-in-out infinite;
+}
+.orbitA,
+.orbitB,
+.orbitC {
+    position: absolute;
+    inset: 13%;
+    border: 1px solid rgba(124, 184, 224, 0.24);
+    border-radius: 50%;
+}
+.orbitA { transform: rotate(18deg) scaleY(0.52); box-shadow: 0 0 80px rgba(43, 138, 224, 0.08) inset; animation: orbitA 18s linear infinite; }
+.orbitB { inset: 22% 4%; border-color: rgba(67, 176, 74, 0.52); transform: rotate(-28deg) scaleY(0.36); animation: orbitB 22s linear infinite; }
+.orbitC { inset: 5% 31%; border-color: rgba(245, 130, 32, 0.54); transform: rotate(55deg) scaleX(0.48); animation: orbitC 15s linear infinite; }
+.orbitA i,
+.orbitB i,
+.orbitC i {
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--tedo-blue-soft);
+    box-shadow: 0 0 18px var(--tedo-blue);
+}
+.orbitB i { background: var(--tedo-green); box-shadow: 0 0 18px var(--tedo-green); }
+.orbitC i { background: var(--tedo-orange); box-shadow: 0 0 18px var(--tedo-orange); }
+.core { position: absolute; top: 42%; left: 43%; display: grid; place-items: center; width: 130px; aspect-ratio: 1; border: 1px solid rgba(143, 202, 255, 0.62); border-radius: 50%; color: var(--tedo-muted); background: rgba(5, 17, 26, 0.8); transform: rotateZ(8deg) rotateX(-58deg); box-shadow: 0 0 70px rgba(43, 138, 224, 0.14); }
+.core i { width: 12px; height: 12px; border-radius: 50%; background: var(--tedo-orange); box-shadow: 0 0 20px var(--tedo-orange); }
+.core b, .core small { position: absolute; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; letter-spacing: 0.16em; }
+.core b { top: 24px; }.core small { bottom: 23px; color: var(--tedo-ink); }
+.satellite { position: absolute; width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 20px currentColor; }
+.satelliteBlue { top: 58%; left: 8%; color: var(--tedo-blue); background: currentColor; }
+.satelliteOrange { top: 29%; right: 7%; color: var(--tedo-orange); background: currentColor; }
+.satelliteGreen { right: 20%; bottom: 15%; color: var(--tedo-green); background: currentColor; }
+.agentTag {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 8px 1fr;
+    gap: 2px 8px;
+    min-width: 116px;
+    padding: 9px 11px;
+    border: 1px solid rgba(132, 183, 215, 0.34);
+    color: var(--tedo-ink);
+    background: rgba(5, 15, 22, 0.86);
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 8px;
+    letter-spacing: 0.11em;
+    transform: rotateZ(8deg) rotateX(-58deg);
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+.agentTag > i { grid-row: 1 / 3; align-self: center; width: 7px; height: 7px; border-radius: 50%; background: var(--tedo-blue-soft); box-shadow: 0 0 12px currentColor; }
+.agentTag small { color: var(--tedo-faint); font-size: 6px; }
+.agentAuthority { top: 27%; left: 8%; }
+.agentDesign { top: 18%; right: 6%; border-color: rgba(245, 130, 32, 0.4); }
+.agentDesign > i { background: var(--tedo-orange); }
+.agentProof { right: 17%; bottom: 14%; border-color: rgba(67, 176, 74, 0.44); }
+.agentProof > i { background: var(--tedo-green); }
+.constellationCaption { position: absolute; right: 14%; bottom: 4%; color: var(--tedo-faint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 7px; letter-spacing: .14em; transform: rotateZ(8deg) rotateX(-58deg); }
+
+.runtime,
+.skills,
+.proof {
+    padding: 88px clamp(24px, 5vw, 76px) 100px;
+    border-top: 1px solid var(--tedo-line);
+    scroll-margin-top: 82px;
+}
+.sectionMeta, :global(body):has(.contractScope) :global([data-node="tedo-section-meta"]) { display: flex; justify-content: space-between; gap: 24px; color: var(--tedo-faint); font-size: 9px; }
+.splitHeading,
+.skillsHeading {
+    display: grid;
+    grid-template-columns: 1fr 0.86fr;
+    align-items: end;
+    gap: clamp(46px, 8vw, 120px);
+    margin-top: 52px;
+}
+.splitHeading h2,
+.skillsHeading h2,
+.missionCta h2 {
+    margin: 0;
+    white-space: pre-line;
+    font-size: clamp(50px, 6.6vw, 92px);
+    font-weight: 400;
+    letter-spacing: -0.06em;
+    line-height: 0.95;
+}
+.splitHeading p,
+.skillsHeading p { margin: 0 0 8px; }
+.theatre { position: relative; min-height: 390px; margin-top: 62px; overflow: hidden; border-top: 1px solid var(--tedo-line); border-bottom: 1px solid var(--tedo-line); background: linear-gradient(90deg, rgba(10, 27, 39, 0.82), rgba(6, 18, 27, 0.32)); }
+.theatre::before { position: absolute; inset: 0; content: ""; background: radial-gradient(circle at 45% 50%, rgba(43, 138, 224, 0.14), transparent 34%); }
+.theatreHeader { position: relative; z-index: 3; display: flex; justify-content: space-between; gap: 24px; padding: 30px 34px; }
+.theatreHeader div > span { display: block; color: var(--tedo-faint); font-size: 9px; }
+.theatreHeader strong { display: block; margin-top: 10px; font-size: 16px; font-weight: 500; }
+.running { display: flex; align-items: center; gap: 9px; color: #75d07e; font-size: 9px; }
+.running i { width: 7px; height: 7px; border-radius: 50%; background: var(--tedo-green); box-shadow: 0 0 16px var(--tedo-green); }
+.missionLane { position: absolute; inset: 78px 28px 44px; width: calc(100% - 56px); height: calc(100% - 122px); }
+.missionGhost { stroke: rgba(120, 159, 186, 0.22); stroke-width: 1.5; }
+.missionActive { stroke: url(#mission-gradient); stroke-width: 2.2; stroke-dasharray: 8 13; animation: railDash 1.1s linear infinite; }
+.missionNode { fill: #07141d; stroke: #4b7898; stroke-width: 1.5; }
+.missionPacket { fill: #fff; filter: drop-shadow(0 0 8px var(--tedo-blue)); }
+.runtimeSteps { position: absolute; right: 34px; bottom: 27px; left: 34px; display: grid; grid-template-columns: repeat(5, 1fr); color: #829aab; font-size: 9px; }
+
+.skillsHeading { grid-template-columns: 0.82fr 1.18fr; }
+.workflowScroll { position: relative; height: 620vh; margin-top: 58px; }
+.workflowSticky { position: sticky; top: 70px; display: grid; align-items: center; height: calc(100vh - 70px); min-height: 620px; }
+.workflowDashboard {
+    --skill-tone: var(--tedo-blue);
+    display: grid;
+    grid-template-columns: minmax(210px, .72fr) minmax(390px, 1.45fr) minmax(250px, .83fr);
+    min-height: min(680px, calc(100vh - 110px));
+    overflow: hidden;
+    border: 1px solid rgba(175, 205, 227, .24);
+    background: rgba(4, 13, 19, .96);
+    box-shadow: 0 34px 90px rgba(0, 0, 0, .36);
+}
+.workflowDashboard[data-tone="ice"] { --skill-tone: var(--tedo-blue-soft); }
+.workflowDashboard[data-tone="orange"] { --skill-tone: var(--tedo-orange); }
+.workflowDashboard[data-tone="green"] { --skill-tone: var(--tedo-green); }
+.workflowStageNav { display: grid; align-content: center; gap: 4px; margin: 0; padding: 26px; border-right: 1px solid var(--tedo-line); list-style: none; }
+.workflowStageNav li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; min-width: 0; padding: 14px 0; color: var(--tedo-faint); opacity: .42; transition: color 280ms ease, opacity 280ms ease, transform 280ms ease; }
+.workflowStageNav li[data-active="true"] { color: var(--tedo-ink); opacity: 1; transform: translateX(8px); }
+.workflowStageNav li > span { padding-top: 2px; color: var(--skill-tone); font: 8px ui-monospace, SFMono-Regular, Menlo, monospace; }
+.workflowStageNav b { display: block; overflow-wrap: anywhere; font-size: 12px; font-weight: 500; }
+.workflowStageNav small { display: block; margin-top: 5px; color: var(--tedo-faint); font: 6px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; }
+.workflowCanvas { position: relative; display: grid; place-items: center; min-width: 0; overflow: hidden; background: radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--skill-tone) 13%, transparent), transparent 46%); }
+.workflowCanvas::before { position: absolute; inset: 0; content: ""; opacity: .45; background-image: linear-gradient(rgba(135, 173, 200, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(135, 173, 200, .08) 1px, transparent 1px); background-size: 42px 42px; mask-image: radial-gradient(circle, #000, transparent 74%); }
+.workflowCanvasMeta { position: absolute; z-index: 3; top: 22px; right: 24px; left: 24px; display: flex; justify-content: space-between; color: var(--tedo-faint); font: 7px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; }
+.workflowCanvasArt { position: relative; z-index: 2; width: min(92%, 590px); animation: workflowReveal 420ms ease both; }
+.workflowCanvasArt svg { display: block; width: 100%; height: auto; transform: scale(1.25); }
+.workflowFlowRail { position: absolute; z-index: 3; right: 36px; bottom: 34px; left: 36px; height: 2px; background: rgba(126, 162, 184, .2); }
+.workflowFlowRail i { position: absolute; top: -3px; left: 0; width: var(--workflow-progress); height: 8px; background: linear-gradient(90deg, var(--tedo-blue), var(--skill-tone)); transition: width 460ms ease; }
+.workflowFlowRail b { position: absolute; top: -6px; left: var(--workflow-progress); width: 12px; height: 12px; border-radius: 50%; background: #fff; box-shadow: 0 0 18px var(--skill-tone); transform: translateX(-6px); transition: left 460ms ease; }
+.workflowDashboard[data-stage="0"] { --workflow-progress: 16.666%; }
+.workflowDashboard[data-stage="1"] { --workflow-progress: 33.333%; }
+.workflowDashboard[data-stage="2"] { --workflow-progress: 50%; }
+.workflowDashboard[data-stage="3"] { --workflow-progress: 66.666%; }
+.workflowDashboard[data-stage="4"] { --workflow-progress: 83.333%; }
+.workflowDashboard[data-stage="5"] { --workflow-progress: 100%; }
+.workflowNarrative { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: clamp(28px, 3vw, 48px); border-left: 1px solid var(--tedo-line); background: linear-gradient(155deg, rgba(13, 33, 43, .7), rgba(4, 13, 19, .95)); }
+.workflowNarrative > span { color: var(--skill-tone); font: 8px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; }
+.workflowNarrative h3 { margin: 28px 0 18px; font-size: clamp(30px, 3.5vw, 54px); font-weight: 400; letter-spacing: -.055em; line-height: 1; overflow-wrap: anywhere; }
+.workflowNarrative p { margin: 0; color: var(--tedo-muted); font-size: 14px; line-height: 1.75; }
+.workflowNarrative > small { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 36px; color: var(--tedo-faint); font: 7px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; }
+.workflowNarrative > small i { color: var(--skill-tone); font-style: normal; animation: scrollCue 1.5s ease-in-out infinite; }
+.workflowGridLine { fill: none; stroke: rgba(128, 166, 190, .07); stroke-width: 1; }
+.workflowPanel { fill: rgba(5, 18, 26, .9); stroke: rgba(143, 202, 255, .38); stroke-width: 1.4; }
+.workflowPanelStrong { fill: rgba(10, 28, 36, .92); stroke: var(--skill-tone); stroke-width: 1.5; }
+.workflowLine { fill: none; stroke: rgba(189, 216, 232, .48); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.workflowAccent { fill: color-mix(in srgb, var(--skill-tone) 26%, transparent); stroke: var(--skill-tone); }
+.workflowDot { fill: #0b1c24; stroke: var(--skill-tone); stroke-width: 2; }
+.workflowAccentDot,
+.workflowAgent { fill: var(--skill-tone); filter: drop-shadow(0 0 8px var(--skill-tone)); }
+.workflowRing { fill: rgba(5, 18, 26, .7); stroke: color-mix(in srgb, var(--skill-tone) 55%, transparent); stroke-width: 1.5; stroke-dasharray: 5 7; animation: railDash 2.8s linear infinite; }
+.workflowTransfer { fill: none; stroke: var(--skill-tone); stroke-width: 2; stroke-dasharray: 4 5; animation: railDash 1.2s linear infinite; }
+.workflowAccentLine { fill: none; stroke: var(--skill-tone); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.workflowCheck { fill: none; stroke: var(--skill-tone); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; filter: drop-shadow(0 0 7px var(--skill-tone)); }
+.workflowPacket { fill: var(--skill-tone); filter: drop-shadow(0 0 7px var(--skill-tone)); animation: workflowPacket 4s ease-in-out infinite; }
+.skillList { margin-top: 58px; border-top: 1px solid rgba(175, 205, 227, 0.22); }
+.skillRow {
+    --skill-tone: var(--tedo-blue);
+    position: relative;
+    display: grid;
+    grid-template-columns: 56px 22px minmax(260px, 0.8fr) minmax(300px, 1.2fr) auto;
+    align-items: center;
+    gap: 20px;
+    min-height: 118px;
+    border-bottom: 1px solid var(--tedo-line);
+}
+.skillRow[data-tone="ice"] { --skill-tone: var(--tedo-blue-soft); }
+.skillRow[data-tone="orange"] { --skill-tone: var(--tedo-orange); }
+.skillRow[data-tone="green"] { --skill-tone: var(--tedo-green); }
+.skillRow::after { position: absolute; z-index: -1; top: 50%; left: 64px; width: calc(100% - 64px); height: 1px; content: ""; opacity: 0; background: linear-gradient(90deg, var(--skill-tone), transparent 70%); transition: opacity 240ms ease; }
+.skillRow:hover::after { opacity: 0.22; }
+.skillIndex { color: var(--tedo-faint); font-size: 9px; }
+.skillRow > i { width: 8px; height: 8px; border-radius: 50%; color: var(--skill-tone); background: currentColor; box-shadow: 0 0 18px currentColor; animation: nodePulse 2.4s ease-in-out infinite; }
+.skillRow h3 { margin: 0; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: clamp(18px, 2vw, 28px); font-weight: 500; letter-spacing: -0.035em; overflow-wrap: anywhere; }
+.skillRow p { margin: 0; color: var(--tedo-muted); font-size: 13px; line-height: 1.6; }
+.skillState { color: var(--skill-tone); font-size: 9px; white-space: nowrap; }
+
+.proofGrid { display: grid; grid-template-columns: 0.8fr 1.2fr; align-items: start; gap: clamp(52px, 9vw, 132px); margin-top: 62px; }
+.metric { display: block; color: transparent; background: linear-gradient(180deg, var(--tedo-ink), #72afe3); background-clip: text; font-size: clamp(120px, 18vw, 240px); font-weight: 400; letter-spacing: -0.095em; line-height: 0.76; }
+.metricCopy { max-width: 350px; margin: 34px 0 0; color: var(--tedo-muted); font-size: 14px; line-height: 1.7; }
+.receiptPanel { padding-top: 30px; border-top: 1px solid rgba(175, 205, 227, 0.28); }
+.receiptMeta { display: flex; justify-content: space-between; gap: 24px; color: var(--tedo-faint); font-size: 9px; }
+.receiptPanel h2 { max-width: 650px; margin: 38px 0 20px; font-size: clamp(34px, 4.4vw, 60px); font-weight: 400; letter-spacing: -0.05em; line-height: 1.08; }
+.receiptPanel > p { max-width: 650px; margin: 0; }
+.receiptPanel dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 42px 0 0; background: var(--tedo-line); }
+.receiptPanel dl div { padding: 20px; background: #07131b; }
+.receiptPanel dt { color: var(--tedo-faint); font-size: 8px; }
+.receiptPanel dd { margin: 10px 0 0; font-size: 16px; }
+
+.missionCta { display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: end; gap: clamp(46px, 8vw, 120px); padding: 86px clamp(24px, 5vw, 76px); border-top: 1px solid var(--tedo-line); background: linear-gradient(90deg, rgba(43, 138, 224, 0.12), rgba(67, 176, 74, 0.06)); }
+.missionCta > div > span { color: var(--tedo-orange); font-size: 9px; }
+.missionCta h2 { margin-top: 24px; }
+.missionCta p { margin: 0 0 28px; }
+.missionCta button { display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; min-width: min(100%, 300px); padding: 0 22px; border: 1px solid var(--tedo-orange); color: var(--tedo-ink); background: rgba(245, 130, 32, 0.08); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; transition: color 180ms ease, background 180ms ease; }
+.missionCta button:hover { color: #071018; background: var(--tedo-orange); }
+.footer { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 30px; min-height: 118px; padding: 24px clamp(24px, 5vw, 76px); border-top: 1px solid var(--tedo-line); color: var(--tedo-faint); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+.footer > span:last-child { justify-self: end; }
+
+@keyframes railDash { to { stroke-dashoffset: -56; } }
+@keyframes runwayFlow { from { transform: translate3d(-140%, 0, 0); } to { transform: translate3d(430%, 0, 0); } }
+@keyframes orbitA { to { transform: rotate(378deg) scaleY(0.52); } }
+@keyframes orbitB { to { transform: rotate(-388deg) scaleY(0.36); } }
+@keyframes orbitC { to { transform: rotate(415deg) scaleX(0.48); } }
+@keyframes systemBreathe { 50% { opacity: .55; transform: scale(.92); } }
+@keyframes nodePulse { 50% { opacity: 0.45; transform: scale(0.72); } }
+@keyframes workflowPacket { 50% { transform: translateX(258px); } }
+@keyframes workflowReveal { from { opacity: 0; transform: translateY(18px) scale(.96); } }
+@keyframes scrollCue { 50% { transform: translateY(6px); } }
+
+@media (max-width: 900px) {
+    .nav { grid-template-columns: 1fr auto; }
+    .navLinks { display: none; }
+    .hero { min-height: 900px; }
+    .hero h1 { font-size: clamp(52px, 11vw, 92px); }
+    .heroGrid,
+    .splitHeading,
+    .skillsHeading,
+    .proofGrid,
+    .missionCta { grid-template-columns: 1fr; }
+    .heroReceipt { justify-self: start; }
+    .constellation { top: 210px; right: -290px; width: 650px; opacity: 0.64; }
+    .agentRunway { top: 420px; width: 76vw; }
+    .heroVisual { min-height: 440px; }
+    .heroVisual .agentRunway { top: 12px; right: -4%; width: 108%; }
+    .skillRow { grid-template-columns: 42px 18px minmax(190px, 1fr) auto; padding: 24px 0; }
+    .skillRow p { grid-column: 3 / 5; }
+    .workflowDashboard { grid-template-columns: 170px minmax(300px, 1fr); }
+    .workflowNarrative { grid-column: 1 / 3; display: grid; grid-template-columns: 1fr 1.4fr; gap: 16px 30px; min-height: 180px; border-top: 1px solid var(--tedo-line); border-left: 0; }
+    .workflowNarrative h3 { grid-row: 1 / 3; margin: 0; }
+    .workflowNarrative > small { display: none; }
+    .receiptPanel dl { grid-template-columns: 1fr; }
+    .footer { grid-template-columns: 1fr auto; }
+    .footer > span:nth-child(2) { display: none; }
+}
+
+@media (max-width: 560px) {
+    .nav { min-height: 70px; padding-inline: 20px; }
+    .navCta { max-width: 150px; font-size: 9px; text-align: right; }
+    .globalRailFrame { top: 60px; transform: translateX(34%); }
+    .flowSignal { display: none; }
+    .hero,
+    .runtime,
+    .skills,
+    .proof { padding: 64px 22px 76px; }
+    .hero { min-height: 920px; }
+    .eyebrow { max-width: 280px; line-height: 1.7; }
+    .hero h1 { max-width: 100%; font-size: clamp(42px, 13.5vw, 62px); line-height: 0.94; overflow-wrap: anywhere; }
+    .hero h1 span:last-child { margin-left: 0; }
+    .heroGrid { gap: 38px; margin-top: 44px; }
+    .lead { font-size: 15px; }
+    .heroActions { align-items: flex-start; gap: 16px; }
+    .primaryAction { width: 100%; justify-content: center; }
+    .heroReceipt { max-width: 100%; }
+    .heroReceipt > div { flex-wrap: wrap; gap: 8px; }
+    .constellation { top: 300px; right: -410px; width: 680px; }
+    .agentRunway { top: 485px; right: -66%; width: 165%; min-height: 392px; transform: rotate(-4deg); }
+    .heroVisual { min-height: 390px; }
+    .heroVisual .agentRunway { top: 0; right: -38%; width: 140%; min-height: 360px; transform: rotate(-3deg); }
+    .runwayHeader, .runwayFooter { padding-inline: 15px; }
+    .runwayHeader span:first-child, .runwayFooter span:first-child { visibility: hidden; }
+    .runwayLane { height: 68px; }
+    .runwayLane > b { top: 15px; width: 160px; animation-duration: 7s; }
+    .sectionMeta span:last-child { display: none; }
+    .splitHeading,
+    .skillsHeading { gap: 28px; margin-top: 38px; }
+    .splitHeading h2,
+    .skillsHeading h2 { font-size: 42px; overflow-wrap: anywhere; }
+    .splitHeading p,
+    .skillsHeading p { font-size: 14px; }
+    .theatre { min-height: 360px; margin-top: 42px; }
+    .theatreHeader { padding: 24px 18px; }
+    .theatreHeader > div { max-width: 68%; }
+    .theatreHeader strong { font-size: 13px; line-height: 1.45; }
+    .running { align-self: start; font-size: 8px; }
+    .missionLane { inset: 92px 8px 52px; width: calc(100% - 16px); height: calc(100% - 144px); }
+    .runtimeSteps { right: 18px; bottom: 22px; left: 18px; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 8px; }
+    .skillList { margin-top: 42px; }
+    .workflowScroll { height: 560vh; margin-top: 42px; }
+    .workflowSticky { top: 64px; height: calc(100vh - 64px); min-height: 560px; }
+    .workflowDashboard { grid-template-columns: 1fr; min-height: calc(100vh - 82px); }
+    .workflowStageNav { grid-template-columns: repeat(6, 1fr); align-content: start; gap: 6px; padding: 14px; border-right: 0; border-bottom: 1px solid var(--tedo-line); }
+    .workflowStageNav li { display: block; padding: 0; text-align: center; }
+    .workflowStageNav li > div { display: none; }
+    .workflowStageNav li[data-active="true"] { transform: none; }
+    .workflowStageNav li > span { display: block; padding: 8px 0; border-bottom: 2px solid transparent; }
+    .workflowStageNav li[data-active="true"] > span { border-color: var(--skill-tone); }
+    .workflowCanvas { min-height: 42vh; }
+    .workflowCanvasArt { width: 94%; }
+    .workflowNarrative { grid-column: auto; display: block; min-height: 210px; padding: 24px; }
+    .workflowNarrative h3 { margin: 18px 0 12px; font-size: 34px; }
+    .skillRow { grid-template-columns: 32px 14px minmax(0, 1fr); gap: 9px 12px; }
+    .skillRow h3 { font-size: 17px; }
+    .skillRow p,
+    .skillState { grid-column: 3; }
+    .skillState { font-size: 8px; }
+    .skillRow::after { left: 46px; width: calc(100% - 46px); }
+    .proofGrid { gap: 50px; }
+    .metric { font-size: clamp(108px, 38vw, 150px); }
+    .receiptMeta { flex-wrap: wrap; }
+    .receiptPanel h2 { font-size: 34px; overflow-wrap: anywhere; }
+    .receiptPanel > p { font-size: 14px; }
+    .missionCta { gap: 32px; padding: 70px 22px; }
+    .missionCta h2 { font-size: 44px; overflow-wrap: anywhere; }
+    .missionCta p { font-size: 14px; }
+    .missionCta button { width: 100%; }
+    .footer { grid-template-columns: 1fr; min-height: 140px; padding-inline: 22px; }
+    .footer > span:last-child { justify-self: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .railActive,
+    .missionActive,
+    .systemHalo,
+    .runwayLane > b,
+    .runwayHeader i,
+    .orbitA,
+    .orbitB,
+    .orbitC,
+    .skillRow > i { animation: none; }
+    .workflowRing,
+    .workflowTransfer,
+    .workflowPacket,
+    .workflowCanvasArt,
+    .workflowNarrative > small i { animation: none; }
+    .railPacket,
+    .missionPacket { display: none; }
+    .runwayLane > b { transform: translateX(18%); }
+    .primaryAction,
+    .navLinks a,
+    .missionCta button,
+    .skillRow::after { transition: none; }
+}
+
+/* Contractized CTA nodes retain the approved V6 visual through inspectable data-node hooks. */
+:global(body):has(.contractScope) :global([data-node="tedo-mission-cta"]) { position: relative; z-index: 2; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: end; gap: clamp(46px, 8vw, 120px); padding: 86px clamp(24px, 5vw, 76px); border-top: 1px solid var(--tedo-line); background: linear-gradient(90deg, rgba(43, 138, 224, 0.12), rgba(67, 176, 74, 0.06)); }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-cta-copy"] > span) { color: var(--tedo-orange); font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-cta-copy"] h2) { margin: 24px 0 0; white-space: pre-line; font-size: clamp(50px, 6.6vw, 92px); font-weight: 400; letter-spacing: -.06em; line-height: .95; }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-cta-action"] p) { margin: 0 0 28px; color: var(--tedo-muted); font-size: 16px; line-height: 1.75; }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-cta-action"] button) { display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; min-width: min(100%, 300px); min-height: 44px; padding: 0 22px; border: 1px solid var(--tedo-orange); color: var(--tedo-ink); background: rgba(245, 130, 32, .08); font: 600 11px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .07em; text-transform: uppercase; transition: color 180ms ease, background 180ms ease; cursor: pointer; }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-cta-action"] button:hover) { color: #071018; background: var(--tedo-orange); }
+
+@media (max-width: 900px) {
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-cta"]) { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-cta"]) { gap: 32px; padding: 70px 22px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-cta-copy"] h2) { font-size: 44px; overflow-wrap: anywhere; }
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-cta-action"] p) { font-size: 14px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-cta-action"] button) { width: 100%; }
+}
+
+/* TEDO V6's structural layout is owned by inspectable Tree contracts. */
+:global(body):has(.contractScope) :global([data-node="tedo-operating-page"]),
+:global(body):has(.contractScope) :global([data-node="tedo-feature-band"]),
+:global(body):has(.contractScope) :global([data-node="tedo-delivery-visual"]) {
+    --tedo-night: #03070a;
+    --tedo-ink: #f3f7fa;
+    --tedo-muted: #96adbd;
+    --tedo-faint: #6e8799;
+    --tedo-line: rgba(166, 199, 222, 0.17);
+    --tedo-blue: #2b8ae0;
+    --tedo-blue-soft: #8fcaff;
+    --tedo-green: #43b04a;
+    --tedo-orange: #f58220;
+    position: relative;
+    color: var(--tedo-ink);
+    font-family: var(--font-be-vietnam-pro), "Be Vietnam Pro", sans-serif;
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-operating-page"]) {
+    isolation: isolate;
+    min-height: 100vh;
+    overflow: clip;
+    background:
+        radial-gradient(ellipse 76% 22% at 76% 8%, rgba(28, 121, 194, 0.22), transparent 65%),
+        radial-gradient(ellipse 48% 22% at 78% 66%, rgba(67, 176, 74, 0.09), transparent 70%),
+        linear-gradient(155deg, #020608 0%, #07111a 42%, #06131a 70%, var(--tedo-night) 100%);
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-operating-page"])::before {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    content: "";
+    opacity: .32;
+    background-image:
+        linear-gradient(rgba(135, 173, 200, .055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(135, 173, 200, .055) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .54) 74%, transparent 100%);
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-harness-hero"]),
+:global(body):has(.contractScope) :global([data-node="tedo-runtime-section"]),
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-section"]),
+:global(body):has(.contractScope) :global([data-node="tedo-proof-section"]),
+:global(body):has(.contractScope) :global([data-node="tedo-footer"]) { position: relative; z-index: 2; }
+
+:global(body):has(.contractScope) :global([data-node="tedo-harness-hero"]) {
+    min-height: 870px;
+    padding: 76px clamp(24px, 5vw, 76px) 80px;
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-harness-hero"] h1) {
+    position: relative;
+    z-index: 4;
+    max-width: 1030px;
+    margin: 0;
+    font-size: clamp(68px, 9.4vw, 138px);
+    font-weight: 500;
+    letter-spacing: -.075em;
+    line-height: .86;
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-harness-hero"] h1 span) { display: block; }
+:global(body):has(.contractScope) :global([data-node="tedo-harness-hero"] h1 span:last-child) {
+    margin-left: clamp(16px, 7vw, 110px);
+    color: transparent;
+    background: linear-gradient(96deg, var(--tedo-ink) 4%, var(--tedo-blue-soft) 52%, var(--tedo-green) 122%);
+    background-clip: text;
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-hero-grid"]) {
+    position: relative;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: minmax(320px, 540px) 1fr;
+    align-items: end;
+    gap: clamp(48px, 8vw, 120px);
+    margin-top: 60px;
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-hero-prompt"]) { max-width: 560px; margin-top: 28px; color: var(--tedo-ink); }
+:global(body):has(.contractScope) :global([data-node="tedo-hero-prompt"] [data-node="prompt-composer-body"]) {
+    position: relative;
+    border-color: rgba(143, 202, 255, .28);
+    border-radius: 0;
+    background: rgba(5, 17, 24, .86);
+    box-shadow: 0 24px 72px rgba(0, 0, 0, .42), inset 0 1px rgba(255, 255, 255, .05);
+    backdrop-filter: blur(18px) saturate(125%);
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-hero-prompt"] textarea) {
+    --tw-ring-color: var(--tedo-orange);
+    border: 1px solid rgba(143, 202, 255, .13);
+    border-radius: 0;
+    color: var(--tedo-ink);
+    background: rgba(11, 29, 38, .9);
+}
+
+:global(body):has(.contractScope) :global([data-node="tedo-hero-receipt"]) {
+    justify-self: end;
+    width: min(100%, 430px);
+    padding-left: 24px;
+    border-left: 1px solid rgba(156, 190, 214, .3);
+}
+:global(body):has(.contractScope) :global([data-node="tedo-hero-receipt-meta"]) { display: flex; justify-content: space-between; color: var(--tedo-faint); font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; }
+:global(body):has(.contractScope) :global([data-node="tedo-hero-receipt"] > strong) { display: block; margin: 20px 0 8px; font-size: clamp(28px, 3.5vw, 48px); font-weight: 400; letter-spacing: -.05em; }
+:global(body):has(.contractScope) :global([data-node="tedo-hero-receipt"] > p) { margin: 0; color: var(--tedo-muted); font-size: 13px; line-height: 1.6; }
+
+:global(body):has(.contractScope) :global([data-node="tedo-agent-runway"]) {
+    position: absolute;
+    z-index: 3;
+    top: 256px;
+    right: clamp(-130px, -5vw, -48px);
+    width: min(58vw, 830px);
+    min-height: 470px;
+    overflow: hidden;
+    border: 1px solid rgba(157, 200, 214, .25);
+    background: linear-gradient(110deg, rgba(5, 15, 19, .97), rgba(12, 34, 42, .88));
+    box-shadow: -30px 48px 110px rgba(0, 0, 0, .5);
+    transform: perspective(1300px) rotateY(-7deg) rotateZ(-5deg);
+}
+:global(body):has(.contractScope) :global([data-node="tedo-agent-runway"])::before { position: absolute; inset: 0; content: ""; background: radial-gradient(circle at 80% 48%, rgba(143, 202, 255, .13), transparent 36%), linear-gradient(90deg, transparent, rgba(255, 255, 255, .025)); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"]) { position: relative; z-index: 5; display: flex; justify-content: space-between; gap: 20px; padding: 20px 24px; color: var(--tedo-faint); font: 8px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"]:first-child) { border-bottom: 1px solid var(--tedo-line); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"]:first-child span:last-child) { display: inline-flex; align-items: center; gap: 8px; color: #75d07e; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"]:first-child span:last-child i) { width: 6px; height: 6px; border-radius: 50%; background: var(--tedo-green); box-shadow: 0 0 14px var(--tedo-green); animation: nodePulse 1.8s ease-in-out infinite; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"]:last-child) { border-top: 1px solid var(--tedo-line); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-body"]) { position: relative; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-gate"]) { position: absolute; z-index: 6; top: 0; bottom: 0; left: 68%; width: 2px; background: var(--tedo-orange); box-shadow: 0 0 24px rgba(245, 130, 32, .68); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-gate"] span) { position: absolute; top: 14px; left: 10px; width: 150px; color: var(--tedo-orange); font: 8px ui-monospace, monospace; letter-spacing: .1em; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"]) { --runway-tone: var(--tedo-blue-soft); position: relative; display: grid; grid-template-columns: 42px 1fr; align-items: center; height: 86px; overflow: hidden; border-bottom: 1px solid var(--tedo-line); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"]:has(> b[data-tone="orange"])) { --runway-tone: var(--tedo-orange); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"]:has(> b[data-tone="green"])) { --runway-tone: var(--tedo-green); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] > span) { z-index: 3; padding-left: 15px; color: var(--tedo-faint); font: 8px ui-monospace, monospace; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] > i) { height: 1px; background: repeating-linear-gradient(90deg, rgba(118, 163, 176, .5) 0 10px, transparent 10px 22px); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] > b) { position: absolute; z-index: 4; top: 24px; left: 58px; display: grid; grid-template-columns: 10px 1fr; gap: 3px 9px; width: 182px; min-height: 40px; padding: 8px 10px; border: 1px solid color-mix(in srgb, var(--runway-tone) 52%, transparent); color: #dbe9ed; background: #091920; box-shadow: 0 8px 24px rgba(0, 0, 0, .35); font: 500 8px ui-monospace, monospace; letter-spacing: .08em; animation: runwayFlow 8s linear infinite; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"]:nth-child(2) > b) { animation-delay: -2s; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"]:nth-child(3) > b) { animation-delay: -4s; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"]:nth-child(4) > b) { animation-delay: -6s; }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] > b > i) { grid-row: 1 / 3; align-self: center; width: 7px; height: 7px; border-radius: 50%; background: var(--runway-tone); box-shadow: 0 0 13px var(--runway-tone); }
+:global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] small) { display: block; color: var(--tedo-faint); font-size: 7px; font-weight: 400; }
+
+:global(body):has(.contractScope) :global([data-node="tedo-delivery-visual"]) { min-width: 0; min-height: 500px; }
+:global(body):has(.contractScope) :global([data-node="tedo-delivery-visual"] > [data-node="tedo-agent-runway"]) { top: 12px; right: -8%; width: 116%; min-height: 430px; transform: perspective(1300px) rotateY(-6deg) rotateZ(-3deg); }
+
+:global(body):has(.contractScope) :global([data-node="tedo-runtime-section"]),
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-section"]),
+:global(body):has(.contractScope) :global([data-node="tedo-proof-section"]) { padding: 88px clamp(24px, 5vw, 76px) 100px; border-top: 1px solid var(--tedo-line); scroll-margin-top: 82px; }
+:global(body):has(.contractScope) :global([data-node="tedo-section-meta"]) { display: flex; justify-content: space-between; gap: 24px; color: var(--tedo-faint); font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; }
+:global(body):has(.contractScope) :global([data-node="tedo-chapter-heading"]) { display: grid; grid-template-columns: 1fr .86fr; align-items: end; gap: clamp(46px, 8vw, 120px); margin-top: 52px; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-section"] > [data-node="tedo-chapter-heading"]) { grid-template-columns: .82fr 1.18fr; }
+:global(body):has(.contractScope) :global([data-node="tedo-chapter-heading"] h2) { margin: 0; white-space: pre-line; font-size: clamp(50px, 6.6vw, 92px); font-weight: 400; letter-spacing: -.06em; line-height: .95; }
+:global(body):has(.contractScope) :global([data-node="tedo-chapter-heading"] p) { margin: 0 0 8px; color: var(--tedo-muted); font-size: 16px; line-height: 1.75; }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-theatre"]) { position: relative; min-height: 390px; margin-top: 62px; overflow: hidden; border-top: 1px solid var(--tedo-line); border-bottom: 1px solid var(--tedo-line); background: linear-gradient(90deg, rgba(10, 27, 39, .82), rgba(6, 18, 27, .32)); }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-theatre"])::before { position: absolute; inset: 0; content: ""; background: radial-gradient(circle at 45% 50%, rgba(43, 138, 224, .14), transparent 34%); }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-header"]) { position: relative; z-index: 3; display: flex; justify-content: space-between; gap: 24px; padding: 30px 34px; }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-identity"] > span) { display: block; color: var(--tedo-faint); font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; }
+:global(body):has(.contractScope) :global([data-node="tedo-mission-identity"] > strong) { display: block; margin-top: 10px; font-size: 16px; font-weight: 500; }
+:global(body):has(.contractScope) :global([data-node="tedo-runtime-steps"]) { position: absolute; right: 34px; bottom: 27px; left: 34px; display: grid; grid-template-columns: repeat(5, 1fr); color: #829aab; font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; }
+
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-scroll"]) { position: relative; height: 620vh; margin-top: 58px; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-sticky"]) { position: sticky; top: 70px; display: grid; align-items: center; height: calc(100vh - 70px); min-height: 620px; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]) { --skill-tone: var(--tedo-blue); display: grid; grid-template-columns: minmax(210px, .72fr) minmax(390px, 1.45fr) minmax(250px, .83fr); min-height: min(680px, calc(100vh - 110px)); overflow: hidden; border: 1px solid rgba(175, 205, 227, .24); background: rgba(4, 13, 19, .96); box-shadow: 0 34px 90px rgba(0, 0, 0, .36); }
+.workflowStateMarker { display: none; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-tone="ice"])) { --skill-tone: var(--tedo-blue-soft); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-tone="orange"])) { --skill-tone: var(--tedo-orange); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-tone="green"])) { --skill-tone: var(--tedo-green); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-list"]) { display: grid; align-content: center; gap: 4px; margin: 0; padding: 26px; border-right: 1px solid var(--tedo-line); list-style: none; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-item"]) { display: grid; grid-template-columns: 26px 1fr; gap: 12px; min-width: 0; padding: 14px 0; color: var(--tedo-faint); opacity: .42; transition: color 280ms ease, opacity 280ms ease, transform 280ms ease; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-item"]:has(> span[data-active="true"])) { color: var(--tedo-ink); opacity: 1; transform: translateX(8px); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-item"] > span) { padding-top: 2px; color: var(--skill-tone); font: 8px ui-monospace, SFMono-Regular, Menlo, monospace; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-detail"] b) { display: block; overflow-wrap: anywhere; font-size: 12px; font-weight: 500; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-detail"] small) { display: block; margin-top: 5px; color: var(--tedo-faint); font: 6px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .08em; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-canvas"]) { position: relative; display: grid; place-items: center; min-width: 0; overflow: hidden; background: radial-gradient(circle at 50% 48%, color-mix(in srgb, var(--skill-tone) 13%, transparent), transparent 46%); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-canvas"])::before { position: absolute; inset: 0; content: ""; opacity: .45; background-image: linear-gradient(rgba(135, 173, 200, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(135, 173, 200, .08) 1px, transparent 1px); background-size: 42px 42px; mask-image: radial-gradient(circle, #000, transparent 74%); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-canvas-meta"]) { position: absolute; z-index: 3; top: 22px; right: 24px; left: 24px; display: flex; justify-content: space-between; color: var(--tedo-faint); font: 7px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-progress"]) { position: absolute; z-index: 3; right: 36px; bottom: 34px; left: 36px; height: 2px; background: rgba(126, 162, 184, .2); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-progress"] i) { position: absolute; top: -3px; left: 0; width: var(--workflow-progress); height: 8px; background: linear-gradient(90deg, var(--tedo-blue), var(--skill-tone)); transition: width 460ms ease; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-progress"] b) { position: absolute; top: -6px; left: var(--workflow-progress); width: 12px; height: 12px; border-radius: 50%; background: #fff; box-shadow: 0 0 18px var(--skill-tone); transform: translateX(-6px); transition: left 460ms ease; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-stage="0"])) { --workflow-progress: 16.666%; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-stage="1"])) { --workflow-progress: 33.333%; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-stage="2"])) { --workflow-progress: 50%; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-stage="3"])) { --workflow-progress: 66.666%; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-stage="4"])) { --workflow-progress: 83.333%; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]:has(> [data-stage="5"])) { --workflow-progress: 100%; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"]) { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: clamp(28px, 3vw, 48px); border-left: 1px solid var(--tedo-line); background: linear-gradient(155deg, rgba(13, 33, 43, .7), rgba(4, 13, 19, .95)); }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] > span) { color: var(--skill-tone); font: 8px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] h3) { margin: 28px 0 18px; font-size: clamp(30px, 3.5vw, 54px); font-weight: 400; letter-spacing: -.055em; line-height: 1; overflow-wrap: anywhere; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] p) { margin: 0; color: var(--tedo-muted); font-size: 14px; line-height: 1.75; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] > small) { display: flex; align-items: center; gap: 12px; margin-top: auto; padding-top: 36px; color: var(--tedo-faint); font: 7px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; }
+:global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] > small i) { color: var(--skill-tone); font-style: normal; animation: scrollCue 1.5s ease-in-out infinite; }
+
+:global(body):has(.contractScope) :global([data-node="tedo-proof-content"]) { display: grid; grid-template-columns: .8fr 1.2fr; align-items: start; gap: clamp(52px, 9vw, 132px); margin-top: 62px; }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-receipt"]) { padding-top: 30px; border-top: 1px solid rgba(175, 205, 227, .28); }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-receipt-meta"]) { display: flex; justify-content: space-between; gap: 24px; color: var(--tedo-faint); font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-receipt"] h2) { max-width: 650px; margin: 38px 0 20px; font-size: clamp(34px, 4.4vw, 60px); font-weight: 400; letter-spacing: -.05em; line-height: 1.08; }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-receipt"] > p) { max-width: 650px; margin: 0; color: var(--tedo-muted); font-size: 16px; line-height: 1.75; }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-stats"]) { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin: 42px 0 0; background: var(--tedo-line); }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-stat"]) { padding: 20px; background: #07131b; }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-stat"] dt) { color: var(--tedo-faint); font: 8px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .13em; text-transform: uppercase; }
+:global(body):has(.contractScope) :global([data-node="tedo-proof-stat"] dd) { margin: 10px 0 0; font-size: 16px; }
+
+:global(body):has(.contractScope) :global([data-node="tedo-footer"]) { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 30px; min-height: 118px; padding: 24px clamp(24px, 5vw, 76px); border-top: 1px solid var(--tedo-line); color: var(--tedo-faint); font: 10px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .06em; text-transform: uppercase; }
+:global(body):has(.contractScope) :global([data-node="tedo-footer"] > span:last-child) { justify-self: end; }
+
+@media (max-width: 900px) {
+    :global(body):has(.contractScope) :global([data-node="tedo-hero-grid"]),
+    :global(body):has(.contractScope) :global([data-node="tedo-chapter-heading"]),
+    :global(body):has(.contractScope) :global([data-node="tedo-proof-content"]) { grid-template-columns: 1fr; }
+    :global(body):has(.contractScope) :global([data-node="tedo-harness-hero"]) { min-height: 900px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-harness-hero"] h1) { font-size: clamp(52px, 11vw, 92px); }
+    :global(body):has(.contractScope) :global([data-node="tedo-hero-receipt"]) { justify-self: start; }
+    :global(body):has(.contractScope) :global([data-node="tedo-agent-runway"]) { top: 420px; width: 76vw; }
+    :global(body):has(.contractScope) :global([data-node="tedo-delivery-visual"]) { min-height: 440px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-delivery-visual"] > [data-node="tedo-agent-runway"]) { top: 12px; right: -4%; width: 108%; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]) { grid-template-columns: 170px minmax(300px, 1fr); }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"]) { grid-column: 1 / 3; display: grid; grid-template-columns: 1fr 1.4fr; gap: 16px 30px; min-height: 180px; border-top: 1px solid var(--tedo-line); border-left: 0; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] h3) { grid-row: 1 / 3; margin: 0; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] > small) { display: none; }
+    :global(body):has(.contractScope) :global([data-node="tedo-proof-stats"]) { grid-template-columns: 1fr; }
+    :global(body):has(.contractScope) :global([data-node="tedo-footer"]) { grid-template-columns: 1fr auto; }
+    :global(body):has(.contractScope) :global([data-node="tedo-footer"] > span:nth-child(2)) { display: none; }
+}
+
+@media (max-width: 560px) {
+    :global(body):has(.contractScope) :global([data-node="tedo-harness-hero"]),
+    :global(body):has(.contractScope) :global([data-node="tedo-runtime-section"]),
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-section"]),
+    :global(body):has(.contractScope) :global([data-node="tedo-proof-section"]) { padding: 64px 22px 76px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-harness-hero"]) { min-height: 920px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-harness-hero"] h1) { max-width: 100%; font-size: clamp(42px, 13.5vw, 62px); line-height: .94; overflow-wrap: anywhere; }
+    :global(body):has(.contractScope) :global([data-node="tedo-harness-hero"] h1 span:last-child) { margin-left: 0; }
+    :global(body):has(.contractScope) :global([data-node="tedo-hero-grid"]) { gap: 38px; margin-top: 44px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-hero-receipt"]) { max-width: 100%; }
+    :global(body):has(.contractScope) :global([data-node="tedo-hero-receipt-meta"]) { flex-wrap: wrap; gap: 8px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-agent-runway"]) { top: 485px; right: -66%; width: 165%; min-height: 392px; transform: rotate(-4deg); }
+    :global(body):has(.contractScope) :global([data-node="tedo-delivery-visual"]) { min-height: 390px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-delivery-visual"] > [data-node="tedo-agent-runway"]) { top: 0; right: -38%; width: 140%; min-height: 360px; transform: rotate(-3deg); }
+    :global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"]) { padding-inline: 15px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"] span:first-child) { visibility: hidden; }
+    :global(body):has(.contractScope) :global([data-node="tedo-runway-lane"]) { height: 68px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] > b) { top: 15px; width: 160px; animation-duration: 7s; }
+    :global(body):has(.contractScope) :global([data-node="tedo-section-meta"] span:last-child) { display: none; }
+    :global(body):has(.contractScope) :global([data-node="tedo-chapter-heading"]) { gap: 28px; margin-top: 38px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-chapter-heading"] h2) { font-size: 42px; overflow-wrap: anywhere; }
+    :global(body):has(.contractScope) :global([data-node="tedo-chapter-heading"] p) { font-size: 14px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-theatre"]) { min-height: 360px; margin-top: 42px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-header"]) { padding: 24px 18px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-identity"]) { max-width: 68%; }
+    :global(body):has(.contractScope) :global([data-node="tedo-mission-identity"] > strong) { font-size: 13px; line-height: 1.45; }
+    :global(body):has(.contractScope) :global([data-node="tedo-runtime-steps"]) { right: 18px; bottom: 22px; left: 18px; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 8px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-scroll"]) { height: 560vh; margin-top: 42px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-sticky"]) { top: 64px; height: calc(100vh - 64px); min-height: 560px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-dashboard"]) { grid-template-columns: 1fr; min-height: calc(100vh - 82px); }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-list"]) { grid-template-columns: repeat(6, 1fr); align-content: start; gap: 6px; padding: 14px; border-right: 0; border-bottom: 1px solid var(--tedo-line); }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-item"]) { display: block; padding: 0; text-align: center; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-detail"]) { display: none; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-item"]:has(> span[data-active="true"])) { transform: none; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-item"] > span) { display: block; padding: 8px 0; border-bottom: 2px solid transparent; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-stage-item"]:has(> span[data-active="true"]) > span) { border-color: var(--skill-tone); }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-canvas"]) { min-height: 42vh; }
+    .workflowCanvasArt { width: 94%; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"]) { grid-column: auto; display: block; min-height: 210px; padding: 24px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] h3) { margin: 18px 0 12px; font-size: 34px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-proof-content"]) { gap: 50px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-proof-receipt-meta"]) { flex-wrap: wrap; }
+    :global(body):has(.contractScope) :global([data-node="tedo-proof-receipt"] h2) { font-size: 34px; overflow-wrap: anywhere; }
+    :global(body):has(.contractScope) :global([data-node="tedo-proof-receipt"] > p) { font-size: 14px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-footer"]) { grid-template-columns: 1fr; min-height: 140px; padding-inline: 22px; }
+    :global(body):has(.contractScope) :global([data-node="tedo-footer"] > span:last-child) { justify-self: start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] > b),
+    :global(body):has(.contractScope) :global([data-node="tedo-runway-boundary"]:first-child i),
+    .workflowCanvasArt,
+    :global(body):has(.contractScope) :global([data-node="tedo-workflow-narrative"] > small i) { animation: none; }
+    :global(body):has(.contractScope) :global([data-node="tedo-runway-lane"] > b) { transform: translateX(18%); }
+}

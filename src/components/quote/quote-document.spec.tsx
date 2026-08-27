@@ -22,7 +22,7 @@ describe("QuoteDocument", () => {
         expect(html).toContain("Ra mắt app đặt lịch nail đa chi nhánh")
         expect(html).toContain("Đặt lịch")
         expect(html).toContain("footer.page 1 7")
-        expect(html.match(/quote-page/g)?.length).toBeGreaterThan(1)
+        expect(html.match(/<article class="quote-page/g)?.length).toBe(7)
     })
 
     it("renders optional and overflow pricing content without dropping the final group", () => {

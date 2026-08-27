@@ -3,8 +3,10 @@ import { cleanup, fireEvent, render, screen } from "@testing-library/react"
 import { afterEach, describe, expect, it, vi } from "vitest"
 
 const sendMessage = vi.fn().mockResolvedValue(true)
+const startNewChat = vi.fn()
+const openChat = vi.fn()
 const chat = {
-    conversationId: "c1", projectId: undefined, messages: [], discovery: { completeness: 20, nextQuestions: [{ id: "q1", field: "industry", type: "single-select", label: "Industry?", required: true, options: [{ value: "education", label: "Education" }] }], readyForProposal: false }, quote: undefined, requirements: {}, isLoading: false, isSending: false, error: "send failed", failedMessage: "retry this", streamingMessageId: undefined, sendMessage,
+    conversationId: "c1", projectId: undefined, messages: [], discovery: { completeness: 20, nextQuestions: [{ id: "q1", field: "industry", type: "single-select", label: "Industry?", required: true, options: [{ value: "education", label: "Education" }] }], readyForProposal: false }, quote: undefined, requirements: {}, isLoading: false, isSending: false, error: "send failed", failedMessage: "retry this", streamingMessageId: undefined, sessions: [{ id: "c1", conversationId: "c1", title: "Booking platform" }], activeSessionId: "c1", sendMessage, startNewChat, openChat,
 }
 
 vi.mock("next-intl", () => ({ useTranslations: () => (key: string) => key, useLocale: () => "vi" }))
@@ -26,6 +28,8 @@ describe("ConsultationChat interaction callbacks", () => {
         fireEvent.click(screen.getByRole("button", { name: "Education" }))
         fireEvent.click(screen.getByRole("button", { name: "retrySend" }))
         fireEvent.click(screen.getByRole("button", { name: "optionalFollowUp" }))
+        fireEvent.click(screen.getByRole("button", { name: "newChat" }))
+        fireEvent.click(screen.getByRole("button", { name: "Booking platform" }))
         fireEvent.keyDown(screen.getByRole("textbox"), { key: "Enter", shiftKey: false })
         const form = document.querySelector("form")
         expect(form).toBeTruthy()
@@ -41,6 +45,8 @@ describe("ConsultationChat interaction callbacks", () => {
         fireEvent.click(screen.getByRole("button", { name: "addImage" }))
         fireEvent.click(screen.getByRole("button", { name: "addFile" }))
         expect(sendMessage.mock.calls.length).toBeGreaterThan(0)
+        expect(startNewChat).toHaveBeenCalled()
+        expect(openChat).toHaveBeenCalledWith("c1")
     })
 
     it("renders loading, user-message, and sending branches", () => {

@@ -12,7 +12,11 @@ const chatState = {
     error: "Could not send",
     failedMessage: "Retry me",
     streamingMessageId: "m1",
+    sessions: [{ id: "conversation-1", conversationId: "conversation-1", title: "Booking platform" }],
+    activeSessionId: "conversation-1",
     sendMessage: vi.fn(),
+    startNewChat: vi.fn(),
+    openChat: vi.fn(),
 }
 
 vi.mock("next-intl", () => ({ useTranslations: () => (key: string) => key, useLocale: () => "vi" }))
@@ -30,6 +34,8 @@ describe("ConsultationChat", () => {
         expect(html).toContain("Industry?")
         expect(html).toContain("Education")
         expect(html).toContain("50%")
+        expect(html).toContain("Booking platform")
+        expect(html).toContain("newChat")
     })
 
     it("renders the initial empty conversation shell", () => {

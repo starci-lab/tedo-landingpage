@@ -1,68 +1,14 @@
-import type { ComponentType } from "react"
 import { setRequestLocale } from "next-intl/server"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { Tree } from "@/components/branches/Tree"
-import { Reveal } from "@/components/branches/Reveal"
-import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
-import { Hero } from "@/components/sections/hero"
-import { Services } from "@/components/sections/services"
-import { Design } from "@/components/sections/design"
-import { Process } from "@/components/sections/process"
-import { Cases } from "@/components/sections/cases"
-import { Fit } from "@/components/sections/fit"
-import { Pricing } from "@/components/sections/pricing"
-import { Aftercare } from "@/components/sections/aftercare"
-import { Engagement } from "@/components/sections/engagement"
-import { Stack } from "@/components/sections/stack"
-import { Faq } from "@/components/sections/faq"
-import { Contact } from "@/components/sections/contact"
-import { StickyCta } from "@/components/sticky-cta"
+import { TedoV6 } from "@/grammars/tedo"
 
 type HomePageParams = { params: Promise<{ locale: string }> }
 
-/** One landing section, closed into an opaque unit and revealed on scroll. */
-const revealedSection = (Section: ComponentType) =>
-    defineContractProjection("opaque-content-unit", () => (
-        <Reveal content={<Section />} />
-    ))
-
-/** Renders the localized landing page. */
+/** Renders the Tedo V6 AI-first outsourcing landing page. */
 const HomePage = async ({ params }: HomePageParams) => {
     const { locale } = await params
     setRequestLocale(locale)
 
-    return (
-        <>
-            <Header />
-            {/* Order follows the buyer's questions, not our org chart — see
-                `content-plan.md` §2. Proof sits directly under the hero because
-                nothing said after it lands before the visitor believes anyone has
-                done this before; price sits mid-page because budget is the filter
-                small clients apply first, and filtering early saves both sides. */}
-            <Tree
-                contract="landing-main"
-                render={defineContractComponent("landing-main", {
-                    hero: defineContractProjection("opaque-content-unit", () => <Hero />),
-                    sections: [
-                        revealedSection(Cases),
-                        revealedSection(Fit),
-                        revealedSection(Services),
-                        revealedSection(Pricing),
-                        revealedSection(Process),
-                        revealedSection(Aftercare),
-                        revealedSection(Engagement),
-                        revealedSection(Design),
-                        revealedSection(Stack),
-                        revealedSection(Faq),
-                        revealedSection(Contact),
-                    ],
-                })}
-            />
-            <Footer />
-            <StickyCta />
-        </>
-    )
+    return <TedoV6 locale={locale} />
 }
 
 export default HomePage

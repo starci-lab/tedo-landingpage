@@ -46,7 +46,7 @@ export type LayoutClassName =
     | "bg-red-50" | "p-3" | "text-red-800" | "p-4" | "mt-3" | "gap-1" | "mb-2" | "sticky"
     | "bottom-3" | "mt-6" | "items-end" | "shrink-0" | "space-y-4" | "lg:sticky" | "lg:top-24"
     | "lg:self-start" | "h-2" | "overflow-hidden" | "rounded-full" | "mt-5" | "border-t" | "pt-4"
-    | "bg-brand-soft"
+    | "bg-brand-soft" | "max-h-64" | "overflow-y-auto"
     // -- quote/print document wave --
     | "mt-auto" | "pt-3" | "text-[8pt]" | "mb-6"
     | "quote-root" | "bg-sky" | "print:gap-0" | "print:bg-canvas" | "print:py-0"
@@ -78,6 +78,17 @@ export type LayoutClassName =
     | "bg-white/85" | "px-2" | "py-1" | "uppercase" | "tracking-wide" | "max-w-stack-col" | "text-right"
     | "justify-end" | "mt-14" | "py-10" | "sm:px-10"
     | "absolute" | "fixed" | "grow" | "lg:grid-cols-2" | "mt-2" | "mt-4" | "p-6" | "py-4" | "sm:p-7" | "text-xs"
+    // -- TEDO V6 cross-surface grammar --
+    | "tedo-v6-surface"
+    | "tedo-footer"
+    | "tedo-mission-cta"
+    | "tedo-mission-cta-copy"
+    | "tedo-mission-cta-action"
+    | "tedo-harness-hero"
+    | "tedo-hero-grid"
+    | "tedo-hero-copy"
+    | "tedo-hero-receipt"
+    | "tedo-hero-receipt-meta"
 
 /** Literal values a contract may require from a child component's data props. */
 export type ContractPropValue = string | number | boolean | null
@@ -241,7 +252,7 @@ export const CONTRACTS = buildContracts({
          * page-tier surface - so the landmark-placement law refuses that element name here even
          * though the node reads as a whole-route wait. The real `/chat` route's page file owns it.
          */
-        classes: ["mx-auto", "min-h-screen", "max-w-6xl", "animate-pulse", "px-5", "py-12", "sm:px-8"],
+        classes: ["tedo-v6-surface", "mx-auto", "min-h-screen", "max-w-6xl", "animate-pulse", "px-5", "py-12", "sm:px-8"],
         children: {
             bars: { leaf: "placeholder", repeats: true, restingCount: 4 },
         },
@@ -250,7 +261,7 @@ export const CONTRACTS = buildContracts({
 
     "error-panel": {
         // Not a landmark element here either, for the same route-file-only reason as `loading-panel`.
-        classes: ["mx-auto", "grid", "place-content-center", "min-h-screen", "max-w-xl", "px-5", "text-center"],
+        classes: ["tedo-v6-surface", "mx-auto", "grid", "place-content-center", "min-h-screen", "max-w-xl", "px-5", "text-center"],
         children: {
             heading: { leaf: "heading" },
             body: { leaf: "text" },
@@ -280,6 +291,444 @@ export const CONTRACTS = buildContracts({
         why: "a cross-cutting wrapper or a thin route sometimes only needs a checked identity to carry content it will never open a host around, and forcing that content through an invented shape would describe a node that nothing here actually draws.",
     },
 
+    "tedo-section-meta": {
+        classes: [],
+        children: {
+            label: { leaf: "text" },
+            aside: { leaf: "text" },
+        },
+        why: "the section kicker and its project qualifier share one metadata row so the chapter marker remains readable while the qualifier stays pinned to the opposite edge.",
+    },
+
+    "tedo-execution-rail": {
+        classes: [],
+        children: {
+            rail: { contract: "$content" },
+            signalA: { contract: "$content" },
+            signalB: { contract: "$content" },
+            signalC: { contract: "$content" },
+        },
+        why: "the animated route and its delivery signals share one fixed background frame behind the page content.",
+    },
+
+    "tedo-navigation": {
+        host: "header",
+        classes: [],
+        children: {
+            logo: { contract: "$content" },
+            links: { contract: "tedo-navigation-links" },
+            action: { contract: "$content" },
+        },
+        why: "the brand, section links, and project action occupy fixed points in one persistent navigation bar.",
+    },
+
+    "tedo-navigation-links": {
+        host: "nav",
+        classes: [],
+        children: { links: { contract: "$content" } },
+        why: "the section anchors remain grouped as one navigational landmark between the brand and the project action.",
+    },
+
+    "tedo-agent-runway": {
+        classes: [],
+        children: {
+            header: { contract: "tedo-runway-boundary" },
+            body: { contract: "tedo-runway-body" },
+            footer: { contract: "tedo-runway-boundary" },
+        },
+        why: "the live delivery lanes stay bracketed by input and output metadata so the moving jobs remain legible as one bounded project route.",
+    },
+
+    "tedo-runway-boundary": {
+        classes: [],
+        children: {
+            leading: { leaf: "text" },
+            trailing: { leaf: "text" },
+        },
+        why: "the two edge facts remain on opposing ends of the runway boundary until narrow screens force them to yield without obscuring the moving lanes.",
+    },
+
+    "tedo-runway-body": {
+        classes: [],
+        children: {
+            approval: { contract: "tedo-runway-gate" },
+            lanes: { contract: "tedo-runway-lane", repeats: true, restingCount: 4 },
+        },
+        why: "the approval gate crosses the repeated delivery lanes in one positioning frame so every moving job visibly passes the same human decision boundary.",
+    },
+
+    "tedo-runway-gate": {
+        classes: [],
+        children: { gateLabel: { leaf: "text" } },
+        why: "the approval label stays attached to the vertical gate instead of drifting into a lane where it could be mistaken for an automated job state.",
+    },
+
+    "tedo-runway-lane": {
+        classes: [],
+        children: {
+            laneIndex: { leaf: "text" },
+            routeLine: { leaf: "decoration" },
+            movingJob: { leaf: "text" },
+        },
+        why: "each numbered lane holds one dashed route behind one moving job so repeated tasks remain independently scannable while sharing the same direction of travel.",
+    },
+
+
+    "tedo-footer": {
+        host: "footer",
+        classes: [],
+        children: {
+            mark: { contract: "$content" },
+            copy: { leaf: "text" },
+            year: { leaf: "text" },
+        },
+        why: "the closing brand mark, accountability statement, and current year share one footer landmark so the page ends on a single accountable identity rather than unrelated trailing text.",
+    },
+
+    "tedo-mission-cta": {
+        host: "section",
+        classes: [],
+        children: {
+            copy: { contract: "tedo-mission-cta-copy" },
+            action: { contract: "tedo-mission-cta-action" },
+        },
+        why: "the closing invitation keeps its message and single project action in one semantic section so the outcome is understood before the next action is chosen.",
+    },
+
+    "tedo-mission-cta-copy": {
+        classes: [],
+        children: {
+            kicker: { leaf: "text" },
+            heading: { leaf: "heading" },
+        },
+        why: "the CTA kicker names the context immediately before its outcome heading, keeping the short qualifier and the main promise in one reading column.",
+    },
+
+    "tedo-mission-cta-action": {
+        classes: [],
+        children: {
+            body: { leaf: "text" },
+            action: { contract: "$content" },
+        },
+        why: "the CTA explanation and its button form one action column so the supporting detail sits directly above the control it motivates.",
+    },
+
+    "tedo-harness-hero": {
+        host: "section",
+        classes: [],
+        children: {
+            eyebrow: { leaf: "text" },
+            title: { leaf: "heading" },
+            grid: { contract: "tedo-hero-grid" },
+            runway: { contract: "$content" },
+        },
+        why: "the eyebrow and level-one promise establish the operating model before the explanatory copy, delivery preview, and visual runway compete for attention below.",
+    },
+
+    "tedo-hero-grid": {
+        classes: [],
+        children: {
+            copy: { contract: "tedo-hero-copy" },
+            receipt: { contract: "tedo-hero-receipt" },
+        },
+        why: "the hero's explanation and delivery receipt share one grid so a visitor can scan the promise and its concrete project evidence together.",
+    },
+
+    "tedo-hero-copy": {
+        classes: [],
+        children: {
+            lead: { leaf: "text" },
+            prompt: { contract: "tedo-hero-prompt" },
+            secondary: { contract: "$content" },
+        },
+        why: "the lead, prompt, and secondary route form one invitation column, moving from context to input to the lower-commitment way to inspect the workflow.",
+    },
+
+    "tedo-hero-prompt": {
+        classes: [],
+        children: { composer: { contract: "$content" } },
+        why: "the consultation composer keeps its own interaction logic inside a bounded hero slot so it cannot shift the lead or secondary workflow link around it.",
+    },
+
+    "tedo-hero-receipt": {
+        classes: [],
+        children: {
+            meta: { contract: "tedo-hero-receipt-meta" },
+            name: { leaf: "text" },
+            copy: { leaf: "text" },
+        },
+        why: "the receipt's status metadata, project name, and delivery detail stay together as the evidence column opposite the hero promise.",
+    },
+
+    "tedo-hero-receipt-meta": {
+        host: "div",
+        classes: [],
+        children: {
+            left: { leaf: "text" },
+            right: { leaf: "text" },
+        },
+        why: "the receipt's project state and elapsed-time marker share one metadata row so both are visible before the project detail below.",
+    },
+
+    "tedo-runtime-section": {
+        host: "section",
+        classes: [],
+        children: {
+            anchor: { leaf: "anchor" },
+            meta: { contract: "tedo-section-meta" },
+            heading: { contract: "tedo-chapter-heading" },
+            theatre: { contract: "tedo-mission-theatre" },
+        },
+        why: "the active-project chapter keeps its heading and route theatre under one landmark so the process animation cannot be separated from the outcome it explains.",
+    },
+
+    "tedo-chapter-heading": {
+        classes: [],
+        children: {
+            chapterTitle: { leaf: "heading" },
+            chapterSummary: { leaf: "text" },
+        },
+        why: "the chapter title and its explanatory paragraph share one responsive heading grid so readers receive the claim and its operating context before the visual below.",
+    },
+
+    "tedo-mission-theatre": {
+        classes: [],
+        children: {
+            statusHeader: { contract: "tedo-mission-header" },
+            routeDrawing: { contract: "$content" },
+            stageLabels: { contract: "tedo-runtime-steps" },
+        },
+        why: "the live status header, routed mission drawing, and stage labels share one clipped theatre so their positions remain synchronized across the animation.",
+    },
+
+    "tedo-mission-header": {
+        classes: [],
+        children: {
+            missionIdentity: { contract: "tedo-mission-identity" },
+            missionStatus: { leaf: "text" },
+        },
+        why: "the current mission identity stays opposite its running state so a visitor can pair what is being shipped with whether the delivery is active.",
+    },
+
+    "tedo-mission-identity": {
+        classes: [],
+        children: {
+            missionLabel: { leaf: "text" },
+            missionStep: { leaf: "text" },
+        },
+        why: "the small mission label sits directly above the concrete step so the status header preserves a clear label-to-value reading order.",
+    },
+
+    "tedo-runtime-steps": {
+        classes: [],
+        children: { stepLabels: { leaf: "text", repeats: true, restingCount: 5 } },
+        why: "the five route labels divide the theatre width evenly so each milestone remains aligned with the path node it names.",
+    },
+
+    "tedo-workflow-section": {
+        host: "section",
+        classes: [],
+        children: {
+            anchor: { leaf: "anchor" },
+            meta: { contract: "tedo-section-meta" },
+            heading: { contract: "tedo-chapter-heading" },
+            scrollTrack: { contract: "tedo-workflow-scroll" },
+        },
+        why: "the workflow chapter owns one extended scroll track so all six packaged stages advance inside the same stable dashboard rather than becoming disconnected cards.",
+    },
+
+    "tedo-workflow-scroll": {
+        classes: [],
+        children: { stickyFrame: { contract: "tedo-workflow-sticky" } },
+        why: "the tall scroll track supplies travel distance while the dashboard remains pinned long enough for every packaged stage to become the active state.",
+    },
+
+    "tedo-workflow-sticky": {
+        classes: [],
+        children: { dashboard: { contract: "tedo-workflow-dashboard" } },
+        why: "the viewport-height frame holds the dashboard in place while page scroll changes its contents, preventing the stage sequence from sliding out before it completes.",
+    },
+
+    "tedo-workflow-dashboard": {
+        classes: [],
+        children: {
+            stateMarker: { leaf: "state" },
+            stageNavigation: { contract: "tedo-workflow-stage-list" },
+            activeCanvas: { contract: "tedo-workflow-canvas" },
+            narrative: { contract: "tedo-workflow-narrative" },
+        },
+        why: "the stage list, active illustration, and narrative occupy fixed dashboard regions so scrolling changes state without changing the user's spatial model.",
+    },
+
+    "tedo-workflow-stage-list": {
+        host: "ol",
+        classes: [],
+        children: { stages: { contract: "tedo-workflow-stage-item", repeats: true, restingCount: 6 } },
+        why: "the six delivery stages remain an ordered list beside the active canvas so their sequence is explicit both visually and to assistive technology.",
+    },
+
+    "tedo-workflow-stage-item": {
+        host: "li",
+        classes: [],
+        children: {
+            stageIndex: { leaf: "text" },
+            stageDetail: { contract: "tedo-workflow-stage-detail" },
+        },
+        why: "each stage keeps its index beside its name and state so the active marker can move without separating a number from the work it identifies.",
+    },
+
+    "tedo-workflow-stage-detail": {
+        classes: [],
+        children: {
+            stageName: { leaf: "text" },
+            stageState: { leaf: "text" },
+        },
+        why: "the stage state remains directly beneath its name so the compact navigation can hide both together on narrow screens while preserving the index.",
+    },
+
+    "tedo-workflow-canvas": {
+        classes: [],
+        children: {
+            canvasMeta: { contract: "tedo-workflow-canvas-meta" },
+            illustration: { contract: "$content" },
+            progressRail: { contract: "tedo-workflow-progress" },
+        },
+        why: "the active illustration stays between its run metadata and progress rail so each stage reads as one instrument panel rather than a detached decorative image.",
+    },
+
+    "tedo-workflow-canvas-meta": {
+        classes: [],
+        children: {
+            flowName: { leaf: "text" },
+            flowPosition: { leaf: "text" },
+        },
+        why: "the flow name and current position stay pinned to opposite canvas corners so the illustration remains identifiable without occupying its visual center.",
+    },
+
+    "tedo-workflow-progress": {
+        classes: [],
+        children: {
+            completedTrack: { leaf: "decoration" },
+            activeKnob: { leaf: "decoration" },
+        },
+        why: "the filled track and moving knob share one rail so progress has both a continuous measure and an exact current position.",
+    },
+
+    "tedo-workflow-narrative": {
+        classes: [],
+        children: {
+            activeState: { leaf: "text" },
+            activeTitle: { leaf: "heading" },
+            activeSummary: { leaf: "text" },
+            continueCue: { leaf: "text" },
+        },
+        why: "the active state, stage name, explanation, and continuation cue remain one live reading column while the neighboring illustration changes with scroll.",
+    },
+
+    "tedo-proof-section": {
+        host: "section",
+        classes: [],
+        children: {
+            anchor: { leaf: "anchor" },
+            meta: { contract: "tedo-section-meta" },
+            content: { contract: "tedo-proof-content" },
+        },
+        why: "the delivery proof remains one named section so its marker and evidence panel stay part of the same traceable outcome when the page is scanned by landmarks.",
+    },
+
+    "tedo-proof-content": {
+        classes: [],
+        children: {
+            outcomeMetric: { contract: "tedo-proof-metric" },
+            deliveryReceipt: { contract: "tedo-proof-receipt" },
+        },
+        why: "the headline metric and detailed receipt share one responsive proof grid so the headline stays visible beside the evidence that supports it.",
+    },
+
+    "tedo-proof-metric": {
+        classes: [],
+        children: {
+            resultValue: { leaf: "text" },
+            resultExplanation: { leaf: "text" },
+        },
+        why: "the headline result and its explanation travel together so the large percentage cannot be detached from what was measured.",
+    },
+
+    "tedo-proof-receipt": {
+        classes: [],
+        children: {
+            receiptMeta: { contract: "tedo-proof-receipt-meta" },
+            receiptTitle: { leaf: "heading" },
+            receiptExplanation: { leaf: "text" },
+            receiptStats: { contract: "tedo-proof-stats" },
+        },
+        why: "the receipt identity, proof title, explanation, and measurable stats stay in one evidence panel so verification details cannot drift away from the claim.",
+    },
+
+    "tedo-proof-receipt-meta": {
+        classes: [],
+        children: {
+            receiptId: { leaf: "text" },
+            verificationTime: { leaf: "text" },
+        },
+        why: "the receipt identifier and verification time sit on opposing edges so both remain visible before the proof title, while either can wrap without colliding with the other.",
+    },
+
+    "tedo-proof-stats": {
+        host: "dl",
+        classes: [],
+        children: { measures: { contract: "tedo-proof-stat", repeats: true, restingCount: 3 } },
+        why: "the proof measures remain a definition list so each value is explicitly paired with its label instead of becoming an unlabelled row of numbers.",
+    },
+
+    "tedo-proof-stat": {
+        classes: [],
+        children: {
+            measureLabel: { leaf: "text" },
+            measureValue: { leaf: "text" },
+        },
+        why: "each proof measure keeps one label and value in the same cell so the three-column grid can collapse without breaking their semantic pairing.",
+    },
+
+    "tedo-operating-page": {
+        classes: [],
+        children: {
+            styleMarker: { leaf: "state" },
+            navigation: { contract: "$content" },
+            routeRail: { contract: "$content" },
+            hero: { contract: "$content" },
+            runtime: { contract: "$content" },
+            workflow: { contract: "$content" },
+            proof: { contract: "$content" },
+            cta: { contract: "$content" },
+            footer: { contract: "$content" },
+        },
+        why: "the complete operating-model sequence stays in one page frame while the route file retains ownership of the document's single main landmark.",
+    },
+
+    "tedo-feature-band": {
+        classes: [],
+        children: {
+            styleMarker: { leaf: "state" },
+            routeRail: { contract: "$content" },
+            runtime: { contract: "$content" },
+            workflow: { contract: "$content" },
+            proof: { contract: "$content" },
+        },
+        why: "the embedded operating-model chapters share one bounded band while the host landing page keeps its existing hero and conversion structure around them.",
+    },
+
+    "tedo-delivery-visual": {
+        classes: [],
+        children: {
+            styleMarker: { leaf: "state" },
+            runway: { contract: "$content" },
+        },
+        why: "the compact hero visual gives the delivery runway its own clipping and sizing frame so animation cannot overflow into the neighboring consultation copy.",
+    },
+
+
+
     "route-body-with-back-nav": {
         classes: [],
         host: "main",
@@ -305,17 +754,17 @@ export const CONTRACTS = buildContracts({
     },
 
     "landing-main": {
-        classes: [],
-        host: "main",
+        classes: ["tedo-v6-surface", "min-h-screen"],
         children: {
-            hero: { contract: "$content" },
-            sections: { contract: "$content", repeats: true, restingCount: 11 },
+            header: { contract: "$content", optional: true },
+            body: { contract: "$content" },
+            footer: { contract: "$content", optional: true },
         },
-        why: "the hero opens the page as the one unread first impression before anything else competes for it, then the buyer-ordered run that follows is a flat stack of already-drawn units the landmark itself never re-arranges.",
+        why: "a secondary route keeps its existing header, body and footer responsibilities while one shared V6 surface supplies the dark runway world they must visually inhabit together.",
     },
 
     "quote-preview-shell": {
-        classes: [],
+        classes: ["tedo-v6-surface", "min-h-screen"],
         host: "main",
         children: {
             toolbar: { contract: "$content" },
@@ -517,7 +966,7 @@ export const CONTRACTS = buildContracts({
          * banded (no full-width rule along one edge) to earn the exemption a band gets. The page
          * chrome falls back to the ordinary white background instead.
          */
-        classes: ["relative", "min-h-screen"],
+        classes: ["tedo-v6-surface", "relative", "min-h-screen"],
         children: {
             header: { contract: "$content" },
             main: { contract: "$content" },
@@ -695,10 +1144,37 @@ export const CONTRACTS = buildContracts({
         classes: ["space-y-4", "lg:sticky", "lg:top-24", "lg:self-start"],
         host: "aside",
         children: {
+            history: { contract: "chat-history-card" },
             profileCard: { contract: "chat-profile-card" },
             extras: { contract: "$content" },
         },
-        why: "the project profile and whatever comes after it - a proposal's ready documents, the optional lead form - read as one running rail that tracks the viewport once the column is tall enough to outgrow it.",
+        why: "the browser's conversation history, project profile and whatever comes after it read as one running rail that tracks the viewport once the column is tall enough to outgrow it.",
+    },
+
+    "chat-history-card": {
+        classes: ["rounded-2xl", "border", "bg-white", "p-4"],
+        children: {
+            header: { contract: "chat-history-header-row" },
+            list: { contract: "chat-history-list" },
+        },
+        why: "saved browser sessions belong beside the active project rather than inside its transcript, so returning to another conversation never reads like sending a message in the current one.",
+    },
+
+    "chat-history-header-row": {
+        classes: ["flex", "items-center", "justify-between", "gap-3"],
+        children: {
+            title: { leaf: "heading" },
+            create: { leaf: "action-button" },
+        },
+        why: "the list label and its new-conversation action share one compact row so starting fresh remains visible without competing with the main composer.",
+    },
+
+    "chat-history-list": {
+        classes: ["mt-3", "grid", "max-h-64", "gap-2", "overflow-y-auto"],
+        children: {
+            items: { leaf: "action-button", repeats: true, restingCount: 3 },
+        },
+        why: "browser sessions are equal destinations ordered by recent activity, so they form one bounded scrolling list instead of making the project rail grow with every consultation.",
     },
 
     "chat-profile-card": {

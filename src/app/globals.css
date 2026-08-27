@@ -90,6 +90,359 @@ body {
     text-rendering: optimizeLegibility;
 }
 
+/* --- TEDO V6 route grammar -------------------------------------------------
+   Secondary product surfaces share the landing's AI-first delivery world:
+   graphite runway, precise one-pixel telemetry, orange human gates and clipped
+   corners. The scope class deliberately contains every override so the printable
+   proposal remains a white document and legacy marketing sections stay untouched. */
+.tedo-v6-surface {
+    --background: #050c12;
+    --foreground: #f1f6f8;
+    --surface: #09151d;
+    --surface-foreground: #f1f6f8;
+    --surface-secondary: #0d1c25;
+    --surface-secondary-foreground: #dbe7ec;
+    --surface-tertiary: #102631;
+    --surface-tertiary-foreground: #dbe7ec;
+    --overlay: #09151d;
+    --overlay-foreground: #f1f6f8;
+    --muted: #8095a0;
+    --default: #102631;
+    --default-foreground: #dbe7ec;
+    --accent: #f58220;
+    --accent-foreground: #061017;
+    --field-background: #07131a;
+    --field-foreground: #f1f6f8;
+    --border: #1d3946;
+    --separator: #1d3946;
+    --focus: #f58220;
+    --link: #65bdf0;
+    --radius: 0;
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    color: #a9bbc4;
+    background:
+        linear-gradient(rgba(63, 135, 161, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63, 135, 161, 0.055) 1px, transparent 1px),
+        radial-gradient(circle at 78% 8%, rgba(27, 123, 201, 0.16), transparent 32rem),
+        #050c12;
+    background-size: 44px 44px, 44px 44px, auto, auto;
+    animation: tedo-v6-route-in 560ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+.tedo-v6-surface::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(110deg, transparent 0 44%, rgba(41, 131, 165, 0.09) 44.1% 44.25%, transparent 44.35% 100%);
+}
+
+@keyframes tedo-v6-route-in {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tedo-v6-surface :is(h1, h2, h3, h4, strong) { color: #f3f7f8; }
+.tedo-v6-surface :is(.text-ink, .text-ink-body) { color: #dce7eb !important; }
+.tedo-v6-surface :is(.text-ink-muted, .text-ink-faint) { color: #8196a1 !important; }
+.tedo-v6-surface :is(.border-line, .border-line\/70) { border-color: #1d3946 !important; }
+.tedo-v6-surface :is(.bg-white, .bg-white\/95, .bg-white\/85, .bg-surface, .bg-surface-2, .bg-surface-2\/60) {
+    background-color: #09151d !important;
+}
+
+.tedo-v6-surface :is(button, a):focus-visible,
+.tedo-v6-surface :is(input, textarea):focus-visible {
+    outline: 1px solid #f58220 !important;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 1px rgba(245, 130, 32, 0.3) !important;
+}
+
+.tedo-v6-surface :is(button, [role="button"]) {
+    border-radius: 0 !important;
+}
+
+.tedo-v6-surface [data-node="site-header"],
+.tedo-v6-surface [data-node="chat-header"] {
+    border-color: #18313d !important;
+    background: rgba(5, 12, 18, 0.92) !important;
+}
+
+.tedo-v6-surface [data-node="site-header"]::after,
+.tedo-v6-surface [data-node="chat-header"]::after {
+    position: absolute;
+    right: max(1.25rem, calc((100vw - 72rem) / 2));
+    bottom: -1px;
+    width: 5.5rem;
+    height: 1px;
+    content: "";
+    background: #f58220;
+    box-shadow: -6rem 0 #1b7bc9;
+}
+
+.tedo-v6-surface [data-node="chat-main"] {
+    grid-template-columns: minmax(0, 1fr) minmax(17rem, 20rem);
+}
+
+.tedo-v6-surface [data-node="chat-thread-section"] > h1,
+.tedo-v6-surface [data-node="section-intro"] > h1 {
+    max-width: 14ch;
+    font-size: clamp(2.5rem, 7vw, 5.8rem);
+    line-height: 0.94;
+    letter-spacing: -0.065em;
+}
+
+.tedo-v6-surface [data-node="chat-thread-section"] > p,
+.tedo-v6-surface [data-node="section-intro"] > p {
+    max-width: 46rem;
+    color: #90a5ae;
+}
+
+.tedo-v6-surface :is(
+    [data-node="chat-empty-card"],
+    [data-node="chat-bubble-assistant"],
+    [data-node="chat-sending-indicator"],
+    [data-node="chat-discovery-card"],
+    [data-node="composer-shell"],
+    [data-node="chat-history-card"],
+    [data-node="chat-profile-card"],
+    [data-node="proposal-panel"],
+    [data-node="lead-form-shell"],
+    [data-node="project-card"],
+    [data-node="gallery-cta-panel"]
+) {
+    border-color: #1d3946 !important;
+    border-radius: 0 !important;
+    background: linear-gradient(145deg, rgba(12, 28, 37, 0.98), rgba(6, 17, 24, 0.98)) !important;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+}
+
+.tedo-v6-surface [data-node="chat-bubble-user"] {
+    border-radius: 0 !important;
+    color: #fff !important;
+    background: #12334a !important;
+    clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+}
+
+.tedo-v6-surface [data-node="chat-error-alert"] {
+    border-color: rgba(245, 130, 32, 0.45) !important;
+    border-radius: 0 !important;
+    color: #ffc696 !important;
+    background: rgba(92, 43, 12, 0.28) !important;
+}
+
+.tedo-v6-surface [data-node="composer-shell"] {
+    bottom: 1rem;
+    padding: 0.65rem;
+    box-shadow: 0 -20px 55px rgba(5, 12, 18, 0.72);
+}
+
+.tedo-v6-surface [data-node="composer-shell"] textarea {
+    border: 1px solid #1c3a48;
+    border-radius: 0 !important;
+    color: #eef5f7 !important;
+    background: #061119 !important;
+}
+
+.tedo-v6-surface [data-node="composer-shell"] textarea::placeholder { color: #667e8a; }
+.tedo-v6-surface [data-node="composer-shell"] textarea:focus-visible { border-color: #f58220 !important; }
+
+.tedo-v6-surface [data-node="chat-progress-track"] { border-radius: 0 !important; background: #102530 !important; }
+.tedo-v6-surface [data-node="chat-progress-track"] > span { border-radius: 0 !important; background: #f58220 !important; }
+
+/* Chat action hierarchy: one orange primary (Send), quiet navigation everywhere
+   else. A selected conversation is a state marker, not a second CTA. */
+.tedo-v6-surface [data-node="chat-header"] [data-component="ActionButton"],
+.tedo-v6-surface [data-node="chat-history-header-row"] [data-component="ActionButton"],
+.tedo-v6-surface [data-node="chat-history-list"] [data-component="ActionButton"] {
+    border: 1px solid #284652 !important;
+    color: #a9bbc4 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.tedo-v6-surface [data-node="chat-history-header-row"] [data-component="ActionButton"]:hover,
+.tedo-v6-surface [data-node="chat-header"] [data-component="ActionButton"]:hover {
+    border-color: #4b7180 !important;
+    color: #eef5f7 !important;
+    background: #0c202a !important;
+}
+
+.tedo-v6-surface [data-node="chat-history-list"] [data-component="ActionButton"] {
+    position: relative;
+    width: 100%;
+    min-height: 2.75rem;
+    justify-content: flex-start;
+    padding-inline: 0.9rem;
+    text-align: left;
+}
+
+.tedo-v6-surface [data-node="chat-history-list"] [data-component="ActionButton"][data-variant="brand"] {
+    border-color: #315664 !important;
+    color: #f2f6f8 !important;
+    background: #102630 !important;
+}
+
+.tedo-v6-surface [data-node="chat-history-list"] [data-component="ActionButton"][data-variant="brand"]::before {
+    position: absolute;
+    inset-block: -1px;
+    left: -1px;
+    width: 3px;
+    content: "";
+    background: #f58220;
+}
+
+.tedo-v6-surface [data-node="chat-history-list"] [data-component="ActionButton"][data-variant="ghost"]:hover {
+    border-color: #315664 !important;
+    color: #dce7eb !important;
+    background: #0b1c25 !important;
+}
+
+.tedo-v6-surface [data-node="composer-shell"] [data-component="ActionButton"][data-variant="primary"] {
+    color: #071018 !important;
+    background: #f58220 !important;
+}
+
+.tedo-v6-surface [data-node="composer-shell"] [data-component="ActionButton"][data-variant="primary"]:disabled {
+    opacity: 1 !important;
+    color: #667d88 !important;
+    background: #192b34 !important;
+    box-shadow: none !important;
+}
+
+.tedo-v6-surface [data-node="composer-icon-row"] button {
+    color: #718994 !important;
+    background: transparent !important;
+}
+.tedo-v6-surface [data-node="composer-icon-row"] button:hover {
+    color: #dce7eb !important;
+    background: #102630 !important;
+}
+
+.tedo-v6-surface [data-node="project-card-grid"] { align-items: stretch; }
+.tedo-v6-surface [data-node="project-card"] { transition: border-color 180ms ease, transform 180ms ease; }
+.tedo-v6-surface [data-node="project-card"]:hover { border-color: #2f7893 !important; transform: translateY(-4px); }
+.tedo-v6-surface [data-node="project-card-media"] {
+    border-bottom: 1px solid #1d3946;
+    background: linear-gradient(135deg, #0c2836, #08131b) !important;
+}
+.tedo-v6-surface [data-node="project-card-media"]::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent 49.8%, rgba(74, 164, 194, .16) 50%, transparent 50.2%);
+}
+.tedo-v6-surface [data-node="gallery-cta-panel"] { border-left: 2px solid #f58220 !important; }
+
+.tedo-v6-surface [data-node="site-footer"] {
+    border-color: #18313d !important;
+    background: #050b10 !important;
+}
+
+.tedo-v6-surface[data-node="quote-preview-shell"] [data-node="quote-preview-toolbar"] {
+    border-color: #1d3946 !important;
+    background: rgba(5, 12, 18, 0.94) !important;
+}
+.tedo-v6-surface[data-node="quote-preview-shell"] [data-node="quote-preview-toolbar-details"] > :first-child {
+    color: #f58220;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+.tedo-v6-surface[data-node="quote-preview-shell"] [data-node="quote-document-shell"] {
+    background: transparent !important;
+}
+.tedo-v6-surface[data-node="quote-preview-shell"] .quote-page,
+.tedo-v6-surface[data-node="quote-preview-shell"] .quote-page :is(h1, h2, h3, h4, strong) {
+    color: var(--color-ink-body);
+}
+.tedo-v6-surface[data-node="quote-preview-shell"] .quote-page {
+    --background: #ffffff;
+    --foreground: #14305c;
+    --surface: #ffffff;
+    --surface-foreground: #14305c;
+    --surface-secondary: #f4f9fe;
+    --surface-secondary-foreground: #14305c;
+    --surface-tertiary: #e8f2fb;
+    --surface-tertiary-foreground: #14305c;
+    --muted: #5b6b82;
+    --default: #e8f2fb;
+    --default-foreground: #14305c;
+    --field-foreground: #14305c;
+    --border: #dbe7f3;
+    --separator: #dbe7f3;
+    color: #33445f;
+}
+.tedo-v6-surface[data-node="quote-preview-shell"] .quote-page :is(.text-ink, .text-ink-body) {
+    color: #14305c !important;
+}
+.tedo-v6-surface[data-node="quote-preview-shell"] .quote-page .text-ink-muted {
+    color: #5b6b82 !important;
+}
+.tedo-v6-surface[data-node="quote-preview-shell"] .quote-page .text-ink-faint {
+    color: #8798ab !important;
+}
+
+.tedo-v6-surface[data-node="loading-panel"] { padding-top: 18vh; }
+.tedo-v6-surface[data-node="error-panel"] { padding-block: 5rem; }
+.tedo-v6-surface[data-node="error-panel"]::after {
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    content: "SYSTEM / RECOVERY";
+    translate: -50% 0;
+    color: #54707d;
+    font: 500 .68rem/1 var(--font-mono);
+    letter-spacing: .14em;
+}
+
+@media (max-width: 1023px) {
+    .tedo-v6-surface [data-node="chat-main"] { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 639px) {
+    .tedo-v6-surface [data-node="chat-main"] { padding-inline: 1rem; }
+    .tedo-v6-surface [data-node="chat-thread-section"] > h1,
+    .tedo-v6-surface [data-node="section-intro"] > h1 { font-size: clamp(2.5rem, 14vw, 4rem); }
+    .tedo-v6-surface [data-node="quote-preview-toolbar-row"] { align-items: flex-start; flex-direction: column; }
+    .tedo-v6-surface[data-node="quote-preview-shell"] [data-node="quote-document-shell"] {
+        width: 100%;
+        max-width: 100%;
+        align-items: flex-start;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        padding: 1rem;
+        border-block: 1px solid #1d3946;
+        scrollbar-color: #f58220 #0d1c25;
+        scrollbar-gutter: stable;
+    }
+    .tedo-v6-surface[data-node="quote-preview-shell"] [data-node="quote-document-shell"] .quote-page {
+        flex: 0 0 var(--print-a4-width);
+        margin-inline: 0 !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tedo-v6-surface { animation: none; }
+    .tedo-v6-surface [data-node="project-card"] { transition: none; }
+}
+
+@media print {
+    .tedo-v6-surface[data-node="quote-preview-shell"] { background: #fff !important; }
+    .tedo-v6-surface[data-node="quote-preview-shell"] [data-node="quote-document-shell"] {
+        width: auto;
+        max-width: none;
+        align-items: center;
+        overflow: visible;
+        padding: 0;
+        border: 0;
+        scrollbar-gutter: auto;
+    }
+}
+
 /* --- Light "sky" backdrop (see components/sky-background.tsx) ---
    Soft blue washes bleeding from the top, echoing the deck's cloud gradient.
    Anchored on <html> so the fixed backdrop sits behind every section. */

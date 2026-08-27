@@ -13,13 +13,13 @@
     "language": "Ngôn ngữ"
   },
   "hero": {
-    "eyebrow": "Đối tác sản phẩm số cho doanh nghiệp",
-    "title": "Từ bài toán kinh doanh",
-    "titleAccent": "đến sản phẩm vận hành được.",
-    "subtitle": "TEDO cùng bạn làm rõ chiến lược, xây thương hiệu, thiết kế trải nghiệm, phát triển hệ thống và đồng hành sau bàn giao.",
+    "eyebrow": "Công ty outsourcing vận hành AI-first",
+    "title": "Một đội ngũ chịu trách nhiệm.",
+    "titleAccent": "Ship nhanh hơn 50%, giá giảm 50%.",
+    "subtitle": "TEDO đóng gói discovery, design, engineering, QA và handover thành một quy trình làm việc cùng agents. Con người giữ outcome; AI tăng tốc delivery.",
     "ctaPrimary": "Hỏi nhanh về dự án",
     "ctaSecondary": "Xem dự án đã làm",
-    "note": "Giao mã nguồn · Báo giá trước khi làm · Bảo hành 12 tháng"
+    "note": "Quy trình agent đóng gói · Giao mã nguồn · Bảo hành 12 tháng"
   },
   "metrics": {
     "title": "Mô hình AI-first mang lại gì",
@@ -469,7 +469,7 @@
     "promptTooLong": "Nội dung tối đa 4.000 ký tự.",
     "promptLabel": "Mô tả dự án",
     "promptPlaceholder": "Ví dụ: Tôi cần ứng dụng đặt lịch cho chuỗi spa 3 chi nhánh, cần xây thương hiệu, UX/UI và trang quản trị…",
-    "start": "Tư vấn dự án",
+    "start": "Gửi project brief",
     "suggestionLabel": "Gợi ý loại dự án",
     "suggestions": [
       "Ứng dụng đặt lịch và quản lý vận hành",
@@ -477,6 +477,9 @@
       "Sản phẩm số mới từ ý tưởng ban đầu"
     ],
     "back": "Về trang chủ",
+    "chatHistory": "Lịch sử tư vấn",
+    "newChat": "Cuộc chat mới",
+    "newConversation": "Cuộc trò chuyện mới",
     "title": "Cùng làm rõ dự án của bạn",
     "subtitle": "TEDO sẽ hỏi từng phần cần thiết, ghi lại yêu cầu và chỉ đưa khoảng đầu tư khi phạm vi đã đủ rõ.",
     "greeting": "Hãy kể ngắn gọn doanh nghiệp đang làm gì và kết quả bạn muốn sản phẩm này tạo ra. Chưa có tài liệu cũng không sao.",

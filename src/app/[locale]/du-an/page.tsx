@@ -37,21 +37,26 @@ const ProjectsPage = async ({ params }: LocaleParams) => {
     const t = await getTranslations({ locale, namespace: "projects" })
 
     return (
-        <>
-            <Header />
-            <Tree
-                contract="route-body-with-back-nav"
-                render={defineContractComponent("route-body-with-back-nav", {
-                    nav: defineContractComponent("back-link-row", {
-                        link: defineContractProjection("opaque-content-unit", () => (
-                            <BackHomeAction label={`← ${t("back")}`} />
-                        )),
-                    }),
-                    content: defineContractProjection("opaque-content-unit", () => <ProjectsGallery />),
-                })}
-            />
-            <Footer />
-        </>
+        <Tree
+            contract="landing-main"
+            render={defineContractComponent("landing-main", {
+                header: defineContractProjection("opaque-content-unit", () => <Header />),
+                body: defineContractProjection("opaque-content-unit", () => (
+                    <Tree
+                        contract="route-body-with-back-nav"
+                        render={defineContractComponent("route-body-with-back-nav", {
+                            nav: defineContractComponent("back-link-row", {
+                                link: defineContractProjection("opaque-content-unit", () => (
+                                    <BackHomeAction label={`← ${t("back")}`} />
+                                )),
+                            }),
+                            content: defineContractProjection("opaque-content-unit", () => <ProjectsGallery />),
+                        })}
+                    />
+                )),
+                footer: defineContractProjection("opaque-content-unit", () => <Footer />),
+            })}
+        />
     )
 }
 

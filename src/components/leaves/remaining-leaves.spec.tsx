@@ -35,12 +35,12 @@ describe("remaining interactive leaves", () => {
         expect(classes).toContain("ml-auto")
     })
 
-    it("keeps the wordmark letters and ring separator explicit", () => {
+    it("renders the supplied original vector wordmark in either surface context", () => {
         const { container } = render(<Wordmark />)
-        expect(container.textContent).toMatch(/^TEDO\s/)
-        expect(container.querySelector(".h-wordmark-ring")).toBeTruthy()
+        expect(container.querySelector("img")?.getAttribute("src")).toContain("tedo-original.svg")
+        expect(container.querySelector("[data-on-dark='false']")).toBeTruthy()
         const dark = render(<Wordmark onDark />)
-        expect(dark.container.querySelector(".text-white")).toBeTruthy()
+        expect(dark.container.querySelector("[data-on-dark='true']")).toBeTruthy()
         dark.unmount()
     })
 })

@@ -13,13 +13,13 @@
     "language": "Language"
   },
   "hero": {
-    "eyebrow": "Digital product partner for growing businesses",
-    "title": "From a business problem",
-    "titleAccent": "to a product that works.",
-    "subtitle": "TEDO connects strategy, brand, UX/UI, engineering, launch, and aftercare in one accountable team.",
+    "eyebrow": "An outsourcing company operating AI-first",
+    "title": "One accountable team.",
+    "titleAccent": "Ship 50% faster at 50% less cost.",
+    "subtitle": "TEDO packages discovery, design, engineering, QA, and handover into an agent-assisted workflow. People own the outcome; AI accelerates delivery.",
     "ctaPrimary": "Ask about pricing",
     "ctaSecondary": "See what we built",
-    "note": "Source code handed over · Quoted before we start · 12-month warranty",
+    "note": "Packaged agent workflow · Source code handed over · 12-month warranty",
     "proofLabel": "Built & running",
     "proof": [
       {
@@ -487,7 +487,7 @@
     "promptTooLong": "The description can contain up to 4,000 characters.",
     "promptLabel": "Project description",
     "promptPlaceholder": "Example: I need a booking product for a three-branch spa, including brand, UX/UI, and an operations portal…",
-    "start": "Discuss my project",
+    "start": "Send project brief",
     "suggestionLabel": "Project examples",
     "suggestions": [
       "Booking and operations product",
@@ -495,6 +495,9 @@
       "A new digital product from an early idea"
     ],
     "back": "Back to home",
+    "chatHistory": "Consultation history",
+    "newChat": "New chat",
+    "newConversation": "New conversation",
     "title": "Let's clarify your project",
     "subtitle": "TEDO asks for the details that matter, records the requirements, and only estimates investment once the scope is clear enough.",
     "greeting": "Tell us briefly what the business does and the outcome this product should create. It is fine if you have no documents yet.",

@@ -327,6 +327,27 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                 <Tree
                                     contract="chat-sidebar"
                                     render={defineContractComponent("chat-sidebar", {
+                                        history: defineContractComponent("chat-history-card", {
+                                            header: defineContractComponent("chat-history-header-row", {
+                                                title: defineLeafComponent("heading", {}, () => (
+                                                    <Heading props={{ content: t("chatHistory"), level: 2 }} />
+                                                )),
+                                                create: actionButtonLeaf(
+                                                    { content: t("newChat"), variant: "outline", size: "sm" },
+                                                    { onPress: chat.startNewChat },
+                                                ),
+                                            }),
+                                            list: defineContractComponent("chat-history-list", {
+                                                items: chat.sessions.map((session) => actionButtonLeaf(
+                                                    {
+                                                        content: session.title,
+                                                        variant: session.id === chat.activeSessionId ? "brand" : "ghost",
+                                                        size: "sm",
+                                                    },
+                                                    { onPress: () => chat.openChat(session.id) },
+                                                )),
+                                            }),
+                                        }),
                                         profileCard: defineContractComponent("chat-profile-card", {
                                             header: defineContractComponent("chat-profile-header-row", {
                                                 title: defineLeafComponent("heading", {}, () => (

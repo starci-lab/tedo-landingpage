@@ -1,21 +1,20 @@
+import Image from "next/image"
+
 type WordmarkProps = { readonly onDark?: boolean }
 
 /**
- * Renders the temporary text-only Tedo mark until the final logo asset replaces it.
+ * Renders TEDO's supplied original vector mark with its blue, green and orange artwork intact.
  */
 export const Wordmark = ({ onDark = false }: WordmarkProps) => {
-    const tone = onDark ? "text-white" : "text-brand-deep"
     return (
-        <span className={`font-display text-2xl font-extrabold tracking-tight ${tone}`} aria-hidden>
-            <span className="text-brand">TE</span>
-            <span className="text-green">D</span>
-            <span className="relative">
-                O{" "}
-                <span
-                    aria-hidden
-                    className="pointer-events-none absolute -inset-x-1 top-1/2 h-wordmark-ring -translate-y-1/2 -rotate-[18deg] rounded-[50%] border-[2px] border-accent/80"
-                />
-            </span>
+        <span data-on-dark={onDark ? "true" : "false"} aria-hidden>
+            <Image
+                src="/brand/tedo-original.svg"
+                alt=""
+                width={111}
+                height={30}
+                className="block h-7 w-auto"
+            />
         </span>
     )
 }
