@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 
@@ -13,36 +13,36 @@ export const AiFirst = () => {
 
     return (
         <Tree
-            contract="page-band"
-            render={defineContractComponent("page-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band"
+            render={defineGrammarComponent("page-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="insight-card-grid"
-                                render={defineContractComponent("insight-card-grid", {
-                                    items: items.map((item, i) => defineContractComponent("insight-card", {
-                                        index: defineLeafComponent("text", {}, () => (
+                                grammar="insight-card-grid"
+                                render={defineGrammarComponent("insight-card-grid", {
+                                    items: items.map((item, i) => defineGrammarComponent("insight-card", {
+                                        index: defineGrammarLeaf("text", {}, () => (
                                             <Text props={{ content: String(i + 1).padStart(2, "0"), variant: "label" }} />
                                         )),
-                                        title: defineLeafComponent("heading", {}, () => (
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: item.title, level: 4 }} />
                                         )),
-                                        body: defineLeafComponent("text", {}, () => (
+                                        body: defineGrammarLeaf("text", {}, () => (
                                             <Text props={{ content: item.body, variant: "body" }} />
                                         )),
                                     })),

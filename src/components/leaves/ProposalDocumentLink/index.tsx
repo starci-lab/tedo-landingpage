@@ -1,4 +1,4 @@
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `ProposalDocumentLink`: one generated document a confirmed proposal made available.

@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown"
 import type { Components } from "react-markdown"
 import remarkGfm from "remark-gfm"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection } from "@/components/grammar/props"
 import { Heading } from "@/components/leaves/Heading"
 
 const STREAM_INTERVAL_MS = 18
@@ -19,17 +19,17 @@ const markdownComponents: Components = {
     p: (p) => <p className="my-2 first:mt-0 last:mb-0">{p.children}</p>,
     ul: (p) => (
         <Tree
-            contract="markdown-unordered-list"
-            render={defineContractComponent("markdown-unordered-list", {
-                content: defineContractProjection("opaque-content-unit", () => p.children),
+            grammar="markdown-unordered-list"
+            render={defineGrammarComponent("markdown-unordered-list", {
+                content: defineGrammarProjection("opaque-content-unit", () => p.children),
             })}
         />
     ),
     ol: (p) => (
         <Tree
-            contract="markdown-ordered-list"
-            render={defineContractComponent("markdown-ordered-list", {
-                content: defineContractProjection("opaque-content-unit", () => p.children),
+            grammar="markdown-ordered-list"
+            render={defineGrammarComponent("markdown-ordered-list", {
+                content: defineGrammarProjection("opaque-content-unit", () => p.children),
             })}
         />
     ),
@@ -83,12 +83,12 @@ export const AssistantMarkdown = ({ content, animate = false }: AssistantMarkdow
 
     return (
         <Tree
-            contract="markdown-body-shell"
-            render={defineContractComponent("markdown-body-shell", {
-                content: defineContractProjection("opaque-content-unit", () => (
+            grammar="markdown-body-shell"
+            render={defineGrammarComponent("markdown-body-shell", {
+                content: defineGrammarProjection("opaque-content-unit", () => (
                     // A `<span>`, not a `<div>`: this node exists only to carry `aria-hidden` while the
                     // reply is still streaming, and every neutral host is refused outside `Tree` -
-                    // see `no-structural-host-outside-contract-frame`. It carries no class of its own.
+                    // see `no-structural-host-outside-grammar-frame`. It carries no class of its own.
                     <span aria-hidden={shouldAnimate ? true : undefined}>
                         <ReactMarkdown
                             remarkPlugins={[remarkGfm]}

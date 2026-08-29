@@ -9,6 +9,6 @@ const copy = {
     }
 } as const
 
-/** Localized content contract consumed by the Tedo V6 surface. */
+/** Localized content grammar consumed by the Tedo V6 surface. */
 export type Copy = Widen<typeof copy.vi>
 export { copy }

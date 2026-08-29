@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl"
 import { useConsultationLeadForm } from "@/hooks/rhf/useConsultationLeadForm"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Heading } from "@/components/leaves/Heading"
 import { Text } from "@/components/leaves/Text"
 import { ActionButton } from "@/components/leaves/ActionButton"
@@ -20,9 +20,9 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
     if (sent) {
         return (
             <Tree
-                contract="lead-success-panel"
-                render={defineContractComponent("lead-success-panel", {
-                    message: defineLeafComponent("text", {}, () => (
+                grammar="lead-success-panel"
+                render={defineGrammarComponent("lead-success-panel", {
+                    message: defineGrammarLeaf("text", {}, () => (
                         <Text props={{ content: t("success"), variant: "body" }} />
                     )),
                 })}
@@ -33,16 +33,16 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
     return (
         <form onSubmit={onSubmit}>
             <Tree
-                contract="lead-form-shell"
-                render={defineContractComponent("lead-form-shell", {
-                    intro: defineContractProjection("opaque-content-unit", () => (
+                grammar="lead-form-shell"
+                render={defineGrammarComponent("lead-form-shell", {
+                    intro: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Heading props={{ content: t("title"), level: 3 }} />
                             <Text props={{ content: t("subtitle"), variant: "body" }} />
                         </>
                     )),
-                    name: defineContractComponent("field-row", {
-                        control: defineContractProjection("opaque-content-unit", () => (
+                    name: defineGrammarComponent("field-row", {
+                        control: defineGrammarProjection("opaque-content-unit", () => (
                             <>
                                 <label className="text-sm text-ink">{t("name")}</label>
                                 <input
@@ -54,9 +54,9 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
                             </>
                         )),
                     }),
-                    contactPair: defineContractComponent("two-col-row", {
-                        first: defineContractComponent("field-row", {
-                            control: defineContractProjection("opaque-content-unit", () => (
+                    contactPair: defineGrammarComponent("two-col-row", {
+                        first: defineGrammarComponent("field-row", {
+                            control: defineGrammarProjection("opaque-content-unit", () => (
                                 <>
                                     <label className="text-sm text-ink">{t("phone")}</label>
                                     <input
@@ -69,8 +69,8 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
                                 </>
                             )),
                         }),
-                        second: defineContractComponent("field-row", {
-                            control: defineContractProjection("opaque-content-unit", () => (
+                        second: defineGrammarComponent("field-row", {
+                            control: defineGrammarProjection("opaque-content-unit", () => (
                                 <>
                                     <label className="text-sm text-ink">{t("email")}</label>
                                     <input
@@ -84,8 +84,8 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
                             )),
                         }),
                     }),
-                    company: defineContractComponent("field-row", {
-                        control: defineContractProjection("opaque-content-unit", () => (
+                    company: defineGrammarComponent("field-row", {
+                        control: defineGrammarProjection("opaque-content-unit", () => (
                             <>
                                 <label className="text-sm text-ink">{t("company")}</label>
                                 <input
@@ -96,8 +96,8 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
                             </>
                         )),
                     }),
-                    preferred: defineContractComponent("field-row", {
-                        control: defineContractProjection("opaque-content-unit", () => (
+                    preferred: defineGrammarComponent("field-row", {
+                        control: defineGrammarProjection("opaque-content-unit", () => (
                             <>
                                 <label className="text-sm text-ink">{t("preferred")}</label>
                                 <select
@@ -111,8 +111,8 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
                             </>
                         )),
                     }),
-                    consent: defineContractComponent("checkbox-consent-row", {
-                        control: defineContractProjection("opaque-content-unit", () => (
+                    consent: defineGrammarComponent("checkbox-consent-row", {
+                        control: defineGrammarProjection("opaque-content-unit", () => (
                             <>
                                 <input {...register("consent")} type="checkbox" className="mt-1 h-5 w-5 accent-brand" />
                                 <span className="text-sm leading-relaxed text-ink-muted">{t("consent")}</span>
@@ -120,16 +120,16 @@ export const ConsultationLeadForm = ({ conversationId }: ConsultationLeadFormPro
                         )),
                     }),
                     consentError: errors.consent
-                        ? defineLeafComponent("text", {}, () => (
+                        ? defineGrammarLeaf("text", {}, () => (
                             <Text props={{ content: errors.consent?.message ?? "", variant: "body", tone: "danger" }} />
                         ))
                         : undefined,
                     submitError: submitError
-                        ? defineLeafComponent("text", {}, () => (
+                        ? defineGrammarLeaf("text", {}, () => (
                             <Text props={{ content: t("error"), variant: "body", tone: "danger" }} />
                         ))
                         : undefined,
-                    submit: defineLeafComponent("action-button", {}, () => (
+                    submit: defineGrammarLeaf("action-button", {}, () => (
                         <ActionButton
                             props={{ content: isSubmitting ? t("sending") : t("submit"), variant: "primary", type: "submit", disabled: isSubmitting }}
                             isLoading={isSubmitting}

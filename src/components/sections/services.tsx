@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Separator } from "@/components/leaves/Separator"
@@ -14,43 +14,43 @@ export const Services = () => {
 
     return (
         <Tree
-            contract="page-band"
-            render={defineContractComponent("page-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band"
+            render={defineGrammarComponent("page-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="service-card-grid"
-                                render={defineContractComponent("service-card-grid", {
-                                    items: items.map((service) => defineContractComponent("service-card", {
-                                        title: defineLeafComponent("heading", {}, () => (
+                                grammar="service-card-grid"
+                                render={defineGrammarComponent("service-card-grid", {
+                                    items: items.map((service) => defineGrammarComponent("service-card", {
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: service.title, level: 3 }} />
                                         )),
-                                        body: defineLeafComponent("text", {}, () => (
+                                        body: defineGrammarLeaf("text", {}, () => (
                                             <Text props={{ content: service.body, variant: "body" }} />
                                         )),
-                                        points: defineContractComponent("service-points-block", {
-                                            divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
-                                            list: defineContractComponent("bullet-list", {
-                                                items: service.points.map((point) => defineContractComponent("labelled-bullet-item", {
-                                                    mark: defineContractProjection("opaque-content-unit", () => (
+                                        points: defineGrammarComponent("service-points-block", {
+                                            divider: defineGrammarLeaf("separator", {}, () => <Separator props={{}} />),
+                                            list: defineGrammarComponent("bullet-list", {
+                                                items: service.points.map((point) => defineGrammarComponent("labelled-bullet-item", {
+                                                    mark: defineGrammarProjection("opaque-content-unit", () => (
                                                         <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
                                                     )),
-                                                    label: defineLeafComponent("text", {}, () => (
+                                                    label: defineGrammarLeaf("text", {}, () => (
                                                         <Text props={{ content: point, variant: "body" }} />
                                                     )),
                                                 })),

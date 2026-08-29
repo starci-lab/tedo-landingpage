@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 
@@ -13,39 +13,39 @@ export const Process = () => {
 
     return (
         <Tree
-            contract="page-band"
-            render={defineContractComponent("page-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band"
+            render={defineGrammarComponent("page-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="process-step-grid"
-                                render={defineContractComponent("process-step-grid", {
-                                    items: items.map((item) => defineContractComponent("process-step-card", {
-                                        index: defineLeafComponent("text", {}, () => (
+                                grammar="process-step-grid"
+                                render={defineGrammarComponent("process-step-grid", {
+                                    items: items.map((item) => defineGrammarComponent("process-step-card", {
+                                        index: defineGrammarLeaf("text", {}, () => (
                                             <Text props={{ content: item.step, variant: "label" }} />
                                         )),
-                                        title: defineLeafComponent("heading", {}, () => (
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: item.title, level: 4 }} />
                                         )),
-                                        body: defineContractComponent("process-step-body", {
-                                            content: defineLeafComponent("text", {}, () => (
+                                        body: defineGrammarComponent("process-step-body", {
+                                            content: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: item.body, variant: "body" }} />
                                             )),
                                         }),
-                                        duration: defineContractComponent("process-step-duration", {
-                                            content: defineLeafComponent("text", {}, () => (
+                                        duration: defineGrammarComponent("process-step-duration", {
+                                            content: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: item.duration, variant: "label" }} />
                                             )),
                                         }),

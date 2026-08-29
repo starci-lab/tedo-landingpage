@@ -13,7 +13,7 @@ import { AssistantMarkdown } from "./assistant-markdown"
 import { MessageAttachments } from "./message-attachments"
 import { UserMessageContent } from "./user-message-content"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Heading } from "@/components/leaves/Heading"
 import { Text, type TextData } from "@/components/leaves/Text"
 import { ActionButton, type ActionButtonActions, type ActionButtonData } from "@/components/leaves/ActionButton"
@@ -29,11 +29,11 @@ const ACCEPTED_MIME_TYPES = new Set(ACCEPTED_FILES.split(","))
 const readString = (record: Record<string, unknown>, key: string): string | undefined =>
     typeof record[key] === "string" ? record[key] : undefined
 
-const textLeaf = (props: TextData) => defineLeafComponent("text", {}, () => <Text props={props} />)
-const placeholderLeaf = (props: PlaceholderData) => defineLeafComponent("placeholder", {}, () => <Placeholder props={props} />)
-const actionButtonLeaf = (props: ActionButtonData, on?: ActionButtonActions) => defineLeafComponent("action-button", {}, () => <ActionButton props={props} on={on} />)
-const iconButtonLeaf = (props: IconButtonData, on?: IconButtonActions) => defineLeafComponent("icon-button", {}, () => <IconButton props={props} on={on} />)
-const selectedFileChipLeaf = (props: SelectedFileChipData, on?: SelectedFileChipActions) => defineLeafComponent("selected-file-chip", {}, () => <SelectedFileChip props={props} on={on} />)
+const textLeaf = (props: TextData) => defineGrammarLeaf("text", {}, () => <Text props={props} />)
+const placeholderLeaf = (props: PlaceholderData) => defineGrammarLeaf("placeholder", {}, () => <Placeholder props={props} />)
+const actionButtonLeaf = (props: ActionButtonData, on?: ActionButtonActions) => defineGrammarLeaf("action-button", {}, () => <ActionButton props={props} on={on} />)
+const iconButtonLeaf = (props: IconButtonData, on?: IconButtonActions) => defineGrammarLeaf("icon-button", {}, () => <IconButton props={props} on={on} />)
+const selectedFileChipLeaf = (props: SelectedFileChipData, on?: SelectedFileChipActions) => defineGrammarLeaf("selected-file-chip", {}, () => <SelectedFileChip props={props} on={on} />)
 
 type LeadExtrasProps = {
     conversationId: string | undefined
@@ -61,18 +61,18 @@ type MessageBubbleProps = {
 
 const messageBubble = ({ message, conversationId, streamingMessageId }: MessageBubbleProps) => {
     const bubbleContent = {
-        attachments: defineContractProjection("opaque-content-unit", () => (
+        attachments: defineGrammarProjection("opaque-content-unit", () => (
             <MessageAttachments attachments={message.attachments} conversationId={conversationId} />
         )),
-        body: defineContractProjection("opaque-content-unit", () => (
+        body: defineGrammarProjection("opaque-content-unit", () => (
             message.role === "assistant"
                 ? <AssistantMarkdown content={message.content} animate={message.id === streamingMessageId} />
                 : <UserMessageContent content={message.content} />
         )),
     }
     return message.role === "user"
-        ? <Tree key={message.id} contract="chat-bubble-user" render={defineContractComponent("chat-bubble-user", bubbleContent)} />
-        : <Tree key={message.id} contract="chat-bubble-assistant" render={defineContractComponent("chat-bubble-assistant", bubbleContent)} />
+        ? <Tree key={message.id} grammar="chat-bubble-user" render={defineGrammarComponent("chat-bubble-user", bubbleContent)} />
+        : <Tree key={message.id} grammar="chat-bubble-assistant" render={defineGrammarComponent("chat-bubble-assistant", bubbleContent)} />
 }
 
 const messageBubbles = (messages: ReadonlyArray<ConsultationMessage>, conversationId: string | undefined, streamingMessageId: string | undefined) =>
@@ -89,10 +89,10 @@ const discoveryCards = (questions: ReadonlyArray<DiscoveryQuestion>, onAnswer: (
         ? [(
             <Tree
                 key={question.id}
-                contract="chat-discovery-card"
-                render={defineContractComponent("chat-discovery-card", {
+                grammar="chat-discovery-card"
+                render={defineGrammarComponent("chat-discovery-card", {
                     question: textLeaf({ content: question.label, variant: "body" }),
-                    options: defineContractComponent("chat-discovery-options-row", {
+                    options: defineGrammarComponent("chat-discovery-options-row", {
                         items: question.options.map((option) => actionButtonLeaf(
                             { content: option.label, variant: "outline", size: "sm" },
                             { onPress: () => onAnswer(question, option.label) },
@@ -170,19 +170,19 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
 
     return (
         <Tree
-            contract="chat-shell"
-            render={defineContractComponent("chat-shell", {
-                header: defineContractProjection("opaque-content-unit", () => (
+            grammar="chat-shell"
+            render={defineGrammarComponent("chat-shell", {
+                header: defineGrammarProjection("opaque-content-unit", () => (
                     <Tree
-                        contract="chat-header"
-                        render={defineContractComponent("chat-header", {
-                            row: defineContractComponent("chat-header-row", {
-                                logo: defineContractProjection("opaque-content-unit", () => (
+                        grammar="chat-header"
+                        render={defineGrammarComponent("chat-header", {
+                            row: defineGrammarComponent("chat-header-row", {
+                                logo: defineGrammarProjection("opaque-content-unit", () => (
                                     <button type="button" aria-label="TEDO" onClick={() => router.push("/")}>
                                         <Wordmark />
                                     </button>
                                 )),
-                                back: defineContractProjection("opaque-content-unit", () => (
+                                back: defineGrammarProjection("opaque-content-unit", () => (
                                     <ActionButton
                                         props={{ content: t("back"), variant: "ghost", size: "sm" }}
                                         on={{ onPress: () => router.push("/") }}
@@ -192,34 +192,34 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                         })}
                     />
                 )),
-                main: defineContractProjection("opaque-content-unit", () => (
+                main: defineGrammarProjection("opaque-content-unit", () => (
                     <Tree
-                        contract="chat-main"
-                        render={defineContractComponent("chat-main", {
-                            thread: defineContractProjection("opaque-content-unit", () => (
+                        grammar="chat-main"
+                        render={defineGrammarComponent("chat-main", {
+                            thread: defineGrammarProjection("opaque-content-unit", () => (
                                 <Tree
-                                    contract="chat-thread-section"
-                                    render={defineContractComponent("chat-thread-section", {
-                                        heading: defineLeafComponent("heading", {}, () => (
+                                    grammar="chat-thread-section"
+                                    render={defineGrammarComponent("chat-thread-section", {
+                                        heading: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: t("title"), level: 1 }} />
                                         )),
-                                        subtitle: defineLeafComponent("text", {}, () => (
+                                        subtitle: defineGrammarLeaf("text", {}, () => (
                                             <Text props={{ content: t("subtitle"), variant: "body" }} />
                                         )),
-                                        messages: defineContractProjection("opaque-content-unit", () => (
+                                        messages: defineGrammarProjection("opaque-content-unit", () => (
                                             // A `<span>`, not a `<div>`: this node exists only to carry the
                                             // scroll-observer ref and `aria-live`, both refused on a `Tree`
                                             // host - see the note on the same pattern in `AssistantMarkdown`.
                                             <span ref={messagesRef} aria-live="polite">
                                                 <Tree
-                                                    contract="chat-messages-grid"
-                                                    render={defineContractComponent("chat-messages-grid", {
-                                                        body: defineContractProjection("opaque-content-unit", () => (
+                                                    grammar="chat-messages-grid"
+                                                    render={defineGrammarComponent("chat-messages-grid", {
+                                                        body: defineGrammarProjection("opaque-content-unit", () => (
                                                             <>
                                                                 {chat.isLoading ? (
                                                                     <Tree
-                                                                        contract="chat-thread-skeleton"
-                                                                        render={defineContractComponent("chat-thread-skeleton", {
+                                                                        grammar="chat-thread-skeleton"
+                                                                        render={defineGrammarComponent("chat-thread-skeleton", {
                                                                             bars: [
                                                                                 placeholderLeaf({ height: "lg", width: "threeQuarters", tone: "brand" }),
                                                                                 placeholderLeaf({ height: "md", width: "twoThirds", tone: "neutral", align: "end" }),
@@ -229,8 +229,8 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                 ) : null}
                                                                 {!chat.isLoading && chat.messages.length === 0 ? (
                                                                     <Tree
-                                                                        contract="chat-empty-card"
-                                                                        render={defineContractComponent("chat-empty-card", {
+                                                                        grammar="chat-empty-card"
+                                                                        render={defineGrammarComponent("chat-empty-card", {
                                                                             message: textLeaf({ content: t("greeting"), variant: "body" }),
                                                                         })}
                                                                     />
@@ -238,8 +238,8 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                 {messageBubbles(chat.messages, chat.conversationId, chat.streamingMessageId)}
                                                                 {chat.isSending ? (
                                                                     <Tree
-                                                                        contract="chat-sending-indicator"
-                                                                        render={defineContractComponent("chat-sending-indicator", {
+                                                                        grammar="chat-sending-indicator"
+                                                                        render={defineGrammarComponent("chat-sending-indicator", {
                                                                             message: textLeaf({ content: t("thinking"), variant: "body" }),
                                                                         })}
                                                                     />
@@ -247,8 +247,8 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                                 {chat.error ? (
                                                                     <span role="alert">
                                                                         <Tree
-                                                                            contract="chat-error-alert"
-                                                                            render={defineContractComponent("chat-error-alert", {
+                                                                            grammar="chat-error-alert"
+                                                                            render={defineGrammarComponent("chat-error-alert", {
                                                                                 message: textLeaf({ content: chat.error ?? "", variant: "body" }),
                                                                                 retry: chat.failedMessage
                                                                                     ? retryAction(t("retrySend"), chat.failedMessage, chat.sendMessage)
@@ -265,16 +265,16 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                 />
                                             </span>
                                         )),
-                                        composer: defineContractProjection("opaque-content-unit", () => (
+                                        composer: defineGrammarProjection("opaque-content-unit", () => (
                                             <form onSubmit={composer.onSubmit} onDragOver={(event) => event.preventDefault()} onDrop={dropFiles}>
                                                 <Tree
-                                                    contract="composer-shell"
-                                                    render={defineContractComponent("composer-shell", {
+                                                    grammar="composer-shell"
+                                                    render={defineGrammarComponent("composer-shell", {
                                                         preview: selectedFiles.length
-                                                            ? defineContractProjection("opaque-content-unit", () => (
+                                                            ? defineGrammarProjection("opaque-content-unit", () => (
                                                                 <Tree
-                                                                    contract="composer-attachment-preview"
-                                                                    render={defineContractComponent("composer-attachment-preview", {
+                                                                    grammar="composer-attachment-preview"
+                                                                    render={defineGrammarComponent("composer-attachment-preview", {
                                                                         chips: selectedFileChips(selectedFiles, t("removeAttachment"), setSelectedFiles),
                                                                     })}
                                                                 />
@@ -283,22 +283,22 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                         error: attachmentError
                                                             ? textLeaf({ content: attachmentError, variant: "body", tone: "danger" })
                                                             : undefined,
-                                                        fields: defineContractProjection("opaque-content-unit", () => (
+                                                        fields: defineGrammarProjection("opaque-content-unit", () => (
                                                             <>
                                                                 <label htmlFor="consultation-message" className="sr-only">{t("composerLabel")}</label>
                                                                 <input ref={imageInputRef} type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple onChange={selectFiles} className="hidden" />
                                                                 <input ref={fileInputRef} type="file" accept={ACCEPTED_FILES} multiple onChange={selectFiles} className="hidden" />
                                                             </>
                                                         )),
-                                                        controls: defineContractComponent("composer-input-row", {
-                                                            icons: defineContractComponent("composer-icon-row", {
+                                                        controls: defineGrammarComponent("composer-input-row", {
+                                                            icons: defineGrammarComponent("composer-icon-row", {
                                                                 items: [
                                                                     iconButtonLeaf({ icon: "PhotoIcon", label: t("addImage") }, { onPress: () => imageInputRef.current?.click() }),
                                                                     iconButtonLeaf({ icon: "PaperClipIcon", label: t("addFile") }, { onPress: () => fileInputRef.current?.click() }),
                                                                 ],
                                                             }),
-                                                            field: defineContractComponent("prompt-field-wrap", {
-                                                                control: defineContractProjection("opaque-content-unit", () => (
+                                                            field: defineGrammarComponent("prompt-field-wrap", {
+                                                                control: defineGrammarProjection("opaque-content-unit", () => (
                                                                     <textarea
                                                                         id="consultation-message"
                                                                         rows={2}
@@ -323,13 +323,13 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                     })}
                                 />
                             )),
-                            sidebar: defineContractProjection("opaque-content-unit", () => (
+                            sidebar: defineGrammarProjection("opaque-content-unit", () => (
                                 <Tree
-                                    contract="chat-sidebar"
-                                    render={defineContractComponent("chat-sidebar", {
-                                        history: defineContractComponent("chat-history-card", {
-                                            header: defineContractComponent("chat-history-header-row", {
-                                                title: defineLeafComponent("heading", {}, () => (
+                                    grammar="chat-sidebar"
+                                    render={defineGrammarComponent("chat-sidebar", {
+                                        history: defineGrammarComponent("chat-history-card", {
+                                            header: defineGrammarComponent("chat-history-header-row", {
+                                                title: defineGrammarLeaf("heading", {}, () => (
                                                     <Heading props={{ content: t("chatHistory"), level: 2 }} />
                                                 )),
                                                 create: actionButtonLeaf(
@@ -337,7 +337,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                     { onPress: chat.startNewChat },
                                                 ),
                                             }),
-                                            list: defineContractComponent("chat-history-list", {
+                                            list: defineGrammarComponent("chat-history-list", {
                                                 items: chat.sessions.map((session) => actionButtonLeaf(
                                                     {
                                                         content: session.title,
@@ -348,17 +348,17 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                 )),
                                             }),
                                         }),
-                                        profileCard: defineContractComponent("chat-profile-card", {
-                                            header: defineContractComponent("chat-profile-header-row", {
-                                                title: defineLeafComponent("heading", {}, () => (
+                                        profileCard: defineGrammarComponent("chat-profile-card", {
+                                            header: defineGrammarComponent("chat-profile-header-row", {
+                                                title: defineGrammarLeaf("heading", {}, () => (
                                                     <Heading props={{ content: t("projectProfile"), level: 2 }} />
                                                 )),
-                                                percent: defineLeafComponent("text", {}, () => (
+                                                percent: defineGrammarLeaf("text", {}, () => (
                                                     <Text props={{ content: `${chat.discovery?.completeness ?? 0}%`, variant: "body" }} />
                                                 )),
                                             }),
-                                            progress: defineContractComponent("chat-progress-track", {
-                                                fill: defineContractProjection("opaque-content-unit", () => (
+                                            progress: defineGrammarComponent("chat-progress-track", {
+                                                fill: defineGrammarProjection("opaque-content-unit", () => (
                                                     <span
                                                         aria-hidden
                                                         style={{ width: `${chat.discovery?.completeness ?? 0}%` }}
@@ -366,18 +366,18 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                     />
                                                 )),
                                             }),
-                                            stats: defineContractComponent("chat-profile-stats", {
+                                            stats: defineGrammarComponent("chat-profile-stats", {
                                                 rows: [
-                                                    defineContractComponent("chat-profile-stat-row", {
-                                                        pair: defineContractProjection("opaque-content-unit", () => (
+                                                    defineGrammarComponent("chat-profile-stat-row", {
+                                                        pair: defineGrammarProjection("opaque-content-unit", () => (
                                                             <>
                                                                 <dt className="text-ink-faint">{t("productType")}</dt>
                                                                 <dd className="mt-1 text-ink">{readString(chat.requirements, "productType") ?? t("unknown")}</dd>
                                                             </>
                                                         )),
                                                     }),
-                                                    defineContractComponent("chat-profile-stat-row", {
-                                                        pair: defineContractProjection("opaque-content-unit", () => (
+                                                    defineGrammarComponent("chat-profile-stat-row", {
+                                                        pair: defineGrammarProjection("opaque-content-unit", () => (
                                                             <>
                                                                 <dt className="text-ink-faint">{t("industry")}</dt>
                                                                 <dd className="mt-1 text-ink">{readString(chat.requirements, "industry") ?? t("unknown")}</dd>
@@ -387,11 +387,11 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                 ],
                                             }),
                                             estimate: price
-                                                ? defineContractComponent("chat-estimate-block", {
-                                                    label: defineLeafComponent("text", {}, () => (
+                                                ? defineGrammarComponent("chat-estimate-block", {
+                                                    label: defineGrammarLeaf("text", {}, () => (
                                                         <Text props={{ content: t("currentEstimate"), variant: "body" }} />
                                                     )),
-                                                    amount: defineLeafComponent("text", {}, () => (
+                                                    amount: defineGrammarLeaf("text", {}, () => (
                                                         <Text
                                                             props={{
                                                                 content: `${new Intl.NumberFormat(locale === "vi" ? "vi-VN" : "en-US").format(price)} VND`,
@@ -402,7 +402,7 @@ export const ConsultationChat = ({ initialConversationId }: ConsultationChatProp
                                                 })
                                                 : undefined,
                                         }),
-                                        extras: defineContractProjection("opaque-content-unit", () => (
+                                        extras: defineGrammarProjection("opaque-content-unit", () => (
                                             <>
                                                 {chat.discovery?.readyForProposal && chat.projectId ? <ProposalActions projectId={chat.projectId} /> : null}
                                                 {leadExtras({

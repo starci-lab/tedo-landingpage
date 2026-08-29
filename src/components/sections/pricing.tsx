@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import type { ContractKey } from "@/components/contracts"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import type { GrammarKey } from "@/components/grammar"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Icon } from "@/components/leaves/Icon"
@@ -17,14 +17,14 @@ type Tier = {
 }
 
 const bulletList = (items: Array<string>, icon?: "CheckIcon" | "MinusIcon") =>
-    defineContractComponent("bullet-list", {
-        items: items.map((item) => defineContractComponent("labelled-bullet-item", {
-            mark: defineContractProjection("opaque-content-unit", () => (
+    defineGrammarComponent("bullet-list", {
+        items: items.map((item) => defineGrammarComponent("labelled-bullet-item", {
+            mark: defineGrammarProjection("opaque-content-unit", () => (
                 icon
                     ? <Icon props={{ name: icon, size: "sm" }} />
                     : <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
             )),
-            label: defineLeafComponent("text", {}, () => (
+            label: defineGrammarLeaf("text", {}, () => (
                 <Text props={{ content: item, variant: "body" }} />
             )),
         })),
@@ -48,41 +48,41 @@ export const Pricing = () => {
 
     return (
         <Tree
-            contract="page-band"
-            render={defineContractComponent("page-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band"
+            render={defineGrammarComponent("page-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="pricing-tier-grid"
-                                render={defineContractComponent("pricing-tier-grid", {
+                                grammar="pricing-tier-grid"
+                                render={defineGrammarComponent("pricing-tier-grid", {
                                     items: tiers.map((tier) => {
-                                        const contract: ContractKey = tier.featured ? "pricing-tier-card-featured" : "pricing-tier-card"
-                                        return defineContractComponent(contract, {
-                                            name: defineLeafComponent("heading", {}, () => (
+                                        const grammar: GrammarKey = tier.featured ? "pricing-tier-card-featured" : "pricing-tier-card"
+                                        return defineGrammarComponent(grammar, {
+                                            name: defineGrammarLeaf("heading", {}, () => (
                                                 <Heading props={{ content: tier.name, level: 3 }} />
                                             )),
-                                            price: defineLeafComponent("text", {}, () => (
+                                            price: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: tier.price, variant: "stat" }} />
                                             )),
-                                            time: defineLeafComponent("text", {}, () => (
+                                            time: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: tier.time, variant: "label" }} />
                                             )),
-                                            body: defineLeafComponent("text", {}, () => (
+                                            body: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: tier.body, variant: "body" }} />
                                             )),
                                             points: bulletList(tier.points),
@@ -91,16 +91,16 @@ export const Pricing = () => {
                                 })}
                             />
                             <Tree
-                                contract="pricing-coverage-panel"
-                                render={defineContractComponent("pricing-coverage-panel", {
-                                    included: defineContractComponent("pricing-coverage-column", {
-                                        title: defineLeafComponent("heading", {}, () => (
+                                grammar="pricing-coverage-panel"
+                                render={defineGrammarComponent("pricing-coverage-panel", {
+                                    included: defineGrammarComponent("pricing-coverage-column", {
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: t("includedTitle"), level: 4 }} />
                                         )),
                                         list: bulletList(included, "CheckIcon"),
                                     }),
-                                    excluded: defineContractComponent("pricing-coverage-column", {
-                                        title: defineLeafComponent("heading", {}, () => (
+                                    excluded: defineGrammarComponent("pricing-coverage-column", {
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: t("excludedTitle"), level: 4 }} />
                                         )),
                                         list: bulletList(excluded, "MinusIcon"),
@@ -108,12 +108,12 @@ export const Pricing = () => {
                                 })}
                             />
                             <Tree
-                                contract="pricing-instalment-panel"
-                                render={defineContractComponent("pricing-instalment-panel", {
-                                    title: defineLeafComponent("heading", {}, () => (
+                                grammar="pricing-instalment-panel"
+                                render={defineGrammarComponent("pricing-instalment-panel", {
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("instalmentTitle"), level: 4 }} />
                                     )),
-                                    body: defineLeafComponent("text", {}, () => (
+                                    body: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("instalmentBody"), variant: "body" }} />
                                     )),
                                 })}

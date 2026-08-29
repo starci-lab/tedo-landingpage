@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 
@@ -13,33 +13,33 @@ export const Design = () => {
 
     return (
         <Tree
-            contract="page-band-tinted"
-            render={defineContractComponent("page-band-tinted", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractComponent("design-layout", {
-                        intro: defineContractComponent("section-intro", {
-                            eyebrow: defineLeafComponent("text", {}, () => (
+            grammar="page-band-tinted"
+            render={defineGrammarComponent("page-band-tinted", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarComponent("design-layout", {
+                        intro: defineGrammarComponent("section-intro", {
+                            eyebrow: defineGrammarLeaf("text", {}, () => (
                                 <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                             )),
-                            title: defineLeafComponent("heading", {}, () => (
+                            title: defineGrammarLeaf("heading", {}, () => (
                                 <Heading props={{ content: t("title"), level: 2 }} />
                             )),
-                            lead: defineLeafComponent("text", {}, () => (
+                            lead: defineGrammarLeaf("text", {}, () => (
                                 <Text props={{ content: t("body"), variant: "lead" }} />
                             )),
                         }),
-                        steps: defineContractComponent("design-step-list", {
-                            items: steps.map((step, i) => defineContractComponent("design-step-item", {
-                                index: defineContractComponent("design-step-index", {
-                                    value: defineLeafComponent("text", {}, () => (
+                        steps: defineGrammarComponent("design-step-list", {
+                            items: steps.map((step, i) => defineGrammarComponent("design-step-item", {
+                                index: defineGrammarComponent("design-step-index", {
+                                    value: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: String(i + 1), variant: "label" }} />
                                     )),
                                 }),
-                                body: defineContractComponent("design-step-body", {
-                                    title: defineLeafComponent("heading", {}, () => (
+                                body: defineGrammarComponent("design-step-body", {
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: step.title, level: 4 }} />
                                     )),
-                                    body: defineLeafComponent("text", {}, () => (
+                                    body: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: step.body, variant: "body" }} />
                                     )),
                                 }),

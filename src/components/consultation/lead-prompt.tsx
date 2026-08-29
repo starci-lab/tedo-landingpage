@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl"
 import { useLeadPromptForm } from "@/hooks/rhf/useLeadPromptForm"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { ActionButton } from "@/components/leaves/ActionButton"
 import { Text } from "@/components/leaves/Text"
 
@@ -14,14 +14,14 @@ export const LeadPrompt = () => {
     const { register, onSubmit, startWithSuggestion, formState: { errors } } = useLeadPromptForm()
     return (
         // Bare on purpose - a `form` carries no shape of its own until it carries a class, so the
-        // raised card ground lives on the `Tree` node one level in instead. See the contract entry.
+        // raised card ground lives on the `Tree` node one level in instead. See the grammar entry.
         <form onSubmit={onSubmit}>
             <Tree
-                contract="prompt-composer-body"
-                render={defineContractComponent("prompt-composer-body", {
-                    row: defineContractComponent("prompt-input-row", {
-                        field: defineContractComponent("prompt-field-wrap", {
-                            control: defineContractProjection("opaque-content-unit", () => (
+                grammar="prompt-composer-body"
+                render={defineGrammarComponent("prompt-composer-body", {
+                    row: defineGrammarComponent("prompt-input-row", {
+                        field: defineGrammarComponent("prompt-field-wrap", {
+                            control: defineGrammarProjection("opaque-content-unit", () => (
                                 <>
                                     <label htmlFor="project-prompt" className="sr-only">{t("promptLabel")}</label>
                                     <textarea
@@ -34,17 +34,17 @@ export const LeadPrompt = () => {
                                 </>
                             )),
                         }),
-                        submit: defineLeafComponent("action-button", {}, () => (
+                        submit: defineGrammarLeaf("action-button", {}, () => (
                             <ActionButton props={{ content: t("start"), variant: "primary", type: "submit" }} />
                         )),
                     }),
                     error: errors.prompt
-                        ? defineLeafComponent("text", {}, () => (
+                        ? defineGrammarLeaf("text", {}, () => (
                             <Text props={{ content: errors.prompt?.message ?? "", variant: "body", tone: "danger" }} />
                         ))
                         : undefined,
-                    suggestions: defineContractComponent("suggestion-chip-row", {
-                        items: suggestions.map((suggestion) => defineLeafComponent("action-button", {}, () => (
+                    suggestions: defineGrammarComponent("suggestion-chip-row", {
+                        items: suggestions.map((suggestion) => defineGrammarLeaf("action-button", {}, () => (
                             <ActionButton
                                 props={{ content: suggestion, variant: "outline", size: "sm" }}
                                 on={{ onPress: () => startWithSuggestion(suggestion) }}

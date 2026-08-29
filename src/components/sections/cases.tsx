@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Chip } from "@/components/leaves/Chip"
@@ -19,7 +19,7 @@ type CaseStudy = {
 /**
  * Real projects only. CatMoc is deliberately kept ANONYMOUS here (shown as a
  * generic "B2B business system") — publishing its name or software details
- * without written consent falls under contract 01/010726/WS §7.1–7.2. Swap in
+ * without written consent falls under grammar 01/010726/WS §7.1–7.2. Swap in
  * the real name once a signed consent email lands. See MO-HINH-KINH-DOANH.md §7.3.
  */
 export const Cases = () => {
@@ -28,51 +28,51 @@ export const Cases = () => {
 
     return (
         <Tree
-            contract="page-band-tinted"
-            render={defineContractComponent("page-band-tinted", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band-tinted"
+            render={defineGrammarComponent("page-band-tinted", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="case-card-grid"
-                                render={defineContractComponent("case-card-grid", {
-                                    items: items.map((item) => defineContractComponent("case-card", {
-                                        header: defineContractComponent("case-card-header", {
-                                            meta: defineContractComponent("case-card-meta-row", {
-                                                sector: defineLeafComponent("text", {}, () => (
+                                grammar="case-card-grid"
+                                render={defineGrammarComponent("case-card-grid", {
+                                    items: items.map((item) => defineGrammarComponent("case-card", {
+                                        header: defineGrammarComponent("case-card-header", {
+                                            meta: defineGrammarComponent("case-card-meta-row", {
+                                                sector: defineGrammarLeaf("text", {}, () => (
                                                     <Text props={{ content: item.sector, variant: "label" }} />
                                                 )),
-                                                badge: defineLeafComponent("chip", {}, () => (
+                                                badge: defineGrammarLeaf("chip", {}, () => (
                                                     <Chip props={{ content: item.badge, variant: "secondary", size: "sm" }} />
                                                 )),
                                             }),
-                                            title: defineLeafComponent("heading", {}, () => (
+                                            title: defineGrammarLeaf("heading", {}, () => (
                                                 <Heading props={{ content: item.title, level: 4 }} />
                                             )),
-                                            body: defineLeafComponent("text", {}, () => (
+                                            body: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: item.body, variant: "body" }} />
                                             )),
                                         }),
-                                        footer: defineContractComponent("case-card-footer", {
-                                            divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
-                                            metric: defineLeafComponent("text", {}, () => (
+                                        footer: defineGrammarComponent("case-card-footer", {
+                                            divider: defineGrammarLeaf("separator", {}, () => <Separator props={{}} />),
+                                            metric: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: item.metric, variant: "stat" }} />
                                             )),
-                                            metricLabel: defineLeafComponent("text", {}, () => (
+                                            metricLabel: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: item.metricLabel, variant: "body" }} />
                                             )),
                                         }),

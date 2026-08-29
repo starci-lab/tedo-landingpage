@@ -1,5 +1,5 @@
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection } from "@/components/grammar/props"
 
 /**
  * Fixed light "sky" backdrop behind the whole page — the marketing counterpart
@@ -15,12 +15,12 @@ import { defineContractComponent, defineContractProjection } from "@/components/
 export const SkyBackground = () => {
     return (
         <Tree
-            contract="sky-backdrop"
-            render={defineContractComponent("sky-backdrop", {
-                layers: defineContractProjection("opaque-content-unit", () => (
+            grammar="sky-backdrop"
+            render={defineGrammarComponent("sky-backdrop", {
+                layers: defineGrammarProjection("opaque-content-unit", () => (
                     <>
-                        <Tree contract="sky-wash-layer" render={defineContractComponent("sky-wash-layer", {})} />
-                        <Tree contract="sky-dots-layer" render={defineContractComponent("sky-dots-layer", {})} />
+                        <Tree grammar="sky-wash-layer" render={defineGrammarComponent("sky-wash-layer", {})} />
+                        <Tree grammar="sky-dots-layer" render={defineGrammarComponent("sky-dots-layer", {})} />
                     </>
                 )),
             })}

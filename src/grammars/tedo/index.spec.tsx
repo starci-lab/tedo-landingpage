@@ -23,7 +23,7 @@ describe("TedoV6", () => {
         expect(screen.getByRole("button", { name: /Bắt đầu cùng TEDO/i })).toBeTruthy()
     })
 
-    it("renders the English contract for English locale", () => {
+    it("renders the English grammar for English locale", () => {
         render(<TedoV6 locale="en" />)
 
         expect(screen.getByRole("heading", { level: 1, name: /An outsourcing team.*Built AI-first/i })).toBeTruthy()

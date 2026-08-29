@@ -1,7 +1,7 @@
 "use client"
 
 import { Label, TextArea, TextField } from "@heroui/react"
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `TextAreaField`: one labelled multi-line answer inside a bounded form

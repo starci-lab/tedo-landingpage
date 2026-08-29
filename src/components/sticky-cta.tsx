@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react"
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import type { ContractKey } from "@/components/contracts"
-import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+import type { GrammarKey } from "@/components/grammar"
+import { defineGrammarComponent, defineGrammarProjection } from "@/components/grammar/props"
 import { RouteCtaAction } from "@/components/composites/RouteCtaAction"
 import { ActionLink } from "@/components/leaves/ActionLink"
 
@@ -31,20 +31,20 @@ export const StickyCta = () => {
         return () => window.removeEventListener("scroll", onScroll)
     }, [])
 
-    const contract: ContractKey = shown ? "sticky-cta-bar-shown" : "sticky-cta-bar-hidden"
+    const grammar: GrammarKey = shown ? "sticky-cta-bar-shown" : "sticky-cta-bar-hidden"
 
     return (
         <Tree
-            contract={contract}
-            render={defineContractComponent(contract, {
-                actions: defineContractComponent("sticky-cta-actions", {
-                    ask: defineContractComponent("sticky-cta-action-slot", {
-                        content: defineContractProjection("opaque-content-unit", () => (
+            grammar={grammar}
+            render={defineGrammarComponent(grammar, {
+                actions: defineGrammarComponent("sticky-cta-actions", {
+                    ask: defineGrammarComponent("sticky-cta-action-slot", {
+                        content: defineGrammarProjection("opaque-content-unit", () => (
                             <RouteCtaAction to="/chat" label={t("ask")} size="lg" />
                         )),
                     }),
-                    book: defineContractComponent("sticky-cta-action-slot", {
-                        content: defineContractProjection("opaque-content-unit", () => (
+                    book: defineGrammarComponent("sticky-cta-action-slot", {
+                        content: defineGrammarProjection("opaque-content-unit", () => (
                             <ActionLink props={{ href: "#contact", content: t("book"), variant: "outline", size: "lg" }} />
                         )),
                     }),

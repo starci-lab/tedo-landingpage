@@ -506,7 +506,7 @@ body {
 
 /* Hero 3D visual: positioning for a ref-tracked, pointer-driven scene (see
    components/hero-3d-visual.tsx). Every node in that file is a <span>, never a <div> - the
-   contract frame has no channel for a ref or a pointer handler, so its structural positioning is
+   grammar frame has no channel for a ref or a pointer handler, so its structural positioning is
    named here as real CSS instead of Tailwind's structural utility words, the same way `.tedo-scene`
    above already carries this component's motion. */
 .hero-3d-frame {
@@ -559,7 +559,7 @@ body {
    accordion - `vendor-boundary` reserves `@heroui/` imports for leaves and the named mechanics
    and surface branches, and neither owns a "list of collapsible questions" shape today. The
    summary row's own layout is named here rather than typed as Tailwind's `flex` utility, because
-   a `<summary>` is not a structural host the contract frame governs and its arrangement still
+   a `<summary>` is not a structural host the grammar frame governs and its arrangement still
    has to live somewhere real rather than as an untracked literal. */
 .faq-summary {
     display: flex;
@@ -706,7 +706,7 @@ details[open] .faq-chevron {
 
 /* The page's own vertical stack (heading content, then the footer pinned to the bottom via
    `mt-auto`) lives on this hand-defined class rather than Tailwind's `flex`/`flex-col` utilities,
-   because this same element also carries a hand-tuned drop shadow no contract entry may hold -
+   because this same element also carries a hand-tuned drop shadow no grammar entry may hold -
    see `no-interaction-class-in-entry` - so the whole sheet chrome is kept in one place instead of
    splitting one element's layout between a Tailwind class list and a CSS rule. */
 .quote-page {

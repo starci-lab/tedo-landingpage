@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Icon } from "@/components/leaves/Icon"
@@ -14,27 +14,27 @@ export const Faq = () => {
 
     return (
         <Tree
-            contract="page-band-tinted"
-            render={defineContractComponent("page-band-tinted", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band-tinted"
+            render={defineGrammarComponent("page-band-tinted", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="faq-list"
-                                render={defineContractComponent("faq-list", {
-                                    items: items.map((item) => defineContractComponent("faq-item", {
-                                        content: defineContractProjection("opaque-content-unit", () => (
+                                grammar="faq-list"
+                                render={defineGrammarComponent("faq-list", {
+                                    items: items.map((item) => defineGrammarComponent("faq-item", {
+                                        content: defineGrammarProjection("opaque-content-unit", () => (
                                             <details>
                                                 <summary className="faq-summary text-pretty font-medium">
                                                     {item.q}

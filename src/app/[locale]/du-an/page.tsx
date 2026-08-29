@@ -7,7 +7,7 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ProjectsGallery } from "@/components/sections/projects-gallery"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection } from "@/components/grammar/props"
 import { BackHomeAction } from "@/components/composites/BackHomeAction"
 
 type LocaleParams = { params: Promise<{ locale: string }> }
@@ -38,23 +38,23 @@ const ProjectsPage = async ({ params }: LocaleParams) => {
 
     return (
         <Tree
-            contract="landing-main"
-            render={defineContractComponent("landing-main", {
-                header: defineContractProjection("opaque-content-unit", () => <Header />),
-                body: defineContractProjection("opaque-content-unit", () => (
+            grammar="landing-main"
+            render={defineGrammarComponent("landing-main", {
+                header: defineGrammarProjection("opaque-content-unit", () => <Header />),
+                body: defineGrammarProjection("opaque-content-unit", () => (
                     <Tree
-                        contract="route-body-with-back-nav"
-                        render={defineContractComponent("route-body-with-back-nav", {
-                            nav: defineContractComponent("back-link-row", {
-                                link: defineContractProjection("opaque-content-unit", () => (
+                        grammar="route-body-with-back-nav"
+                        render={defineGrammarComponent("route-body-with-back-nav", {
+                            nav: defineGrammarComponent("back-link-row", {
+                                link: defineGrammarProjection("opaque-content-unit", () => (
                                     <BackHomeAction label={`← ${t("back")}`} />
                                 )),
                             }),
-                            content: defineContractProjection("opaque-content-unit", () => <ProjectsGallery />),
+                            content: defineGrammarProjection("opaque-content-unit", () => <ProjectsGallery />),
                         })}
                     />
                 )),
-                footer: defineContractProjection("opaque-content-unit", () => <Footer />),
+                footer: defineGrammarProjection("opaque-content-unit", () => <Footer />),
             })}
         />
     )

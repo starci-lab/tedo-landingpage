@@ -1,7 +1,7 @@
 "use client"
 
 import { FieldError, Input, Label, TextField } from "@heroui/react"
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `Field`: one labelled single-line answer inside a bounded form surface -

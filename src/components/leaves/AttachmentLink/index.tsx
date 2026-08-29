@@ -1,5 +1,5 @@
 import Image from "next/image"
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `AttachmentLink`: one downloadable or previewable file attached to a consultation message.

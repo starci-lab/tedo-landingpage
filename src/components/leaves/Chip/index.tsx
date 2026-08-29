@@ -1,7 +1,7 @@
 "use client"
 
 import { Chip as HeroChip } from "@heroui/react"
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `Chip`: one short, self-contained fact - a tag, a status word, a plan

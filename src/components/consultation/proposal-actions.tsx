@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useTranslations } from "next-intl"
 import { isGeneratedProposalResponse, type GeneratedDocumentSummary } from "@/lib/consultation/types"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Heading } from "@/components/leaves/Heading"
 import { Text } from "@/components/leaves/Text"
 import { ActionButton } from "@/components/leaves/ActionButton"
@@ -38,16 +38,16 @@ export const ProposalActions = ({ projectId }: ProposalActionsProps) => {
     if (status === "ready") {
         return (
             <Tree
-                contract="proposal-panel"
-                render={defineContractComponent("proposal-panel", {
-                    heading: defineLeafComponent("heading", {}, () => (
+                grammar="proposal-panel"
+                render={defineGrammarComponent("proposal-panel", {
+                    heading: defineGrammarLeaf("heading", {}, () => (
                         <Heading props={{ content: t("ready"), level: 3 }} />
                     )),
-                    body: defineContractProjection("opaque-content-unit", () => (
+                    body: defineGrammarProjection("opaque-content-unit", () => (
                         <Tree
-                            contract="proposal-document-list"
-                            render={defineContractComponent("proposal-document-list", {
-                                items: documents.map((document) => defineLeafComponent("proposal-document-link", {}, () => (
+                            grammar="proposal-document-list"
+                            render={defineGrammarComponent("proposal-document-list", {
+                                items: documents.map((document) => defineGrammarLeaf("proposal-document-link", {}, () => (
                                     <ProposalDocumentLink
                                         props={{
                                             href: `/api/projects/${projectId}/documents/${document.id}`,
@@ -64,24 +64,24 @@ export const ProposalActions = ({ projectId }: ProposalActionsProps) => {
     }
     return (
         <Tree
-            contract="proposal-panel"
-            render={defineContractComponent("proposal-panel", {
-                heading: defineLeafComponent("heading", {}, () => (
+            grammar="proposal-panel"
+            render={defineGrammarComponent("proposal-panel", {
+                heading: defineGrammarLeaf("heading", {}, () => (
                     <Heading props={{ content: t("title"), level: 3 }} />
                 )),
-                body: defineContractProjection("opaque-content-unit", () => (
+                body: defineGrammarProjection("opaque-content-unit", () => (
                     <Tree
-                        contract="proposal-generate-body"
-                        render={defineContractComponent("proposal-generate-body", {
-                            description: defineLeafComponent("text", {}, () => (
+                        grammar="proposal-generate-body"
+                        render={defineGrammarComponent("proposal-generate-body", {
+                            description: defineGrammarLeaf("text", {}, () => (
                                 <Text props={{ content: t("body"), variant: "body" }} />
                             )),
                             error: status === "error"
-                                ? defineLeafComponent("text", {}, () => (
+                                ? defineGrammarLeaf("text", {}, () => (
                                     <Text props={{ content: t("error"), variant: "body", tone: "danger" }} />
                                 ))
                                 : undefined,
-                            action: defineLeafComponent("action-button", {}, () => (
+                            action: defineGrammarLeaf("action-button", {}, () => (
                                 <ActionButton
                                     props={{
                                         content: status === "generating" ? t("generating") : t("generate"),

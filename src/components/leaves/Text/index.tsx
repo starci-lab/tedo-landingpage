@@ -1,7 +1,7 @@
 "use client"
 
 import { Typography } from "@heroui/react"
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `Text`: a run of copy that is not a title. One leaf, three variants -

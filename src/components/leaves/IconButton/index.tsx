@@ -1,4 +1,4 @@
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 import { Icon, type IconName } from "@/components/leaves/Icon"
 
 /**

@@ -51,4 +51,16 @@ describe("remaining visual components", () => {
         expect(renderToStaticMarkup(<SkyBackground />)).toContain("tedo-sky")
         expect(renderToStaticMarkup(<Hero3DVisual />)).toContain("hero-3d-frame")
     })
+
+    it("updates and resets hero pointer parallax", () => {
+        const { container } = render(<Hero3DVisual />)
+        const frame = container.querySelector(".hero-3d-frame") as HTMLElement
+        vi.spyOn(frame, "getBoundingClientRect").mockReturnValue({ left: 0, top: 0, width: 200, height: 100, right: 200, bottom: 100, x: 0, y: 0, toJSON: () => ({}) })
+        fireEvent.pointerMove(frame, { clientX: 150, clientY: 75 })
+        expect(frame.style.getPropertyValue("--px")).toBe("0.250")
+        expect(frame.style.getPropertyValue("--py")).toBe("0.250")
+        fireEvent.pointerLeave(frame)
+        expect(frame.style.getPropertyValue("--px")).toBe("0")
+        expect(frame.style.getPropertyValue("--py")).toBe("0")
+    })
 })

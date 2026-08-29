@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Chip } from "@/components/leaves/Chip"
@@ -39,27 +39,27 @@ export const Stack = () => {
 
     return (
         <Tree
-            contract="page-band"
-            render={defineContractComponent("page-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band"
+            render={defineGrammarComponent("page-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    title: defineLeafComponent("heading", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="stack-chip-list"
-                                render={defineContractComponent("stack-chip-list", {
-                                    items: STACK.map((tech) => defineContractComponent("stack-chip-item", {
-                                        chip: defineLeafComponent("chip", {}, () => (
+                                grammar="stack-chip-list"
+                                render={defineGrammarComponent("stack-chip-list", {
+                                    items: STACK.map((tech) => defineGrammarComponent("stack-chip-item", {
+                                        chip: defineGrammarLeaf("chip", {}, () => (
                                             <Chip props={{ content: tech, variant: "secondary" }} />
                                         )),
                                     })),

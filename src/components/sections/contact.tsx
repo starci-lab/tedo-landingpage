@@ -4,7 +4,7 @@ import { useState, type SyntheticEvent } from "react"
 import { useTranslations } from "next-intl"
 import { brand } from "@/config/brand"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Separator } from "@/components/leaves/Separator"
@@ -54,30 +54,30 @@ export const Contact = () => {
 
     return (
         <Tree
-            contract="page-band"
-            render={defineContractComponent("page-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractComponent("contact-layout", {
-                        info: defineContractComponent("contact-info-column", {
-                            intro: defineContractComponent("section-intro", {
-                                eyebrow: defineLeafComponent("text", {}, () => (
+            grammar="page-band"
+            render={defineGrammarComponent("page-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarComponent("contact-layout", {
+                        info: defineGrammarComponent("contact-info-column", {
+                            intro: defineGrammarComponent("section-intro", {
+                                eyebrow: defineGrammarLeaf("text", {}, () => (
                                     <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                 )),
-                                title: defineLeafComponent("heading", {}, () => (
+                                title: defineGrammarLeaf("heading", {}, () => (
                                     <Heading props={{ content: t("title"), level: 2 }} />
                                 )),
-                                lead: defineLeafComponent("text", {}, () => (
+                                lead: defineGrammarLeaf("text", {}, () => (
                                     <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                 )),
                             }),
-                            booking: defineContractComponent("contact-booking-block", {
-                                divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
-                                label: defineLeafComponent("text", {}, () => (
+                            booking: defineGrammarComponent("contact-booking-block", {
+                                divider: defineGrammarLeaf("separator", {}, () => <Separator props={{}} />),
+                                label: defineGrammarLeaf("text", {}, () => (
                                     <Text props={{ content: t("orBook"), variant: "body" }} />
                                 )),
-                                links: defineContractComponent("contact-booking-links", {
+                                links: defineGrammarComponent("contact-booking-links", {
                                     items: [
-                                        defineLeafComponent("action-link", {}, () => (
+                                        defineGrammarLeaf("action-link", {}, () => (
                                             <ActionLink
                                                 props={{
                                                     href: brand.calendarUrl,
@@ -88,7 +88,7 @@ export const Contact = () => {
                                                 }}
                                             />
                                         )),
-                                        defineLeafComponent("action-link", {}, () => (
+                                        defineGrammarLeaf("action-link", {}, () => (
                                             <ActionLink
                                                 props={{ href: `mailto:${brand.email}`, content: brand.email, variant: "ghost", size: "md" }}
                                             />
@@ -97,50 +97,50 @@ export const Contact = () => {
                                 }),
                             }),
                         }),
-                        form: defineContractProjection("opaque-content-unit", () => (
+                        form: defineGrammarProjection("opaque-content-unit", () => (
                             // Bare on purpose - see the note on `contact-form-shell` for why the
                             // raised card ground lives on the `Tree` node one level in instead.
                             <form onSubmit={handleSubmit}>
                                 <Tree
-                                    contract="contact-form-shell"
-                                    render={defineContractComponent("contact-form-shell", {
-                                        contactPair: defineContractComponent("two-col-row", {
-                                            first: defineContractComponent("field-row", {
-                                                control: defineContractProjection("opaque-content-unit", () => (
+                                    grammar="contact-form-shell"
+                                    render={defineGrammarComponent("contact-form-shell", {
+                                        contactPair: defineGrammarComponent("two-col-row", {
+                                            first: defineGrammarComponent("field-row", {
+                                                control: defineGrammarProjection("opaque-content-unit", () => (
                                                     <Field props={{ name: "name", label: tf("name"), placeholder: tf("namePlaceholder"), autoComplete: "name", required: true }} />
                                                 )),
                                             }),
-                                            second: defineContractComponent("field-row", {
-                                                control: defineContractProjection("opaque-content-unit", () => (
+                                            second: defineGrammarComponent("field-row", {
+                                                control: defineGrammarProjection("opaque-content-unit", () => (
                                                     <Field props={{ name: "email", label: tf("email"), type: "email", placeholder: tf("emailPlaceholder"), autoComplete: "email", required: true }} />
                                                 )),
                                             }),
                                         }),
-                                        company: defineContractComponent("field-row", {
-                                            control: defineContractProjection("opaque-content-unit", () => (
+                                        company: defineGrammarComponent("field-row", {
+                                            control: defineGrammarProjection("opaque-content-unit", () => (
                                                 <Field props={{ name: "company", label: tf("company"), placeholder: tf("companyPlaceholder"), autoComplete: "organization" }} />
                                             )),
                                         }),
-                                        service: defineContractComponent("field-row", {
-                                            control: defineContractProjection("opaque-content-unit", () => (
+                                        service: defineGrammarComponent("field-row", {
+                                            control: defineGrammarProjection("opaque-content-unit", () => (
                                                 <SelectField
                                                     props={{ name: "service", label: tf("service"), options, value: service }}
                                                     on={{ onChange: setService }}
                                                 />
                                             )),
                                         }),
-                                        message: defineContractComponent("field-row", {
-                                            control: defineContractProjection("opaque-content-unit", () => (
+                                        message: defineGrammarComponent("field-row", {
+                                            control: defineGrammarProjection("opaque-content-unit", () => (
                                                 <TextAreaField props={{ name: "message", label: tf("message"), placeholder: tf("messagePlaceholder"), rows: 4, required: true }} />
                                             )),
                                         }),
-                                        submit: defineLeafComponent("action-button", {}, () => (
+                                        submit: defineGrammarLeaf("action-button", {}, () => (
                                             <ActionButton
                                                 props={{ content: status === "sending" ? tf("submitting") : tf("submit"), variant: "primary", type: "submit", disabled: status === "sending" }}
                                                 isLoading={status === "sending"}
                                             />
                                         )),
-                                        status: defineLeafComponent("text", {}, () => (
+                                        status: defineGrammarLeaf("text", {}, () => (
                                             <Text props={{ content: statusText, variant: "body", tone: statusTone }} />
                                         )),
                                     })}

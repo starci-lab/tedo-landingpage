@@ -1,5 +1,5 @@
 import * as OutlineIcons from "@heroicons/react/24/outline"
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `Icon`: the picture a word needs when the word alone is slower to find.

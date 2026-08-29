@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Heading } from "@/components/leaves/Heading"
 import { Text } from "@/components/leaves/Text"
 import { ActionLink } from "@/components/leaves/ActionLink"
@@ -13,26 +13,26 @@ export const Hero = () => {
 
     return (
         <Tree
-            contract="hero-section"
-            render={defineContractComponent("hero-section", {
-                content: defineContractComponent("hero-measure", {
-                    message: defineContractProjection("opaque-content-unit", () => (
+            grammar="hero-section"
+            render={defineGrammarComponent("hero-section", {
+                content: defineGrammarComponent("hero-measure", {
+                    message: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                             <Heading props={{ content: t("title"), accent: t("titleAccent"), level: 1 }} />
                             <Text props={{ content: t("subtitle"), variant: "lead" }} />
                             <LeadPrompt />
                             <Tree
-                                contract="hero-cta-row"
-                                render={defineContractComponent("hero-cta-row", {
-                                    primary: defineLeafComponent("action-link", {}, () => (
+                                grammar="hero-cta-row"
+                                render={defineGrammarComponent("hero-cta-row", {
+                                    primary: defineGrammarLeaf("action-link", {}, () => (
                                         <ActionLink props={{ href: "#cases", content: t("ctaSecondary"), variant: "outline" }} />
                                     )),
                                 })}
                             />
                         </>
                     )),
-                    visual: defineContractProjection("opaque-content-unit", () => <Hero3DVisual />),
+                    visual: defineGrammarProjection("opaque-content-unit", () => <Hero3DVisual />),
                 }),
             })}
         />

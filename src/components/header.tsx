@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from "next-intl"
 import { Link, usePathname, routing } from "@/i18n/routing"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection } from "@/components/grammar/props"
 import { HomeLink } from "@/components/composites/HomeLink"
 import { RouteCtaAction } from "@/components/composites/RouteCtaAction"
 
@@ -25,15 +25,15 @@ export const Header = () => {
 
     return (
         <Tree
-            contract="site-header"
-            render={defineContractComponent("site-header", {
-                bar: defineContractComponent("page-measure", {
-                    content: defineContractComponent("header-bar", {
-                        logo: defineContractProjection("opaque-content-unit", () => (
+            grammar="site-header"
+            render={defineGrammarComponent("site-header", {
+                bar: defineGrammarComponent("page-measure", {
+                    content: defineGrammarComponent("header-bar", {
+                        logo: defineGrammarProjection("opaque-content-unit", () => (
                             <HomeLink label="TEDO" />
                         )),
-                        nav: defineContractComponent("header-nav", {
-                            items: defineContractProjection("opaque-content-unit", () => (
+                        nav: defineGrammarComponent("header-nav", {
+                            items: defineGrammarProjection("opaque-content-unit", () => (
                                 <>
                                     {NAV.map((item) => (
                                         <a
@@ -47,9 +47,9 @@ export const Header = () => {
                                 </>
                             )),
                         }),
-                        actions: defineContractComponent("header-actions", {
-                            localeSwitcher: defineContractComponent("locale-switcher-group", {
-                                options: defineContractProjection("opaque-content-unit", () => (
+                        actions: defineGrammarComponent("header-actions", {
+                            localeSwitcher: defineGrammarComponent("locale-switcher-group", {
+                                options: defineGrammarProjection("opaque-content-unit", () => (
                                     <>
                                         {routing.locales.map((l) => (
                                             <Link
@@ -65,7 +65,7 @@ export const Header = () => {
                                     </>
                                 )),
                             }),
-                            cta: defineContractProjection("opaque-content-unit", () => (
+                            cta: defineGrammarProjection("opaque-content-unit", () => (
                                 <RouteCtaAction to="/chat" label={t("contact")} size="md" />
                             )),
                         }),

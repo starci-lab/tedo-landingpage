@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl"
 import { useRouter } from "@/i18n/routing"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarLeaf } from "@/components/grammar/props"
 import { Heading } from "@/components/leaves/Heading"
 import { Text } from "@/components/leaves/Text"
 import { ActionButton } from "@/components/leaves/ActionButton"
@@ -17,19 +17,19 @@ const ConsultationError = ({ error, reset }: ConsultationErrorProps) => {
 
     return (
         <Tree
-            contract="error-panel"
-            render={defineContractComponent("error-panel", {
-                heading: defineLeafComponent("heading", {}, () => (
+            grammar="error-panel"
+            render={defineGrammarComponent("error-panel", {
+                heading: defineGrammarLeaf("heading", {}, () => (
                     <Heading props={{ content: t("pageErrorTitle"), level: 1 }} />
                 )),
-                body: defineLeafComponent("text", {}, () => (
+                body: defineGrammarLeaf("text", {}, () => (
                     <Text props={{ content: error.message || t("pageErrorBody"), variant: "body" }} />
                 )),
-                actions: defineContractComponent("inline-action-row", {
-                    primary: defineLeafComponent("action-button", {}, () => (
+                actions: defineGrammarComponent("inline-action-row", {
+                    primary: defineGrammarLeaf("action-button", {}, () => (
                         <ActionButton props={{ content: t("retry"), variant: "brand" }} on={{ onPress: reset }} />
                     )),
-                    secondary: defineLeafComponent("action-button", {}, () => (
+                    secondary: defineGrammarLeaf("action-button", {}, () => (
                         <ActionButton
                             props={{ content: t("back"), variant: "outline" }}
                             on={{ onPress: () => router.push("/") }}

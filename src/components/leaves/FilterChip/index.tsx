@@ -1,4 +1,4 @@
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `FilterChip`: a pressable pill that narrows a visible set to one category, or clears

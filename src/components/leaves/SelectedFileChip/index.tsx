@@ -1,4 +1,4 @@
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `SelectedFileChip`: one file waiting to be sent, named and removable before it goes.

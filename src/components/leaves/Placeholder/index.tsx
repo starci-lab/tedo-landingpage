@@ -1,4 +1,4 @@
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `Placeholder`: one pulsing rectangle standing in for content that has not loaded yet.

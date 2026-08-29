@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import type { ContractKey } from "@/components/contracts"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import type { GrammarKey } from "@/components/grammar"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Separator } from "@/components/leaves/Separator"
@@ -23,56 +23,56 @@ export const Engagement = () => {
 
     return (
         <Tree
-            contract="page-band"
-            render={defineContractComponent("page-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band"
+            render={defineGrammarComponent("page-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="engagement-card-grid"
-                                render={defineContractComponent("engagement-card-grid", {
+                                grammar="engagement-card-grid"
+                                render={defineGrammarComponent("engagement-card-grid", {
                                     items: items.map((model) => {
-                                        const contract: ContractKey = model.featured ? "engagement-card-featured" : "engagement-card"
-                                        return defineContractComponent(contract, {
-                                            header: defineContractComponent("engagement-card-header", {
-                                                name: defineLeafComponent("heading", {}, () => (
+                                        const grammar: GrammarKey = model.featured ? "engagement-card-featured" : "engagement-card"
+                                        return defineGrammarComponent(grammar, {
+                                            header: defineGrammarComponent("engagement-card-header", {
+                                                name: defineGrammarLeaf("heading", {}, () => (
                                                     <Heading props={{ content: model.name, level: 3 }} />
                                                 )),
-                                                best: defineLeafComponent("text", {}, () => (
+                                                best: defineGrammarLeaf("text", {}, () => (
                                                     <Text props={{ content: model.best, variant: "label" }} />
                                                 )),
-                                                body: defineLeafComponent("text", {}, () => (
+                                                body: defineGrammarLeaf("text", {}, () => (
                                                     <Text props={{ content: model.body, variant: "body" }} />
                                                 )),
                                             }),
-                                            points: defineContractComponent("engagement-points-block", {
-                                                divider: defineLeafComponent("separator", {}, () => <Separator props={{}} />),
-                                                list: defineContractComponent("bullet-list", {
-                                                    items: model.points.map((point) => defineContractComponent("labelled-bullet-item", {
-                                                        mark: defineContractProjection("opaque-content-unit", () => (
+                                            points: defineGrammarComponent("engagement-points-block", {
+                                                divider: defineGrammarLeaf("separator", {}, () => <Separator props={{}} />),
+                                                list: defineGrammarComponent("bullet-list", {
+                                                    items: model.points.map((point) => defineGrammarComponent("labelled-bullet-item", {
+                                                        mark: defineGrammarProjection("opaque-content-unit", () => (
                                                             <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
                                                         )),
-                                                        label: defineLeafComponent("text", {}, () => (
+                                                        label: defineGrammarLeaf("text", {}, () => (
                                                             <Text props={{ content: point, variant: "body" }} />
                                                         )),
                                                     })),
                                                 }),
                                             }),
-                                            cta: defineLeafComponent("action-link", {}, () => (
+                                            cta: defineGrammarLeaf("action-link", {}, () => (
                                                 <ActionLink
                                                     props={{ href: "#contact", content: model.cta, variant: model.featured ? "primary" : "outline", size: "md" }}
                                                 />

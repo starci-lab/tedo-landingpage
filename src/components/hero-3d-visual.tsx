@@ -14,7 +14,7 @@ import { Wordmark } from "@/components/leaves/Wordmark"
  * pointer position off a `ref` and needs a real DOM handle for
  * `getBoundingClientRect` - `Tree` has no channel for a `ref` or a pointer
  * handler, so this one purely decorative (`aria-hidden`), ref-driven scene stays
- * outside the contract frame entirely rather than forcing a mechanic it cannot
+ * outside the grammar frame entirely rather than forcing a mechanic it cannot
  * express through it. Its structural positioning is named as real CSS in
  * `globals.css` (`.hero-3d-*`) instead of Tailwind's structural utility words,
  * the same escape this file's own `.tedo-scene` already uses for its motion.

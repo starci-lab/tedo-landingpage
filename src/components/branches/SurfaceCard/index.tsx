@@ -1,13 +1,13 @@
 "use client"
 
 import { Card } from "@heroui/react"
-import { renderContractValue } from "@/components/branches/Tree"
-import type { ContractSlots } from "@/components/contracts/props"
+import { renderGrammarValue } from "@/components/branches/Tree"
+import type { GrammarSlots } from "@/components/grammar/props"
 
 /**
- * BRANCH - `SurfaceCard`: the `labelled-surface-section` contract, projected into a bordered card.
+ * BRANCH - `SurfaceCard`: the `labelled-surface-section` grammar, projected into a bordered card.
  *
- * WRAPPER MECHANICS ARE INDEPENDENT OF CONTENT CONTRACT. `labelled-surface-section` only fixes
+ * WRAPPER MECHANICS ARE INDEPENDENT OF CONTENT GRAMMAR. `labelled-surface-section` only fixes
  * that a label sits above a body - it says nothing about a border, a shadow, or a radius. Those
  * belong to the VENDOR body this branch chooses, which is why `label` lands in `Card.Header` and
  * only `body` crosses into `Card.Content`: two different vendor regions, so the name and the
@@ -15,9 +15,9 @@ import type { ContractSlots } from "@/components/contracts/props"
  *
  * NO `CardShell`. A generic shell that took "children" and drew a border around them would let
  * any two unrelated things share one wrapper for no reason beyond convenience. This branch exists
- * because exactly one contract - `labelled-surface-section` - needs exactly this vendor body.
+ * because exactly one grammar - `labelled-surface-section` - needs exactly this vendor body.
  *
- * A named surface branch is the one place allowed to hand-write a vendor host: `contractNodeProps`
+ * A named surface branch is the one place allowed to hand-write a vendor host: `grammarNodeProps`
  * stays off-limits even here (the registry's OWN classes belong to `Tree`, the one frame that
  * paints them), and this file draws only the vendor's element and the vendor's own classes.
  */
@@ -25,7 +25,7 @@ import type { ContractSlots } from "@/components/contracts/props"
 /** Props for {@link SurfaceCard}. */
 export interface SurfaceCardProps {
     /** Checked slots for `labelled-surface-section` - never a projection, since projecting IS this branch's job. */
-    readonly render: ContractSlots<"labelled-surface-section">
+    readonly render: GrammarSlots<"labelled-surface-section">
     /** The card's visual weight. `transparent` drops the border/shadow while the label still leads it. */
     readonly variant?: "default" | "secondary" | "tertiary" | "transparent"
 }
@@ -39,10 +39,10 @@ export const SurfaceCard = ({ render, variant = "default" }: SurfaceCardProps) =
     return (
         <Card.Root data-tier="branch" data-component="SurfaceCard" variant={variant}>
             <Card.Header>
-                {renderContractValue(render.slots.label, "label")}
+                {renderGrammarValue(render.slots.label, "label")}
             </Card.Header>
             <Card.Content>
-                {renderContractValue(render.slots.body, "body")}
+                {renderGrammarValue(render.slots.body, "body")}
             </Card.Content>
         </Card.Root>
     )

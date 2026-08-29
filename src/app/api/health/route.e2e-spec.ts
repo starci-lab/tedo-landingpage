@@ -4,7 +4,7 @@ import { spawn, type ChildProcess } from "node:child_process"
 let server: ChildProcess
 const port = 3127
 
-describe("health endpoint e2e contract", () => {
+describe("health endpoint e2e grammar", () => {
     beforeAll(async () => {
         server = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "-p", String(port)], { stdio: "ignore" })
         for (let attempt = 0; attempt < 40; attempt += 1) {

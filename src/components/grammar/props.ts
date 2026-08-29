@@ -1,5 +1,5 @@
 import type { ComponentType, ReactNode } from "react"
-import type { ChildrenOf, ContractKey, ContractPropValue } from "@/components/contracts"
+import type { ChildrenOf, GrammarKey, GrammarPropValue } from "@/components/grammar"
 
 /**
  * THE SLOT SHAPES, as types rather than as a convention.
@@ -52,22 +52,22 @@ export type LeafProps<D extends ComponentData, A extends ComponentActions = Comp
 }
 
 /** Source identity carried by a leaf implementation, separate from its runtime data. */
-export type LeafComponentMeta<N extends string, P extends Readonly<Record<string, ContractPropValue>>> = {
+export type LeafComponentMeta<N extends string, P extends Readonly<Record<string, GrammarPropValue>>> = {
     readonly shape: "leaf"
     readonly name: N
     readonly props: P
 }
 
-/** A closed leaf render whose identity and contract-relevant literals survive import boundaries. */
-export type LeafComponent<N extends string, P extends Readonly<Record<string, ContractPropValue>>> = {
+/** A closed leaf render whose identity and grammar-relevant literals survive import boundaries. */
+export type LeafComponent<N extends string, P extends Readonly<Record<string, GrammarPropValue>>> = {
     (): ReactNode
     readonly meta: LeafComponentMeta<N, P>
 }
 
-/** Close runtime data over one leaf while exposing only the literals the contract constrains. */
-export const defineLeafComponent = <
+/** Close runtime data over one leaf while exposing only the literals the grammar constrains. */
+export const defineGrammarLeaf = <
     const N extends string,
-    const P extends Readonly<Record<string, ContractPropValue>>,
+    const P extends Readonly<Record<string, GrammarPropValue>>,
 >(
         name: N,
         props: P,
@@ -76,96 +76,96 @@ export const defineLeafComponent = <
         meta: { shape: "leaf", name, props } as const,
     })
 
-/** Source identity carried by every contract value admitted by a contract branch. */
-export type ContractComponentMeta<K extends ContractKey> = {
-    readonly shape: "contract"
-    readonly contract: K
+/** Source identity carried by every grammar value admitted by a grammar branch. */
+export type GrammarComponentMeta<K extends GrammarKey> = {
+    readonly shape: "grammar"
+    readonly grammar: K
 }
 
 /** A checked slot record. It carries content; it is deliberately not callable. */
-export type ContractSlots<K extends ContractKey> = {
+export type GrammarSlots<K extends GrammarKey> = {
     readonly kind: "slots"
-    readonly meta: ContractComponentMeta<K>
+    readonly meta: GrammarComponentMeta<K>
     readonly slots: ChildrenOf<K>
 }
 
-/** A branch-owned projection that has already drawn the host a contract cannot express. */
-export type ContractProjection<K extends ContractKey> = {
+/** A branch-owned projection that has already drawn the host a grammar cannot express. */
+export type GrammarProjection<K extends GrammarKey> = {
     readonly kind: "projection"
-    readonly meta: ContractComponentMeta<K>
+    readonly meta: GrammarComponentMeta<K>
     readonly project: () => ReactNode
 }
 
-/** A real component type whose runtime input remains separate from its contract identity. */
-export type ContractRenderComponent<
-    K extends ContractKey,
+/** A real component type whose runtime input remains separate from its grammar identity. */
+export type GrammarRenderComponent<
+    K extends GrammarKey,
     P,
 > = ComponentType<P> & {
     readonly kind: "component"
-    readonly meta: ContractComponentMeta<K>
+    readonly meta: GrammarComponentMeta<K>
 }
 
-/** Checked bound content used by Tree and aggregate contract projections. */
-export type BoundContractComponent<K extends ContractKey> = ContractSlots<K> | ContractProjection<K>
+/** Checked bound content used by Tree and aggregate grammar projections. */
+export type BoundGrammarComponent<K extends GrammarKey> = GrammarSlots<K> | GrammarProjection<K>
 
 /**
- * One contract identity with either bound slots or a real component input.
+ * One grammar identity with either bound slots or a real component input.
  *
  * Omitting `P` selects the bound lane used by Tree. Supplying `P` selects the component-type lane
  * used by a host that passes runtime `props` without closing them into slot callbacks.
  */
-export type ContractComponent<
-    K extends ContractKey,
+export type GrammarComponent<
+    K extends GrammarKey,
     P = undefined,
 > = [P] extends [undefined]
-    ? BoundContractComponent<K>
-    : ContractRenderComponent<K, P>
+    ? BoundGrammarComponent<K>
+    : GrammarRenderComponent<K, P>
 
 /** The two supported builder calls: checked bound slots, or a real component type. */
-type DefineContractComponent = {
-    <const K extends ContractKey>(contract: K, slots: ChildrenOf<K>): ContractSlots<K>
+type DefineGrammarComponent = {
+    <const K extends GrammarKey>(grammar: K, slots: ChildrenOf<K>): GrammarSlots<K>
     <
-        const K extends ContractKey,
+        const K extends GrammarKey,
         P,
     >(
-        contract: K,
+        grammar: K,
         render: ComponentType<P>,
-    ): ContractRenderComponent<K, P>
+    ): GrammarRenderComponent<K, P>
 }
 
 /**
- * Bind either checked named slots or one real component type to an exact contract identity.
+ * Bind either checked named slots or one real component type to an exact grammar identity.
  *
- * The component overload keeps runtime `props` outside the contract metadata. A host can therefore
+ * The component overload keeps runtime `props` outside the grammar metadata. A host can therefore
  * pass changing data into a stable component type without rebuilding a forest of closed callbacks.
  */
-export const defineContractComponent = ((contract: ContractKey, input: unknown) => {
+export const defineGrammarComponent = ((grammar: GrammarKey, input: unknown) => {
     if (typeof input === "function") {
         return Object.assign(input, {
             kind: "component" as const,
-            meta: { shape: "contract", contract } as const,
+            meta: { shape: "grammar", grammar } as const,
         })
     }
     return {
         kind: "slots" as const,
-        meta: { shape: "contract", contract } as const,
+        meta: { shape: "grammar", grammar } as const,
         slots: input,
     }
-}) as DefineContractComponent
+}) as DefineGrammarComponent
 
-/** Brand the complete node produced by a branch that owns wrappers a contract cannot express. */
-export const defineContractProjection = <const K extends ContractKey>(
-    contract: K,
+/** Brand the complete node produced by a branch that owns wrappers a grammar cannot express. */
+export const defineGrammarProjection = <const K extends GrammarKey>(
+    grammar: K,
     render: () => ReactNode,
-): ContractProjection<K> => ({
+): GrammarProjection<K> => ({
         kind: "projection",
-        meta: { shape: "contract", contract } as const,
+        meta: { shape: "grammar", grammar } as const,
         project: render,
     })
 
-/** A branch that projects one typed contract component into its own wrapper mechanics. */
-export type ContractBranchProps<K extends ContractKey> = {
-    readonly contract: K
-    readonly render: ContractComponent<NoInfer<K>>
+/** A branch that projects one typed grammar component into its own wrapper mechanics. */
+export type GrammarBranchProps<K extends GrammarKey> = {
+    readonly grammar: K
+    readonly render: GrammarComponent<NoInfer<K>>
     readonly isLoading?: boolean
 }

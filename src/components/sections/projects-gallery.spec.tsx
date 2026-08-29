@@ -1,3 +1,5 @@
+// @vitest-environment jsdom
+import { fireEvent, render } from "@testing-library/react"
 import { renderToStaticMarkup } from "react-dom/server"
 import { describe, expect, it, vi } from "vitest"
 import { ProjectsGallery } from "./projects-gallery"
@@ -24,5 +26,14 @@ describe("ProjectsGallery", () => {
         expect(html).toContain("Learn")
         expect(html).toContain("pendingImage")
         expect(html).toContain("gallery-cta-panel")
+    })
+
+    it("filters a category and restores all projects", () => {
+        const { getByText, getByRole, queryByText } = render(<ProjectsGallery />)
+        fireEvent.click(getByRole("button", { name: "Commerce" }))
+        expect(getByText("Shop")).toBeTruthy()
+        expect(queryByText("Learn")).toBeNull()
+        fireEvent.click(getByRole("button", { name: "filterAll" }))
+        expect(getByText("Learn")).toBeTruthy()
     })
 })

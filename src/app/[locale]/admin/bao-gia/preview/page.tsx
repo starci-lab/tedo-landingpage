@@ -6,7 +6,7 @@ import { routing } from "@/i18n/routing"
 import { QuoteDocument } from "@/components/quote/quote-document"
 import { sampleYabai } from "@/lib/quote/sample-yabai"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 
 /**
@@ -46,15 +46,15 @@ const QuotePreviewPage = async ({
 
     return (
         <Tree
-            contract="quote-preview-shell"
-            render={defineContractComponent("quote-preview-shell", {
-                toolbar: defineContractProjection("opaque-content-unit", () => (
+            grammar="quote-preview-shell"
+            render={defineGrammarComponent("quote-preview-shell", {
+                toolbar: defineGrammarProjection("opaque-content-unit", () => (
                     <Tree
-                        contract="quote-preview-toolbar"
-                        render={defineContractComponent("quote-preview-toolbar", {
-                            row: defineContractComponent("quote-preview-toolbar-row", {
-                                details: defineContractComponent("quote-preview-toolbar-details", {
-                                    title: defineLeafComponent("text", {}, () => (
+                        grammar="quote-preview-toolbar"
+                        render={defineGrammarComponent("quote-preview-toolbar", {
+                            row: defineGrammarComponent("quote-preview-toolbar-row", {
+                                details: defineGrammarComponent("quote-preview-toolbar-details", {
+                                    title: defineGrammarLeaf("text", {}, () => (
                                         <Text
                                             props={{
                                                 // vn-ok: this is rendered quote-preview copy.
@@ -63,7 +63,7 @@ const QuotePreviewPage = async ({
                                             }}
                                         />
                                     )),
-                                    meta: defineLeafComponent("text", {}, () => (
+                                    meta: defineGrammarLeaf("text", {}, () => (
                                         <Text
                                             props={{
                                                 // vn-ok: this is rendered quote-preview copy.
@@ -73,7 +73,7 @@ const QuotePreviewPage = async ({
                                         />
                                     )),
                                 }),
-                                hint: defineLeafComponent("text", {}, () => (
+                                hint: defineGrammarLeaf("text", {}, () => (
                                     <Text
                                         props={{
                                             // vn-ok: this is rendered quote-preview copy.
@@ -86,7 +86,7 @@ const QuotePreviewPage = async ({
                         })}
                     />
                 )),
-                document: defineContractProjection("opaque-content-unit", () => (
+                document: defineGrammarProjection("opaque-content-unit", () => (
                     <QuoteDocument doc={sampleYabai} />
                 )),
             })}

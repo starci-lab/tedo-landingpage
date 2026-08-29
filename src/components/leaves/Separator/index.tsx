@@ -1,7 +1,7 @@
 "use client"
 
 import { Separator as HeroSeparator } from "@heroui/react"
-import type { LeafProps } from "@/components/contracts/props"
+import type { LeafProps } from "@/components/grammar/props"
 
 /**
  * LEAF - `Separator`: the rule that ends one run of content before the next

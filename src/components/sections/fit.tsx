@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Icon } from "@/components/leaves/Icon"
@@ -19,53 +19,53 @@ export const Fit = () => {
 
     return (
         <Tree
-            contract="page-band-tinted"
-            render={defineContractComponent("page-band-tinted", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="page-band-tinted"
+            render={defineGrammarComponent("page-band-tinted", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 2 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="fit-comparison-grid"
-                                render={defineContractComponent("fit-comparison-grid", {
-                                    yes: defineContractComponent("fit-column", {
-                                        title: defineLeafComponent("heading", {}, () => (
+                                grammar="fit-comparison-grid"
+                                render={defineGrammarComponent("fit-comparison-grid", {
+                                    yes: defineGrammarComponent("fit-column", {
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: t("yesTitle"), level: 3 }} />
                                         )),
-                                        items: defineContractComponent("bullet-list", {
-                                            items: yes.map((item) => defineContractComponent("labelled-bullet-item", {
-                                                mark: defineContractProjection("opaque-content-unit", () => (
+                                        items: defineGrammarComponent("bullet-list", {
+                                            items: yes.map((item) => defineGrammarComponent("labelled-bullet-item", {
+                                                mark: defineGrammarProjection("opaque-content-unit", () => (
                                                     <Icon props={{ name: "CheckIcon", size: "sm" }} />
                                                 )),
-                                                label: defineLeafComponent("text", {}, () => (
+                                                label: defineGrammarLeaf("text", {}, () => (
                                                     <Text props={{ content: item, variant: "body" }} />
                                                 )),
                                             })),
                                         }),
                                     }),
-                                    no: defineContractComponent("fit-column", {
-                                        title: defineLeafComponent("heading", {}, () => (
+                                    no: defineGrammarComponent("fit-column", {
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: t("noTitle"), level: 3 }} />
                                         )),
-                                        items: defineContractComponent("bullet-list", {
-                                            items: no.map((item) => defineContractComponent("labelled-bullet-item", {
-                                                mark: defineContractProjection("opaque-content-unit", () => (
+                                        items: defineGrammarComponent("bullet-list", {
+                                            items: no.map((item) => defineGrammarComponent("labelled-bullet-item", {
+                                                mark: defineGrammarProjection("opaque-content-unit", () => (
                                                     <Icon props={{ name: "XMarkIcon", size: "sm" }} />
                                                 )),
-                                                label: defineLeafComponent("text", {}, () => (
+                                                label: defineGrammarLeaf("text", {}, () => (
                                                     <Text props={{ content: item, variant: "body" }} />
                                                 )),
                                             })),

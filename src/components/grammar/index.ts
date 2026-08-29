@@ -90,27 +90,27 @@ export type LayoutClassName =
     | "tedo-hero-receipt"
     | "tedo-hero-receipt-meta"
 
-/** Literal values a contract may require from a child component's data props. */
-export type ContractPropValue = string | number | boolean | null
+/** Literal values a grammar may require from a child component's data props. */
+export type GrammarPropValue = string | number | boolean | null
 
 /** Shared layout literal reused by the marketing and base layout groups. */
 type SharedLayoutClassName = "flex-wrap"
 
 /** A child appears once unless it explicitly declares a repeated run and its resting count. */
-export type ContractChildCardinality =
+export type GrammarChildCardinality =
     | { readonly repeats?: false, readonly restingCount?: never }
     | { readonly repeats: true, readonly restingCount: number }
 
-/** One named child slot: a leaf, or another closed contract identity. */
-export type ContractChildSpec = ContractChildCardinality & {
+/** One named child slot: a leaf, or another closed grammar identity. */
+export type GrammarChildSpec = GrammarChildCardinality & {
     readonly leaf?: string | ReadonlyArray<string>
-    readonly contract?: string | ReadonlyArray<string>
-    readonly props?: Readonly<Record<string, ContractPropValue>>
+    readonly grammar?: string | ReadonlyArray<string>
+    readonly props?: Readonly<Record<string, GrammarPropValue>>
     readonly optional?: boolean
 }
 
 type ChildProps<S> = S extends { readonly props?: infer P }
-    ? P extends Readonly<Record<string, ContractPropValue>> ? P : Readonly<Record<never, never>>
+    ? P extends Readonly<Record<string, GrammarPropValue>> ? P : Readonly<Record<never, never>>
     : Readonly<Record<never, never>>
 
 /**
@@ -119,52 +119,52 @@ type ChildProps<S> = S extends { readonly props?: infer P }
  * A measure fixes WHERE the content it holds sits and can never fix WHICH node that is - the same
  * band holds a hero layout on one page and a pricing grid on the next - so a literal key in that
  * slot would be a lie in every use but one. The `$` says it is not a member of the vocabulary:
- * nothing may be named this, and `contractSpec` never resolves it.
+ * nothing may be named this, and `grammarSpec` never resolves it.
  */
 type CallerContent = "$content"
 
 /**
- * The identity a parent contract needs from one already-validated child contract.
+ * The identity a parent grammar needs from one already-validated child grammar.
  *
  * The child builder has already checked its own slots. Re-expanding those slots while validating
  * the parent recursively opens the complete registry at every edge; the parent only consumes the
  * closed identity at runtime.
  */
-type ContractChild<S> = S extends { readonly contract: infer K }
+type GrammarChild<S> = S extends { readonly grammar: infer K }
     ? [K extends ReadonlyArray<infer A> ? A : K] extends [CallerContent]
-        ? import("@/components/contracts/props").ContractComponent<ContractKey>
-        : (K extends ReadonlyArray<infer A> ? A : K) extends infer C extends ContractKey
-            ? import("@/components/contracts/props").ContractComponent<C>
+        ? import("@/components/grammar/props").GrammarComponent<GrammarKey>
+        : (K extends ReadonlyArray<infer A> ? A : K) extends infer C extends GrammarKey
+            ? import("@/components/grammar/props").GrammarComponent<C>
             : never
     : never
 
 type LeafChild<S> = S extends { readonly leaf: infer N }
     ? (N extends ReadonlyArray<infer A> ? A : N) extends infer L extends string
-        ? import("@/components/contracts/props").LeafComponent<L, ChildProps<S>>
+        ? import("@/components/grammar/props").LeafComponent<L, ChildProps<S>>
         : never
     : never
 
-type OneChild<S> = ContractChild<S> | LeafChild<S>
+type OneChild<S> = GrammarChild<S> | LeafChild<S>
 
 type ChildValue<S> = S extends { readonly repeats: true }
     ? ReadonlyArray<OneChild<S>>
     : OneChild<S>
 
-type RequiredChildNames<K extends ContractKey> = {
-    [S in keyof (typeof CONTRACTS)[K]["children"]]:
-        (typeof CONTRACTS)[K]["children"][S] extends { readonly optional: true } ? never : S
-}[keyof (typeof CONTRACTS)[K]["children"]]
+type RequiredChildNames<K extends GrammarKey> = {
+    [S in keyof (typeof GRAMMAR_NODES)[K]["children"]]:
+        (typeof GRAMMAR_NODES)[K]["children"][S] extends { readonly optional: true } ? never : S
+}[keyof (typeof GRAMMAR_NODES)[K]["children"]]
 
-type OptionalChildNames<K extends ContractKey> = Exclude<
-    keyof (typeof CONTRACTS)[K]["children"],
+type OptionalChildNames<K extends GrammarKey> = Exclude<
+    keyof (typeof GRAMMAR_NODES)[K]["children"],
     RequiredChildNames<K>
 >
 
-/** The exact named render record admitted by one contract key. */
-export type ChildrenOf<K extends ContractKey> = {
-    readonly [S in RequiredChildNames<K>]: ChildValue<(typeof CONTRACTS)[K]["children"][S]>
+/** The exact named render record admitted by one grammar key. */
+export type ChildrenOf<K extends GrammarKey> = {
+    readonly [S in RequiredChildNames<K>]: ChildValue<(typeof GRAMMAR_NODES)[K]["children"][S]>
 } & {
-    readonly [S in OptionalChildNames<K>]?: ChildValue<(typeof CONTRACTS)[K]["children"][S]>
+    readonly [S in OptionalChildNames<K>]?: ChildValue<(typeof GRAMMAR_NODES)[K]["children"][S]>
 }
 
 /**
@@ -174,16 +174,16 @@ export type ChildrenOf<K extends ContractKey> = {
  * document, and only the entry that draws it may say so. Absent means `div`, a node with no
  * meaning of its own.
  */
-export type ContractHost = "div" | "section" | "main" | "header" | "footer" | "aside" | "nav" | "ul" | "ol" | "li" | "form" | "dl" | "span"
+export type GrammarHost = "div" | "section" | "main" | "header" | "footer" | "aside" | "nav" | "ul" | "ol" | "li" | "form" | "dl" | "span"
 
 /** One registry entry: a node's own classes, the element it opens, and why it holds its children that way. */
-export interface ContractSpec {
+export interface GrammarSpec {
     /** The class string of the node itself. Not a prop, not reachable by a caller. */
     readonly classes: ReadonlyArray<LayoutClassName>
     /** The element this node opens. Absent means `div` - a node with no meaning of its own. */
-    readonly host?: ContractHost
-    /** Named child grammar. No anonymous `children` hole exists in a contract. */
-    readonly children: Readonly<Record<string, ContractChildSpec>>
+    readonly host?: GrammarHost
+    /** Named child grammar. No anonymous `children` hole exists in a grammar. */
+    readonly children: Readonly<Record<string, GrammarChildSpec>>
     /**
      * Why the children of this node sit the way they do, in one sentence.
      *
@@ -199,8 +199,8 @@ export interface ContractSpec {
  * A function rather than a bare literal so the keys are checked in one place and stay literal
  * without an `as const` at the call site.
  */
-const buildContracts = <const T extends { readonly [K in keyof T]: ContractSpec }>(contracts: T): T =>
-    contracts
+const buildGrammars = <const T extends { readonly [K in keyof T]: GrammarSpec }>(grammars: T): T =>
+    grammars
 
 /**
  * The registry. Every node the frame may draw, and the reason each one holds its children the
@@ -209,15 +209,15 @@ const buildContracts = <const T extends { readonly [K in keyof T]: ContractSpec 
  * KEEP THE NAMES CHILD-FIXING. A key whose name does not say what belongs inside it stops
  * constraining anything, and its `why` decays into a label the moment a second page uses it.
  *
- * `Container` and `Section` are NOT folded into contract keys here. The page's reading measure and
+ * `Container` and `Section` are NOT folded into grammar keys here. The page's reading measure and
  * its vertical rhythm are real future entries - `page-band`/`page-measure`, shaped exactly like
- * `labelled-surface-section` below - but `starci-fe/no-dead-contract-key` runs against real
+ * `labelled-surface-section` below - but `starci-fe/no-dead-grammar-key` runs against real
  * product source, not against intent recorded in a comment, and neither key has a caller until a
- * marketing section is migrated onto the contract system. That migration is a later wave's own
+ * marketing section is migrated onto the grammar system. That migration is a later wave's own
  * work; it adds the two keys back together with their first real `<Tree>` call in the same change,
  * which is the only way this table has ever grown a member honestly.
  */
-export const CONTRACTS = buildContracts({
+export const GRAMMAR_NODES = buildGrammars({
     "card-label-row": {
         classes: ["flex", "flex-row", "flex-wrap", "items-center", "justify-between", "gap-3"],
         children: {
@@ -237,8 +237,8 @@ export const CONTRACTS = buildContracts({
     "labelled-surface-section": {
         classes: ["flex", "flex-col", "gap-3"],
         children: {
-            label: { contract: ["card-label-row", "list-label-row"] },
-            body: { contract: "$content" },
+            label: { grammar: ["card-label-row", "list-label-row"] },
+            body: { grammar: "$content" },
         },
         why: "the label names the surface below it and is held outside the vendor body so a frameless card or a bare list can drop the surface while the label stays; without this stack the name and the bounded content would compete for one shared edge.",
     },
@@ -265,7 +265,7 @@ export const CONTRACTS = buildContracts({
         children: {
             heading: { leaf: "heading" },
             body: { leaf: "text" },
-            actions: { contract: "inline-action-row" },
+            actions: { grammar: "inline-action-row" },
         },
         why: "the panel centers itself in the empty viewport the failed route leaves behind, with nothing beside it to anchor a left edge, so the title, the explanation and the recovery pair all read from the same middle column.",
     },
@@ -281,9 +281,9 @@ export const CONTRACTS = buildContracts({
 
     "opaque-content-unit": {
         /*
-         * Always bound through `defineContractProjection`, never through checked slots - so its own
+         * Always bound through `defineGrammarProjection`, never through checked slots - so its own
          * `classes`/`children` never reach the document. A cross-cutting wrapper such as `Reveal`, or
-         * a route that opens on a section it does not own the inside of, needs a contract IDENTITY to
+         * a route that opens on a section it does not own the inside of, needs a grammar IDENTITY to
          * satisfy a typed `render` prop without re-describing a shape drawn entirely somewhere else.
          */
         classes: [],
@@ -303,10 +303,10 @@ export const CONTRACTS = buildContracts({
     "tedo-execution-rail": {
         classes: [],
         children: {
-            rail: { contract: "$content" },
-            signalA: { contract: "$content" },
-            signalB: { contract: "$content" },
-            signalC: { contract: "$content" },
+            rail: { grammar: "$content" },
+            signalA: { grammar: "$content" },
+            signalB: { grammar: "$content" },
+            signalC: { grammar: "$content" },
         },
         why: "the animated route and its delivery signals share one fixed background frame behind the page content.",
     },
@@ -315,9 +315,9 @@ export const CONTRACTS = buildContracts({
         host: "header",
         classes: [],
         children: {
-            logo: { contract: "$content" },
-            links: { contract: "tedo-navigation-links" },
-            action: { contract: "$content" },
+            logo: { grammar: "$content" },
+            links: { grammar: "tedo-navigation-links" },
+            action: { grammar: "$content" },
         },
         why: "the brand, section links, and project action occupy fixed points in one persistent navigation bar.",
     },
@@ -325,16 +325,16 @@ export const CONTRACTS = buildContracts({
     "tedo-navigation-links": {
         host: "nav",
         classes: [],
-        children: { links: { contract: "$content" } },
+        children: { links: { grammar: "$content" } },
         why: "the section anchors remain grouped as one navigational landmark between the brand and the project action.",
     },
 
     "tedo-agent-runway": {
         classes: [],
         children: {
-            header: { contract: "tedo-runway-boundary" },
-            body: { contract: "tedo-runway-body" },
-            footer: { contract: "tedo-runway-boundary" },
+            header: { grammar: "tedo-runway-boundary" },
+            body: { grammar: "tedo-runway-body" },
+            footer: { grammar: "tedo-runway-boundary" },
         },
         why: "the live delivery lanes stay bracketed by input and output metadata so the moving jobs remain legible as one bounded project route.",
     },
@@ -351,8 +351,8 @@ export const CONTRACTS = buildContracts({
     "tedo-runway-body": {
         classes: [],
         children: {
-            approval: { contract: "tedo-runway-gate" },
-            lanes: { contract: "tedo-runway-lane", repeats: true, restingCount: 4 },
+            approval: { grammar: "tedo-runway-gate" },
+            lanes: { grammar: "tedo-runway-lane", repeats: true, restingCount: 4 },
         },
         why: "the approval gate crosses the repeated delivery lanes in one positioning frame so every moving job visibly passes the same human decision boundary.",
     },
@@ -378,7 +378,7 @@ export const CONTRACTS = buildContracts({
         host: "footer",
         classes: [],
         children: {
-            mark: { contract: "$content" },
+            mark: { grammar: "$content" },
             copy: { leaf: "text" },
             year: { leaf: "text" },
         },
@@ -389,8 +389,8 @@ export const CONTRACTS = buildContracts({
         host: "section",
         classes: [],
         children: {
-            copy: { contract: "tedo-mission-cta-copy" },
-            action: { contract: "tedo-mission-cta-action" },
+            copy: { grammar: "tedo-mission-cta-copy" },
+            action: { grammar: "tedo-mission-cta-action" },
         },
         why: "the closing invitation keeps its message and single project action in one semantic section so the outcome is understood before the next action is chosen.",
     },
@@ -408,7 +408,7 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             body: { leaf: "text" },
-            action: { contract: "$content" },
+            action: { grammar: "$content" },
         },
         why: "the CTA explanation and its button form one action column so the supporting detail sits directly above the control it motivates.",
     },
@@ -419,8 +419,8 @@ export const CONTRACTS = buildContracts({
         children: {
             eyebrow: { leaf: "text" },
             title: { leaf: "heading" },
-            grid: { contract: "tedo-hero-grid" },
-            runway: { contract: "$content" },
+            grid: { grammar: "tedo-hero-grid" },
+            runway: { grammar: "$content" },
         },
         why: "the eyebrow and level-one promise establish the operating model before the explanatory copy, delivery preview, and visual runway compete for attention below.",
     },
@@ -428,8 +428,8 @@ export const CONTRACTS = buildContracts({
     "tedo-hero-grid": {
         classes: [],
         children: {
-            copy: { contract: "tedo-hero-copy" },
-            receipt: { contract: "tedo-hero-receipt" },
+            copy: { grammar: "tedo-hero-copy" },
+            receipt: { grammar: "tedo-hero-receipt" },
         },
         why: "the hero's explanation and delivery receipt share one grid so a visitor can scan the promise and its concrete project evidence together.",
     },
@@ -438,22 +438,22 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             lead: { leaf: "text" },
-            prompt: { contract: "tedo-hero-prompt" },
-            secondary: { contract: "$content" },
+            prompt: { grammar: "tedo-hero-prompt" },
+            secondary: { grammar: "$content" },
         },
         why: "the lead, prompt, and secondary route form one invitation column, moving from context to input to the lower-commitment way to inspect the workflow.",
     },
 
     "tedo-hero-prompt": {
         classes: [],
-        children: { composer: { contract: "$content" } },
+        children: { composer: { grammar: "$content" } },
         why: "the consultation composer keeps its own interaction logic inside a bounded hero slot so it cannot shift the lead or secondary workflow link around it.",
     },
 
     "tedo-hero-receipt": {
         classes: [],
         children: {
-            meta: { contract: "tedo-hero-receipt-meta" },
+            meta: { grammar: "tedo-hero-receipt-meta" },
             name: { leaf: "text" },
             copy: { leaf: "text" },
         },
@@ -475,9 +475,9 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             anchor: { leaf: "anchor" },
-            meta: { contract: "tedo-section-meta" },
-            heading: { contract: "tedo-chapter-heading" },
-            theatre: { contract: "tedo-mission-theatre" },
+            meta: { grammar: "tedo-section-meta" },
+            heading: { grammar: "tedo-chapter-heading" },
+            theatre: { grammar: "tedo-mission-theatre" },
         },
         why: "the active-project chapter keeps its heading and route theatre under one landmark so the process animation cannot be separated from the outcome it explains.",
     },
@@ -494,9 +494,9 @@ export const CONTRACTS = buildContracts({
     "tedo-mission-theatre": {
         classes: [],
         children: {
-            statusHeader: { contract: "tedo-mission-header" },
-            routeDrawing: { contract: "$content" },
-            stageLabels: { contract: "tedo-runtime-steps" },
+            statusHeader: { grammar: "tedo-mission-header" },
+            routeDrawing: { grammar: "$content" },
+            stageLabels: { grammar: "tedo-runtime-steps" },
         },
         why: "the live status header, routed mission drawing, and stage labels share one clipped theatre so their positions remain synchronized across the animation.",
     },
@@ -504,7 +504,7 @@ export const CONTRACTS = buildContracts({
     "tedo-mission-header": {
         classes: [],
         children: {
-            missionIdentity: { contract: "tedo-mission-identity" },
+            missionIdentity: { grammar: "tedo-mission-identity" },
             missionStatus: { leaf: "text" },
         },
         why: "the current mission identity stays opposite its running state so a visitor can pair what is being shipped with whether the delivery is active.",
@@ -530,22 +530,22 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             anchor: { leaf: "anchor" },
-            meta: { contract: "tedo-section-meta" },
-            heading: { contract: "tedo-chapter-heading" },
-            scrollTrack: { contract: "tedo-workflow-scroll" },
+            meta: { grammar: "tedo-section-meta" },
+            heading: { grammar: "tedo-chapter-heading" },
+            scrollTrack: { grammar: "tedo-workflow-scroll" },
         },
         why: "the workflow chapter owns one extended scroll track so all six packaged stages advance inside the same stable dashboard rather than becoming disconnected cards.",
     },
 
     "tedo-workflow-scroll": {
         classes: [],
-        children: { stickyFrame: { contract: "tedo-workflow-sticky" } },
+        children: { stickyFrame: { grammar: "tedo-workflow-sticky" } },
         why: "the tall scroll track supplies travel distance while the dashboard remains pinned long enough for every packaged stage to become the active state.",
     },
 
     "tedo-workflow-sticky": {
         classes: [],
-        children: { dashboard: { contract: "tedo-workflow-dashboard" } },
+        children: { dashboard: { grammar: "tedo-workflow-dashboard" } },
         why: "the viewport-height frame holds the dashboard in place while page scroll changes its contents, preventing the stage sequence from sliding out before it completes.",
     },
 
@@ -553,9 +553,9 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             stateMarker: { leaf: "state" },
-            stageNavigation: { contract: "tedo-workflow-stage-list" },
-            activeCanvas: { contract: "tedo-workflow-canvas" },
-            narrative: { contract: "tedo-workflow-narrative" },
+            stageNavigation: { grammar: "tedo-workflow-stage-list" },
+            activeCanvas: { grammar: "tedo-workflow-canvas" },
+            narrative: { grammar: "tedo-workflow-narrative" },
         },
         why: "the stage list, active illustration, and narrative occupy fixed dashboard regions so scrolling changes state without changing the user's spatial model.",
     },
@@ -563,7 +563,7 @@ export const CONTRACTS = buildContracts({
     "tedo-workflow-stage-list": {
         host: "ol",
         classes: [],
-        children: { stages: { contract: "tedo-workflow-stage-item", repeats: true, restingCount: 6 } },
+        children: { stages: { grammar: "tedo-workflow-stage-item", repeats: true, restingCount: 6 } },
         why: "the six delivery stages remain an ordered list beside the active canvas so their sequence is explicit both visually and to assistive technology.",
     },
 
@@ -572,7 +572,7 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             stageIndex: { leaf: "text" },
-            stageDetail: { contract: "tedo-workflow-stage-detail" },
+            stageDetail: { grammar: "tedo-workflow-stage-detail" },
         },
         why: "each stage keeps its index beside its name and state so the active marker can move without separating a number from the work it identifies.",
     },
@@ -589,9 +589,9 @@ export const CONTRACTS = buildContracts({
     "tedo-workflow-canvas": {
         classes: [],
         children: {
-            canvasMeta: { contract: "tedo-workflow-canvas-meta" },
-            illustration: { contract: "$content" },
-            progressRail: { contract: "tedo-workflow-progress" },
+            canvasMeta: { grammar: "tedo-workflow-canvas-meta" },
+            illustration: { grammar: "$content" },
+            progressRail: { grammar: "tedo-workflow-progress" },
         },
         why: "the active illustration stays between its run metadata and progress rail so each stage reads as one instrument panel rather than a detached decorative image.",
     },
@@ -630,8 +630,8 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             anchor: { leaf: "anchor" },
-            meta: { contract: "tedo-section-meta" },
-            content: { contract: "tedo-proof-content" },
+            meta: { grammar: "tedo-section-meta" },
+            content: { grammar: "tedo-proof-content" },
         },
         why: "the delivery proof remains one named section so its marker and evidence panel stay part of the same traceable outcome when the page is scanned by landmarks.",
     },
@@ -639,8 +639,8 @@ export const CONTRACTS = buildContracts({
     "tedo-proof-content": {
         classes: [],
         children: {
-            outcomeMetric: { contract: "tedo-proof-metric" },
-            deliveryReceipt: { contract: "tedo-proof-receipt" },
+            outcomeMetric: { grammar: "tedo-proof-metric" },
+            deliveryReceipt: { grammar: "tedo-proof-receipt" },
         },
         why: "the headline metric and detailed receipt share one responsive proof grid so the headline stays visible beside the evidence that supports it.",
     },
@@ -657,10 +657,10 @@ export const CONTRACTS = buildContracts({
     "tedo-proof-receipt": {
         classes: [],
         children: {
-            receiptMeta: { contract: "tedo-proof-receipt-meta" },
+            receiptMeta: { grammar: "tedo-proof-receipt-meta" },
             receiptTitle: { leaf: "heading" },
             receiptExplanation: { leaf: "text" },
-            receiptStats: { contract: "tedo-proof-stats" },
+            receiptStats: { grammar: "tedo-proof-stats" },
         },
         why: "the receipt identity, proof title, explanation, and measurable stats stay in one evidence panel so verification details cannot drift away from the claim.",
     },
@@ -677,7 +677,7 @@ export const CONTRACTS = buildContracts({
     "tedo-proof-stats": {
         host: "dl",
         classes: [],
-        children: { measures: { contract: "tedo-proof-stat", repeats: true, restingCount: 3 } },
+        children: { measures: { grammar: "tedo-proof-stat", repeats: true, restingCount: 3 } },
         why: "the proof measures remain a definition list so each value is explicitly paired with its label instead of becoming an unlabelled row of numbers.",
     },
 
@@ -694,14 +694,14 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             styleMarker: { leaf: "state" },
-            navigation: { contract: "$content" },
-            routeRail: { contract: "$content" },
-            hero: { contract: "$content" },
-            runtime: { contract: "$content" },
-            workflow: { contract: "$content" },
-            proof: { contract: "$content" },
-            cta: { contract: "$content" },
-            footer: { contract: "$content" },
+            navigation: { grammar: "$content" },
+            routeRail: { grammar: "$content" },
+            hero: { grammar: "$content" },
+            runtime: { grammar: "$content" },
+            workflow: { grammar: "$content" },
+            proof: { grammar: "$content" },
+            cta: { grammar: "$content" },
+            footer: { grammar: "$content" },
         },
         why: "the complete operating-model sequence stays in one page frame while the route file retains ownership of the document's single main landmark.",
     },
@@ -710,10 +710,10 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             styleMarker: { leaf: "state" },
-            routeRail: { contract: "$content" },
-            runtime: { contract: "$content" },
-            workflow: { contract: "$content" },
-            proof: { contract: "$content" },
+            routeRail: { grammar: "$content" },
+            runtime: { grammar: "$content" },
+            workflow: { grammar: "$content" },
+            proof: { grammar: "$content" },
         },
         why: "the embedded operating-model chapters share one bounded band while the host landing page keeps its existing hero and conversion structure around them.",
     },
@@ -722,7 +722,7 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             styleMarker: { leaf: "state" },
-            runway: { contract: "$content" },
+            runway: { grammar: "$content" },
         },
         why: "the compact hero visual gives the delivery runway its own clipping and sizing frame so animation cannot overflow into the neighboring consultation copy.",
     },
@@ -733,8 +733,8 @@ export const CONTRACTS = buildContracts({
         classes: [],
         host: "main",
         children: {
-            nav: { contract: "back-link-row" },
-            content: { contract: "$content" },
+            nav: { grammar: "back-link-row" },
+            content: { grammar: "$content" },
         },
         why: "a route with no hero section of its own still needs one predictable way out before its content starts, so the return link sits above whatever the content slot ships rather than each future page deciding for itself.",
     },
@@ -748,7 +748,7 @@ export const CONTRACTS = buildContracts({
          */
         classes: ["mx-auto", "w-full", "max-w-6xl", "px-5", "sm:px-8", "pt-8"],
         children: {
-            link: { contract: "$content" },
+            link: { grammar: "$content" },
         },
         why: "the return path reads as its own top strip held to the page's reading column, clear of whatever the route draws immediately under it so a returning visitor is never guessing which control takes them home.",
     },
@@ -756,9 +756,9 @@ export const CONTRACTS = buildContracts({
     "landing-main": {
         classes: ["tedo-v6-surface", "min-h-screen"],
         children: {
-            header: { contract: "$content", optional: true },
-            body: { contract: "$content" },
-            footer: { contract: "$content", optional: true },
+            header: { grammar: "$content", optional: true },
+            body: { grammar: "$content" },
+            footer: { grammar: "$content", optional: true },
         },
         why: "a secondary route keeps its existing header, body and footer responsibilities while one shared V6 surface supplies the dark runway world they must visually inhabit together.",
     },
@@ -767,8 +767,8 @@ export const CONTRACTS = buildContracts({
         classes: ["tedo-v6-surface", "min-h-screen"],
         host: "main",
         children: {
-            toolbar: { contract: "$content" },
-            document: { contract: "$content" },
+            toolbar: { grammar: "$content" },
+            document: { grammar: "$content" },
         },
         why: "the screen-only toolbar and the printable proposal beneath it are two independent bodies because the print stylesheet drops the first one whole, and nothing may ride along inside it when it goes.",
     },
@@ -777,7 +777,7 @@ export const CONTRACTS = buildContracts({
         // `w-full` + `border-b` write this as a band, the one ground shape an entry may still paint.
         classes: ["w-full", "border-b", "bg-surface", "px-6", "py-3", "print:hidden"],
         children: {
-            row: { contract: "quote-preview-toolbar-row" },
+            row: { grammar: "quote-preview-toolbar-row" },
         },
         why: "the toolbar has to vanish as one unit the instant printing starts, so it needs its own full-width banded ground the print stylesheet can hide in a single rule instead of chasing each descendant.",
     },
@@ -785,7 +785,7 @@ export const CONTRACTS = buildContracts({
     "quote-preview-toolbar-row": {
         classes: ["mx-auto", "flex", "items-baseline", "justify-between", "gap-4", "max-w-print-a4"],
         children: {
-            details: { contract: "quote-preview-toolbar-details" },
+            details: { grammar: "quote-preview-toolbar-details" },
             hint: { leaf: "text" },
         },
         why: "the toolbar previews the printed sheet's own measure so what the reviewer sees on screen already lines up with the page they are about to export, with the export hint pinned to the far edge.",
@@ -812,7 +812,7 @@ export const CONTRACTS = buildContracts({
         classes: ["rounded-2xl", "border", "border-brand/25", "bg-brand-soft/50", "p-5"],
         children: {
             heading: { leaf: "heading" },
-            body: { contract: "$content" },
+            body: { grammar: "$content" },
         },
         why: "the confirm-and-generate step and the finished-documents step are two different bodies under one visual promise, so the panel's ground stays fixed while the content slot swaps what it holds as status changes.",
     },
@@ -839,7 +839,7 @@ export const CONTRACTS = buildContracts({
         /*
          * The visual card ground lives here rather than on a hand-written `form`. `form` is a
          * SEMANTIC_HOST refused only once it carries a class - see `no-structural-host-outside-
-         * contract-frame` - so the real `<form onSubmit=...>` stays bare and this key's Tree node,
+         * grammar-frame` - so the real `<form onSubmit=...>` stays bare and this key's Tree node,
          * nested one level inside it, is what actually draws the raised-looking surface. No
          * `shadow-*`: an entry may never carry elevation (`no-interaction-class-in-entry`), and none
          * of the four vendor-mechanic branches this table's own comment names cover a plain `<form>`
@@ -847,9 +847,9 @@ export const CONTRACTS = buildContracts({
          */
         classes: ["rounded-2xl", "border", "bg-white", "p-2"],
         children: {
-            row: { contract: "prompt-input-row" },
+            row: { grammar: "prompt-input-row" },
             error: { leaf: "text", optional: true },
-            suggestions: { contract: "suggestion-chip-row" },
+            suggestions: { grammar: "suggestion-chip-row" },
         },
         why: "the field and its send action sit as one row, a validation message only interrupts that row when there is one to show, and the suggestion chips always follow last because they propose a prompt rather than react to one already typed.",
     },
@@ -857,7 +857,7 @@ export const CONTRACTS = buildContracts({
     "prompt-input-row": {
         classes: ["flex", "flex-col", "gap-2", "sm:flex-row", "sm:items-end"],
         children: {
-            field: { contract: "prompt-field-wrap" },
+            field: { grammar: "prompt-field-wrap" },
             submit: { leaf: "action-button" },
         },
         why: "the field grows across the whole row while the send control keeps its own fixed width beside it, and the two stack instead once the row is too narrow to hold them side by side.",
@@ -866,7 +866,7 @@ export const CONTRACTS = buildContracts({
     "prompt-field-wrap": {
         classes: ["flex-1", "overflow-y-hidden"],
         children: {
-            control: { contract: "$content" },
+            control: { grammar: "$content" },
         },
         why: "the growing field needs a bounded box that clips the textarea's own resize handle at exactly its row's height, which a class on the textarea itself cannot do once the row also holds a sibling button.",
     },
@@ -884,12 +884,12 @@ export const CONTRACTS = buildContracts({
         // lives on this key's Tree node rather than on the semantic element itself.
         classes: ["grid", "gap-4", "rounded-2xl", "border", "bg-white", "p-5"],
         children: {
-            intro: { contract: "$content" },
-            name: { contract: "field-row" },
-            contactPair: { contract: "two-col-row" },
-            company: { contract: "field-row" },
-            preferred: { contract: "field-row" },
-            consent: { contract: "checkbox-consent-row" },
+            intro: { grammar: "$content" },
+            name: { grammar: "field-row" },
+            contactPair: { grammar: "two-col-row" },
+            company: { grammar: "field-row" },
+            preferred: { grammar: "field-row" },
+            consent: { grammar: "checkbox-consent-row" },
             consentError: { leaf: "text", optional: true },
             submitError: { leaf: "text", optional: true },
             submit: { leaf: "action-button" },
@@ -900,7 +900,7 @@ export const CONTRACTS = buildContracts({
     "field-row": {
         classes: ["grid", "gap-2"],
         children: {
-            control: { contract: "$content" },
+            control: { grammar: "$content" },
         },
         why: "a field's label sits directly above its control with no other rung between them, because the two are read as one question-and-answer pair rather than two separate facts.",
     },
@@ -908,8 +908,8 @@ export const CONTRACTS = buildContracts({
     "two-col-row": {
         classes: ["grid", "gap-4", "sm:grid-cols-2"],
         children: {
-            first: { contract: "field-row" },
-            second: { contract: "field-row" },
+            first: { grammar: "field-row" },
+            second: { grammar: "field-row" },
         },
         why: "phone and email are two equally-valid ways to reach the same person, so they sit side by side as a pair once the column is wide enough instead of one reading as the default and the other a fallback.",
     },
@@ -917,7 +917,7 @@ export const CONTRACTS = buildContracts({
     "checkbox-consent-row": {
         classes: ["flex", "items-start", "gap-3"],
         children: {
-            control: { contract: "$content" },
+            control: { grammar: "$content" },
         },
         why: "the consent statement runs to two lines on a narrow screen, so the checkbox aligns to its first line rather than drifting to the vertical center of the whole paragraph.",
     },
@@ -933,7 +933,7 @@ export const CONTRACTS = buildContracts({
     "markdown-body-shell": {
         classes: ["min-w-0", "overflow-x-auto"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "the assistant's own reply can carry a table wider than the thread column, so the reply scrolls sideways inside its own bounded box instead of forcing the whole page wider around it.",
     },
@@ -942,7 +942,7 @@ export const CONTRACTS = buildContracts({
         classes: ["my-3", "list-disc", "space-y-1", "pl-5", "marker:text-brand"],
         host: "ul",
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "the assistant's own bullet list needs breathing room between items that the surrounding paragraph rhythm does not give it, and the branded marker is what tells a bullet apart from ordinary body copy at a glance.",
     },
@@ -951,7 +951,7 @@ export const CONTRACTS = buildContracts({
         classes: ["my-3", "list-decimal", "space-y-1", "pl-5", "marker:font-semibold", "marker:text-brand"],
         host: "ol",
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "a numbered step list reads as a sequence rather than a set, so its markers carry more weight than a bullet's and the same breathing room between items keeps one step from bleeding into the next.",
     },
@@ -968,8 +968,8 @@ export const CONTRACTS = buildContracts({
          */
         classes: ["tedo-v6-surface", "relative", "min-h-screen"],
         children: {
-            header: { contract: "$content" },
-            main: { contract: "$content" },
+            header: { grammar: "$content" },
+            main: { grammar: "$content" },
         },
         why: "the sticky header and the two-column workspace both need the same positioning root to measure against, so the whole screen opens one relatively-positioned box rather than each child guessing its own.",
     },
@@ -978,7 +978,7 @@ export const CONTRACTS = buildContracts({
         classes: ["sticky", "top-0", "z-30", "border-b", "border-line", "bg-white/95", "backdrop-blur"],
         host: "header",
         children: {
-            row: { contract: "chat-header-row" },
+            row: { grammar: "chat-header-row" },
         },
         why: "the way back to the marketing site has to stay reachable the whole way down a long consultation thread, so the header pins itself above the scrolling column instead of scrolling away with it.",
     },
@@ -986,8 +986,8 @@ export const CONTRACTS = buildContracts({
     "chat-header-row": {
         classes: ["mx-auto", "flex", "h-16", "max-w-6xl", "items-center", "justify-between", "px-5", "sm:px-8"],
         children: {
-            logo: { contract: "$content" },
-            back: { contract: "$content" },
+            logo: { grammar: "$content" },
+            back: { grammar: "$content" },
         },
         why: "the mark and the exit sit at opposite ends of one fixed-height row so a returning visitor's eye finds either edge in one glance instead of hunting the header's middle.",
     },
@@ -998,8 +998,8 @@ export const CONTRACTS = buildContracts({
         // composes the whole screen. See the same note on `loading-panel`.
         classes: ["mx-auto", "grid", "max-w-6xl", "gap-8", "px-5", "py-8", "sm:px-8", "chat-layout-grid", "lg:py-12"],
         children: {
-            thread: { contract: "$content" },
-            sidebar: { contract: "$content" },
+            thread: { grammar: "$content" },
+            sidebar: { grammar: "$content" },
         },
         why: "the conversation and the project profile read as two independent columns once the viewport is wide enough to hold both, and stack in reading order the moment it is not.",
     },
@@ -1010,8 +1010,8 @@ export const CONTRACTS = buildContracts({
         children: {
             heading: { leaf: "heading" },
             subtitle: { leaf: "text" },
-            messages: { contract: "$content" },
-            composer: { contract: "$content" },
+            messages: { grammar: "$content" },
+            composer: { grammar: "$content" },
         },
         why: "the title, the one-line framing under it, the running transcript and the composer are one continuous reading column, so a table or a wide code block inside a reply can shrink to it instead of forcing the whole grid wider.",
     },
@@ -1019,7 +1019,7 @@ export const CONTRACTS = buildContracts({
     "chat-messages-grid": {
         classes: ["mt-8", "grid", "gap-4"],
         children: {
-            body: { contract: "$content" },
+            body: { grammar: "$content" },
         },
         why: "every turn in the thread - a bubble, the thinking indicator, a discovery prompt - is a peer of every other one, so they stack as equal rows rather than any one of them claiming a wider or narrower column.",
     },
@@ -1038,8 +1038,8 @@ export const CONTRACTS = buildContracts({
             "justify-self-end", "whitespace-pre-wrap", "bg-ink", "text-white",
         ],
         children: {
-            attachments: { contract: "$content" },
-            body: { contract: "$content" },
+            attachments: { grammar: "$content" },
+            body: { grammar: "$content" },
         },
         why: "a visitor's own words are never mistaken for the assistant's: the solid dark ground and the right edge it pins itself to are the one signal that repeats identically at every turn of the thread.",
     },
@@ -1050,8 +1050,8 @@ export const CONTRACTS = buildContracts({
             "justify-self-start", "border", "bg-white", "text-ink", "sm:px-5", "sm:py-4",
         ],
         children: {
-            attachments: { contract: "$content" },
-            body: { contract: "$content" },
+            attachments: { grammar: "$content" },
+            body: { grammar: "$content" },
         },
         why: "the assistant's replies read as the quieter, bounded voice against the visitor's solid one, pinned to the opposite edge so the two speakers never share a column position a reader could confuse.",
     },
@@ -1080,7 +1080,7 @@ export const CONTRACTS = buildContracts({
         classes: ["rounded-2xl", "border", "bg-white", "p-4"],
         children: {
             question: { leaf: "text" },
-            options: { contract: "chat-discovery-options-row" },
+            options: { grammar: "chat-discovery-options-row" },
         },
         why: "a multiple-choice discovery question is not free text, so it wears its own card with the question stated once above the choices instead of reading as another line the visitor has to type past.",
     },
@@ -1106,10 +1106,10 @@ export const CONTRACTS = buildContracts({
         // carry `shadow-*`, so this card keeps its border as the surface cue instead.
         classes: ["sticky", "bottom-3", "mt-6", "rounded-2xl", "border", "bg-white", "p-2"],
         children: {
-            preview: { contract: "$content", optional: true },
+            preview: { grammar: "$content", optional: true },
             error: { leaf: "text", optional: true },
-            fields: { contract: "$content" },
-            controls: { contract: "composer-input-row" },
+            fields: { grammar: "$content" },
+            controls: { grammar: "composer-input-row" },
         },
         why: "the composer stays reachable at the foot of the viewport for the whole scrolling thread above it, with any pending attachments and a validation message surfacing above the input they belong to.",
     },
@@ -1125,8 +1125,8 @@ export const CONTRACTS = buildContracts({
     "composer-input-row": {
         classes: ["flex", "items-end", "gap-2"],
         children: {
-            icons: { contract: "composer-icon-row" },
-            field: { contract: "prompt-field-wrap" },
+            icons: { grammar: "composer-icon-row" },
+            field: { grammar: "prompt-field-wrap" },
             submit: { leaf: "action-button" },
         },
         why: "the attach triggers, the growing field and the send control all sit on the input's own baseline so pressing any one of them never requires the eye to jump to a different row.",
@@ -1144,9 +1144,9 @@ export const CONTRACTS = buildContracts({
         classes: ["space-y-4", "lg:sticky", "lg:top-24", "lg:self-start"],
         host: "aside",
         children: {
-            history: { contract: "chat-history-card" },
-            profileCard: { contract: "chat-profile-card" },
-            extras: { contract: "$content" },
+            history: { grammar: "chat-history-card" },
+            profileCard: { grammar: "chat-profile-card" },
+            extras: { grammar: "$content" },
         },
         why: "the browser's conversation history, project profile and whatever comes after it read as one running rail that tracks the viewport once the column is tall enough to outgrow it.",
     },
@@ -1154,8 +1154,8 @@ export const CONTRACTS = buildContracts({
     "chat-history-card": {
         classes: ["rounded-2xl", "border", "bg-white", "p-4"],
         children: {
-            header: { contract: "chat-history-header-row" },
-            list: { contract: "chat-history-list" },
+            header: { grammar: "chat-history-header-row" },
+            list: { grammar: "chat-history-list" },
         },
         why: "saved browser sessions belong beside the active project rather than inside its transcript, so returning to another conversation never reads like sending a message in the current one.",
     },
@@ -1180,10 +1180,10 @@ export const CONTRACTS = buildContracts({
     "chat-profile-card": {
         classes: ["rounded-2xl", "border", "bg-white", "p-5"],
         children: {
-            header: { contract: "chat-profile-header-row" },
-            progress: { contract: "chat-progress-track" },
-            stats: { contract: "chat-profile-stats" },
-            estimate: { contract: "chat-estimate-block", optional: true },
+            header: { grammar: "chat-profile-header-row" },
+            progress: { grammar: "chat-progress-track" },
+            stats: { grammar: "chat-profile-stats" },
+            estimate: { grammar: "chat-estimate-block", optional: true },
         },
         why: "the completeness percentage, the facts already gathered and the running estimate are all read off the same one profile a visitor can check at a glance without reopening the transcript above.",
     },
@@ -1200,7 +1200,7 @@ export const CONTRACTS = buildContracts({
     "chat-progress-track": {
         classes: ["mt-3", "h-2", "overflow-hidden", "rounded-full", "bg-brand-soft"],
         children: {
-            fill: { contract: "$content" },
+            fill: { grammar: "$content" },
         },
         why: "the completeness bar has to clip its own fill at a hard edge the instant the percentage changes, which a border alone cannot do once the fill's width grows past the track's own corner radius.",
     },
@@ -1209,7 +1209,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mt-5", "grid", "gap-3", "text-sm"],
         host: "dl",
         children: {
-            rows: { contract: "chat-profile-stat-row", repeats: true, restingCount: 2 },
+            rows: { grammar: "chat-profile-stat-row", repeats: true, restingCount: 2 },
         },
         why: "each already-gathered fact is a real term-and-definition pair a screen reader should announce as one, so the list stays a `dl` rather than a generic stack of styled paragraphs.",
     },
@@ -1217,7 +1217,7 @@ export const CONTRACTS = buildContracts({
     "chat-profile-stat-row": {
         classes: [],
         children: {
-            pair: { contract: "$content" },
+            pair: { grammar: "$content" },
         },
         why: "a `dt`/`dd` pair carries meaning only the two of them together express, so nothing named a fourth thing may sit between one fact's term and its own value.",
     },
@@ -1247,7 +1247,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mb-6"],
         host: "header",
         children: {
-            eyebrow: { contract: "$content" },
+            eyebrow: { grammar: "$content" },
             title: { leaf: "heading" },
         },
         why: "every inner sheet opens on the same two-line pattern - a short label naming the section, then its real title - so a reader flipping pages finds the section name in the same place every time.",
@@ -1256,7 +1256,7 @@ export const CONTRACTS = buildContracts({
     "quote-document-shell": {
         classes: ["quote-root", "flex", "flex-col", "items-center", "gap-6", "bg-sky", "py-8", "print:gap-0", "print:bg-canvas", "print:py-0"],
         children: {
-            pages: { contract: "$content" },
+            pages: { grammar: "$content" },
         },
         why: "on screen the sheets float as separate cards over a tinted backdrop so a reviewer can tell where one page ends; in print that backdrop and the gap between sheets both have to disappear so each sheet is the whole visible page.",
     },
@@ -1264,8 +1264,8 @@ export const CONTRACTS = buildContracts({
     "quote-cover-header-row": {
         classes: ["flex", "items-start", "justify-between"],
         children: {
-            identity: { contract: "$content" },
-            meta: { contract: "$content" },
+            identity: { grammar: "$content" },
+            meta: { grammar: "$content" },
         },
         why: "the sender's own mark and the document's date-and-reference facts read as opposite corners of the same masthead, the way a letterhead always splits who-sent-this from when-and-which.",
     },
@@ -1274,7 +1274,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mt-10", "grid", "grid-cols-4", "gap-px", "overflow-hidden", "rounded-lg", "border", "border-line", "bg-line"],
         host: "dl",
         children: {
-            facts: { contract: "$content" },
+            facts: { grammar: "$content" },
         },
         why: "the hairline gap between cells is drawn by the grid's own background showing through a one-pixel gap, which is what keeps four unrelated facts reading as one bordered table instead of four separate boxes.",
     },
@@ -1282,7 +1282,7 @@ export const CONTRACTS = buildContracts({
     "quote-feature-grid": {
         classes: ["grid", "grid-cols-2", "gap-4"],
         children: {
-            cards: { contract: "$content" },
+            cards: { grammar: "$content" },
         },
         why: "the feature set is a set, not a ranked list, so every card gets an equal-sized cell in a two-up grid instead of one reading as more important by sitting first in a single column.",
     },
@@ -1291,8 +1291,8 @@ export const CONTRACTS = buildContracts({
         classes: ["flex", "items-baseline", "justify-between", "gap-2"],
         host: "span",
         children: {
-            index: { contract: "$content" },
-            badge: { contract: "$content", optional: true },
+            index: { grammar: "$content" },
+            badge: { grammar: "$content", optional: true },
         },
         why: "the feature's running number and its optional \"core\" flag share one baseline at the top of the card, which is what tells a reader at a glance which features are foundational before reading a single word of the title.",
     },
@@ -1301,7 +1301,7 @@ export const CONTRACTS = buildContracts({
         classes: ["grid", "grid-cols-2", "gap-x-6", "gap-y-2"],
         host: "ul",
         children: {
-            items: { contract: "quote-scope-item", repeats: true, restingCount: 6 },
+            items: { grammar: "quote-scope-item", repeats: true, restingCount: 6 },
         },
         why: "the deliverables read as one checked set rather than a ranked sequence, so they fill a two-up grid in the order they were scoped instead of a single tall column that pushes later items off the visible page.",
     },
@@ -1310,8 +1310,8 @@ export const CONTRACTS = buildContracts({
         classes: ["flex", "gap-2", "text-[9.5pt]", "leading-snug", "text-ink-body"],
         host: "li",
         children: {
-            mark: { contract: "$content" },
-            label: { contract: "$content" },
+            mark: { grammar: "$content" },
+            label: { grammar: "$content" },
         },
         why: "the checkmark and its item read as one unit on one line, so the mark sits beside the text it confirms rather than above it where a reader could misread which item it belongs to.",
     },
@@ -1320,7 +1320,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mt-1", "space-y-1"],
         host: "ul",
         children: {
-            items: { contract: "quote-note-list-item", repeats: true, restingCount: 3 },
+            items: { grammar: "quote-note-list-item", repeats: true, restingCount: 3 },
         },
         why: "explicit exclusions are read defensively - a client scanning for what is NOT included - so each one gets its own line with room between them instead of running together as one dense paragraph.",
     },
@@ -1329,7 +1329,7 @@ export const CONTRACTS = buildContracts({
         classes: ["text-[9pt]", "leading-relaxed", "text-ink-body"],
         host: "li",
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "one excluded item is one fact, so it wears the same quiet body copy as the rest of the document rather than a bullet style that would make the exclusions read as more alarming than they are.",
     },
@@ -1338,9 +1338,9 @@ export const CONTRACTS = buildContracts({
         classes: ["flex", "break-inside-avoid", "gap-4", "border-b", "border-line/70", "py-3", "last:border-b-0"],
         host: "li",
         children: {
-            when: { contract: "$content" },
-            body: { contract: "$content" },
-            tag: { contract: "$content", optional: true },
+            when: { grammar: "$content" },
+            body: { grammar: "$content" },
+            tag: { grammar: "$content", optional: true },
         },
         why: "a timeline phase is read left to right - when it happens, what happens, an optional flag - and the rule under each row is what keeps one phase from bleeding into the next across a page break.",
     },
@@ -1357,8 +1357,8 @@ export const CONTRACTS = buildContracts({
     "quote-phase-body": {
         classes: ["min-w-0", "flex-1"],
         children: {
-            title: { contract: "$content" },
-            body: { contract: "$content" },
+            title: { grammar: "$content" },
+            body: { grammar: "$content" },
         },
         why: "the phase's title and its description grow to fill whatever width the fixed timing column and the optional tag leave behind, instead of a fixed measure that would waste space on a short phase name.",
     },
@@ -1367,7 +1367,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mb-2", "flex", "items-baseline", "gap-2"],
         children: {
             title: { leaf: "heading" },
-            badge: { contract: "$content" },
+            badge: { grammar: "$content" },
         },
         why: "the running-cost heading and the provider badge that qualifies it share one baseline, the same pairing pattern the feature cards use for their own title-plus-flag row.",
     },
@@ -1375,7 +1375,7 @@ export const CONTRACTS = buildContracts({
     "quote-commitments-list": {
         classes: ["mt-8", "space-y-3"],
         children: {
-            items: { contract: "$content" },
+            items: { grammar: "$content" },
         },
         why: "each commitment is a separate promise and is read as one, so they stack with breathing room between them instead of running together as a single undifferentiated policy paragraph.",
     },
@@ -1385,7 +1385,7 @@ export const CONTRACTS = buildContracts({
     "page-measure": {
         classes: ["mx-auto", "w-full", "max-w-6xl", "px-5", "sm:px-8"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "every band on the page reads from the same centred column, so a visitor scanning down the page never sees the left edge of the copy drift as one section hands off to the next.",
     },
@@ -1394,7 +1394,7 @@ export const CONTRACTS = buildContracts({
         host: "section",
         classes: ["scroll-mt-20", "py-20", "sm:py-28"],
         children: {
-            content: { contract: "page-measure" },
+            content: { grammar: "page-measure" },
         },
         why: "each marketing section keeps the same vertical rhythm and the same scroll offset under the sticky header, so jumping to any in-page anchor lands the section's own top clear of the fixed bar.",
     },
@@ -1403,7 +1403,7 @@ export const CONTRACTS = buildContracts({
         host: "section",
         classes: ["scroll-mt-20", "py-20", "sm:py-28", "bg-surface/30"],
         children: {
-            content: { contract: "page-measure" },
+            content: { grammar: "page-measure" },
         },
         why: "a handful of sections alternate onto a faint tinted ground so a long page of white bands reads as distinct chapters instead of one undifferentiated scroll.",
     },
@@ -1422,7 +1422,7 @@ export const CONTRACTS = buildContracts({
         host: "li",
         classes: ["flex", "gap-3", "text-sm", "text-ink-body"],
         children: {
-            mark: { contract: "$content" },
+            mark: { grammar: "$content" },
             label: { leaf: "text" },
         },
         why: "the mark and the fact it confirms read as one line, so the mark sits beside the text rather than above it where a reader could lose which item it belongs to - the one row shape a check, a dash or a plain dot bullet all share.",
@@ -1432,7 +1432,7 @@ export const CONTRACTS = buildContracts({
         host: "ul",
         classes: ["flex", "flex-col", "gap-3"],
         children: {
-            items: { contract: "labelled-bullet-item", repeats: true, restingCount: 3 },
+            items: { grammar: "labelled-bullet-item", repeats: true, restingCount: 3 },
         },
         why: "a run of short marked facts - included work, excluded work, a plan's own points - is read top to bottom as one set, so the rows stack with even breathing room instead of crowding together.",
     },
@@ -1443,7 +1443,7 @@ export const CONTRACTS = buildContracts({
         host: "header",
         classes: ["sticky", "top-0", "z-50", "border-b", "border-line", "bg-white/80", "backdrop-blur-md"],
         children: {
-            bar: { contract: "page-measure" },
+            bar: { grammar: "page-measure" },
         },
         why: "the primary navigation stays reachable the whole way down every page, so it pins itself above the scrolling column instead of scrolling away with the section a visitor is reading.",
     },
@@ -1451,9 +1451,9 @@ export const CONTRACTS = buildContracts({
     "header-bar": {
         classes: ["flex", "h-16", "items-center", "justify-between", "gap-6"],
         children: {
-            logo: { contract: "$content" },
-            nav: { contract: "header-nav" },
-            actions: { contract: "header-actions" },
+            logo: { grammar: "$content" },
+            nav: { grammar: "header-nav" },
+            actions: { grammar: "header-actions" },
         },
         why: "the mark, the primary links and the contact action sit at three fixed points of one row so a visitor's eye finds any of the three without hunting the header's middle.",
     },
@@ -1462,7 +1462,7 @@ export const CONTRACTS = buildContracts({
         host: "nav",
         classes: ["hidden", "items-center", "gap-7", "lg:flex"],
         children: {
-            items: { contract: "$content" },
+            items: { grammar: "$content" },
         },
         why: "the primary section links only fit one row once the viewport is wide enough to hold every label without wrapping, so they stay hidden behind the header's own responsive cutoff rather than crowding a narrow screen.",
     },
@@ -1470,8 +1470,8 @@ export const CONTRACTS = buildContracts({
     "header-actions": {
         classes: ["flex", "items-center", "gap-4"],
         children: {
-            localeSwitcher: { contract: "$content" },
-            cta: { contract: "$content" },
+            localeSwitcher: { grammar: "$content" },
+            cta: { grammar: "$content" },
         },
         why: "the language choice and the one contact action sit together at the header's own trailing edge because both are page-wide controls, never content of the section beneath them.",
     },
@@ -1479,7 +1479,7 @@ export const CONTRACTS = buildContracts({
     "locale-switcher-group": {
         classes: ["hidden", "items-center", "rounded-full", "border", "border-line", "p-1", "sm:flex"],
         children: {
-            options: { contract: "$content" },
+            options: { grammar: "$content" },
         },
         why: "the locale options read as one bordered pill of equal choices rather than a loose row of links, and it only shows once the header is wide enough that a fourth control does not crowd the primary nav.",
     },
@@ -1488,8 +1488,8 @@ export const CONTRACTS = buildContracts({
         host: "footer",
         classes: ["w-full", "border-t", "border-line", "bg-surface-2/60", "py-14"],
         children: {
-            columns: { contract: "footer-columns" },
-            legal: { contract: "footer-legal" },
+            columns: { grammar: "footer-columns" },
+            legal: { grammar: "footer-legal" },
         },
         why: "the footer closes the page on a quieter tinted ground than the sections above it, with the registered-entity block held below the ordinary navigation columns because it answers a different question than they do.",
     },
@@ -1497,9 +1497,9 @@ export const CONTRACTS = buildContracts({
     "footer-columns": {
         classes: ["mx-auto", "w-full", "max-w-6xl", "px-5", "sm:px-8", "grid", "gap-10", "sm:grid-cols-2", "footer-columns-grid"],
         children: {
-            brand: { contract: "footer-brand-block" },
-            sections: { contract: "footer-nav-column" },
-            contact: { contract: "footer-contact-column" },
+            brand: { grammar: "footer-brand-block" },
+            sections: { grammar: "footer-nav-column" },
+            contact: { grammar: "footer-contact-column" },
         },
         why: "the brand block reads widest because it carries the tagline's own prose, so the three columns split the row unevenly instead of the ordinary equal thirds a plain grid would draw.",
     },
@@ -1507,7 +1507,7 @@ export const CONTRACTS = buildContracts({
     "footer-brand-block": {
         classes: ["max-w-xs"],
         children: {
-            mark: { contract: "$content" },
+            mark: { grammar: "$content" },
             tagline: { leaf: "text" },
         },
         why: "the mark and its one-line tagline are capped to a narrow measure so the sentence wraps onto two short lines instead of stretching the full width of an otherwise empty column.",
@@ -1518,7 +1518,7 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             label: { leaf: "text" },
-            items: { contract: "footer-link-list" },
+            items: { grammar: "footer-link-list" },
         },
         why: "the column's own name sits above the links it labels, and the list stays a real `nav` landmark so assistive technology reports it as a second way to reach the same in-page sections the header already offers.",
     },
@@ -1527,7 +1527,7 @@ export const CONTRACTS = buildContracts({
         host: "ul",
         classes: ["mt-4", "flex", "flex-col", "gap-3"],
         children: {
-            items: { contract: "$content" },
+            items: { grammar: "$content" },
         },
         why: "the in-page section links read as one short column under their own label, spaced evenly rather than run together as a single dense paragraph of links.",
     },
@@ -1536,7 +1536,7 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             label: { leaf: "text" },
-            items: { contract: "footer-contact-list" },
+            items: { grammar: "footer-contact-list" },
         },
         why: "the reachable-by facts sit under their own label the same way the section links do beside them, so the two columns read as one consistent labelled-list pattern rather than two different conventions.",
     },
@@ -1545,8 +1545,8 @@ export const CONTRACTS = buildContracts({
         host: "ul",
         classes: ["mt-4", "flex", "flex-col", "gap-3"],
         children: {
-            email: { contract: "$content" },
-            domain: { contract: "$content" },
+            email: { grammar: "$content" },
+            domain: { grammar: "$content" },
         },
         why: "the email address and the bare domain are two different ways to reach or verify the same studio, so they stack as two short facts instead of one line trying to carry both.",
     },
@@ -1555,7 +1555,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mx-auto", "w-full", "max-w-6xl", "px-5", "sm:px-8", "mt-12", "border-t", "border-line", "pt-6"],
         children: {
             label: { leaf: "text" },
-            grid: { contract: "footer-legal-grid-entry" },
+            grid: { grammar: "footer-legal-grid-entry" },
             copyright: { leaf: "text" },
         },
         why: "the registered-entity block answers a compliance question, not a navigation one, so a rule sets it apart from the columns above before its own facts and the closing copyright line begin.",
@@ -1564,9 +1564,9 @@ export const CONTRACTS = buildContracts({
     "footer-legal-grid-entry": {
         classes: ["mt-3", "grid", "gap-2", "sm:grid-cols-2", "footer-legal-grid", "sm:gap-x-10"],
         children: {
-            name: { contract: "$content" },
-            tax: { contract: "$content" },
-            address: { contract: "footer-legal-address" },
+            name: { grammar: "$content" },
+            tax: { grammar: "$content" },
+            address: { grammar: "footer-legal-address" },
         },
         why: "the registered name reads first, the tax id sits beside it once there is room for two columns, and the address gets more of that row's width because a street address is always the longest of the three facts.",
     },
@@ -1574,7 +1574,7 @@ export const CONTRACTS = buildContracts({
     "footer-legal-address": {
         classes: ["sm:col-span-2"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "the address is the one fact of the three too long to share a column with a neighbour, so it drops onto its own full-width row under the name and the tax id once the grid has two columns to span.",
     },
@@ -1585,7 +1585,7 @@ export const CONTRACTS = buildContracts({
         host: "section",
         classes: ["relative", "overflow-hidden"],
         children: {
-            content: { contract: "hero-measure" },
+            content: { grammar: "hero-measure" },
         },
         why: "the hero's own background glow is pinned to this band and must never bleed past it, so the section clips its overflow instead of letting the decoration spill into the section beneath it.",
     },
@@ -1593,8 +1593,8 @@ export const CONTRACTS = buildContracts({
     "hero-measure": {
         classes: ["relative", "mx-auto", "w-full", "max-w-6xl", "px-5", "sm:px-8", "grid", "items-center", "gap-12", "py-16", "sm:py-24", "hero-visual-grid", "lg:gap-10"],
         children: {
-            message: { contract: "$content" },
-            visual: { contract: "$content" },
+            message: { grammar: "$content" },
+            visual: { grammar: "$content" },
         },
         why: "the message column keeps a slight lead over the product visual beside it once the viewport is wide enough for both, and stacks message-first on a narrow screen because the promise has to land before the picture that illustrates it.",
     },
@@ -1612,7 +1612,7 @@ export const CONTRACTS = buildContracts({
     "sky-backdrop": {
         classes: ["pointer-events-none", "fixed", "inset-0", "-z-10", "overflow-hidden"],
         children: {
-            layers: { contract: "$content" },
+            layers: { grammar: "$content" },
         },
         why: "the backdrop sits fixed behind every scrolling section and must never intercept a click meant for the content above it, so it is pinned out of the stacking order and out of the pointer's reach in one node.",
     },
@@ -1634,7 +1634,7 @@ export const CONTRACTS = buildContracts({
     "sticky-cta-bar-shown": {
         classes: ["fixed", "inset-x-0", "bottom-0", "z-40", "border-t", "border-line", "bg-white/95", "backdrop-blur", "transition-transform", "duration-300", "md:hidden", "translate-y-0", "sticky-cta-safe-pad"],
         children: {
-            actions: { contract: "sticky-cta-actions" },
+            actions: { grammar: "sticky-cta-actions" },
         },
         why: "the bar has already scrolled into view, so it sits flush against the bottom edge instead of translated away below it - the twin of `sticky-cta-bar-hidden`, which is the same bar before that scroll threshold.",
     },
@@ -1642,7 +1642,7 @@ export const CONTRACTS = buildContracts({
     "sticky-cta-bar-hidden": {
         classes: ["fixed", "inset-x-0", "bottom-0", "z-40", "border-t", "border-line", "bg-white/95", "backdrop-blur", "transition-transform", "duration-300", "md:hidden", "translate-y-full", "sticky-cta-safe-pad"],
         children: {
-            actions: { contract: "sticky-cta-actions" },
+            actions: { grammar: "sticky-cta-actions" },
         },
         why: "while the hero's own calls to action are still on screen the bar would only cover content to repeat them, so it sits translated fully below the viewport's own bottom edge until that threshold passes.",
     },
@@ -1650,8 +1650,8 @@ export const CONTRACTS = buildContracts({
     "sticky-cta-actions": {
         classes: ["flex", "items-center", "gap-2", "px-4", "pt-2"],
         children: {
-            ask: { contract: "sticky-cta-action-slot" },
-            book: { contract: "sticky-cta-action-slot" },
+            ask: { grammar: "sticky-cta-action-slot" },
+            book: { grammar: "sticky-cta-action-slot" },
         },
         why: "the ask-a-question and book-a-call actions are the two equally-weighted paths off the bar, so they split its width evenly rather than one reading as the default and the other a fallback.",
     },
@@ -1659,7 +1659,7 @@ export const CONTRACTS = buildContracts({
     "sticky-cta-action-slot": {
         classes: ["flex-1"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "each action grows to share exactly half the bar's own width, which a class on the control itself cannot do once the row also holds its sibling.",
     },
@@ -1669,7 +1669,7 @@ export const CONTRACTS = buildContracts({
     "stat-card-grid": {
         classes: ["mt-10", "grid", "gap-4", "sm:grid-cols-2", "lg:grid-cols-4"],
         children: {
-            items: { contract: "stat-card", repeats: true, restingCount: 4 },
+            items: { grammar: "stat-card", repeats: true, restingCount: 4 },
         },
         why: "the four aftercare facts are peers of each other, so they fill an even grid instead of one reading as more important by sitting first in a single column.",
     },
@@ -1689,7 +1689,7 @@ export const CONTRACTS = buildContracts({
     "insight-card-grid": {
         classes: ["mt-12", "grid", "gap-4", "md:grid-cols-2"],
         children: {
-            items: { contract: "insight-card", repeats: true, restingCount: 4 },
+            items: { grammar: "insight-card", repeats: true, restingCount: 4 },
         },
         why: "the AI-first practices are an unranked set, so they fill an even two-up grid instead of a single column implying the first one matters more than the rest.",
     },
@@ -1709,7 +1709,7 @@ export const CONTRACTS = buildContracts({
     "case-card-grid": {
         classes: ["mt-12", "grid", "gap-4", "md:grid-cols-3"],
         children: {
-            items: { contract: "case-card", repeats: true, restingCount: 3 },
+            items: { grammar: "case-card", repeats: true, restingCount: 3 },
         },
         why: "the case studies are an unranked set of proof points, so they fill an even three-up grid instead of a single column that would push the third case below the fold on an ordinary screen.",
     },
@@ -1717,8 +1717,8 @@ export const CONTRACTS = buildContracts({
     "case-card": {
         classes: ["flex", "flex-col", "rounded-3xl", "border", "border-line", "bg-white", "p-6"],
         children: {
-            header: { contract: "case-card-header" },
-            footer: { contract: "case-card-footer" },
+            header: { grammar: "case-card-header" },
+            footer: { grammar: "case-card-footer" },
         },
         why: "the case's own story and the metric that closes it are two different reading beats, so the metric is held to the card's bottom edge by the same `mt-auto` rule regardless of how long the story above it runs.",
     },
@@ -1726,7 +1726,7 @@ export const CONTRACTS = buildContracts({
     "case-card-header": {
         classes: ["flex", "flex-col", "gap-3"],
         children: {
-            meta: { contract: "case-card-meta-row" },
+            meta: { grammar: "case-card-meta-row" },
             title: { leaf: "heading" },
             body: { leaf: "text" },
         },
@@ -1757,8 +1757,8 @@ export const CONTRACTS = buildContracts({
     "contact-layout": {
         classes: ["grid", "gap-12", "lg:gap-16", "contact-split-grid"],
         children: {
-            info: { contract: "contact-info-column" },
-            form: { contract: "$content" },
+            info: { grammar: "contact-info-column" },
+            form: { grammar: "$content" },
         },
         why: "the copy column reads narrower than the form beside it once there is room for both, so a visitor's eye lands on the form - the one thing this section actually wants pressed - rather than splitting attention evenly.",
     },
@@ -1766,8 +1766,8 @@ export const CONTRACTS = buildContracts({
     "contact-info-column": {
         classes: ["flex", "flex-col", "gap-6"],
         children: {
-            intro: { contract: "section-intro" },
-            booking: { contract: "contact-booking-block" },
+            intro: { grammar: "section-intro" },
+            booking: { grammar: "contact-booking-block" },
         },
         why: "the section's own introduction and the alternate way to book a call are two different asks, so a rule and a gap separate them instead of the booking links reading as one more sentence of the intro.",
     },
@@ -1777,7 +1777,7 @@ export const CONTRACTS = buildContracts({
         children: {
             divider: { leaf: "separator" },
             label: { leaf: "text" },
-            links: { contract: "contact-booking-links" },
+            links: { grammar: "contact-booking-links" },
         },
         why: "the calendar link and the direct email are two equal alternates to the form above them, so a rule sets off the whole block before its own short label and the two links.",
     },
@@ -1795,10 +1795,10 @@ export const CONTRACTS = buildContracts({
         // lives on this key's Tree node rather than on the semantic element itself.
         classes: ["flex", "flex-col", "gap-4", "rounded-3xl", "border", "border-line", "bg-white", "p-6", "sm:p-7"],
         children: {
-            contactPair: { contract: "two-col-row" },
-            company: { contract: "field-row" },
-            service: { contract: "field-row" },
-            message: { contract: "field-row" },
+            contactPair: { grammar: "two-col-row" },
+            company: { grammar: "field-row" },
+            service: { grammar: "field-row" },
+            message: { grammar: "field-row" },
             submit: { leaf: "action-button" },
             status: { leaf: "text", optional: true },
         },
@@ -1810,8 +1810,8 @@ export const CONTRACTS = buildContracts({
     "design-layout": {
         classes: ["grid", "gap-12", "lg:grid-cols-2", "lg:gap-16"],
         children: {
-            intro: { contract: "section-intro" },
-            steps: { contract: "design-step-list" },
+            intro: { grammar: "section-intro" },
+            steps: { grammar: "design-step-list" },
         },
         why: "the introduction and the numbered step list are two equally-weighted halves of the same explanation, so they sit side by side once the viewport is wide enough instead of the steps reading as a footnote under the copy.",
     },
@@ -1820,7 +1820,7 @@ export const CONTRACTS = buildContracts({
         host: "ol",
         classes: ["flex", "flex-col"],
         children: {
-            items: { contract: "design-step-item", repeats: true, restingCount: 4 },
+            items: { grammar: "design-step-item", repeats: true, restingCount: 4 },
         },
         why: "the steps happen in a fixed order, so the list stays a real ordered list rather than a styled stack that reads no differently to assistive technology than an unordered set of facts.",
     },
@@ -1829,8 +1829,8 @@ export const CONTRACTS = buildContracts({
         host: "li",
         classes: ["flex", "gap-5", "border-b", "border-line", "py-5", "first:pt-0", "last:border-0", "last:pb-0"],
         children: {
-            index: { contract: "design-step-index" },
-            body: { contract: "design-step-body" },
+            index: { grammar: "design-step-index" },
+            body: { grammar: "design-step-body" },
         },
         why: "a rule separates one step from the next down the whole list, and the first step drops its own top padding while the last drops its rule so the list does not open or close with an orphaned half-gap.",
     },
@@ -1857,7 +1857,7 @@ export const CONTRACTS = buildContracts({
     "engagement-card-grid": {
         classes: ["mt-12", "grid", "gap-5", "sm:grid-cols-2", "lg:mx-auto", "lg:max-w-4xl"],
         children: {
-            items: { contract: ["engagement-card", "engagement-card-featured"], repeats: true, restingCount: 3 },
+            items: { grammar: ["engagement-card", "engagement-card-featured"], repeats: true, restingCount: 3 },
         },
         why: "the engagement models read as one compact comparison rather than a wide page-spanning row, so the grid caps its own width and centres once the viewport has more room than three narrow cards need.",
     },
@@ -1865,8 +1865,8 @@ export const CONTRACTS = buildContracts({
     "engagement-card": {
         classes: ["flex", "flex-col", "rounded-3xl", "border", "border-line", "bg-white", "p-6"],
         children: {
-            header: { contract: "engagement-card-header" },
-            points: { contract: "engagement-points-block" },
+            header: { grammar: "engagement-card-header" },
+            points: { grammar: "engagement-points-block" },
             cta: { leaf: "action-link" },
         },
         why: "the model's own name and pitch read first, the included work follows as the set a visitor is actually comparing, and the call to action closes the card last because it is the one thing a reader needs everything above it to decide first.",
@@ -1875,8 +1875,8 @@ export const CONTRACTS = buildContracts({
     "engagement-card-featured": {
         classes: ["flex", "flex-col", "rounded-3xl", "border", "border-brand", "bg-brand-soft/40", "ring-2", "ring-accent/60", "p-6"],
         children: {
-            header: { contract: "engagement-card-header" },
-            points: { contract: "engagement-points-block" },
+            header: { grammar: "engagement-card-header" },
+            points: { grammar: "engagement-points-block" },
             cta: { leaf: "action-link" },
         },
         why: "the recommended model carries a visible accent ring precisely because a reader comparing several equal-looking options needs one to be findable at a glance - the twin of `engagement-card`, which is the same shape with nothing to promote.",
@@ -1896,7 +1896,7 @@ export const CONTRACTS = buildContracts({
         classes: ["flex", "flex-col", "gap-3"],
         children: {
             divider: { leaf: "separator" },
-            list: { contract: "bullet-list" },
+            list: { grammar: "bullet-list" },
         },
         why: "a rule separates the included-work list from the pitch above it because the two are read as different kinds of fact - a claim, then the checklist that backs it.",
     },
@@ -1907,7 +1907,7 @@ export const CONTRACTS = buildContracts({
         host: "ul",
         classes: ["mt-10", "flex", "flex-col", "gap-3", "max-w-2xl"],
         children: {
-            items: { contract: "faq-item", repeats: true, restingCount: 4 },
+            items: { grammar: "faq-item", repeats: true, restingCount: 4 },
         },
         why: "the answers only make sense read one question at a time, so the list caps itself to a narrower reading measure than the page's own full column instead of stretching every answer's line length past comfort.",
     },
@@ -1916,7 +1916,7 @@ export const CONTRACTS = buildContracts({
         host: "li",
         classes: ["border-b", "border-line", "py-4", "last:border-0"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "a rule separates one question from the next down the whole list, and the last one drops it so the list does not close on an orphaned half-rule under nothing.",
     },
@@ -1926,8 +1926,8 @@ export const CONTRACTS = buildContracts({
     "fit-comparison-grid": {
         classes: ["mt-10", "grid", "gap-5", "md:grid-cols-2"],
         children: {
-            yes: { contract: "fit-column" },
-            no: { contract: "fit-column" },
+            yes: { grammar: "fit-column" },
+            no: { grammar: "fit-column" },
         },
         why: "the fit and not-a-fit lists are read as one deliberate comparison, so they sit side by side in one glance once the viewport allows rather than a visitor scrolling past the second list before ever seeing it named.",
     },
@@ -1936,7 +1936,7 @@ export const CONTRACTS = buildContracts({
         classes: ["rounded-3xl", "border", "border-line", "bg-white", "p-6", "sm:p-7"],
         children: {
             title: { leaf: "heading" },
-            items: { contract: "bullet-list" },
+            items: { grammar: "bullet-list" },
         },
         why: "each column's own heading names which list it is before the marked facts underneath it, the same title-then-list order every other card on this page already uses.",
     },
@@ -1947,7 +1947,7 @@ export const CONTRACTS = buildContracts({
         host: "section",
         classes: ["border-y", "border-line", "bg-surface/40", "py-16"],
         children: {
-            content: { contract: "page-measure" },
+            content: { grammar: "page-measure" },
         },
         why: "the proof-point strip is bordered top and bottom on its own tinted ground so it reads as a fixed interruption between the hero and the sections that argue the case in prose, not one more ordinary band.",
     },
@@ -1955,8 +1955,8 @@ export const CONTRACTS = buildContracts({
     "metrics-block": {
         classes: [],
         children: {
-            heading: { contract: "visually-hidden" },
-            grid: { contract: "metrics-grid" },
+            heading: { grammar: "visually-hidden" },
+            grid: { grammar: "metrics-grid" },
             footnote: { leaf: "text" },
         },
         why: "the strip needs a real heading for the outline a screen reader builds even though the numbers speak for themselves visually, so the title is present but hidden rather than skipped.",
@@ -1966,7 +1966,7 @@ export const CONTRACTS = buildContracts({
         host: "span",
         classes: ["sr-only"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "a heading a sighted reader never needs to see still has to exist for the outline assistive technology builds, so it is kept in the document and only clipped from the visual layout.",
     },
@@ -1975,7 +1975,7 @@ export const CONTRACTS = buildContracts({
         host: "dl",
         classes: ["grid", "gap-px", "overflow-hidden", "rounded-2xl", "border", "border-line", "bg-line", "sm:grid-cols-2", "lg:grid-cols-4"],
         children: {
-            items: { contract: "metric-item", repeats: true, restingCount: 4 },
+            items: { grammar: "metric-item", repeats: true, restingCount: 4 },
         },
         why: "the hairline gap between cells is drawn by the grid's own background showing through a one-pixel gap, the same technique the printable quote's own facts grid uses, so four unrelated proof points read as one bordered table instead of four separate cards.",
     },
@@ -1995,7 +1995,7 @@ export const CONTRACTS = buildContracts({
     "pricing-tier-grid": {
         classes: ["mt-10", "grid", "gap-5", "md:grid-cols-2"],
         children: {
-            items: { contract: ["pricing-tier-card", "pricing-tier-card-featured"], repeats: true, restingCount: 2 },
+            items: { grammar: ["pricing-tier-card", "pricing-tier-card-featured"], repeats: true, restingCount: 2 },
         },
         why: "the two price tiers are read side by side as a direct comparison, so they fill an even two-up grid rather than a single column that would force a scroll between them.",
     },
@@ -2007,7 +2007,7 @@ export const CONTRACTS = buildContracts({
             price: { leaf: "text" },
             time: { leaf: "text" },
             body: { leaf: "text" },
-            points: { contract: "bullet-list" },
+            points: { grammar: "bullet-list" },
         },
         why: "the tier's name, its price range and the delivery time read first as the three facts a budget-filtering visitor scans for, before the fuller pitch and the point list a still-interested reader continues into.",
     },
@@ -2019,7 +2019,7 @@ export const CONTRACTS = buildContracts({
             price: { leaf: "text" },
             time: { leaf: "text" },
             body: { leaf: "text" },
-            points: { contract: "bullet-list" },
+            points: { grammar: "bullet-list" },
         },
         why: "the recommended tier is lifted off the page with a tinted ground and a real shadow precisely because a budget-filtering visitor comparing two ranges needs one to read as the suggested default - the twin of `pricing-tier-card`, which is the same shape with nothing promoted.",
     },
@@ -2027,8 +2027,8 @@ export const CONTRACTS = buildContracts({
     "pricing-coverage-panel": {
         classes: ["mt-6", "grid", "gap-5", "rounded-3xl", "border", "border-line", "bg-white", "p-6", "sm:grid-cols-2", "sm:p-7"],
         children: {
-            included: { contract: "pricing-coverage-column" },
-            excluded: { contract: "pricing-coverage-column" },
+            included: { grammar: "pricing-coverage-column" },
+            excluded: { grammar: "pricing-coverage-column" },
         },
         why: "what the number covers and what it deliberately does not are read as one deliberate pair, so they sit side by side in the same bordered panel once the viewport allows instead of the exclusions reading as a buried footnote.",
     },
@@ -2037,7 +2037,7 @@ export const CONTRACTS = buildContracts({
         classes: [],
         children: {
             title: { leaf: "heading" },
-            list: { contract: "bullet-list" },
+            list: { grammar: "bullet-list" },
         },
         why: "each column's own short label names which list it is before the marked facts underneath it, matching the title-then-list pattern every other list on this page already uses.",
     },
@@ -2056,7 +2056,7 @@ export const CONTRACTS = buildContracts({
     "process-step-grid": {
         classes: ["mt-12", "grid", "gap-px", "overflow-hidden", "rounded-2xl", "border", "border-line", "bg-line", "md:grid-cols-2", "lg:grid-cols-4"],
         children: {
-            items: { contract: "process-step-card", repeats: true, restingCount: 4 },
+            items: { grammar: "process-step-card", repeats: true, restingCount: 4 },
         },
         why: "the delivery steps happen in a fixed sequence but read as one bordered table, so the hairline grid technique the metrics strip already uses keeps four ordered steps visually equal instead of one implying more weight.",
     },
@@ -2066,8 +2066,8 @@ export const CONTRACTS = buildContracts({
         children: {
             index: { leaf: "text" },
             title: { leaf: "heading" },
-            body: { contract: "process-step-body" },
-            duration: { contract: "process-step-duration" },
+            body: { grammar: "process-step-body" },
+            duration: { grammar: "process-step-duration" },
         },
         why: "the step number, its own title and the explanation grow to fill the card while the indicative duration stays pinned to the bottom edge behind its own rule, so every card in the row closes on the same fact regardless of how long its explanation runs.",
     },
@@ -2094,7 +2094,7 @@ export const CONTRACTS = buildContracts({
         host: "section",
         classes: ["py-16", "sm:py-20"],
         children: {
-            content: { contract: "page-measure" },
+            content: { grammar: "page-measure" },
         },
         why: "the dedicated gallery route opens on its own vertical rhythm rather than the shared marketing `page-band`, because it is a whole page's own hero, not one more band on the landing page above it.",
     },
@@ -2110,7 +2110,7 @@ export const CONTRACTS = buildContracts({
     "project-card-grid": {
         classes: ["mt-10", "grid", "gap-6", "sm:grid-cols-2"],
         children: {
-            items: { contract: "project-card", repeats: true, restingCount: 2 },
+            items: { grammar: "project-card", repeats: true, restingCount: 2 },
         },
         why: "the filtered projects are an unranked set, so they fill an even two-up grid instead of a single column that would push later projects far below the fold.",
     },
@@ -2118,8 +2118,8 @@ export const CONTRACTS = buildContracts({
     "project-card": {
         classes: ["flex", "flex-col", "overflow-hidden", "rounded-3xl", "border", "border-line", "bg-white", "card-elevated-shadow"],
         children: {
-            media: { contract: "project-card-media" },
-            body: { contract: "project-card-body" },
+            media: { grammar: "project-card-media" },
+            body: { grammar: "project-card-body" },
         },
         why: "the screenshot or placeholder reads as its own clipped band above the card's own copy, so a wide or tall source image never breaks the card's own rounded edge.",
     },
@@ -2127,7 +2127,7 @@ export const CONTRACTS = buildContracts({
     "project-card-media": {
         classes: ["relative", "aspect-video", "overflow-hidden", "bg-gradient-to-br", "from-brand-soft", "to-surface-2"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "every project keeps the same fixed aspect ratio regardless of whether it ships a real screenshot or the styled placeholder standing in for one not captured yet, so the grid's row heights never depend on which projects have art.",
     },
@@ -2135,7 +2135,7 @@ export const CONTRACTS = buildContracts({
     "project-card-image-slot": {
         classes: ["absolute", "inset-0"],
         children: {
-            content: { contract: "$content" },
+            content: { grammar: "$content" },
         },
         why: "a real screenshot fills the whole media box exactly the way the dotted placeholder it replaces does, so swapping one for the other never has to touch the box's own sizing.",
     },
@@ -2177,8 +2177,8 @@ export const CONTRACTS = buildContracts({
             title: { leaf: "heading" },
             tagline: { leaf: "text" },
             body: { leaf: "text" },
-            highlights: { contract: "bullet-list", optional: true },
-            footer: { contract: "project-card-footer" },
+            highlights: { grammar: "bullet-list", optional: true },
+            footer: { grammar: "project-card-footer" },
         },
         why: "the category, the project's own name, its one-line tagline and the fuller story read in that scanning order, with the optional highlight list only appearing for the projects that have one to show.",
     },
@@ -2186,7 +2186,7 @@ export const CONTRACTS = buildContracts({
     "project-card-footer": {
         classes: ["mt-auto", "pt-6"],
         children: {
-            row: { contract: "project-card-footer-row" },
+            row: { grammar: "project-card-footer-row" },
         },
         why: "the closing metric row is held to the card's own bottom edge regardless of how long the story above it runs, the same `mt-auto` pattern the case-study cards already use.",
     },
@@ -2194,8 +2194,8 @@ export const CONTRACTS = buildContracts({
     "project-card-footer-row": {
         classes: ["flex", "items-end", "justify-between", "gap-4", "border-t", "border-line", "pt-4"],
         children: {
-            metric: { contract: "project-card-metric" },
-            stack: { contract: "project-card-stack", optional: true },
+            metric: { grammar: "project-card-metric" },
+            stack: { grammar: "project-card-stack", optional: true },
         },
         why: "a rule separates the closing metric from the story above it, and the metric sits opposite the tech stack it shares that row with because the two are read as two independent closing facts, not one continuing the other.",
     },
@@ -2213,7 +2213,7 @@ export const CONTRACTS = buildContracts({
         classes: ["max-w-stack-col", "text-right"],
         children: {
             label: { leaf: "text" },
-            chips: { contract: "project-card-stack-row" },
+            chips: { grammar: "project-card-stack-row" },
         },
         why: "the tech-stack column stays capped so a long list of chips never crowds out the metric beside it, and it reads right-aligned because it is a secondary fact trailing the metric rather than leading the row.",
     },
@@ -2230,7 +2230,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mt-14", "rounded-3xl", "border", "border-line", "bg-brand-soft/50", "px-6", "py-10", "text-center", "sm:px-10"],
         children: {
             title: { leaf: "heading" },
-            action: { contract: "gallery-cta-row" },
+            action: { grammar: "gallery-cta-row" },
         },
         why: "the gallery closes on one more invitation to talk, set apart on its own tinted panel so it reads as the page's own closing beat rather than one more project card in the grid above it.",
     },
@@ -2238,7 +2238,7 @@ export const CONTRACTS = buildContracts({
     "gallery-cta-row": {
         classes: ["mt-6", "flex", "justify-center"],
         children: {
-            cta: { contract: "$content" },
+            cta: { grammar: "$content" },
         },
         why: "the single closing action centres itself under the panel's own title because there is no second control beside it competing for a left or right edge.",
     },
@@ -2248,7 +2248,7 @@ export const CONTRACTS = buildContracts({
     "service-card-grid": {
         classes: ["mt-12", "grid", "gap-4", "md:grid-cols-2"],
         children: {
-            items: { contract: "service-card", repeats: true, restingCount: 4 },
+            items: { grammar: "service-card", repeats: true, restingCount: 4 },
         },
         why: "the service offers are an unranked set, so they fill an even two-up grid instead of a single column implying the first one is the recommended starting point.",
     },
@@ -2258,7 +2258,7 @@ export const CONTRACTS = buildContracts({
         children: {
             title: { leaf: "heading" },
             body: { leaf: "text" },
-            points: { contract: "service-points-block" },
+            points: { grammar: "service-points-block" },
         },
         why: "the offer's own name and pitch read first, with the concrete points that back the pitch held below a rule because they answer a different question - not what the offer is, but what it actually includes.",
     },
@@ -2267,7 +2267,7 @@ export const CONTRACTS = buildContracts({
         classes: ["mt-5", "flex", "flex-col", "gap-3"],
         children: {
             divider: { leaf: "separator" },
-            list: { contract: "bullet-list" },
+            list: { grammar: "bullet-list" },
         },
         why: "a rule separates the concrete point list from the pitch above it, the same claim-then-checklist pattern the engagement cards already use for their own included-work list.",
     },
@@ -2278,7 +2278,7 @@ export const CONTRACTS = buildContracts({
         host: "ul",
         classes: ["mt-10", "flex", "flex-wrap", "gap-2"],
         children: {
-            items: { contract: "stack-chip-item", repeats: true, restingCount: 6 },
+            items: { grammar: "stack-chip-item", repeats: true, restingCount: 6 },
         },
         why: "the technology names are an unordered set, so they wrap as a run of equal chips rather than a ranked list implying one tool matters more than the others.",
     },
@@ -2294,18 +2294,18 @@ export const CONTRACTS = buildContracts({
 })
 
 /** Every key in the registry. A key not in this union is a compile error at the call site. */
-export type ContractKey = keyof typeof CONTRACTS
+export type GrammarKey = keyof typeof GRAMMAR_NODES
 
 /**
  * Read one entry, widened to the shared shape.
  *
  * @param name - The registry key to read.
  */
-export const contractSpec = (name: ContractKey): ContractSpec => CONTRACTS[name]
+export const grammarSpec = (name: GrammarKey): GrammarSpec => GRAMMAR_NODES[name]
 
-/** Resolve one contract into the props its branch places on the real layout node. */
-export const contractNodeProps = (name: ContractKey) => {
-    const spec = contractSpec(name)
+/** Resolve one grammar into the props its branch places on the real layout node. */
+export const grammarNodeProps = (name: GrammarKey) => {
+    const spec = grammarSpec(name)
     return {
         "data-tier": "branch",
         "data-node": name,
@@ -2315,4 +2315,4 @@ export const contractNodeProps = (name: ContractKey) => {
 }
 
 /** Every registry key, in declaration order, so gates and tests can walk the vocabulary. */
-export const CONTRACT_KEYS: ReadonlyArray<ContractKey> = Object.keys(CONTRACTS) as Array<ContractKey>
+export const GRAMMAR_NODE_KEYS: ReadonlyArray<GrammarKey> = Object.keys(GRAMMAR_NODES) as Array<GrammarKey>

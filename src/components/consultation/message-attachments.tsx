@@ -1,5 +1,5 @@
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarLeaf } from "@/components/grammar/props"
 import { AttachmentLink } from "@/components/leaves/AttachmentLink"
 import type { ConsultationAttachment } from "@/lib/consultation/types"
 
@@ -17,12 +17,12 @@ export const MessageAttachments = ({ attachments, conversationId }: MessageAttac
     if (!attachments?.length) return null
     return (
         <Tree
-            contract="attachment-grid"
-            render={defineContractComponent("attachment-grid", {
+            grammar="attachment-grid"
+            render={defineGrammarComponent("attachment-grid", {
                 items: attachments.map((attachment) => {
                     const href = attachment.previewUrl ?? (conversationId
                         ? `/api/consultations/${conversationId}/attachments/${attachment.id}` : undefined)
-                    return defineLeafComponent("attachment-link", {}, () => (
+                    return defineGrammarLeaf("attachment-link", {}, () => (
                         <AttachmentLink
                             props={{
                                 kind: attachment.kind === "image" ? "image" : "file",

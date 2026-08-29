@@ -8,13 +8,13 @@ import type { ReactNode } from "react"
  * the viewport. Used to give the whole page the deck's "things settle into view" feel. Honors
  * `prefers-reduced-motion` by rendering statically.
  *
- * TAKES `content: ReactNode`, RESOLVED BY THE CALLER THROUGH THE CONTRACT SYSTEM BEFORE IT
- * ARRIVES HERE - never a `contract`+`render` pair of its own. `Reveal` is a Client Component (it
- * needs `framer-motion`'s viewport hooks), and a contract-bound `render` value can carry a closure
- * (`ContractProjection.project`, a `LeafComponent`'s own call signature) in its shape. A closure
+ * TAKES `content: ReactNode`, RESOLVED BY THE CALLER THROUGH THE GRAMMAR SYSTEM BEFORE IT
+ * ARRIVES HERE - never a `grammar`+`render` pair of its own. `Reveal` is a Client Component (it
+ * needs `framer-motion`'s viewport hooks), and a grammar-bound `render` value can carry a closure
+ * (`GrammarProjection.project`, a `LeafComponent`'s own call signature) in its shape. A closure
  * cannot cross the Server->Client boundary Next.js draws around a Client Component's props - only
- * an already-built element tree can. So the caller (a Server Component) resolves its contract
- * content into real JSX first - `<Reveal content={<ContractContent contract=... render=... />} />`
+ * an already-built element tree can. So the caller (a Server Component) resolves its grammar
+ * content into real JSX first - `<Reveal content={<GrammarContent grammar=... render=... />} />`
  * or, as often, a plain section element - and this branch only ever adds motion around a finished
  * node. It still opens no host element of its own: only the `motion.div` wrapper, which carries no
  * class, sits between the caller's content and the viewport.

@@ -1,6 +1,6 @@
 import { useTranslations } from "next-intl"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 
@@ -13,29 +13,29 @@ export const Metrics = () => {
 
     return (
         <Tree
-            contract="metrics-band"
-            render={defineContractComponent("metrics-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractComponent("metrics-block", {
-                        heading: defineContractComponent("visually-hidden", {
-                            content: defineContractProjection("opaque-content-unit", () => (
+            grammar="metrics-band"
+            render={defineGrammarComponent("metrics-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarComponent("metrics-block", {
+                        heading: defineGrammarComponent("visually-hidden", {
+                            content: defineGrammarProjection("opaque-content-unit", () => (
                                 <Heading props={{ content: t("title"), level: 2 }} />
                             )),
                         }),
-                        grid: defineContractComponent("metrics-grid", {
-                            items: items.map((item) => defineContractComponent("metric-item", {
-                                value: defineLeafComponent("text", {}, () => (
+                        grid: defineGrammarComponent("metrics-grid", {
+                            items: items.map((item) => defineGrammarComponent("metric-item", {
+                                value: defineGrammarLeaf("text", {}, () => (
                                     <Text props={{ content: item.value, variant: "stat" }} />
                                 )),
-                                label: defineLeafComponent("text", {}, () => (
+                                label: defineGrammarLeaf("text", {}, () => (
                                     <Text props={{ content: item.label, variant: "body" }} />
                                 )),
-                                detail: defineLeafComponent("text", {}, () => (
+                                detail: defineGrammarLeaf("text", {}, () => (
                                     <Text props={{ content: item.detail, variant: "body" }} />
                                 )),
                             })),
                         }),
-                        footnote: defineLeafComponent("text", {}, () => (
+                        footnote: defineGrammarLeaf("text", {}, () => (
                             <Text props={{ content: t("footnote"), variant: "body" }} />
                         )),
                     }),

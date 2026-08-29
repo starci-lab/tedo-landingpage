@@ -1,15 +1,15 @@
 import { Tree } from "@/components/branches/Tree"
-import type { ContractSlots } from "@/components/contracts/props"
+import type { GrammarSlots } from "@/components/grammar/props"
 
 /**
- * BRANCH - `SurfaceListCard`: the `labelled-surface-section` contract, projected into one row of
+ * BRANCH - `SurfaceListCard`: the `labelled-surface-section` grammar, projected into one row of
  * a semantic list rather than a bordered card.
  *
  * THE VENDOR BODY HERE IS `<li>`, AND NOTHING ELSE. A list row that already sits inside a
  * `<ul>`/`<ol>` gets its separation from the list itself, so drawing a `Card` around every row
  * would double the border a reader sees between two items. This is the "bare list [that] can drop
  * the surface while the label stays" the registry's own `why` names for `labelled-surface-section`:
- * the whole contract renders exactly as the registry describes it - label above body, `flex
+ * the whole grammar renders exactly as the registry describes it - label above body, `flex
  * flex-col gap-3` - through `Tree` itself, with no vendor frame added around it at all.
  *
  * THE CALLER OWNS THE `<ul>`. This branch draws one `<li>`; a page assembling several hands each
@@ -19,7 +19,7 @@ import type { ContractSlots } from "@/components/contracts/props"
 /** Props for {@link SurfaceListCard}. */
 export interface SurfaceListCardProps {
     /** Checked slots for `labelled-surface-section` - never a projection, since projecting IS this branch's job. */
-    readonly render: ContractSlots<"labelled-surface-section">
+    readonly render: GrammarSlots<"labelled-surface-section">
 }
 
 /**
@@ -30,7 +30,7 @@ export interface SurfaceListCardProps {
 export const SurfaceListCard = ({ render }: SurfaceListCardProps) => {
     return (
         <li data-tier="branch" data-component="SurfaceListCard">
-            <Tree contract="labelled-surface-section" render={render} />
+            <Tree grammar="labelled-surface-section" render={render} />
         </li>
     )
 }

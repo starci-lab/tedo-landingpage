@@ -4,7 +4,7 @@ import { useMemo, useState } from "react"
 import { useTranslations } from "next-intl"
 import Image from "next/image"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
 import { Text } from "@/components/leaves/Text"
 import { Heading } from "@/components/leaves/Heading"
 import { Chip } from "@/components/leaves/Chip"
@@ -53,36 +53,36 @@ export const ProjectsGallery = () => {
 
     return (
         <Tree
-            contract="gallery-band"
-            render={defineContractComponent("gallery-band", {
-                content: defineContractComponent("page-measure", {
-                    content: defineContractProjection("opaque-content-unit", () => (
+            grammar="gallery-band"
+            render={defineGrammarComponent("gallery-band", {
+                content: defineGrammarComponent("page-measure", {
+                    content: defineGrammarProjection("opaque-content-unit", () => (
                         <>
                             <Tree
-                                contract="section-intro"
-                                render={defineContractComponent("section-intro", {
-                                    eyebrow: defineLeafComponent("text", {}, () => (
+                                grammar="section-intro"
+                                render={defineGrammarComponent("section-intro", {
+                                    eyebrow: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("eyebrow"), variant: "eyebrow" }} />
                                     )),
-                                    title: defineLeafComponent("heading", {}, () => (
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("title"), level: 1 }} />
                                     )),
-                                    lead: defineLeafComponent("text", {}, () => (
+                                    lead: defineGrammarLeaf("text", {}, () => (
                                         <Text props={{ content: t("subtitle"), variant: "lead" }} />
                                     )),
                                 })}
                             />
                             <Tree
-                                contract="gallery-filter-row"
-                                render={defineContractComponent("gallery-filter-row", {
+                                grammar="gallery-filter-row"
+                                render={defineGrammarComponent("gallery-filter-row", {
                                     items: [
-                                        defineLeafComponent("filter-chip", {}, () => (
+                                        defineGrammarLeaf("filter-chip", {}, () => (
                                             <FilterChip
                                                 props={{ content: t("filterAll"), selected: active === null }}
                                                 on={{ onPress: () => setActive(null) }}
                                             />
                                         )),
-                                        ...categories.map((c) => defineLeafComponent("filter-chip", {}, () => (
+                                        ...categories.map((c) => defineGrammarLeaf("filter-chip", {}, () => (
                                             <FilterChip
                                                 props={{ content: c, selected: active === c }}
                                                 on={{ onPress: () => setActive(c) }}
@@ -92,17 +92,17 @@ export const ProjectsGallery = () => {
                                 })}
                             />
                             <Tree
-                                contract="project-card-grid"
-                                render={defineContractComponent("project-card-grid", {
-                                    items: shown.map((project) => defineContractComponent("project-card", {
-                                        media: defineContractComponent("project-card-media", {
-                                            content: defineContractProjection("opaque-content-unit", () => (
+                                grammar="project-card-grid"
+                                render={defineGrammarComponent("project-card-grid", {
+                                    items: shown.map((project) => defineGrammarComponent("project-card", {
+                                        media: defineGrammarComponent("project-card-media", {
+                                            content: defineGrammarProjection("opaque-content-unit", () => (
                                                 <>
                                                     {project.image ? (
                                                         <Tree
-                                                            contract="project-card-image-slot"
-                                                            render={defineContractComponent("project-card-image-slot", {
-                                                                content: defineContractProjection("opaque-content-unit", () => (
+                                                            grammar="project-card-image-slot"
+                                                            render={defineGrammarComponent("project-card-image-slot", {
+                                                                content: defineGrammarProjection("opaque-content-unit", () => (
                                                                     <Image
                                                                         src={project.image ?? ""}
                                                                         alt={t("imageAlt", { title: project.title })}
@@ -116,13 +116,13 @@ export const ProjectsGallery = () => {
                                                     ) : (
                                                         <>
                                                             <Tree
-                                                                contract="project-card-dots-layer"
-                                                                render={defineContractComponent("project-card-dots-layer", {})}
+                                                                grammar="project-card-dots-layer"
+                                                                render={defineGrammarComponent("project-card-dots-layer", {})}
                                                             />
                                                             <Tree
-                                                                contract="project-card-initial-slot"
-                                                                render={defineContractComponent("project-card-initial-slot", {
-                                                                    value: defineLeafComponent("text", {}, () => (
+                                                                grammar="project-card-initial-slot"
+                                                                render={defineGrammarComponent("project-card-initial-slot", {
+                                                                    value: defineGrammarLeaf("text", {}, () => (
                                                                         <Text props={{ content: project.title.charAt(0), variant: "stat" }} />
                                                                     )),
                                                                 })}
@@ -130,18 +130,18 @@ export const ProjectsGallery = () => {
                                                         </>
                                                     )}
                                                     <Tree
-                                                        contract="project-card-badge-slot"
-                                                        render={defineContractComponent("project-card-badge-slot", {
-                                                            badge: defineLeafComponent("chip", {}, () => (
+                                                        grammar="project-card-badge-slot"
+                                                        render={defineGrammarComponent("project-card-badge-slot", {
+                                                            badge: defineGrammarLeaf("chip", {}, () => (
                                                                 <Chip props={{ content: project.badge, variant: "secondary", size: "sm" }} />
                                                             )),
                                                         })}
                                                     />
                                                     {project.pending && (
                                                         <Tree
-                                                            contract="project-card-pending-note"
-                                                            render={defineContractComponent("project-card-pending-note", {
-                                                                content: defineLeafComponent("text", {}, () => (
+                                                            grammar="project-card-pending-note"
+                                                            render={defineGrammarComponent("project-card-pending-note", {
+                                                                content: defineGrammarLeaf("text", {}, () => (
                                                                     <Text props={{ content: t("pendingImage"), variant: "label" }} />
                                                                 )),
                                                             })}
@@ -150,48 +150,48 @@ export const ProjectsGallery = () => {
                                                 </>
                                             )),
                                         }),
-                                        body: defineContractComponent("project-card-body", {
-                                            category: defineLeafComponent("text", {}, () => (
+                                        body: defineGrammarComponent("project-card-body", {
+                                            category: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: project.category, variant: "label" }} />
                                             )),
-                                            title: defineLeafComponent("heading", {}, () => (
+                                            title: defineGrammarLeaf("heading", {}, () => (
                                                 <Heading props={{ content: project.title, level: 3 }} />
                                             )),
-                                            tagline: defineLeafComponent("text", {}, () => (
+                                            tagline: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: project.tagline, variant: "body" }} />
                                             )),
-                                            body: defineLeafComponent("text", {}, () => (
+                                            body: defineGrammarLeaf("text", {}, () => (
                                                 <Text props={{ content: project.body, variant: "body" }} />
                                             )),
                                             highlights: project.highlights.length > 0
-                                                ? defineContractComponent("bullet-list", {
-                                                    items: project.highlights.map((h) => defineContractComponent("labelled-bullet-item", {
-                                                        mark: defineContractProjection("opaque-content-unit", () => (
+                                                ? defineGrammarComponent("bullet-list", {
+                                                    items: project.highlights.map((h) => defineGrammarComponent("labelled-bullet-item", {
+                                                        mark: defineGrammarProjection("opaque-content-unit", () => (
                                                             <span aria-hidden className="mt-2 inline-block h-1 w-1 rounded-full bg-brand" />
                                                         )),
-                                                        label: defineLeafComponent("text", {}, () => (
+                                                        label: defineGrammarLeaf("text", {}, () => (
                                                             <Text props={{ content: h, variant: "body" }} />
                                                         )),
                                                     })),
                                                 })
                                                 : undefined,
-                                            footer: defineContractComponent("project-card-footer", {
-                                                row: defineContractComponent("project-card-footer-row", {
-                                                    metric: defineContractComponent("project-card-metric", {
-                                                        value: defineLeafComponent("text", {}, () => (
+                                            footer: defineGrammarComponent("project-card-footer", {
+                                                row: defineGrammarComponent("project-card-footer-row", {
+                                                    metric: defineGrammarComponent("project-card-metric", {
+                                                        value: defineGrammarLeaf("text", {}, () => (
                                                             <Text props={{ content: project.metric, variant: "stat" }} />
                                                         )),
-                                                        label: defineLeafComponent("text", {}, () => (
+                                                        label: defineGrammarLeaf("text", {}, () => (
                                                             <Text props={{ content: project.metricLabel, variant: "body" }} />
                                                         )),
                                                     }),
                                                     stack: project.stack.length > 0
-                                                        ? defineContractComponent("project-card-stack", {
-                                                            label: defineLeafComponent("text", {}, () => (
+                                                        ? defineGrammarComponent("project-card-stack", {
+                                                            label: defineGrammarLeaf("text", {}, () => (
                                                                 <Text props={{ content: t("stackLabel"), variant: "label" }} />
                                                             )),
-                                                            chips: defineContractComponent("project-card-stack-row", {
-                                                                items: project.stack.map((s) => defineLeafComponent("chip", {}, () => (
+                                                            chips: defineGrammarComponent("project-card-stack-row", {
+                                                                items: project.stack.map((s) => defineGrammarLeaf("chip", {}, () => (
                                                                     <Chip props={{ content: s, size: "sm" }} />
                                                                 ))),
                                                             }),
@@ -204,13 +204,13 @@ export const ProjectsGallery = () => {
                                 })}
                             />
                             <Tree
-                                contract="gallery-cta-panel"
-                                render={defineContractComponent("gallery-cta-panel", {
-                                    title: defineLeafComponent("heading", {}, () => (
+                                grammar="gallery-cta-panel"
+                                render={defineGrammarComponent("gallery-cta-panel", {
+                                    title: defineGrammarLeaf("heading", {}, () => (
                                         <Heading props={{ content: t("ctaTitle"), level: 2 }} />
                                     )),
-                                    action: defineContractComponent("gallery-cta-row", {
-                                        cta: defineContractProjection("opaque-content-unit", () => (
+                                    action: defineGrammarComponent("gallery-cta-row", {
+                                        cta: defineGrammarProjection("opaque-content-unit", () => (
                                             <RouteCtaAction to="/#contact" label={t("cta")} size="md" />
                                         )),
                                     }),

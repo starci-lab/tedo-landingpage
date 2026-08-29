@@ -29,7 +29,7 @@ describe("remaining marketing sections", () => {
         ["hero", Hero],
         ["process", Process],
         ["services", Services],
-    ])("renders the %s section contract", (_name, Component) => {
+    ])("renders the %s section grammar", (_name, Component) => {
         const html = renderToStaticMarkup(<Component />)
         expect(html).toContain("data-component=\"Tree\"")
     })

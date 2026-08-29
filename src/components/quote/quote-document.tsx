@@ -12,8 +12,8 @@ import {
     type QuoteLine,
 } from "@/lib/quote/types"
 import { Tree } from "@/components/branches/Tree"
-import { defineContractComponent, defineContractProjection, defineLeafComponent } from "@/components/contracts/props"
-import type { ContractComponent } from "@/components/contracts/props"
+import { defineGrammarComponent, defineGrammarProjection, defineGrammarLeaf } from "@/components/grammar/props"
+import type { GrammarComponent } from "@/components/grammar/props"
 import { Heading } from "@/components/leaves/Heading"
 
 /**
@@ -59,7 +59,7 @@ const money = (amount: number) => `${formatDong(amount)} đ` // vn-ok: VND curre
  */
 const FIRST_PRICING_SHEET_ROWS = 16
 
-type PageProps = { render: ContractComponent<"opaque-content-unit">; index: number; total: number }
+type PageProps = { render: GrammarComponent<"opaque-content-unit">; index: number; total: number }
 type SectionHeadingProps = { eyebrow: string; title: string }
 type LineBadgeProps = { badge: NonNullable<QuoteLine["badge"]> }
 type GroupBlockProps = { group: QuoteGroup }
@@ -88,7 +88,7 @@ const splitGroups = (groups: Array<QuoteGroup>) => {
 }
 
 /** Closes already-drawn content into the one checked identity `Page`, `Tree` and `Reveal` all share. */
-const opaque = (render: () => ReactNode) => defineContractProjection("opaque-content-unit", render)
+const opaque = (render: () => ReactNode) => defineGrammarProjection("opaque-content-unit", render)
 
 /** One A4 sheet. Fixed size so screen preview and print agree. */
 const Page = ({ render, index, total }: PageProps) => {
@@ -100,12 +100,12 @@ const Page = ({ render, index, total }: PageProps) => {
         >
             {render.kind === "projection" ? render.project() : null}
             <Tree
-                contract="quote-page-footer"
-                render={defineContractComponent("quote-page-footer", {
-                    left: defineLeafComponent("text", {}, () => (
+                grammar="quote-page-footer"
+                render={defineGrammarComponent("quote-page-footer", {
+                    left: defineGrammarLeaf("text", {}, () => (
                         <span>{brand.name} · {t("footer.service")}</span>
                     )),
-                    right: defineLeafComponent("text", {}, () => <span>{t("footer.page", { index, total })}</span>),
+                    right: defineGrammarLeaf("text", {}, () => <span>{t("footer.page", { index, total })}</span>),
                 })}
             />
         </article>
@@ -115,20 +115,20 @@ const Page = ({ render, index, total }: PageProps) => {
 /** Section heading used on every inner page. */
 const SectionHeading = ({ eyebrow, title }: SectionHeadingProps) => (
     <Tree
-        contract="quote-section-heading"
-        render={defineContractComponent("quote-section-heading", {
+        grammar="quote-section-heading"
+        render={defineGrammarComponent("quote-section-heading", {
             eyebrow: opaque(() => (
                 <p className="font-mono text-[8pt] uppercase tracking-[0.18em] text-accent">{eyebrow}</p>
             )),
-            title: defineLeafComponent("heading", {}, () => <Heading props={{ content: title, level: 2 }} />),
+            title: defineGrammarLeaf("heading", {}, () => <Heading props={{ content: title, level: 2 }} />),
         })}
     />
 )
 
 const FeatureMetaRow = ({ index, isCore, coreLabel }: FeatureMetaRowProps) => (
     <Tree
-        contract="quote-feature-meta-row"
-        render={defineContractComponent("quote-feature-meta-row", {
+        grammar="quote-feature-meta-row"
+        render={defineGrammarComponent("quote-feature-meta-row", {
             index: opaque(() => (
                 <span className="font-mono text-[8pt] text-ink-faint">{String(index + 1).padStart(2, "0")}</span>
             )),
@@ -145,17 +145,17 @@ const FeatureMetaRow = ({ index, isCore, coreLabel }: FeatureMetaRowProps) => (
 
 const PhaseWhen = ({ value }: PhaseWhenProps) => (
     <Tree
-        contract="quote-phase-when"
-        render={defineContractComponent("quote-phase-when", {
-            value: defineLeafComponent("text", {}, () => <span>{value}</span>),
+        grammar="quote-phase-when"
+        render={defineGrammarComponent("quote-phase-when", {
+            value: defineGrammarLeaf("text", {}, () => <span>{value}</span>),
         })}
     />
 )
 
 const PhaseBody = ({ title, body }: PhaseBodyProps) => (
     <Tree
-        contract="quote-phase-body"
-        render={defineContractComponent("quote-phase-body", {
+        grammar="quote-phase-body"
+        render={defineGrammarComponent("quote-phase-body", {
             title: opaque(() => <p className="font-display text-[10pt] font-semibold text-ink">{title}</p>),
             body: opaque(() => <p className="mt-1 text-[8.5pt] leading-relaxed text-ink-muted">{body}</p>),
         })}
@@ -264,16 +264,16 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
     const termsSheet = runningSheet + 1
     return (
         <Tree
-            contract="quote-document-shell"
-            render={defineContractComponent("quote-document-shell", {
+            grammar="quote-document-shell"
+            render={defineGrammarComponent("quote-document-shell", {
                 pages: opaque(() => (
                     <>
                         {/* ── 1 · Cover ─────────────────────────────────────────────── */}
                         <Page index={1} total={termsSheet} render={opaque(() => (
                             <>
                                 <Tree
-                                    contract="quote-cover-header-row"
-                                    render={defineContractComponent("quote-cover-header-row", {
+                                    grammar="quote-cover-header-row"
+                                    render={defineGrammarComponent("quote-cover-header-row", {
                                         identity: opaque(() => (
                                             <span>
                                                 <p className="font-display text-[13pt] font-bold tracking-tight text-brand-deep">{brand.name}</p>
@@ -302,8 +302,8 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                 </span>
 
                                 <Tree
-                                    contract="quote-facts-grid"
-                                    render={defineContractComponent("quote-facts-grid", {
+                                    grammar="quote-facts-grid"
+                                    render={defineGrammarComponent("quote-facts-grid", {
                                         facts: opaque(() => (
                                             <>
                                                 {doc.facts.map((fact) => (
@@ -338,8 +338,8 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                 </p>
 
                                 <Tree
-                                    contract="quote-feature-grid"
-                                    render={defineContractComponent("quote-feature-grid", {
+                                    grammar="quote-feature-grid"
+                                    render={defineGrammarComponent("quote-feature-grid", {
                                         cards: opaque(() => (
                                             <>
                                                 {doc.features.map((feature, i) => (
@@ -367,9 +367,9 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                 <SectionHeading eyebrow={t("scope.eyebrow")} title={t("scope.title")} />
 
                                 <Tree
-                                    contract="quote-scope-list"
-                                    render={defineContractComponent("quote-scope-list", {
-                                        items: doc.scope.map((item) => defineContractComponent("quote-scope-item", {
+                                    grammar="quote-scope-list"
+                                    render={defineGrammarComponent("quote-scope-list", {
+                                        items: doc.scope.map((item) => defineGrammarComponent("quote-scope-item", {
                                             mark: opaque(() => <span aria-hidden className="mt-print-row block text-green">✓</span>),
                                             label: opaque(() => <span>{item}</span>),
                                         })),
@@ -380,9 +380,9 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                     <span className="mt-7 block rounded-lg border-l-[3px] border-accent bg-accent/6 py-4 pl-4 pr-5">
                                         <p className="font-display text-[9.5pt] font-semibold text-accent-dim">{t("scope.outOfScope")}</p>
                                         <Tree
-                                            contract="quote-out-of-scope-list"
-                                            render={defineContractComponent("quote-out-of-scope-list", {
-                                                items: doc.outOfScope.map((item) => defineContractComponent("quote-note-list-item", {
+                                            grammar="quote-out-of-scope-list"
+                                            render={defineGrammarComponent("quote-out-of-scope-list", {
+                                                items: doc.outOfScope.map((item) => defineGrammarComponent("quote-note-list-item", {
                                                     content: opaque(() => <>{item}</>),
                                                 })),
                                             })}
@@ -398,8 +398,8 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                         {doc.phases.map((phase) => (
                                             <Tree
                                                 key={phase.when}
-                                                contract="quote-phase-item"
-                                                render={defineContractComponent("quote-phase-item", {
+                                                grammar="quote-phase-item"
+                                                render={defineGrammarComponent("quote-phase-item", {
                                                     when: opaque(() => <PhaseWhen value={phase.when} />),
                                                     body: opaque(() => <PhaseBody title={phase.title} body={phase.body} />),
                                                     tag: phase.tag
@@ -513,9 +513,9 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                 <SectionHeading eyebrow={t("running.eyebrow")} title={t("running.title")} />
 
                                 <Tree
-                                    contract="quote-running-title-row"
-                                    render={defineContractComponent("quote-running-title-row", {
-                                        title: defineLeafComponent("heading", {}, () => (
+                                    grammar="quote-running-title-row"
+                                    render={defineGrammarComponent("quote-running-title-row", {
+                                        title: defineGrammarLeaf("heading", {}, () => (
                                             <Heading props={{ content: t("running.costTitle"), level: 3 }} />
                                         )),
                                         badge: opaque(() => (
@@ -602,8 +602,8 @@ export const QuoteDocument = ({ doc }: QuoteDocumentProps) => {
                                 </table>
 
                                 <Tree
-                                    contract="quote-commitments-list"
-                                    render={defineContractComponent("quote-commitments-list", {
+                                    grammar="quote-commitments-list"
+                                    render={defineGrammarComponent("quote-commitments-list", {
                                         items: opaque(() => (
                                             <>
                                                 {doc.commitments.map((item) => (
